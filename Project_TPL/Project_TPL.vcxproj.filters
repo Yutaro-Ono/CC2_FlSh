@@ -1,0 +1,890 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル\imgui">
+      <UniqueIdentifier>{96842e2d-789a-4ff3-9927-e123e254a5d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル\tinyobj">
+      <UniqueIdentifier>{207c9d3f-de26-40d5-ac36-801ea7cf1385}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Math">
+      <UniqueIdentifier>{3da4398b-2ded-41ad-87e6-51584946a3b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\stb_image">
+      <UniqueIdentifier>{016031fa-b191-4678-b457-5917bfcbbece}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\glad">
+      <UniqueIdentifier>{d82e7910-e561-4f67-9c11-51a238e9b1a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ObjectPool">
+      <UniqueIdentifier>{6e8bc125-86af-40f7-abfa-373b2d37e899}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Debugger">
+      <UniqueIdentifier>{3b36f76d-300b-4b44-ad54-051c1d187f25}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="imgui\imgui.cpp">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_demo.cpp">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_draw.cpp">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_tables.cpp">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCode\tiny_obj_loader.cc">
+      <Filter>リソース ファイル\tinyobj</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_sdl.cpp">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_opengl3.cpp">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="glad\glad.c">
+      <Filter>リソース ファイル\glad</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Actor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Animation.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\AudioManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\BoneTransform.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\BoxCollider.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\BridgeObject.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Camera.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CameraActor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CameraComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Canvas.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CarBody.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CarDoor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CarHandle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CarMeshComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CarSoundComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CarWheel.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ClientActor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Collision.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Component.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CountDownUI.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CubeMapComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\DebugBox.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\DebugGrid.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\DefferedRenderer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Environment.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\EnvironmentMapComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Font.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ForwardRenderer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\FrameBuffer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\GameConfig.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\GameMain.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\GameScene.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\GameWorld.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\HeliBody.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Helicopter.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\HeliRotorBack.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\HeliRotorMain.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\HeliSpotLight.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\HUD.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\HumanCamera.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Input.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\InputController.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\InputSteeringWheel.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LampObject.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LandMarkIndicator.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LevelBlock.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LevelManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LevelObject.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LevelTerrain.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LightGlassComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LoadScreen.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Mesh.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MeshComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MeshGpmesh.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MeshObj.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MiniMapHUD.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MissionBase.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MissionManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MissionUI.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Mouse.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MoveComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MoveComponentCar.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MoveComponentHuman.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Music.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\OrbitCamera.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Particle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ParticleManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PatrolComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PatrolPoint.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PauseScreen.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PhysicsWorld.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerCar.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerControlUI.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerHuman.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PointCameraComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PointLight.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PointLightComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\RapidJsonHelper.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\RecordScore.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\RenderBloom.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Renderer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ResultCar.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ResultCarBody.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ResultCarDoor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ResultCarHandle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ResultCarWheel.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ResultScene.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ResultScreen.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\RuleScore.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\RuleTime.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\SandSmoke.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ScoreUI.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Shader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ShadowMap.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\SkeletalMeshComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Skeleton.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\SkyBox.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Sound.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\SpeedMeterUI.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\SpotLight.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\SpotLightComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\SpriteComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Texture.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ThirdPersonCamera.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ThirdPersonCarCamera.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleCar.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleCarBody.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleCarDoor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleCarHandle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleCarWheel.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleScene.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleScreen.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TutorialScene.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TutorialUI.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\UIScreen.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\VertexArray.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\WorldSpaceUI.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Math.cpp">
+      <Filter>リソース ファイル\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MeshPool.cpp">
+      <Filter>Source\ObjectPool</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ActorPool.cpp">
+      <Filter>Source\ObjectPool</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ShaderManager.cpp">
+      <Filter>Source\ObjectPool</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ActorDebugObject.cpp">
+      <Filter>Source\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Debugger.cpp">
+      <Filter>Source\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\DebugObjectBase.cpp">
+      <Filter>Source\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\DebugObjectPool.cpp">
+      <Filter>Source\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\RenderBloomDebugObject.cpp">
+      <Filter>Source\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\RendererDebugObject.cpp">
+      <Filter>Source\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Tag.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="imgui\imconfig.h">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui.h">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_internal.h">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_rectpack.h">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_textedit.h">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_truetype.h">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="std\stb_image.h">
+      <Filter>リソース ファイル\stb_image</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCode\tiny_obj_loader.h">
+      <Filter>リソース ファイル\tinyobj</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_sdl.h">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_opengl3.h">
+      <Filter>リソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Actor.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Animation.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\AudioManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\BoneTransform.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\BoxCollider.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\BridgeObject.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Camera.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CameraActor.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CameraComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Canvas.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CarBody.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CarDoor.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CarHandle.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CarMeshComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CarSoundComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CarWheel.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ClientActor.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Collision.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Common.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Component.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CountDownUI.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CubeMapComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\DebugBox.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\DebugGrid.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\DefferedRenderer.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Environment.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\EnvironmentMapComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Font.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ForwardRenderer.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\FrameBuffer.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\GameConfig.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\GameMain.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\GameScene.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\GameWorld.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\HeliBody.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Helicopter.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\HeliRotorBack.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\HeliRotorMain.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\HeliSpotLight.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\HUD.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\HumanCamera.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Input.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\InputController.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\InputSteeringWheel.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LampObject.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LandMarkIndicator.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LevelBlock.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LevelManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LevelObject.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LevelTerrain.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LightGlassComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LoadScreen.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MatrixPalette.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Mesh.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MeshComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MeshGpmesh.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MeshObj.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MiniMapHUD.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MissionBase.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MissionListUI.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MissionManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MissionUI.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Mouse.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MoveComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MoveComponentCar.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MoveComponentHuman.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Music.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\OrbitCamera.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Particle.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ParticleManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PatrolComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PatrolPoint.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PauseScreen.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PhysicsWorld.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerCar.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerControlUI.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerHuman.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PointCameraComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PointLight.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PointLightComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\RapidJsonHelper.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\RecordScore.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\RenderBloom.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Renderer.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ResultCar.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ResultCarBody.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ResultCarDoor.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ResultCarHandle.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ResultCarWheel.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ResultScene.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ResultScreen.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\RuleScore.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\RuleTime.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\SandSmoke.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\SceneBase.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ScoreUI.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Shader.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ShadowMap.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\SkeletalMeshComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Skeleton.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\SkyBox.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Sound.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\SpeedMeterUI.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\SpotLight.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\SpotLightComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\SpriteComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Texture.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ThirdPersonCamera.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ThirdPersonCarCamera.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\tiny_obj_loader.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleCar.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleCarBody.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleCarDoor.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleCarHandle.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleCarWheel.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleScene.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleScreen.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TutorialScene.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TutorialUI.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\UIScreen.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\VertexArray.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\WorldSpaceUI.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Math.h">
+      <Filter>リソース ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MeshPool.h">
+      <Filter>Source\ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ObjectPool.h">
+      <Filter>Source\ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ActorPool.h">
+      <Filter>Source\ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ShaderManager.h">
+      <Filter>Source\ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ActorDebugObject.h">
+      <Filter>Source\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Debugger.h">
+      <Filter>Source\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\DebugObjectBase.h">
+      <Filter>Source\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\DebugObjectPool.h">
+      <Filter>Source\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\RenderBloomDebugObject.h">
+      <Filter>Source\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\RendererDebugObject.h">
+      <Filter>Source\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Tag.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

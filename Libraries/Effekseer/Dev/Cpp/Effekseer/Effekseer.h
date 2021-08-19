@@ -1364,6 +1364,7 @@ public:
 //----------------------------------------------------------------------------------
 //
 //----------------------------------------------------------------------------------
+#include "math.h"
 namespace Effekseer
 {
 //----------------------------------------------------------------------------------
@@ -1477,6 +1478,14 @@ public:
 	{
 		std::array<float, 4> fc{X, Y, Z, 1.0f};
 		return fc;
+	}
+
+	Vector3D& operator=(const class Vector3& right)
+	{
+		X = right.x;
+		Y = right.y;
+		Z = right.z;
+		return *this;
 	}
 };
 
@@ -1823,6 +1832,18 @@ public:
 		@param	in2	[in]	乗算の右側
 	*/
 	static void Multiple(Matrix43& out, const Matrix43& in1, const Matrix43& in2);
+
+	Matrix43& operator=(const class Matrix4& m)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				Value[i][j] = m.mat[i][j];
+			}
+		}
+		return *this;
+	}
 };
 
 //----------------------------------------------------------------------------------
@@ -1970,6 +1991,19 @@ public:
 		@brief	逆行列
 	*/
 	static Matrix44& Inverse(Matrix44& o, const Matrix44& in);
+
+	Matrix44& operator=(const class Matrix4& m)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				Values[i][j] = m.mat[i][j];
+			}
+		}
+		return *this;
+	}
+
 };
 
 #pragma pack(pop)

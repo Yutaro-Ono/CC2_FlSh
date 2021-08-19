@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{52aec0ea-6a12-45b8-8b41-5dcd53f2ef82}</ProjectGuid>
+    <RootNamespace>ProjectTPL</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Effekseer\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\EffekseerRendererGL\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Utils;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\zlib\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libpng\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libgd\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glew\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glfw\include;$(SolutionDir)..\Libraries\glad\include\;$(SolutionDir)..\Libraries\glew\include\;$(SolutionDir)..\Libraries\SDL2\include\;$(SolutionDir)..\Libraries\glm\;$(SolutionDir)..\Libraries\boost\;$(SolutionDir)..\Libraries\rapidjson\;$(SolutionDir)..\Libraries\stb_image\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\Libraries\SDL2\lib\x64;$(SolutionDir)..\Libraries\GLEW\lib\x64;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\zlib\lib;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\zlib\lib\$(Configuration);$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libpng\lib;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libpng\lib\$(Configuration);$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\libgd\lib;$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\libgd\lib\$(Configuration);$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\glew\lib;$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\glew\lib\$(Configuration);$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\OpenSoundMixer\lib;$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\OpenSoundMixer\lib\$(Configuration);$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\glfw\lib;$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\glfw\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_image.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Effekseer\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\EffekseerRendererGL\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Utils;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\zlib\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libpng\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libgd\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glew\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glfw\include;$(SolutionDir)..\Libraries\glad\include\;$(SolutionDir)..\Libraries\glew\include\;$(SolutionDir)..\Libraries\SDL2\include\;$(SolutionDir)..\Libraries\glm\;$(SolutionDir)..\Libraries\boost\;$(SolutionDir)..\Libraries\rapidjson\;$(SolutionDir)..\Libraries\stb_image\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_image.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\Libraries\SDL2\lib\x64;$(SolutionDir)..\Libraries\GLEW\lib\x64;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\zlib\lib;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\zlib\lib\$(Configuration);$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libpng\lib;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libpng\lib\$(Configuration);$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\libgd\lib;$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\libgd\lib\$(Configuration);$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\glew\lib;$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\glew\lib\$(Configuration);$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\OpenSoundMixer\lib;$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\OpenSoundMixer\lib\$(Configuration);$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\glfw\lib;$(SolutionDir)..\Libraries\include\Effekseer\build\ThirdParty\Install\glfw\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="glad\glad.c" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="imgui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="imgui\imgui_tables.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="SourceCodes\Actor.cpp" />
+    <ClCompile Include="SourceCodes\ActorDebugObject.cpp" />
+    <ClCompile Include="SourceCodes\ActorPool.cpp" />
+    <ClCompile Include="SourceCodes\Animation.cpp" />
+    <ClCompile Include="SourceCodes\AudioManager.cpp" />
+    <ClCompile Include="SourceCodes\BoneTransform.cpp" />
+    <ClCompile Include="SourceCodes\BoxCollider.cpp" />
+    <ClCompile Include="SourceCodes\BridgeObject.cpp" />
+    <ClCompile Include="SourceCodes\Camera.cpp" />
+    <ClCompile Include="SourceCodes\CameraActor.cpp" />
+    <ClCompile Include="SourceCodes\CameraComponent.cpp" />
+    <ClCompile Include="SourceCodes\Canvas.cpp" />
+    <ClCompile Include="SourceCodes\CarBody.cpp" />
+    <ClCompile Include="SourceCodes\CarDoor.cpp" />
+    <ClCompile Include="SourceCodes\CarHandle.cpp" />
+    <ClCompile Include="SourceCodes\CarMeshComponent.cpp" />
+    <ClCompile Include="SourceCodes\CarSoundComponent.cpp" />
+    <ClCompile Include="SourceCodes\CarWheel.cpp" />
+    <ClCompile Include="SourceCodes\ClientActor.cpp" />
+    <ClCompile Include="SourceCodes\Collision.cpp" />
+    <ClCompile Include="SourceCodes\Component.cpp" />
+    <ClCompile Include="SourceCodes\CountDownUI.cpp" />
+    <ClCompile Include="SourceCodes\CubeMapComponent.cpp" />
+    <ClCompile Include="SourceCodes\DebugBox.cpp" />
+    <ClCompile Include="SourceCodes\Debugger.cpp" />
+    <ClCompile Include="SourceCodes\DebugGrid.cpp" />
+    <ClCompile Include="SourceCodes\DebugObjectBase.cpp" />
+    <ClCompile Include="SourceCodes\DebugObjectPool.cpp" />
+    <ClCompile Include="SourceCodes\DefferedRenderer.cpp" />
+    <ClCompile Include="SourceCodes\Environment.cpp" />
+    <ClCompile Include="SourceCodes\EnvironmentMapComponent.cpp" />
+    <ClCompile Include="SourceCodes\Font.cpp" />
+    <ClCompile Include="SourceCodes\ForwardRenderer.cpp" />
+    <ClCompile Include="SourceCodes\FrameBuffer.cpp" />
+    <ClCompile Include="SourceCodes\GameConfig.cpp" />
+    <ClCompile Include="SourceCodes\GameMain.cpp" />
+    <ClCompile Include="SourceCodes\GameScene.cpp" />
+    <ClCompile Include="SourceCodes\GameWorld.cpp" />
+    <ClCompile Include="SourceCodes\HeliBody.cpp" />
+    <ClCompile Include="SourceCodes\Helicopter.cpp" />
+    <ClCompile Include="SourceCodes\HeliRotorBack.cpp" />
+    <ClCompile Include="SourceCodes\HeliRotorMain.cpp" />
+    <ClCompile Include="SourceCodes\HeliSpotLight.cpp" />
+    <ClCompile Include="SourceCodes\HUD.cpp" />
+    <ClCompile Include="SourceCodes\HumanCamera.cpp" />
+    <ClCompile Include="SourceCodes\Input.cpp" />
+    <ClCompile Include="SourceCodes\InputController.cpp" />
+    <ClCompile Include="SourceCodes\InputSteeringWheel.cpp" />
+    <ClCompile Include="SourceCodes\LampObject.cpp" />
+    <ClCompile Include="SourceCodes\LandMarkIndicator.cpp" />
+    <ClCompile Include="SourceCodes\LevelBlock.cpp" />
+    <ClCompile Include="SourceCodes\LevelManager.cpp" />
+    <ClCompile Include="SourceCodes\LevelObject.cpp" />
+    <ClCompile Include="SourceCodes\LevelTerrain.cpp" />
+    <ClCompile Include="SourceCodes\LightGlassComponent.cpp" />
+    <ClCompile Include="SourceCodes\LoadScreen.cpp" />
+    <ClCompile Include="SourceCodes\Main.cpp" />
+    <ClCompile Include="SourceCodes\Math.cpp" />
+    <ClCompile Include="SourceCodes\Mesh.cpp" />
+    <ClCompile Include="SourceCodes\MeshComponent.cpp" />
+    <ClCompile Include="SourceCodes\MeshGpmesh.cpp" />
+    <ClCompile Include="SourceCodes\MeshObj.cpp" />
+    <ClCompile Include="SourceCodes\MeshPool.cpp" />
+    <ClCompile Include="SourceCodes\MiniMapHUD.cpp" />
+    <ClCompile Include="SourceCodes\MissionBase.cpp" />
+    <ClCompile Include="SourceCodes\MissionManager.cpp" />
+    <ClCompile Include="SourceCodes\MissionUI.cpp" />
+    <ClCompile Include="SourceCodes\Mouse.cpp" />
+    <ClCompile Include="SourceCodes\MoveComponent.cpp" />
+    <ClCompile Include="SourceCodes\MoveComponentCar.cpp" />
+    <ClCompile Include="SourceCodes\MoveComponentHuman.cpp" />
+    <ClCompile Include="SourceCodes\Music.cpp" />
+    <ClCompile Include="SourceCodes\OrbitCamera.cpp" />
+    <ClCompile Include="SourceCodes\Particle.cpp" />
+    <ClCompile Include="SourceCodes\ParticleManager.cpp" />
+    <ClCompile Include="SourceCodes\PatrolComponent.cpp" />
+    <ClCompile Include="SourceCodes\PatrolPoint.cpp" />
+    <ClCompile Include="SourceCodes\PauseScreen.cpp" />
+    <ClCompile Include="SourceCodes\PhysicsWorld.cpp" />
+    <ClCompile Include="SourceCodes\PlayerCar.cpp" />
+    <ClCompile Include="SourceCodes\PlayerControlUI.cpp" />
+    <ClCompile Include="SourceCodes\PlayerHuman.cpp" />
+    <ClCompile Include="SourceCodes\PlayerManager.cpp" />
+    <ClCompile Include="SourceCodes\PointCameraComponent.cpp" />
+    <ClCompile Include="SourceCodes\PointLight.cpp" />
+    <ClCompile Include="SourceCodes\PointLightComponent.cpp" />
+    <ClCompile Include="SourceCodes\RapidJsonHelper.cpp" />
+    <ClCompile Include="SourceCodes\RecordScore.cpp" />
+    <ClCompile Include="SourceCodes\RenderBloom.cpp" />
+    <ClCompile Include="SourceCodes\RenderBloomDebugObject.cpp" />
+    <ClCompile Include="SourceCodes\Renderer.cpp" />
+    <ClCompile Include="SourceCodes\RendererDebugObject.cpp" />
+    <ClCompile Include="SourceCodes\ResultCar.cpp" />
+    <ClCompile Include="SourceCodes\ResultCarBody.cpp" />
+    <ClCompile Include="SourceCodes\ResultCarDoor.cpp" />
+    <ClCompile Include="SourceCodes\ResultCarHandle.cpp" />
+    <ClCompile Include="SourceCodes\ResultCarWheel.cpp" />
+    <ClCompile Include="SourceCodes\ResultScene.cpp" />
+    <ClCompile Include="SourceCodes\ResultScreen.cpp" />
+    <ClCompile Include="SourceCodes\RuleScore.cpp" />
+    <ClCompile Include="SourceCodes\RuleTime.cpp" />
+    <ClCompile Include="SourceCodes\SandSmoke.cpp" />
+    <ClCompile Include="SourceCodes\ScoreUI.cpp" />
+    <ClCompile Include="SourceCodes\Shader.cpp" />
+    <ClCompile Include="SourceCodes\ShaderManager.cpp" />
+    <ClCompile Include="SourceCodes\ShadowMap.cpp" />
+    <ClCompile Include="SourceCodes\SkeletalMeshComponent.cpp" />
+    <ClCompile Include="SourceCodes\Skeleton.cpp" />
+    <ClCompile Include="SourceCodes\SkyBox.cpp" />
+    <ClCompile Include="SourceCodes\Sound.cpp" />
+    <ClCompile Include="SourceCodes\SpeedMeterUI.cpp" />
+    <ClCompile Include="SourceCodes\SpotLight.cpp" />
+    <ClCompile Include="SourceCodes\SpotLightComponent.cpp" />
+    <ClCompile Include="SourceCodes\SpriteComponent.cpp" />
+    <ClCompile Include="SourceCodes\Tag.cpp" />
+    <ClCompile Include="SourceCodes\Texture.cpp" />
+    <ClCompile Include="SourceCodes\ThirdPersonCamera.cpp" />
+    <ClCompile Include="SourceCodes\ThirdPersonCarCamera.cpp" />
+    <ClCompile Include="SourceCodes\TitleCar.cpp" />
+    <ClCompile Include="SourceCodes\TitleCarBody.cpp" />
+    <ClCompile Include="SourceCodes\TitleCarDoor.cpp" />
+    <ClCompile Include="SourceCodes\TitleCarHandle.cpp" />
+    <ClCompile Include="SourceCodes\TitleCarWheel.cpp" />
+    <ClCompile Include="SourceCodes\TitleScene.cpp" />
+    <ClCompile Include="SourceCodes\TitleScreen.cpp" />
+    <ClCompile Include="SourceCodes\TutorialScene.cpp" />
+    <ClCompile Include="SourceCodes\TutorialUI.cpp" />
+    <ClCompile Include="SourceCodes\UIScreen.cpp" />
+    <ClCompile Include="SourceCodes\VertexArray.cpp" />
+    <ClCompile Include="SourceCodes\WorldSpaceUI.cpp" />
+    <ClCompile Include="SourceCode\tiny_obj_loader.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="imgui\imgui_impl_sdl.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imstb_rectpack.h" />
+    <ClInclude Include="imgui\imstb_textedit.h" />
+    <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="SourceCodes\Actor.h" />
+    <ClInclude Include="SourceCodes\ActorDebugObject.h" />
+    <ClInclude Include="SourceCodes\ActorPool.h" />
+    <ClInclude Include="SourceCodes\Animation.h" />
+    <ClInclude Include="SourceCodes\AudioManager.h" />
+    <ClInclude Include="SourceCodes\BoneTransform.h" />
+    <ClInclude Include="SourceCodes\BoxCollider.h" />
+    <ClInclude Include="SourceCodes\BridgeObject.h" />
+    <ClInclude Include="SourceCodes\Camera.h" />
+    <ClInclude Include="SourceCodes\CameraActor.h" />
+    <ClInclude Include="SourceCodes\CameraComponent.h" />
+    <ClInclude Include="SourceCodes\Canvas.h" />
+    <ClInclude Include="SourceCodes\CarBody.h" />
+    <ClInclude Include="SourceCodes\CarDoor.h" />
+    <ClInclude Include="SourceCodes\CarHandle.h" />
+    <ClInclude Include="SourceCodes\CarMeshComponent.h" />
+    <ClInclude Include="SourceCodes\CarSoundComponent.h" />
+    <ClInclude Include="SourceCodes\CarWheel.h" />
+    <ClInclude Include="SourceCodes\ClientActor.h" />
+    <ClInclude Include="SourceCodes\Collision.h" />
+    <ClInclude Include="SourceCodes\Common.h" />
+    <ClInclude Include="SourceCodes\Component.h" />
+    <ClInclude Include="SourceCodes\CountDownUI.h" />
+    <ClInclude Include="SourceCodes\CubeMapComponent.h" />
+    <ClInclude Include="SourceCodes\DebugBox.h" />
+    <ClInclude Include="SourceCodes\Debugger.h" />
+    <ClInclude Include="SourceCodes\DebugGrid.h" />
+    <ClInclude Include="SourceCodes\DebugObjectBase.h" />
+    <ClInclude Include="SourceCodes\DebugObjectPool.h" />
+    <ClInclude Include="SourceCodes\DefferedRenderer.h" />
+    <ClInclude Include="SourceCodes\Environment.h" />
+    <ClInclude Include="SourceCodes\EnvironmentMapComponent.h" />
+    <ClInclude Include="SourceCodes\Font.h" />
+    <ClInclude Include="SourceCodes\ForwardRenderer.h" />
+    <ClInclude Include="SourceCodes\FrameBuffer.h" />
+    <ClInclude Include="SourceCodes\GameConfig.h" />
+    <ClInclude Include="SourceCodes\GameMain.h" />
+    <ClInclude Include="SourceCodes\GameScene.h" />
+    <ClInclude Include="SourceCodes\GameWorld.h" />
+    <ClInclude Include="SourceCodes\HeliBody.h" />
+    <ClInclude Include="SourceCodes\Helicopter.h" />
+    <ClInclude Include="SourceCodes\HeliRotorBack.h" />
+    <ClInclude Include="SourceCodes\HeliRotorMain.h" />
+    <ClInclude Include="SourceCodes\HeliSpotLight.h" />
+    <ClInclude Include="SourceCodes\HUD.h" />
+    <ClInclude Include="SourceCodes\HumanCamera.h" />
+    <ClInclude Include="SourceCodes\Input.h" />
+    <ClInclude Include="SourceCodes\InputController.h" />
+    <ClInclude Include="SourceCodes\InputSteeringWheel.h" />
+    <ClInclude Include="SourceCodes\LampObject.h" />
+    <ClInclude Include="SourceCodes\LandMarkIndicator.h" />
+    <ClInclude Include="SourceCodes\LevelBlock.h" />
+    <ClInclude Include="SourceCodes\LevelManager.h" />
+    <ClInclude Include="SourceCodes\LevelObject.h" />
+    <ClInclude Include="SourceCodes\LevelTerrain.h" />
+    <ClInclude Include="SourceCodes\LightGlassComponent.h" />
+    <ClInclude Include="SourceCodes\LoadScreen.h" />
+    <ClInclude Include="SourceCodes\Math.h" />
+    <ClInclude Include="SourceCodes\MatrixPalette.h" />
+    <ClInclude Include="SourceCodes\Mesh.h" />
+    <ClInclude Include="SourceCodes\MeshComponent.h" />
+    <ClInclude Include="SourceCodes\MeshGpmesh.h" />
+    <ClInclude Include="SourceCodes\MeshObj.h" />
+    <ClInclude Include="SourceCodes\MeshPool.h" />
+    <ClInclude Include="SourceCodes\MiniMapHUD.h" />
+    <ClInclude Include="SourceCodes\MissionBase.h" />
+    <ClInclude Include="SourceCodes\MissionListUI.h" />
+    <ClInclude Include="SourceCodes\MissionManager.h" />
+    <ClInclude Include="SourceCodes\MissionUI.h" />
+    <ClInclude Include="SourceCodes\Mouse.h" />
+    <ClInclude Include="SourceCodes\MoveComponent.h" />
+    <ClInclude Include="SourceCodes\MoveComponentCar.h" />
+    <ClInclude Include="SourceCodes\MoveComponentHuman.h" />
+    <ClInclude Include="SourceCodes\Music.h" />
+    <ClInclude Include="SourceCodes\ObjectPool.h" />
+    <ClInclude Include="SourceCodes\OrbitCamera.h" />
+    <ClInclude Include="SourceCodes\Particle.h" />
+    <ClInclude Include="SourceCodes\ParticleManager.h" />
+    <ClInclude Include="SourceCodes\PatrolComponent.h" />
+    <ClInclude Include="SourceCodes\PatrolPoint.h" />
+    <ClInclude Include="SourceCodes\PauseScreen.h" />
+    <ClInclude Include="SourceCodes\PhysicsWorld.h" />
+    <ClInclude Include="SourceCodes\PlayerCar.h" />
+    <ClInclude Include="SourceCodes\PlayerControlUI.h" />
+    <ClInclude Include="SourceCodes\PlayerHuman.h" />
+    <ClInclude Include="SourceCodes\PlayerManager.h" />
+    <ClInclude Include="SourceCodes\PointCameraComponent.h" />
+    <ClInclude Include="SourceCodes\PointLight.h" />
+    <ClInclude Include="SourceCodes\PointLightComponent.h" />
+    <ClInclude Include="SourceCodes\RapidJsonHelper.h" />
+    <ClInclude Include="SourceCodes\RecordScore.h" />
+    <ClInclude Include="SourceCodes\RenderBloom.h" />
+    <ClInclude Include="SourceCodes\RenderBloomDebugObject.h" />
+    <ClInclude Include="SourceCodes\Renderer.h" />
+    <ClInclude Include="SourceCodes\RendererDebugObject.h" />
+    <ClInclude Include="SourceCodes\ResultCar.h" />
+    <ClInclude Include="SourceCodes\ResultCarBody.h" />
+    <ClInclude Include="SourceCodes\ResultCarDoor.h" />
+    <ClInclude Include="SourceCodes\ResultCarHandle.h" />
+    <ClInclude Include="SourceCodes\ResultCarWheel.h" />
+    <ClInclude Include="SourceCodes\ResultScene.h" />
+    <ClInclude Include="SourceCodes\ResultScreen.h" />
+    <ClInclude Include="SourceCodes\RuleScore.h" />
+    <ClInclude Include="SourceCodes\RuleTime.h" />
+    <ClInclude Include="SourceCodes\SandSmoke.h" />
+    <ClInclude Include="SourceCodes\SceneBase.h" />
+    <ClInclude Include="SourceCodes\ScoreUI.h" />
+    <ClInclude Include="SourceCodes\Shader.h" />
+    <ClInclude Include="SourceCodes\ShaderManager.h" />
+    <ClInclude Include="SourceCodes\ShadowMap.h" />
+    <ClInclude Include="SourceCodes\SkeletalMeshComponent.h" />
+    <ClInclude Include="SourceCodes\Skeleton.h" />
+    <ClInclude Include="SourceCodes\SkyBox.h" />
+    <ClInclude Include="SourceCodes\Sound.h" />
+    <ClInclude Include="SourceCodes\SpeedMeterUI.h" />
+    <ClInclude Include="SourceCodes\SpotLight.h" />
+    <ClInclude Include="SourceCodes\SpotLightComponent.h" />
+    <ClInclude Include="SourceCodes\SpriteComponent.h" />
+    <ClInclude Include="SourceCodes\Tag.h" />
+    <ClInclude Include="SourceCodes\Texture.h" />
+    <ClInclude Include="SourceCodes\ThirdPersonCamera.h" />
+    <ClInclude Include="SourceCodes\ThirdPersonCarCamera.h" />
+    <ClInclude Include="SourceCodes\tiny_obj_loader.h" />
+    <ClInclude Include="SourceCodes\TitleCar.h" />
+    <ClInclude Include="SourceCodes\TitleCarBody.h" />
+    <ClInclude Include="SourceCodes\TitleCarDoor.h" />
+    <ClInclude Include="SourceCodes\TitleCarHandle.h" />
+    <ClInclude Include="SourceCodes\TitleCarWheel.h" />
+    <ClInclude Include="SourceCodes\TitleScene.h" />
+    <ClInclude Include="SourceCodes\TitleScreen.h" />
+    <ClInclude Include="SourceCodes\TutorialScene.h" />
+    <ClInclude Include="SourceCodes\TutorialUI.h" />
+    <ClInclude Include="SourceCodes\UIScreen.h" />
+    <ClInclude Include="SourceCodes\VertexArray.h" />
+    <ClInclude Include="SourceCodes\WorldSpaceUI.h" />
+    <ClInclude Include="SourceCode\tiny_obj_loader.h" />
+    <ClInclude Include="std\stb_image.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
