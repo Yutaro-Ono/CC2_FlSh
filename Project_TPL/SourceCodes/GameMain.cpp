@@ -1,22 +1,18 @@
-//-----------------------------------------------------------------------+
-// ゲームループ.
-// 
-// 
-// copyright (C) 2019 Yutaro Ono. all rights reserved.
-//-----------------------------------------------------------------------+
-
-// インクルードファイル
 #include "GameMain.h"
 #include "SceneBase.h"
-#include "Camera.h"
-#include "Actor.h"
-#include "Camera.h"
-#include "CameraComponent.h"
+#include "AudioManager.h"
 #include "PhysicsWorld.h"
 #include "Collision.h"
+#include "Debugger.h"
+#include "Camera.h"
+#include "Actor.h"
+#include "ActorPool.h"
+#include "MeshPool.h"
+#include "TexturePool.h"
+#include "Camera.h"
+#include "CameraComponent.h"
 #include "DebugBox.h"
 #include "ParticleManager.h"
-#include "AudioManager.h"
 #include "UIScreen.h"
 #include "Font.h"
 #include "PauseScreen.h"
@@ -49,8 +45,12 @@ GameMain::GameMain()
 	,m_activeCamera(nullptr)
 	,m_nowScene(nullptr)
 	,m_physicsWorld(nullptr)
-	,m_pause(nullptr)
-	,m_load(nullptr)
+	,m_pauseScreen(nullptr)
+	,m_loadScreen(nullptr)
+	,m_debugger(nullptr)
+	,m_actorPool(nullptr)
+	,m_meshPool(nullptr)
+	,m_texturePool(nullptr)
 {
 	// 処理なし
 }
@@ -80,7 +80,7 @@ bool GameMain::Initialize()
     //--------------------------------------------------------------------+
     // コンフィグの生成・ロード
 	m_config = new GameConfig();
-	m_config->LoadConfig();
+	m_config->LoadConfig("Project_TPL.ini");
 
 	//--------------------------------------------------------------------+
 	// レンダラー
@@ -94,6 +94,16 @@ bool GameMain::Initialize()
 		delete m_renderer;
 		return false;
 	}
+
+    //--------------------------------------------------------------------+
+    // デバッガー (RendererでSDLWindowを作成した後)
+    //--------------------------------------------------------------------+
+#ifdef _DEBUG
+
+	m_debugger = new Debugger(Debugger::BOTH_WINDOW);
+	m_debugger->Initialize();
+
+#endif
 
 	//--------------------------------------------------------------------+
 	// フォント(TTF)レンダリングシステム初期化
@@ -117,10 +127,7 @@ bool GameMain::Initialize()
 	// 効果音はMP3使用不可
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) < 0)
 	{
-		//delete m_renderer;
-		//Mix_CloseAudio();
-		//Mix_Quit();
-		//return false;
+		return false;
 	}
 	int decordNum = Mix_GetNumMusicDecoders();
 	for (int i = 0; i < decordNum; ++i)
@@ -148,12 +155,6 @@ bool GameMain::Initialize()
 		return false;
 	}
 
-	// 入力システム(ステアリング)初期化
-	if (!STEERING_CONTROLLER_INSTANCE.Initialize())
-	{
-		return false;
-	}
-
 	// フレーム初期化
 	m_frame = 0;
 
@@ -166,13 +167,16 @@ bool GameMain::Initialize()
 	m_fonts.emplace(FONT_FILE_PATH, font);
 
 	// ポーズ画面生成
-	m_pause = new PauseScreen();
-
+	m_pauseScreen = new PauseScreen();
 
 	// ロード画面生成
-	m_load = new LoadScreen();
-	m_load->Initialize();
+	m_loadScreen = new LoadScreen();
+	m_loadScreen->Initialize();
 
+	// 各種プールの生成
+	m_actorPool = new ActorPool();
+	m_meshPool = new MeshPool();
+	m_texturePool = new TexturePool();
 
 	return true;
 }
@@ -181,15 +185,23 @@ bool GameMain::Initialize()
 void GameMain::Delete()
 {
 
-	// アクターの削除　（アクターを通じてコンポーネントも削除される）
-	while (!m_actors.empty())
-	{
-		delete m_actors.back();
-	}
-	while (!m_pendingActors.empty())
-	{
-		delete m_pendingActors.back();
-	}
+	// 各種プールの削除
+	m_actorPool->Delete();
+	delete m_actorPool;
+	m_meshPool->Delete();
+	delete m_meshPool;
+	m_texturePool->Delete();
+	delete m_texturePool;
+
+#ifdef _DEBUG
+
+	// デバッガーの削除
+	m_debugger->Delete();
+	delete m_debugger;
+
+#endif
+
+	// レンダラーの削除
 	if (m_renderer)
 	{
 		m_renderer->Delete();
@@ -213,7 +225,6 @@ void GameMain::Delete()
 
 	// 入力関連の削除
 	CONTROLLER_INSTANCE.Delete();
-	STEERING_CONTROLLER_INSTANCE.Delete();
 
 	// Imguiの削除
 	ImGui_ImplOpenGL3_Shutdown();
@@ -224,7 +235,6 @@ void GameMain::Delete()
 	SDL_DestroyWindow(m_debugWindow);
 	// SDLレンダラーの破棄(デバッグ用)
 	SDL_DestroyRenderer(m_debugRenderer);
-
 	SDL_Quit();
 
 
@@ -252,8 +262,16 @@ void GameMain::RunLoop()
 			continue;
 		}
 
+		// 描画処理
 		Draw();
-		// DebugRenderer();
+
+#ifdef _DEBUG
+
+		// デバッグ用の描画処理(※デバッグビルドのみ)
+		DebugRenderer();
+
+#endif
+
 	}
 }
 
@@ -345,14 +363,14 @@ int GameMain::UpdateGame()
 		m_physicsWorld = new PhysicsWorld();
 
 		// ロード画面生成
-		m_load = new LoadScreen();
-		m_load->Initialize();
+		m_loadScreen = new LoadScreen();
+		m_loadScreen->Initialize();
 
 		// シーンの初期化
 		m_nowScene->Initialize();
 
 		// ポーズ画面生成
-		m_pause = new PauseScreen();
+		m_pauseScreen = new PauseScreen();
 
 		return 1;
 	}
@@ -365,36 +383,7 @@ int GameMain::UpdateGame()
 void GameMain::UpdateActor()
 {
 	// 全アクター更新
-	for (auto actor : m_actors)
-	{
-		actor->Update(m_deltaTime);
-	}
-
-	// ペンディング中アクターをアクティブに移動
-	for (auto pending : m_pendingActors)
-	{
-		pending->ComputeWorldTransform();
-		m_actors.emplace_back(pending);
-	}
-	m_pendingActors.clear();
-
-	// 全ての死亡しているアクターを一時保管
-	std::vector<Actor*> deadActors;
-	for (auto actor : m_actors)
-	{
-		if (actor->GetState() == Actor::STATE_DEAD)
-		{
-			deadActors.emplace_back(actor);
-		}
-	}
-
-	// 死亡しているアクターをDelete
-	for (auto actor : deadActors)
-	{
-		delete actor;
-	}
-	deadActors.clear();
-
+	m_actorPool->UpdateObjects(m_deltaTime);
 }
 
 
@@ -411,16 +400,6 @@ void GameMain::SetFirstScene(SceneBase * in_scene)
 	m_nowScene->Initialize();
 }
 
-
-// データのロード
-void GameMain::Load()
-{
-}
-
-// データのアンロード
-void GameMain::Unload()
-{
-}
 
 void GameMain::Input()
 {
@@ -448,9 +427,6 @@ void GameMain::Input()
 	// コントローラ入力更新
 	CONTROLLER_INSTANCE.Update();
 
-	// ステアリングコントローラ入力更新
-	STEERING_CONTROLLER_INSTANCE.Update();
-
 	// マウス入力更新
 	MOUSE_INSTANCE.Update();
 
@@ -458,12 +434,6 @@ void GameMain::Input()
 	if (INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_ESCAPE))
 	{
 		m_isRunning = false;
-	}
-
-	// アクターデバッグ
-	if (INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_F12))
-	{
-		ShowActor();
 	}
 
 	// レンダリングリソース表示
@@ -481,22 +451,16 @@ void GameMain::Input()
 		if (m_isPauseMode)
 		{
 			changeState = Actor::STATE_PAUSED;        // ポーズ
-			m_pause->SetModeON();                     // ポーズ画面をオン
+			m_pauseScreen->SetModeON();                     // ポーズ画面をオン
 		}
 		else
 		{
-			m_pause->SetModeOFF();                    // ポーズ画面をオフ
+			m_pauseScreen->SetModeOFF();                    // ポーズ画面をオフ
 			changeState = Actor::STATE_ACTIVE;        // アクティブ
 		}
 
-		//全てのステートを変更する
-		for (auto itr : m_actors)
-		{
-			if (itr->GetState() != Actor::STATE_DEAD)
-			{
-				itr->SetState(changeState);
-			}
-		}
+		//全てのアクターの状態を変更
+		m_actorPool->SetActorState(changeState);
 	}
 }
 
@@ -526,66 +490,46 @@ SDL_Renderer* GameMain::GetSDLRenderer()
 }
 
 // アクターの追加処理
-void GameMain::AddActor(Actor * in_actor)
+void GameMain::AddActor(Actor * _actor)
 {
-	// ペンディングアクター側に追加
-	m_pendingActors.emplace_back(in_actor);
+	// ワールド座標を更新
+	_actor->ComputeWorldTransform();
+	// アクタープールへ追加
+	m_actorPool->AddObject(_actor);
 }
 
 // アクターの削除処理
-void GameMain::RemoveActor(Actor * in_actor)
+void GameMain::RemoveActor(Actor * _actor)
 {
-	// ペンディングアクター内にいるか
-	auto iter = std::find(m_pendingActors.begin(), m_pendingActors.end(), in_actor);
-	// イテレーターがペンディングアクターの末尾に来たら削除してよい
-	if (iter != m_pendingActors.end())
-	{
-		// ペンディングアクターの末尾にデータを移し、そのデータをpop_back消去
-		std::iter_swap(iter, m_pendingActors.end() - 1);
-		m_pendingActors.pop_back();
-		// 終了
-		return;
-	}
-
-	// アクティブアクター内にいるか
-	iter = std::find(m_actors.begin(), m_actors.end(), in_actor);
-
-	if (iter != m_actors.end())
-	{
-		// アクティブアクターの末尾にデータを移し、そのデータをpop_back消去
-		std::iter_swap(iter, m_actors.end() - 1);
-		m_actors.pop_back();
-	}
+	// 指定されたアクターをプールから削除
+	m_actorPool->DeleteObject(_actor);
 }
 
 void GameMain::DeadAllActor()
 {
-	for (auto actor : m_actors)
-	{
-		actor->SetState(Actor::STATE_DEAD);
-	}
+	m_actorPool->Delete();
 }
 
 // UI画面の追加
-void GameMain::AddUI(UIScreen * in_screen)
+void GameMain::AddUI(UIScreen * _screen)
 {
-	m_uiStack.emplace_back(in_screen);
+	m_uiStack.emplace_back(_screen);
 }
 
 // UIの反転(ポーズ画面を最前面にするための処理)
 void GameMain::SwapPauseUI()
 {
-	m_pause->Close();
+	m_pauseScreen->Close();
 
-	m_pause = new PauseScreen();
+	m_pauseScreen = new PauseScreen();
 }
 
 // 引数のキーとなるファイルパスでフォント配列を検索し、一致したフォントを返す
 // 見つからなかった場合、新規にフォントを生成し、配列に追加後、フォントを返す
-Font* GameMain::GetFont(const std::string & in_keyPath)
+Font* GameMain::GetFont(const std::string & _keyPath)
 {
 	// 同じフォントがすでに配列にないか検索
-	auto iter = m_fonts.find(in_keyPath);
+	auto iter = m_fonts.find(_keyPath);
 
 	// 同じフォントが入っていたら
 	if (iter != m_fonts.end())
@@ -598,9 +542,9 @@ Font* GameMain::GetFont(const std::string & in_keyPath)
 	{
 		Font* font = new Font();
 
-		if (font->Load(in_keyPath))
+		if (font->Load(_keyPath))
 		{
-			m_fonts.emplace(in_keyPath, font);
+			m_fonts.emplace(_keyPath, font);
 		}
 		else
 		{
@@ -616,16 +560,16 @@ Font* GameMain::GetFont(const std::string & in_keyPath)
 }
 
 // テキストのロード
-void GameMain::LoadText(const std::string & in_fileName)
+void GameMain::LoadText(const std::string & _fileName)
 {
 	// テキストマップのクリア
 	m_text.clear();
 	// 指定パスのファイルを受け取る
-	std::ifstream file(in_fileName);
+	std::ifstream file(_fileName);
 	// 開けなかったら
 	if (!file.is_open())
 	{
-		SDL_Log("Text file %s not found\n", in_fileName.c_str());
+		SDL_Log("Text file %s not found\n", _fileName.c_str());
 		return;
 	}
 
@@ -639,7 +583,7 @@ void GameMain::LoadText(const std::string & in_fileName)
 	doc.ParseStream(jsonStr);
 	if (!doc.IsObject())
 	{
-		SDL_Log("Text file %s is not valid JSON\n", in_fileName.c_str());
+		SDL_Log("Text file %s is not valid JSON\n", _fileName.c_str());
 		return;
 	}
 	// テキストマップに保管
@@ -656,11 +600,11 @@ void GameMain::LoadText(const std::string & in_fileName)
 }
 
 // テキストの取得
-const std::string & GameMain::GetText(const std::string & in_key)
+const std::string & GameMain::GetText(const std::string & _key)
 {
 	static std::string errorMsg("**KEY NOT FOUND**");
 	//マップから指定のキーを検索
-	auto iter = m_text.find(in_key);
+	auto iter = m_text.find(_key);
 	if (iter != m_text.end())
 	{
 		return iter->second;
@@ -672,22 +616,18 @@ const std::string & GameMain::GetText(const std::string & in_key)
 }
 
 // カメラのセット
-void GameMain::SetCamera(Camera * in_camera)
+void GameMain::SetCamera(Camera * _camera)
 {
-
-	//printf("SetCamera [%p]\n", in_camera);
-	//m_activeCamera = in_camera;
 
 }
 
-void GameMain::SetCamera(CameraComponent* in_camera)
+void GameMain::SetCamera(CameraComponent* _camera)
 {
-	//printf("SetCamera [%p]\n", in_camera);
-	m_activeCamera = in_camera;
+	m_activeCamera = _camera;
 }
 
 // 引数のカメラをアクティブにする(レンダラーのカメラを登録)
-void GameMain::InActiveCamera(Camera * in_activeCam)
+void GameMain::InActiveCamera(Camera * _activeCam)
 {
 	//if (in_activeCam == m_activeCamera)
 	//{
@@ -701,9 +641,9 @@ void GameMain::InActiveCamera(Camera * in_activeCam)
 	//	Vector3(0, 0, 1));
 }
 
-void GameMain::InActiveCamera(CameraComponent* in_activeCam)
+void GameMain::InActiveCamera(CameraComponent* _activeCam)
 {
-	if (in_activeCam == m_activeCamera)
+	if (_activeCam == m_activeCamera)
 	{
 		printf("Camera is inActive, change to default view.\n");
 		m_activeCamera = nullptr;
@@ -728,38 +668,15 @@ const Vector3 & GameMain::GetViewVector()
 
 
 
-void GameMain::ShowActor()
-{
-	printf("\n\n<--------------ActorList----------------->\n");
-	printf("---------> Active Actor ( %zd ) <-----------\n", m_actors.size());
-
-	for (auto i : m_actors)
-	{
-		printf("mem [%p] : id: %d ", i, i->GetID());
-		std::cout << typeid(*i).name() << "\n";
-	}
-	printf("---------> Pending Actor ( %zd ) <-----------\n", m_pendingActors.size());
-	for (auto i : m_pendingActors)
-	{
-		printf("mem [%p] : id: %d ", i, i->GetID());
-		std::cout << typeid(*i).name() << "\n";
-	}
-}
 
 void GameMain::Draw()
 {
-
-
 	if (!m_nowScene)
 	{
 		return;
 	}
 
-
 	m_nowScene->Draw();
-
-	
-
 }
 
 // ゲームループ制御用のヘルパー関数
@@ -784,23 +701,18 @@ void GameMain::LoopHelper()
 	}
 }
 
+/// <summary>
+/// デバッグ(imgui)用の描画処理
+/// </summary>
 void GameMain::DebugRenderer()
 {
-	// SDLウィンドウの塗りつぶし(デバッグ用)
-	SDL_SetRenderDrawColor
-	(
-		m_debugRenderer,
-		0,                   // R
-		0,                   // G
-		255,                 // B
-		255                  // A
-	);
+#ifdef _DEBUG
 
-	// バックバッファを現在の描画色でクリア
-	SDL_RenderClear(m_debugRenderer);
+	// デバッガー(imgui)の更新
+	m_debugger->UpdateImGui(m_deltaTime);
 
+	// デバッガーの描画
+	m_debugger->RenderImGui();
 
-
-	// フロントバッファとバックバッファを交換
-	SDL_RenderPresent(m_debugRenderer);
+#endif
 }

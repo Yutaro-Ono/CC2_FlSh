@@ -26,7 +26,7 @@ public:
 		STATE_ALLSTATE           // 全ステート
 	};
 
-	Actor();
+	Actor(OBJECT_TAG _tag);
 	virtual ~Actor();     // 仮想デストラクタ
 
 	void Update(float in_deltaTime);                  // 更新処理(総合)

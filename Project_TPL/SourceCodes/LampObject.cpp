@@ -6,7 +6,8 @@
 #include "PointLight.h"
 
 LampObject::LampObject(const Vector3& in_pos)
-	:m_headLight(nullptr)
+	:Actor(OBJECT_TAG::STATIC_OBJECT)
+	,m_headLight(nullptr)
 	,m_groundLight(nullptr)
 {
 	SetPosition(in_pos);
@@ -30,7 +31,8 @@ LampObject::LampObject(const Vector3& in_pos)
 }
 
 LampObject::LampObject(const Vector3& in_pos, class Mesh* in_mesh)
-	:m_headLight(nullptr)
+	:Actor(OBJECT_TAG::STATIC_OBJECT)
+	,m_headLight(nullptr)
 	,m_groundLight(nullptr)
 {
 	SetPosition(in_pos);

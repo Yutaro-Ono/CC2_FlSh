@@ -30,104 +30,125 @@ ShaderManager::~ShaderManager()
 /// <returns> シェーダープログラムの作成に失敗した場合にfalseを返す </returns>
 bool ShaderManager::CreateShaders()
 {
-	m_shaders[GLSLshader::SIMPLE_POS_COLOR] = new GLSLprogram();
-	if (!m_shaders[GLSLshader::SIMPLE_POS_COLOR]->LoadShaders("Shaders/SimpleShader_pos_color.vert", "Shaders/SimpleShader_pos_color.frag", ""))
+	// 画面出力用シェーダー
+	m_shaders[GLSL_SHADER::OUT_SCREEN] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::OUT_SCREEN]->LoadShaders("Shaders/OutScreen.vert", "Shaders/OutScreen.frag", ""))
+	{
+		return false;
+	}
+	m_shaders[GLSL_SHADER::OUT_SCREEN]->SetUniform("u_screenTexture", 0);
+
+
+	//-------------------------------------------------------------------------+
+	// 標準シェーダー
+	//-------------------------------------------------------------------------+
+	m_shaders[GLSL_SHADER::BASIC] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::BASIC]->LoadShaders("Shaders/ForwardRendering/BasicMesh.vert", "Shaders/ForwardRendering/BasicMesh.frag", ""))
+	{
+		return false;
+	}
+	m_shaders[GLSL_SHADER::BASIC_PHONG]->SetUniform("u_mat.albedo", 0);
+	
+	// 標準シェーダー+Phongライティング
+	m_shaders[GLSL_SHADER::BASIC_PHONG] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::BASIC_PHONG]->LoadShaders("Shaders/ForwardRendering/Phong.vert", "Shaders/ForwardRendering/Phong.frag", ""))
+	{
+		return false;
+	}
+	m_shaders[GLSL_SHADER::BASIC_PHONG]->SetUniform("u_mat.albedo", 0);
+
+    //-------------------------------------------------------------------------+
+    // 遅延レンダリング用シェーダー
+    //-------------------------------------------------------------------------+
+	m_shaders[GLSL_SHADER::GBUFFER_BASIC] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::GBUFFER_BASIC]->LoadShaders("Shaders/DefferedRendering/GBuffer_Basic.vert", "Shaders/DefferedRendering/GBuffer_Basic.frag", ""))
 	{
 		return false;
 	}
 
-	m_shaders[GLSLshader::SIMPLE_POS_TEXTURE] = new GLSLprogram();
-	if (!m_shaders[GLSLshader::SIMPLE_POS_TEXTURE]->LoadShaders("Shaders/BasicShader.vert", "Shaders/BasicShader_SamplingTexture.frag", ""))
-	{
-		return false;
-	}
-	m_shaders[GLSLshader::SIMPLE_POS_TEXTURE]->SetUniform("u_mat.diffuseMap", 0);
-
-
-	m_shaders[GLSLshader::BASIC_MESH] = new GLSLprogram();
-	if (!m_shaders[GLSLshader::BASIC_MESH]->LoadShaders("Shaders/BasicMesh.vert", "Shaders/BasicMesh.frag", ""))
-	{
-		return false;
-	}
-	m_shaders[GLSLshader::BASIC_MESH]->SetUniform("u_mat.albedo", 0);
-
-	m_shaders[GLSLshader::GBUFFER_BASIC_MESH] = new GLSLprogram();
-	if (!m_shaders[GLSLshader::GBUFFER_BASIC_MESH]->LoadShaders("Shaders/GBuffer_Basic.vert", "Shaders/GBuffer_Basic.frag", ""))
+	// GBuffer+Phongライティング
+	m_shaders[GLSL_SHADER::GBUFFER_PHONG] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::GBUFFER_PHONG]->LoadShaders("Shaders/DefferedRendering/GBuffer_Phong.vert", "Shaders/DefferedRendering/GBuffer_Phong.frag", ""))
 	{
 		return false;
 	}
 
-	m_shaders[GLSLshader::GBUFFER_PHONG] = new GLSLprogram();
-	if (!m_shaders[GLSLshader::GBUFFER_PHONG]->LoadShaders("Shaders/GBuffer_Phong.vert", "Shaders/GBuffer_Phong.frag", ""))
+	// GBuffer+法線マップ
+	m_shaders[GLSL_SHADER::GBUFFER_NORMAL] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::GBUFFER_NORMAL]->LoadShaders("Shaders/DefferedRendering/GBuffer_NormalMap.vert", "Shaders/DefferedRendering/GBuffer_NormalMap.frag", ""))
 	{
 		return false;
 	}
 
-	m_shaders[GLSLshader::GBUFFER_NORMALMAP] = new GLSLprogram();
-	if (!m_shaders[GLSLshader::GBUFFER_NORMALMAP]->LoadShaders("Shaders/GBuffer_NormalMap.vert", "Shaders/GBuffer_NormalMap.frag", ""))
+	// GBuffer+スカイボックス
+	m_shaders[GLSL_SHADER::GBUFFER_SKYBOX] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::GBUFFER_SKYBOX]->LoadShaders("Shaders/DefferedRendering/GBuffer_Basic_SkyBox.vert", "Shaders/DefferedRendering/GBuffer_Basic_SkyBox.frag", ""))
 	{
 		return false;
 	}
-
-	m_shaders[GLSLshader::GBUFFER_BASIC_SKYBOX] = new GLSLprogram();
-	if (!m_shaders[GLSLshader::GBUFFER_BASIC_SKYBOX]->LoadShaders("Shaders/GBuffer_Basic_SkyBox.vert", "Shaders/GBuffer_Basic_SkyBox.frag", ""))
-	{
-		return false;
-	}
-	m_shaders[GLSLshader::GBUFFER_BASIC_SKYBOX]->SetUniform("u_cubeMap", 0);
-
-	m_shaders[GLSLshader::OUT_SCREEN_ENTIRE] = new GLSLprogram();
-	if (!m_shaders[GLSLshader::OUT_SCREEN_ENTIRE]->LoadShaders("Shaders/OutScreen.vert", "Shaders/OutScreen.frag", ""))
-	{
-		return false;
-	}
-	m_shaders[GLSLshader::OUT_SCREEN_ENTIRE]->SetUniform("u_screenTexture", 0);
+	m_shaders[GLSL_SHADER::GBUFFER_SKYBOX]->SetUniform("u_cubeMap", 0);
 
 
 	//-------------------------------------------------------------------------+
 	// Bloom用シェーダー
 	//-------------------------------------------------------------------------+
-	m_shaders[GLSLshader::BLOOM_DOWNSAMPLING] = new GLSLprogram();
-	if (!m_shaders[GLSLshader::BLOOM_DOWNSAMPLING]->LoadShaders("Shaders/OutScreen.vert", "Shaders/Bloom_DownSampling.frag", ""))
+	m_shaders[GLSL_SHADER::DOWNSAMPLING] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::DOWNSAMPLING]->LoadShaders("Shaders/OutScreen.vert", "Shaders/Bloom/Bloom_DownSampling.frag", ""))
 	{
 		return false;
 	}
-	m_shaders[GLSLshader::BLOOM_DOWNSAMPLING]->SetUniform("u_scene", 0);
+	m_shaders[GLSL_SHADER::DOWNSAMPLING]->SetUniform("u_scene", 0);
 
-	m_shaders[GLSLshader::BLOOM_GAUSSIAN_BLUR] = new GLSLprogram();
-	if (!m_shaders[GLSLshader::BLOOM_GAUSSIAN_BLUR]->LoadShaders("Shaders/OutScreen.vert", "Shaders/Bloom_GaussianBlur.frag", ""))
+	m_shaders[GLSL_SHADER::GAUSSIAN_BLUR] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::GAUSSIAN_BLUR]->LoadShaders("Shaders/OutScreen.vert", "Shaders/Bloom/Bloom_GaussianBlur.frag", ""))
 	{
 		return false;
 	}
-	m_shaders[GLSLshader::BLOOM_GAUSSIAN_BLUR]->SetUniform("u_blurSource", 0);
+	m_shaders[GLSL_SHADER::GAUSSIAN_BLUR]->SetUniform("u_blurSource", 0);
 
-	m_shaders[GLSLshader::BLOOM_TONEMAPPING] = new GLSLprogram();
-	if (!m_shaders[GLSLshader::BLOOM_TONEMAPPING]->LoadShaders("Shaders/OutScreen.vert", "Shaders/Bloom_ToneMapping.frag", ""))
+	m_shaders[GLSL_SHADER::TONEMAPPING] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::TONEMAPPING]->LoadShaders("Shaders/OutScreen.vert", "Shaders/Bloom/Bloom_ToneMapping.frag", ""))
 	{
 		return false;
 	}
-	m_shaders[GLSLshader::BLOOM_TONEMAPPING]->SetUniform("u_scene", 0);
+	m_shaders[GLSL_SHADER::TONEMAPPING]->SetUniform("u_scene", 0);
 
 	//---------------------------------------------------------------------------+
 	// ライトパス
 	//---------------------------------------------------------------------------+
-	m_shaders[GLSLshader::DIRECTIONAL_LIGHT_PASS] = new GLSLprogram();
-	if (!m_shaders[GLSLshader::DIRECTIONAL_LIGHT_PASS]->LoadShaders("Shaders/GBuffer_LightPass.vert", "Shaders/GBuffer_DirectionalLight.frag", ""))
+	m_shaders[GLSL_SHADER::DIRECTIONAL_LIGHT] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::DIRECTIONAL_LIGHT]->LoadShaders("Shaders/GBuffer/GBuffer_LightPass.vert", "Shaders/GBuffer/GBuffer_DirectionalLight.frag", ""))
 	{
 		return false;
 	}
+
+    //-------------------------------------------------------------------------+
+    // マップHUD用シェーダー
+    //-------------------------------------------------------------------------+
+	m_shaders[GLSL_SHADER::HUD_INPUT] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::HUD_INPUT]->LoadShaders("Shaders/HUD/HUD_MapShader.vert", "Shaders/HUD/HUD_MapShader.frag", ""))
+	{
+		return false;
+	}
+
+	m_shaders[GLSL_SHADER::HUD_OUTPUT] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::HUD_OUTPUT]->LoadShaders("Shaders/HUD/HUD_MapOutput.vert", "Shaders/HUD/HUD_MapOutput.frag", ""))
+	{
+		return false;
+	}
+	
 
 	//---------------------------------------------------------------------------+
 	// その他のシェーダー (デバッグ用ビジュアライザー系)
 	//---------------------------------------------------------------------------+
-	m_shaders[GLSLshader::OPTION_NORMAL_VISUALIZE] = new GLSLprogram();
-	if (!m_shaders[GLSLshader::OPTION_NORMAL_VISUALIZE]->LoadShaders("Shaders/option/Normal_Visualization.vert", "Shaders/option/Normal_Visualization.frag", "Shaders/option/Normal_Visualization.geom"))
+	m_shaders[GLSL_SHADER::OPTION_NORMAL_VISUALIZE] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::OPTION_NORMAL_VISUALIZE]->LoadShaders("Shaders/Debug/Normal_Visualization.vert", "Shaders/Debug/Normal_Visualization.frag", "Shaders/option/Normal_Visualization.geom"))
 	{
 		return false;
 	}
 
-	m_shaders[GLSLshader::OPTION_NORMAL_VISUALIZE_GBUFFER] = new GLSLprogram();
-	if (!m_shaders[GLSLshader::OPTION_NORMAL_VISUALIZE_GBUFFER]->LoadShaders("Shaders/option/Normal_Visualization_GBuffer.vert", "Shaders/option/Normal_Visualization_GBuffer.frag", "Shaders/option/Normal_Visualization_GBuffer.geom"))
+	m_shaders[GLSL_SHADER::OPTION_NORMAL_VISUALIZE_GBUFFER] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::OPTION_NORMAL_VISUALIZE_GBUFFER]->LoadShaders("Shaders/Debug/Normal_Visualization_GBuffer.vert", "Shaders/Debug/Normal_Visualization_GBuffer.frag", "Shaders/Debug/Normal_Visualization_GBuffer.geom"))
 	{
 		return false;
 	}
@@ -139,8 +160,8 @@ bool ShaderManager::CreateShaders()
 /// <summary>
 /// 指定したタイプのシェーダープログラムの有効化
 /// </summary>
-/// <param name=GLSLshader::SHADER_TYPE> シェーダーのタイプ </param>
-void ShaderManager::EnableShaderProgram(GLSLshader::SHADER_TYPE _type)
+/// <param name=Shader::SHADER_TYPE> シェーダーのタイプ </param>
+void ShaderManager::EnableShaderProgram(GLSL_SHADER _type)
 {
 	m_shaders[_type]->UseProgram();
 }
@@ -150,7 +171,7 @@ void ShaderManager::EnableShaderProgram(GLSLshader::SHADER_TYPE _type)
 /// </summary>
 /// <param name="_type"> シェーダーのタイプ </param>
 /// <returns> 指定したタイプのシェーダークラスポインタを返す </returns>
-GLSLprogram* ShaderManager::GetShader(GLSLshader::SHADER_TYPE _type)
+GLSLprogram* ShaderManager::GetShader(GLSL_SHADER _type)
 {
 	return m_shaders[_type];
 }

@@ -39,12 +39,7 @@ LevelManager::LevelManager(GameWorld* in_world, int in_stageNum)
 	m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/TND/Objects/GroundBase/Ground.OBJ"));
 	m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/TND/Objects/Street/Street.OBJ"));
 	m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/TND/Objects/Building/0/Build11.OBJ"));
-	//m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/TND/Objects/Bridge/Bridge_Lamps/Bridge_Lamps.OBJ"));
 	m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/TND/Objects/Lamp/SM_Lamp.OBJ"));
-	//m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/TND/Actors/Police/Helicopter/Helicopter_Body_Internal.OBJ"));
-	//m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/TND/Objects/Sphere/Sphere.OBJ"));
-
-
 	
 	//-----------------------------------------------------------------------------------------+
     // ステージデータ読み込み
@@ -231,9 +226,6 @@ LevelManager::LevelManager(GameWorld* in_world, int in_stageNum)
 		{
 			if (pointLightData[iy][ix] == 32)
 			{
-				//PointLight* pLight = new PointLight();
-				//pLight->SetPosition(Vector3(ix* blockSize, offsetY - iy * blockSize, 0.0f));
-
 				LampObject* lamp = new LampObject(Vector3(ix * blockSize, offsetY - iy * blockSize, -10.0f), m_blockMeshes[3]);
 
 				// ロード処理
@@ -247,8 +239,6 @@ LevelManager::LevelManager(GameWorld* in_world, int in_stageNum)
 		}
 	}
 	pointLightData.clear();
-
-	//BridgeObject* bridge = new BridgeObject(1, Vector3::Zero);
 
 	m_blockMeshes.clear();
 	m_objectMeshes.clear();

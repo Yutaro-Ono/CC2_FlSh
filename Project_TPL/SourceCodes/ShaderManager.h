@@ -14,35 +14,37 @@
 #include <unordered_map>
 #include "GLSLprogram.h"
 
-namespace GLSLshader
+enum class GLSL_SHADER : unsigned char
 {
-	enum SHADER_TYPE
-	{
-		SIMPLE_POS_COLOR,
-		SIMPLE_POS_TEXTURE,
 
-		BASIC_MESH,
-		BASIC_MESH_TRIANGLE,
-		BASIC_MESH_PHONG,
+	BASIC,
+	BASIC_PHONG,
+	BASIC_NORMAL,
+	BASIC_SKINMESH,
 
-		GBUFFER_BASIC_MESH,
-		GBUFFER_PHONG,
+	GBUFFER_BASIC,
+	GBUFFER_PHONG,
 
-		GBUFFER_NORMALMAP,
-		GBUFFER_PHONG_NORMALMAP,
-		GBUFFER_BASIC_SKYBOX,
+	GBUFFER_NORMAL,
+	GBUFFER_PHONG_NORMAL,
+	GBUFFER_SKYBOX,
 
-		BLOOM_DOWNSAMPLING,
-		BLOOM_GAUSSIAN_BLUR,
-		BLOOM_TONEMAPPING,
+	DOWNSAMPLING,
+	GAUSSIAN_BLUR,
+	TONEMAPPING,
 
-		POINT_LIGHT_PASS,
-		DIRECTIONAL_LIGHT_PASS,
-		OUT_SCREEN_ENTIRE,
-		OPTION_NORMAL_VISUALIZE,
-		OPTION_NORMAL_VISUALIZE_GBUFFER
-	};
-}
+	BASIC_ENVIRONMENT,
+	GBUFFER_ENVIRONMENT,
+
+	HUD_INPUT,
+	HUD_OUTPUT,
+
+	POINT_LIGHT,
+	DIRECTIONAL_LIGHT,
+	OUT_SCREEN,
+	OPTION_NORMAL_VISUALIZE,
+	OPTION_NORMAL_VISUALIZE_GBUFFER
+};
 
 class ShaderManager
 {
@@ -54,16 +56,16 @@ public:
 
 	bool CreateShaders();
 
-	void EnableShaderProgram(GLSLshader::SHADER_TYPE _type);
+	void EnableShaderProgram(GLSL_SHADER _type);
 
-	class GLSLprogram* GetShader(GLSLshader::SHADER_TYPE _type);
+	class GLSLprogram* GetShader(GLSL_SHADER _type);
 
 private:
 
 
 
 	// シェーダークラス格納用の連想配列
-	std::unordered_map<GLSLshader::SHADER_TYPE, class GLSLprogram*> m_shaders;
+	std::unordered_map<GLSL_SHADER, class GLSLprogram*> m_shaders;
 
 
 

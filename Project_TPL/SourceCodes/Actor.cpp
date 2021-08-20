@@ -13,7 +13,7 @@
 int Actor::m_globalActorNo = 0;
 
 // コンストラクタ
-Actor::Actor()
+Actor::Actor(OBJECT_TAG _tag)
 	:m_state(STATE_ACTIVE)
 	,m_position(Vector3::Zero)
 	,m_rotation(Quaternion::Identity)

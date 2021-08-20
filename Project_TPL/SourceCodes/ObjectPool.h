@@ -32,6 +32,7 @@ public:
 
 	virtual void UpdateObjects(float _deltaTime) = 0;
 
+	const std::vector<T*>& GetPool() { return m_objPool; }
 
 protected:
 	
@@ -117,3 +118,4 @@ inline void ObjectPool<T>::DeleteKeyObject(const std::string& _key)
 		printf("UNDELETE::Not Found Object %s\n", _key.c_str());
 	}
 }
+

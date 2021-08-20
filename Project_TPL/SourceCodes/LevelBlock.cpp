@@ -12,6 +12,7 @@
 #include "CameraComponent.h"
 
 LevelBlock::LevelBlock()
+	:Actor(OBJECT_TAG::STATIC_OBJECT)
 {
 	m_position = Vector3(0.0f, 0.0f, 0.0f);
 }

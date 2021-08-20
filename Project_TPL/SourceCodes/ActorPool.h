@@ -21,6 +21,8 @@ public:
 
 	void UpdateObjects(float _deltaTime) override;
 
+	void SetActorState(Actor::State _state);
+
 private:
 
 

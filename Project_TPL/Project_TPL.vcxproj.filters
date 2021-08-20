@@ -30,6 +30,150 @@
     <Filter Include="Source\Debugger">
       <UniqueIdentifier>{3b36f76d-300b-4b44-ad54-051c1d187f25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Actor">
+      <UniqueIdentifier>{ab838e31-e00c-464a-bf05-c8bbaea2b1af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player">
+      <UniqueIdentifier>{16dc4118-6008-4853-9f75-1866fe5759a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Physics">
+      <UniqueIdentifier>{95a74453-03ce-4d61-9c08-8ef66b14d853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Render">
+      <UniqueIdentifier>{9f2d4a42-9ca7-4f12-8ca8-18b390d5a2e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Render\Mesh">
+      <UniqueIdentifier>{5937b4c3-9d71-42d8-99a0-37fac9670510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Render\Mesh\Skeltal">
+      <UniqueIdentifier>{1a8d1dc5-aa46-4657-ada2-15e025e163c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Camera">
+      <UniqueIdentifier>{a1351af0-818e-4c43-9817-429bbd3cb202}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Audio">
+      <UniqueIdentifier>{abd160a6-281e-4339-a9cb-5e759cd55775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Vehicle">
+      <UniqueIdentifier>{23650e3b-6bb3-486d-9801-8c09aa821923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Vehicle\Car">
+      <UniqueIdentifier>{f56be7f7-0a79-4ea9-9c03-8ece2ac84594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Interface">
+      <UniqueIdentifier>{566cbf43-ce92-4d4b-8fc6-5cb37cce6c3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Render\Mesh\CarMesh">
+      <UniqueIdentifier>{c72fbb3c-7ee6-4219-9588-6e6820454758}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Interface\MiniMap">
+      <UniqueIdentifier>{3bec9511-07b9-42c2-aabd-9dea86b0726a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Interface\ControlTutorial">
+      <UniqueIdentifier>{a542ae99-b9ff-4691-80f8-a4e2a1a4f359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Object">
+      <UniqueIdentifier>{651f5681-29d5-4852-9efe-eb2e6b51fe20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Vehicle\Helicopter">
+      <UniqueIdentifier>{8c5bca75-044d-4384-b476-77573c09b409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\World">
+      <UniqueIdentifier>{0daaae44-d64b-4d11-b4d9-1c3a46dba21e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Component">
+      <UniqueIdentifier>{4c978441-bbb3-419a-8d01-74c71eb16b0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Vehicle\Car\TitleCar">
+      <UniqueIdentifier>{941c4116-19ec-4163-8fd9-bfa855e893da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Vehicle\Car\GameCar">
+      <UniqueIdentifier>{1a4ee47b-889a-4a2a-9c60-df164e64c5bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Vehicle\Car\ResultCar">
+      <UniqueIdentifier>{714ad44d-b73c-47b6-8bd7-8f53a8de0bff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Input">
+      <UniqueIdentifier>{76596adb-1f6c-40dc-b27e-e30f920a1b78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Object\Light">
+      <UniqueIdentifier>{9c610470-8e03-4645-9e0a-015654bfb6a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\NPC">
+      <UniqueIdentifier>{055c4dd1-3386-4216-b97f-b7a76cba34c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene">
+      <UniqueIdentifier>{e4c79fcf-9b16-4d12-95f6-e8987b945c3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Render\Shadow">
+      <UniqueIdentifier>{ef8ed3f5-da3e-4fb2-bb54-3244d061d1be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Render\CubeMap">
+      <UniqueIdentifier>{5d030da4-cefc-4b33-9678-54487d5ef12f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Render\EnvironmentMap">
+      <UniqueIdentifier>{f53e0bf1-356a-4019-9fd0-079a84fad30a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Render\Shader">
+      <UniqueIdentifier>{238d1e7e-b237-404f-8c0f-200669a900d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Mission">
+      <UniqueIdentifier>{ace44ef3-efa5-4c26-8945-a72c0ddb575a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Config">
+      <UniqueIdentifier>{8a34f37a-cacd-4796-893c-0e61321950ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Particle">
+      <UniqueIdentifier>{63bc158e-761e-4ee3-be6e-41f8fa82141e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Render\GLSL">
+      <UniqueIdentifier>{7f831a06-5956-4d0a-b453-f370103c2f43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL">
+      <UniqueIdentifier>{7c249095-8a4b-48e4-81ad-166ea6b9015a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\ForwardRendering">
+      <UniqueIdentifier>{0cbebf33-64c9-4861-a570-03a4746f3639}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\DefferedRendering">
+      <UniqueIdentifier>{af34e503-2b7b-4d6b-878d-2ec0a20f400b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\Bloom">
+      <UniqueIdentifier>{d15bc105-0d49-453b-bde3-b8d0da9c1801}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\PostEffect">
+      <UniqueIdentifier>{df8c970e-7294-45a5-bbb3-89bbcb2fd93f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\HUD">
+      <UniqueIdentifier>{2a5555b3-5f10-4542-a67f-8aa09f0c0155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\DefferedRendering\Lighting">
+      <UniqueIdentifier>{e82f5884-5681-4948-8585-5dfda2d17500}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\PBR">
+      <UniqueIdentifier>{ce8e7dbc-95f1-431d-8a76-fee6597f850f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\Sprite">
+      <UniqueIdentifier>{eb77c239-97ab-4147-80dc-8fe13ac6d9f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\ForwardRendering\ShadowMap">
+      <UniqueIdentifier>{c03f7d9b-df4f-4ca4-ac80-735022ca5145}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\ForwardRendering\EnvironmentMap">
+      <UniqueIdentifier>{2798b10d-a02a-4098-a122-2ba714baa205}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\ForwardRendering\NormalMap">
+      <UniqueIdentifier>{4b286817-de86-45f8-ae2d-1203622c7c01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\ForwardRendering\Phong">
+      <UniqueIdentifier>{f44c6f5c-3c95-4e7c-b0f9-78b8f703f544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\ForwardRendering\Skinned">
+      <UniqueIdentifier>{2ae1c2da-6b5e-4dbc-a1ff-e034cd2808f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\ForwardRendering\SkyBox">
+      <UniqueIdentifier>{5bd9ec00-3535-4f94-a059-ee513dd08146}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -59,154 +203,13 @@
     <ClCompile Include="glad\glad.c">
       <Filter>リソース ファイル\glad</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\Actor.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Animation.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\AudioManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\BoneTransform.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\BoxCollider.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\BridgeObject.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Camera.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\CameraActor.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\CameraComponent.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Canvas.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\CarBody.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\CarDoor.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\CarHandle.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\CarMeshComponent.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\CarSoundComponent.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\CarWheel.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\ClientActor.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Collision.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Component.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\CountDownUI.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\CubeMapComponent.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\DebugBox.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\DebugGrid.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\DefferedRenderer.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Environment.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\EnvironmentMapComponent.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCodes\Font.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\ForwardRenderer.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\FrameBuffer.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\GameConfig.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\GameMain.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\GameScene.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\GameWorld.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\HeliBody.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Helicopter.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\HeliRotorBack.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\HeliRotorMain.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\HeliSpotLight.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\HUD.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\HumanCamera.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Input.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\InputController.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\InputSteeringWheel.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\LampObject.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCodes\LandMarkIndicator.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\LevelBlock.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\LevelManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\LevelObject.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\LevelTerrain.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\LightGlassComponent.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\LoadScreen.cpp">
@@ -215,118 +218,16 @@
     <ClCompile Include="SourceCodes\Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\Mesh.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\MeshComponent.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\MeshGpmesh.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\MeshObj.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\MiniMapHUD.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\MissionBase.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\MissionManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\MissionUI.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Mouse.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\MoveComponent.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\MoveComponentCar.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\MoveComponentHuman.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Music.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\OrbitCamera.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Particle.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\ParticleManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PatrolComponent.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PatrolPoint.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCodes\PauseScreen.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\PhysicsWorld.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PlayerCar.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PlayerControlUI.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PlayerHuman.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCodes\PlayerManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PointCameraComponent.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PointLight.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PointLightComponent.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\RapidJsonHelper.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\RecordScore.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\RenderBloom.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Renderer.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\ResultCar.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\ResultCarBody.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\ResultCarDoor.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\ResultCarHandle.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\ResultCarWheel.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\ResultScene.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\ResultScreen.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\RuleScore.cpp">
@@ -338,82 +239,10 @@
     <ClCompile Include="SourceCodes\SandSmoke.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\ScoreUI.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Shader.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\ShadowMap.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\SkeletalMeshComponent.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Skeleton.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\SkyBox.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Sound.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\SpeedMeterUI.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\SpotLight.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\SpotLightComponent.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCodes\SpriteComponent.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\Texture.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\ThirdPersonCamera.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\ThirdPersonCarCamera.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\TitleCar.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\TitleCarBody.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\TitleCarDoor.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\TitleCarHandle.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\TitleCarWheel.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\TitleScene.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\TitleScreen.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\TutorialScene.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\TutorialUI.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\UIScreen.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCodes\VertexArray.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\WorldSpaceUI.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\Math.cpp">
@@ -449,6 +278,330 @@
     <ClCompile Include="SourceCodes\Tag.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCodes\Actor.cpp">
+      <Filter>Source\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\BoxCollider.cpp">
+      <Filter>Source\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\BoneTransform.cpp">
+      <Filter>Source\Render\Mesh\Skeltal</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Camera.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CameraActor.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CameraComponent.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Animation.cpp">
+      <Filter>Source\Render\Mesh\Skeltal</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\AudioManager.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CarMeshComponent.cpp">
+      <Filter>Source\Render\Mesh\CarMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CarSoundComponent.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Collision.cpp">
+      <Filter>Source\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\DebugBox.cpp">
+      <Filter>Source\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\DebugGrid.cpp">
+      <Filter>Source\Debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TutorialUI.cpp">
+      <Filter>Source\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\UIScreen.cpp">
+      <Filter>Source\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\WorldSpaceUI.cpp">
+      <Filter>Source\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\SpeedMeterUI.cpp">
+      <Filter>Source\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ScoreUI.cpp">
+      <Filter>Source\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MissionUI.cpp">
+      <Filter>Source\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\HUD.cpp">
+      <Filter>Source\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CountDownUI.cpp">
+      <Filter>Source\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MiniMapHUD.cpp">
+      <Filter>Source\Interface\MiniMap</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerControlUI.cpp">
+      <Filter>Source\Interface\ControlTutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\HeliBody.cpp">
+      <Filter>Source\Actor\Vehicle\Helicopter</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Helicopter.cpp">
+      <Filter>Source\Actor\Vehicle\Helicopter</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\HeliRotorBack.cpp">
+      <Filter>Source\Actor\Vehicle\Helicopter</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\HeliRotorMain.cpp">
+      <Filter>Source\Actor\Vehicle\Helicopter</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\HeliSpotLight.cpp">
+      <Filter>Source\Actor\Vehicle\Helicopter</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Mesh.cpp">
+      <Filter>Source\Render\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MeshComponent.cpp">
+      <Filter>Source\Render\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MeshGpmesh.cpp">
+      <Filter>Source\Render\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MeshObj.cpp">
+      <Filter>Source\Render\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LevelBlock.cpp">
+      <Filter>Source\Actor\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LevelManager.cpp">
+      <Filter>Source\Actor\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LevelObject.cpp">
+      <Filter>Source\Actor\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LevelTerrain.cpp">
+      <Filter>Source\Actor\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PatrolPoint.cpp">
+      <Filter>Source\Actor\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LampObject.cpp">
+      <Filter>Source\Actor\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Environment.cpp">
+      <Filter>Source\World</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleCar.cpp">
+      <Filter>Source\Actor\Vehicle\Car\TitleCar</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleCarBody.cpp">
+      <Filter>Source\Actor\Vehicle\Car\TitleCar</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleCarDoor.cpp">
+      <Filter>Source\Actor\Vehicle\Car\TitleCar</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleCarHandle.cpp">
+      <Filter>Source\Actor\Vehicle\Car\TitleCar</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleCarWheel.cpp">
+      <Filter>Source\Actor\Vehicle\Car\TitleCar</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CarBody.cpp">
+      <Filter>Source\Actor\Vehicle\Car\GameCar</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CarDoor.cpp">
+      <Filter>Source\Actor\Vehicle\Car\GameCar</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CarHandle.cpp">
+      <Filter>Source\Actor\Vehicle\Car\GameCar</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ResultCar.cpp">
+      <Filter>Source\Actor\Vehicle\Car\ResultCar</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ResultCarBody.cpp">
+      <Filter>Source\Actor\Vehicle\Car\ResultCar</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ResultCarDoor.cpp">
+      <Filter>Source\Actor\Vehicle\Car\ResultCar</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ResultCarHandle.cpp">
+      <Filter>Source\Actor\Vehicle\Car\ResultCar</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ResultCarWheel.cpp">
+      <Filter>Source\Actor\Vehicle\Car\ResultCar</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Sound.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Music.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Input.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\InputController.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\InputSteeringWheel.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\DefferedRenderer.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\RenderBloom.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Renderer.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Texture.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CarWheel.cpp">
+      <Filter>Source\Actor\Vehicle\Car\GameCar</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\SpotLight.cpp">
+      <Filter>Source\Actor\Object\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PointLight.cpp">
+      <Filter>Source\Actor\Object\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PointLightComponent.cpp">
+      <Filter>Source\Actor\Object\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\SpotLightComponent.cpp">
+      <Filter>Source\Actor\Object\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Mouse.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\BridgeObject.cpp">
+      <Filter>Source\Actor\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\OrbitCamera.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PointCameraComponent.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ThirdPersonCamera.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ThirdPersonCarCamera.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\HumanCamera.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerCar.cpp">
+      <Filter>Source\Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerHuman.cpp">
+      <Filter>Source\Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ClientActor.cpp">
+      <Filter>Source\Actor\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Canvas.cpp">
+      <Filter>Source\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\GameScene.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ResultScene.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleScene.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TutorialScene.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Component.cpp">
+      <Filter>Source\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CubeMapComponent.cpp">
+      <Filter>Source\Render\CubeMap</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\EnvironmentMapComponent.cpp">
+      <Filter>Source\Render\EnvironmentMap</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ShadowMap.cpp">
+      <Filter>Source\Render\Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\SkyBox.cpp">
+      <Filter>Source\Render\CubeMap</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Skeleton.cpp">
+      <Filter>Source\Render\Mesh\Skeltal</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\SkeletalMeshComponent.cpp">
+      <Filter>Source\Render\Mesh\Skeltal</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Shader.cpp">
+      <Filter>Source\Render\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PhysicsWorld.cpp">
+      <Filter>Source\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MissionBase.cpp">
+      <Filter>Source\Mission</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MissionManager.cpp">
+      <Filter>Source\Mission</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleScreen.cpp">
+      <Filter>Source\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ResultScreen.cpp">
+      <Filter>Source\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\GameWorld.cpp">
+      <Filter>Source\World</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\GameConfig.cpp">
+      <Filter>Source\Config</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ForwardRenderer.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Particle.cpp">
+      <Filter>Source\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ParticleManager.cpp">
+      <Filter>Source\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\FrameBuffer.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MoveComponent.cpp">
+      <Filter>Source\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MoveComponentCar.cpp">
+      <Filter>Source\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MoveComponentHuman.cpp">
+      <Filter>Source\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PatrolComponent.cpp">
+      <Filter>Source\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LightGlassComponent.cpp">
+      <Filter>Source\Render\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\GLSLprogram.cpp">
+      <Filter>Source\Render\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\WorldBase.cpp">
+      <Filter>Source\World</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TexturePool.cpp">
+      <Filter>Source\ObjectPool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -481,157 +634,16 @@
     <ClInclude Include="imgui\imgui_impl_opengl3.h">
       <Filter>リソース ファイル\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\Actor.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Animation.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\AudioManager.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\BoneTransform.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\BoxCollider.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\BridgeObject.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Camera.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\CameraActor.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\CameraComponent.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Canvas.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\CarBody.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\CarDoor.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\CarHandle.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\CarMeshComponent.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\CarSoundComponent.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\CarWheel.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\ClientActor.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Collision.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCodes\Common.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Component.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\CountDownUI.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\CubeMapComponent.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\DebugBox.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\DebugGrid.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\DefferedRenderer.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Environment.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\EnvironmentMapComponent.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\Font.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\ForwardRenderer.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\FrameBuffer.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\GameConfig.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCodes\GameMain.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\GameScene.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\GameWorld.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\HeliBody.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Helicopter.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\HeliRotorBack.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\HeliRotorMain.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\HeliSpotLight.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\HUD.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\HumanCamera.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Input.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\InputController.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\InputSteeringWheel.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\LampObject.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCodes\LandMarkIndicator.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\LevelBlock.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\LevelManager.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\LevelObject.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\LevelTerrain.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\LightGlassComponent.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\LoadScreen.h">
@@ -640,121 +652,16 @@
     <ClInclude Include="SourceCodes\MatrixPalette.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\Mesh.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\MeshComponent.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\MeshGpmesh.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\MeshObj.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\MiniMapHUD.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\MissionBase.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\MissionListUI.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\MissionManager.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\MissionUI.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Mouse.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\MoveComponent.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\MoveComponentCar.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\MoveComponentHuman.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Music.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\OrbitCamera.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Particle.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\ParticleManager.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PatrolComponent.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PatrolPoint.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCodes\PauseScreen.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\PhysicsWorld.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PlayerCar.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PlayerControlUI.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PlayerHuman.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCodes\PlayerManager.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PointCameraComponent.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PointLight.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PointLightComponent.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\RapidJsonHelper.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\RecordScore.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\RenderBloom.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Renderer.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\ResultCar.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\ResultCarBody.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\ResultCarDoor.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\ResultCarHandle.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\ResultCarWheel.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\ResultScene.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\ResultScreen.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\RuleScore.h">
@@ -766,88 +673,10 @@
     <ClInclude Include="SourceCodes\SandSmoke.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\SceneBase.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\ScoreUI.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Shader.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\ShadowMap.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\SkeletalMeshComponent.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Skeleton.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\SkyBox.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Sound.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\SpeedMeterUI.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\SpotLight.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\SpotLightComponent.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCodes\SpriteComponent.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\Texture.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\ThirdPersonCamera.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\ThirdPersonCarCamera.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\tiny_obj_loader.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\TitleCar.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\TitleCarBody.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\TitleCarDoor.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\TitleCarHandle.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\TitleCarWheel.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\TitleScene.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\TitleScreen.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\TutorialScene.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\TutorialUI.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\UIScreen.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCodes\VertexArray.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\WorldSpaceUI.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\Math.h">
@@ -886,5 +715,535 @@
     <ClInclude Include="SourceCodes\Tag.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="SourceCodes\Actor.h">
+      <Filter>Source\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\BoxCollider.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\BoneTransform.h">
+      <Filter>Source\Render\Mesh\Skeltal</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Camera.h">
+      <Filter>Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CameraActor.h">
+      <Filter>Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CameraComponent.h">
+      <Filter>Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Animation.h">
+      <Filter>Source\Render\Mesh\Skeltal</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\AudioManager.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CarMeshComponent.h">
+      <Filter>Source\Render\Mesh\CarMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CarSoundComponent.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Collision.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\DebugGrid.h">
+      <Filter>Source\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\DebugBox.h">
+      <Filter>Source\Debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\UIScreen.h">
+      <Filter>Source\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TutorialUI.h">
+      <Filter>Source\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\WorldSpaceUI.h">
+      <Filter>Source\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\SpeedMeterUI.h">
+      <Filter>Source\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ScoreUI.h">
+      <Filter>Source\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MissionUI.h">
+      <Filter>Source\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\HUD.h">
+      <Filter>Source\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CountDownUI.h">
+      <Filter>Source\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MiniMapHUD.h">
+      <Filter>Source\Interface\MiniMap</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerControlUI.h">
+      <Filter>Source\Interface\ControlTutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\HeliBody.h">
+      <Filter>Source\Actor\Vehicle\Helicopter</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Helicopter.h">
+      <Filter>Source\Actor\Vehicle\Helicopter</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\HeliRotorBack.h">
+      <Filter>Source\Actor\Vehicle\Helicopter</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\HeliRotorMain.h">
+      <Filter>Source\Actor\Vehicle\Helicopter</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\HeliSpotLight.h">
+      <Filter>Source\Actor\Vehicle\Helicopter</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Mesh.h">
+      <Filter>Source\Render\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MeshComponent.h">
+      <Filter>Source\Render\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MeshGpmesh.h">
+      <Filter>Source\Render\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MeshObj.h">
+      <Filter>Source\Render\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LevelBlock.h">
+      <Filter>Source\Actor\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LevelManager.h">
+      <Filter>Source\Actor\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LevelObject.h">
+      <Filter>Source\Actor\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LevelTerrain.h">
+      <Filter>Source\Actor\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PatrolPoint.h">
+      <Filter>Source\Actor\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LampObject.h">
+      <Filter>Source\Actor\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Environment.h">
+      <Filter>Source\World</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleCar.h">
+      <Filter>Source\Actor\Vehicle\Car\TitleCar</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleCarBody.h">
+      <Filter>Source\Actor\Vehicle\Car\TitleCar</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleCarDoor.h">
+      <Filter>Source\Actor\Vehicle\Car\TitleCar</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleCarHandle.h">
+      <Filter>Source\Actor\Vehicle\Car\TitleCar</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleCarWheel.h">
+      <Filter>Source\Actor\Vehicle\Car\TitleCar</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CarBody.h">
+      <Filter>Source\Actor\Vehicle\Car\GameCar</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CarDoor.h">
+      <Filter>Source\Actor\Vehicle\Car\GameCar</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CarHandle.h">
+      <Filter>Source\Actor\Vehicle\Car\GameCar</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ResultCar.h">
+      <Filter>Source\Actor\Vehicle\Car\ResultCar</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ResultCarBody.h">
+      <Filter>Source\Actor\Vehicle\Car\ResultCar</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ResultCarDoor.h">
+      <Filter>Source\Actor\Vehicle\Car\ResultCar</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ResultCarHandle.h">
+      <Filter>Source\Actor\Vehicle\Car\ResultCar</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ResultCarWheel.h">
+      <Filter>Source\Actor\Vehicle\Car\ResultCar</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Sound.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Music.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\InputSteeringWheel.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Input.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\InputController.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\DefferedRenderer.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Renderer.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\RenderBloom.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Texture.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CarWheel.h">
+      <Filter>Source\Actor\Vehicle\Car\GameCar</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\SpotLight.h">
+      <Filter>Source\Actor\Object\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PointLight.h">
+      <Filter>Source\Actor\Object\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PointLightComponent.h">
+      <Filter>Source\Actor\Object\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\SpotLightComponent.h">
+      <Filter>Source\Actor\Object\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Mouse.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\BridgeObject.h">
+      <Filter>Source\Actor\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\OrbitCamera.h">
+      <Filter>Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PointCameraComponent.h">
+      <Filter>Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ThirdPersonCamera.h">
+      <Filter>Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ThirdPersonCarCamera.h">
+      <Filter>Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\HumanCamera.h">
+      <Filter>Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerCar.h">
+      <Filter>Source\Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerHuman.h">
+      <Filter>Source\Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ClientActor.h">
+      <Filter>Source\Actor\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Canvas.h">
+      <Filter>Source\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\GameScene.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ResultScene.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleScene.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TutorialScene.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Component.h">
+      <Filter>Source\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CubeMapComponent.h">
+      <Filter>Source\Render\CubeMap</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\EnvironmentMapComponent.h">
+      <Filter>Source\Render\EnvironmentMap</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ShadowMap.h">
+      <Filter>Source\Render\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\SkyBox.h">
+      <Filter>Source\Render\CubeMap</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Skeleton.h">
+      <Filter>Source\Render\Mesh\Skeltal</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\SkeletalMeshComponent.h">
+      <Filter>Source\Render\Mesh\Skeltal</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Shader.h">
+      <Filter>Source\Render\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\SceneBase.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PhysicsWorld.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MissionBase.h">
+      <Filter>Source\Mission</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MissionListUI.h">
+      <Filter>Source\Mission</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MissionManager.h">
+      <Filter>Source\Mission</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleScreen.h">
+      <Filter>Source\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ResultScreen.h">
+      <Filter>Source\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\GameWorld.h">
+      <Filter>Source\World</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\GameConfig.h">
+      <Filter>Source\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ForwardRenderer.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Particle.h">
+      <Filter>Source\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ParticleManager.h">
+      <Filter>Source\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\FrameBuffer.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MoveComponent.h">
+      <Filter>Source\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MoveComponentCar.h">
+      <Filter>Source\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MoveComponentHuman.h">
+      <Filter>Source\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PatrolComponent.h">
+      <Filter>Source\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LightGlassComponent.h">
+      <Filter>Source\Render\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\GLSLprogram.h">
+      <Filter>Source\Render\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\WorldBase.h">
+      <Filter>Source\World</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TexturePool.h">
+      <Filter>Source\ObjectPool</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\ForwardRendering\BasicMesh.frag">
+      <Filter>Source\GLSL\ForwardRendering</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\BasicMesh.vert">
+      <Filter>Source\GLSL\ForwardRendering</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\Particle.frag">
+      <Filter>Source\GLSL\ForwardRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_Basic.frag">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_Basic.vert">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_Basic_SkyBox.frag">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_Basic_SkyBox.vert">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_CarShader.frag">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_CarShader.vert">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_CarShaderReflect.frag">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_CarShaderReflect.vert">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_EnvironmentMap.frag">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_EnvironmentMap.vert">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_LightGlass.frag">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_LightGlass.vert">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_Normal_Shadow.frag">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_Normal_Shadow.vert">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_NormalMap.frag">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_NormalMap.vert">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_Phong.frag">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_Phong.vert">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_Shadow.frag">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\Lighting\GBuffer_DirectionalLight.frag">
+      <Filter>Source\GLSL\DefferedRendering\Lighting</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\Lighting\GBuffer_LightPass.vert">
+      <Filter>Source\GLSL\DefferedRendering\Lighting</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\Lighting\GBuffer_PointLight.frag">
+      <Filter>Source\GLSL\DefferedRendering\Lighting</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\Lighting\GBuffer_SpotLight.frag">
+      <Filter>Source\GLSL\DefferedRendering\Lighting</Filter>
+    </None>
+    <None Include="Shaders\Bloom\Bloom_DownSampling.frag">
+      <Filter>Source\GLSL\Bloom</Filter>
+    </None>
+    <None Include="Shaders\Bloom\Bloom_GaussianBlur.frag">
+      <Filter>Source\GLSL\Bloom</Filter>
+    </None>
+    <None Include="Shaders\Bloom\Bloom_ToneMapping.frag">
+      <Filter>Source\GLSL\Bloom</Filter>
+    </None>
+    <None Include="Shaders\HUD\HUD_MapOutput.frag">
+      <Filter>Source\GLSL\HUD</Filter>
+    </None>
+    <None Include="Shaders\HUD\HUD_MapOutput.vert">
+      <Filter>Source\GLSL\HUD</Filter>
+    </None>
+    <None Include="Shaders\PostEffect\BlurScreen.frag">
+      <Filter>Source\GLSL\PostEffect</Filter>
+    </None>
+    <None Include="Shaders\PostEffect\CernelScreen.frag">
+      <Filter>Source\GLSL\PostEffect</Filter>
+    </None>
+    <None Include="Shaders\PostEffect\FrameBufferScreen.frag">
+      <Filter>Source\GLSL\PostEffect</Filter>
+    </None>
+    <None Include="Shaders\PostEffect\FrameBufferScreen.vert">
+      <Filter>Source\GLSL\PostEffect</Filter>
+    </None>
+    <None Include="Shaders\PostEffect\GreyScaleScreen.frag">
+      <Filter>Source\GLSL\PostEffect</Filter>
+    </None>
+    <None Include="Shaders\PostEffect\InvertColorScreen.frag">
+      <Filter>Source\GLSL\PostEffect</Filter>
+    </None>
+    <None Include="Shaders\PostEffect\SharpEdgeScreen.frag">
+      <Filter>Source\GLSL\PostEffect</Filter>
+    </None>
+    <None Include="Shaders\OutScreen.frag">
+      <Filter>Source\GLSL</Filter>
+    </None>
+    <None Include="Shaders\OutScreen.vert">
+      <Filter>Source\GLSL</Filter>
+    </None>
+    <None Include="Shaders\PBR\PBR_Basic.frag">
+      <Filter>Source\GLSL\PBR</Filter>
+    </None>
+    <None Include="Shaders\PBR\PBR_Basic.vert">
+      <Filter>Source\GLSL\PBR</Filter>
+    </None>
+    <None Include="Shaders\Sprite\SpriteShader.frag">
+      <Filter>Source\GLSL\Sprite</Filter>
+    </None>
+    <None Include="Shaders\Sprite\SpriteShader.vert">
+      <Filter>Source\GLSL\Sprite</Filter>
+    </None>
+    <None Include="Shaders\Sprite\WorldSpaceSprite.frag">
+      <Filter>Source\GLSL\Sprite</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\DepthMap.frag">
+      <Filter>Source\GLSL\ForwardRendering\ShadowMap</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\DepthMap.vert">
+      <Filter>Source\GLSL\ForwardRendering\ShadowMap</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\EnvironmentMap.frag">
+      <Filter>Source\GLSL\ForwardRendering\EnvironmentMap</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\EnvironmentMap.vert">
+      <Filter>Source\GLSL\ForwardRendering\EnvironmentMap</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\NormalMap.frag">
+      <Filter>Source\GLSL\ForwardRendering\NormalMap</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\NormalMap.vert">
+      <Filter>Source\GLSL\ForwardRendering\NormalMap</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\Phong.frag">
+      <Filter>Source\GLSL\ForwardRendering\Phong</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\Phong.vert">
+      <Filter>Source\GLSL\ForwardRendering\Phong</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\Skinned.vert">
+      <Filter>Source\GLSL\ForwardRendering\Skinned</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\SkinnedDepth.vert">
+      <Filter>Source\GLSL\ForwardRendering\Skinned</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\SkinnedDepthNormal.vert">
+      <Filter>Source\GLSL\ForwardRendering\Skinned</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\SkinnedShadow.vert">
+      <Filter>Source\GLSL\ForwardRendering\Skinned</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\ShadowSkinnedNormal.vert">
+      <Filter>Source\GLSL\ForwardRendering\Skinned</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\PhongShadow.frag">
+      <Filter>Source\GLSL\ForwardRendering\Phong</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\PhongShadow.vert">
+      <Filter>Source\GLSL\ForwardRendering\Phong</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\ShadowNormalMap.frag">
+      <Filter>Source\GLSL\ForwardRendering\NormalMap</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\ShadowNormalMap.vert">
+      <Filter>Source\GLSL\ForwardRendering\NormalMap</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\SkyBox.vert">
+      <Filter>Source\GLSL\ForwardRendering\SkyBox</Filter>
+    </None>
+    <None Include="Shaders\ForwardRendering\SkyBox.frag">
+      <Filter>Source\GLSL\ForwardRendering\SkyBox</Filter>
+    </None>
+    <None Include="Shaders\HUD\HUD_MapInput.frag">
+      <Filter>Source\GLSL\HUD</Filter>
+    </None>
+    <None Include="Shaders\HUD\HUD_MapInput.vert">
+      <Filter>Source\GLSL\HUD</Filter>
+    </None>
   </ItemGroup>
 </Project>

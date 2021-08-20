@@ -1,9 +1,3 @@
-//-----------------------------------------------------------------------+
-// レンダラー(グラフィック描画)クラス.
-// 
-// 
-// copyright (C) 2019 Yutaro Ono. all rights reserved.
-//-----------------------------------------------------------------------+
 #include "Renderer.h"
 #include "GameMain.h"
 #include "Texture.h"
@@ -927,7 +921,7 @@ bool Renderer::LoadShaders()
 
 	// マップHUD入力用シェーダー
 	m_mapInputShader = new Shader();
-	if (!m_mapInputShader->Load("Data/Shaders/HUD/HUD_MapShader.vert", "Data/Shaders/HUD/HUD_MapShader.frag"))
+	if (!m_mapInputShader->Load("Data/Shaders/HUD/HUD_MapInput.vert", "Data/Shaders/HUD/HUD_MapInput.frag"))
 	{
 		return false;
 	}

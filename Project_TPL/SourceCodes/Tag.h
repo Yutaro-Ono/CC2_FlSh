@@ -24,6 +24,10 @@ enum class OBJECT_TAG : unsigned char
 
 	PLAYER,
 
+	NPC,
+
+	VEHICLE,
+
 	STATIC_OBJECT,
 
 	DEBUG_SPHERE,

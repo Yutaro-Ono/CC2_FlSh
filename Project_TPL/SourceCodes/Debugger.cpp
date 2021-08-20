@@ -42,6 +42,7 @@ Debugger::~Debugger()
 
 /// <summary>
 /// ‰Šú‰»ˆ—
+/// ¦Renderer‚ÅSDLWindow‚ğì¬‚µ‚Ä‚¢‚é•K—v‚ª‚ ‚é
 /// </summary>
 /// <returns> ‰Šú‰»¸”s‚Éfalse‚ğ•Ô‚· </returns>
 bool Debugger::Initialize()
