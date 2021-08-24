@@ -19,10 +19,6 @@
 #include <SDL_syswm.h>
 #include <glad/glad.h>
 #include "Math.h"
-#include "../imgui/imconfig.h"
-#include "../imgui/imgui.h"
-#include "../imgui/imgui_impl_opengl3.h"
-#include "../imgui/imgui_impl_sdl.h"
 
 // ディレクショナルライト構造体(平行ライト:シーン全体に降り注ぐ光)
 typedef struct DirectionalLight
@@ -43,6 +39,7 @@ class Renderer
 
 public:
 
+	// 描画モード（正面・遅延）
 	enum RENDER_MODE
 	{
 		FORWARD = 0,

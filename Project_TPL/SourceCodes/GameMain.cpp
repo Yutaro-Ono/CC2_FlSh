@@ -17,12 +17,8 @@
 #include "Font.h"
 #include "PauseScreen.h"
 #include "LoadScreen.h"
-#include "glad/glad.h"
 #include <algorithm>
 #include <utility>
-#include <SDL.h>
-#include <SDL_ttf.h>
-#include <SDL_mixer.h>
 #include <typeinfo>
 #include <iostream>
 #include <fstream>
@@ -36,8 +32,6 @@ const std::string GameMain::FONT_FILE_PATH = "Data/Fonts/SackersGothicLightAT.tt
 GameMain::GameMain()
 	:m_state(PLAYING)
 	,m_renderer(nullptr)
-	,m_debugWindow(nullptr)
-	,m_debugRenderer(nullptr)
 	,m_audio(nullptr)
 	,m_config(nullptr)
 	,m_isRunning(true)
@@ -231,10 +225,6 @@ void GameMain::Delete()
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();
 
-	// SDLウィンドウの破棄(デバッグ用)
-	SDL_DestroyWindow(m_debugWindow);
-	// SDLレンダラーの破棄(デバッグ用)
-	SDL_DestroyRenderer(m_debugRenderer);
 	SDL_Quit();
 
 
@@ -279,8 +269,7 @@ void GameMain::RunLoop()
 int GameMain::UpdateGame()
 {
 	// 16ミリ秒(= 60フレーム/秒)になるように、前のフレームから16ミリ秒以上経過するまで待つ
-	while (!SDL_TICKS_PASSED(SDL_GetTicks(), m_ticksCount + 16))
-		;
+	while (!SDL_TICKS_PASSED(SDL_GetTicks(), m_ticksCount + 16));
 
 	// フレーム更新
 	m_frame++;
@@ -345,7 +334,6 @@ int GameMain::UpdateGame()
 		{
 			ui->Update(m_deltaTime);
 		}
-
 	}
 
 	// シーン更新の判定処理

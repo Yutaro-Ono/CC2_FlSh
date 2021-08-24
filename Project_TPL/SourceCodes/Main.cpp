@@ -6,14 +6,10 @@
 //-----------------------------------------------------------------------+
 // インクルードファイル
 #include "GameMain.h"
-#include "Renderer.h"
-#include "SceneBase.h"
 #include "TitleScene.h"
 #include "GameScene.h"
 #include "TutorialScene.h"
 #include "ResultScene.h"
-#include <SDL.h>
-#include <glad/glad.h>
 #include <iostream>
 #include <string>
 
@@ -49,8 +45,6 @@ int main(int argc, char** argv)
 	{
 		// 最初のシーンのセット
 		GAME_INSTANCE.SetFirstScene(new TitleScene());
-		//GAME_INSTANCE.SetFirstScene(new ResultScene(100, 100));
-		//GAME_INSTANCE.SetFirstScene(new TutorialScene());
 
 		// ゲームループ
 		GAME_INSTANCE.RunLoop();

@@ -14,9 +14,12 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
+#include "glad/glad.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_types.h>
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include "../imgui/imconfig.h"
 #include "../imgui/imgui.h"
 #include "../imgui/imgui_impl_opengl3.h"
@@ -42,7 +45,7 @@ public:
 		QUIT
 	};
 
-	// シングルトン
+	// シングルトン(静的インスタンスのゲッター)
 	static GameMain& GetInstance()
 	{
 		static GameMain game;
@@ -59,11 +62,11 @@ public:
 
 	void   SetFirstScene(class SceneBase* _scene);                                // 開始シーンのセット
 
-	void SetShutDown() { m_isRunning = false; }                                     // シャットダウン処理
+	void   SetShutDown() { m_isRunning = false; }                                     // シャットダウン処理
 
-	void AddActor(class Actor* _actor);                                           // アクターの追加
-	void RemoveActor(class Actor* _actor);                                        // アクターの削除
-	void DeadAllActor();                                                            // アクター全削除
+	void   AddActor(class Actor* _actor);                                           // アクターの追加
+	void   RemoveActor(class Actor* _actor);                                        // アクターの削除
+	void   DeadAllActor();                                                            // アクター全削除
 
 
     //--------------------------------------------------------------------//
@@ -132,7 +135,7 @@ private:
 
 	class GameConfig* m_config;
 	class Renderer* m_renderer;                                              // レンダリングクラス
-	class SceneBase*   m_nowScene;                                           // 現在のシーンのインスタンス
+	class SceneBase*   m_nowScene;                                           // 現在のシーン
 
 	class CameraComponent* m_activeCamera;                                   // アクティブなカメラ
 
@@ -147,8 +150,8 @@ private:
 	std::vector<class UIScreen*> m_uiStack;                                  // UIスタック
 	std::unordered_map<std::string, class Font*> m_fonts;                    // フォントマップ (キー : ttfファイルパス)
 	std::unordered_map<std::string, std::string> m_text;                     // テキスト文字列 (キー : テキスト文字列
-	class PauseScreen* m_pauseScreen;                                              // ポーズ画面
-	class LoadScreen* m_loadScreen;                                                // ロード画面
+	class PauseScreen* m_pauseScreen;                                        // ポーズ画面
+	class LoadScreen* m_loadScreen;                                          // ロード画面
 
 	// 各種オブジェクトプール群
 	class ActorPool* m_actorPool;
@@ -157,9 +160,6 @@ private:
 
 	// デバッグクラス
 	class Debugger* m_debugger;
-	// デバッグ用ウィンドウ・レンダラー
-	SDL_Window* m_debugWindow;                                               // SDLウィンドウ(デバッグ用)
-	SDL_Renderer* m_debugRenderer;                                           // SDLレンダラー
 
 	static const std::string FONT_FILE_PATH;                                 // 標準のフォントパス
 
