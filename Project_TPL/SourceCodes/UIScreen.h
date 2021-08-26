@@ -21,10 +21,10 @@ public:
 	UIScreen();                                                // コンストラクタ
 	virtual ~UIScreen();                                       // デストラクタ
 
-	virtual void Update(float in_deltaTime);                   // 更新処理
-	virtual void Draw(class Shader* in_shader);                // 描画処理
+	virtual void Update(float _deltaTime);                   // 更新処理
+	virtual void Draw(class GLSLprogram* _shader);                // 描画処理
 	virtual void ProcessInput();
-	virtual void HandleKeyPress(int in_key);
+	virtual void HandleKeyPress(int _key);
 	
 	// ステート(CLOSEで消去される)
 	enum UIState
@@ -38,19 +38,19 @@ public:
 	UIState GetState() const { return m_state; }
 
 	// 指定した文字列のテクスチャ化
-	void SetTitle(const std::string& in_text, const Vector3& in_color = Color::White,
-		          int in_pointSize = 40);
+	void SetTitle(const std::string& _text, const Vector3& _color = Color::White,
+		          int _pointSize = 40);
 
 
 
 protected:
 
 	
-	void DrawTexture(class Shader* in_shader, class Texture* in_texture,
-		const Vector2& offset = Vector2::Zero,
-		float scale = 1.0f);
+	void DrawTexture(class GLSLprogram* _shader, class Texture* _texture,
+		const Vector2& _offset = Vector2::Zero,
+		float _scale = 1.0f);
 	
-	void SetRelativeMouseMode(bool in_relative);
+	void SetRelativeMouseMode(bool _relative);
 
 	class Font* m_font;
 	class Texture* m_texture;

@@ -1,7 +1,6 @@
 #pragma once
 #include "Actor.h"
 
-
 class SandSmoke : public Actor
 {
 

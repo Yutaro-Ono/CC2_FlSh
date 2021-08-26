@@ -8,12 +8,12 @@ class PointLightComponent : public Component
 
 public:
 
-	PointLightComponent(class PointLight* in_light);
+	PointLightComponent(class PointLight* _light);
 	~PointLightComponent();
 
-	void SetLightParam(PointLight::LIGHT_VOLUME in_vol);    // ライトパラメータのセット
+	void SetLightParam(PointLight::LIGHT_VOLUME _vol);    // ライトパラメータのセット
 
-	void Draw(class Shader* in_shader);
+	void Draw(class GLSLprogram* _shader);
 
 
 private:

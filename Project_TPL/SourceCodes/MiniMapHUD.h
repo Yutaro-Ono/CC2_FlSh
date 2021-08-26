@@ -7,17 +7,17 @@ class MiniMapHUD
 
 public:
 
-	MiniMapHUD(class PlayerManager* in_target);
+	MiniMapHUD(class PlayerManager* _target);
 	~MiniMapHUD();
 
-	void WriteBuffer(class Shader* in_shader, std::vector<class MeshComponent*> in_mesh);
+	void WriteBuffer(class GLSLprogram* _shader, std::vector<class MeshComponent*> _mesh);
 
-	void Draw(class Shader* in_shader);
+	void Draw(class GLSLprogram* _shader);
 
 
 private:
 
-	void CreateFBO(unsigned int& in_fbo);
+	void CreateFBO(unsigned int& _fbo);
 
 	unsigned int m_miniMapFBO;
 	unsigned int m_mapBuffer;

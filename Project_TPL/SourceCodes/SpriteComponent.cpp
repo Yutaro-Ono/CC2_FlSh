@@ -7,16 +7,16 @@
 #include "SpriteComponent.h"
 #include "GameMain.h"
 #include "Texture.h"
-#include "Shader.h"
+#include "GLSLprogram.h"
 #include "Actor.h"
 #include "Renderer.h"
 
 
 // コンストラクタ
-SpriteComponent::SpriteComponent(Actor * in_owner, int in_drawOrder)
-	:Component(in_owner)
+SpriteComponent::SpriteComponent(Actor * _owner, int _drawOrder)
+	:Component(_owner)
 	,m_texture(nullptr)
-	,m_drawOrder(in_drawOrder)
+	,m_drawOrder(_drawOrder)
 	,m_textureWidth(0)
 	,m_textureHeight(0)
 	,m_visible(true)
@@ -37,7 +37,7 @@ SpriteComponent::~SpriteComponent()
 
 
 // 描画処理
-void SpriteComponent::Draw(Shader * in_shader)
+void SpriteComponent::Draw(GLSLprogram * _shader)
 {
 
 	if (m_texture)
@@ -51,8 +51,8 @@ void SpriteComponent::Draw(Shader * in_shader)
 		Matrix4 world = scaleMat * m_owner->GetWorldTransform();
 
 		// WorldTransformをセット
-		in_shader->SetMatrixUniform("u_worldTransform", world);
-		in_shader->SetInt("u_texture", 0);
+		_shader->SetUniform("u_worldTransform", world);
+		_shader->SetUniform("u_texture", 0);
 		// テクスチャをアクティブ
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, m_texture->GetTextureID());
@@ -65,12 +65,12 @@ void SpriteComponent::Draw(Shader * in_shader)
 
 
 // テクスチャのセット
-void SpriteComponent::SetTexture(Texture * in_texture)
+void SpriteComponent::SetTexture(Texture * _texture)
 {
 
-	m_texture = in_texture;
+	m_texture = _texture;
 	// 横幅と縦幅のセット
-	m_textureWidth = in_texture->GetWidth();
-	m_textureHeight = in_texture->GetHeight();
+	m_textureWidth = _texture->GetWidth();
+	m_textureHeight = _texture->GetHeight();
 
 }

@@ -1,15 +1,15 @@
 #include "MiniMapHUD.h"
 #include "GameMain.h"
 #include "Renderer.h"
-#include "Shader.h"
+#include "GLSLprogram.h"
 #include "GameWorld.h"
 #include "PlayerManager.h"
 #include "Texture.h"
 #include "MeshComponent.h"
 #include "LandMarkIndicator.h"
 
-MiniMapHUD::MiniMapHUD(PlayerManager* in_target)
-	:m_target(in_target)
+MiniMapHUD::MiniMapHUD(PlayerManager* _target)
+	:m_target(_target)
 	,m_miniMapFBO(0)
 	,m_mapBuffer(0)
 	,m_rbo(0)
@@ -36,7 +36,7 @@ MiniMapHUD::MiniMapHUD(PlayerManager* in_target)
 	m_mapTex->Load("Data/Interface/HUD/Map/MapHUD.png");
 
 	// HUD上の矢印を生成
-	m_landMark = new LandMarkIndicator(in_target);
+	m_landMark = new LandMarkIndicator(_target);
 }
 
 MiniMapHUD::~MiniMapHUD()
@@ -44,10 +44,13 @@ MiniMapHUD::~MiniMapHUD()
 	
 }
 
-// モデルをマップバッファに書き込む
-void MiniMapHUD::WriteBuffer(Shader* in_shader, std::vector<class MeshComponent*> in_mesh)
+/// <summary>
+/// モデルをマップバッファに書き込む
+/// </summary>
+/// <param name="_shader"> マップ入力用シェーダー </param>
+/// <param name="_mesh"> 書き込むメッシュ情報 </param>
+void MiniMapHUD::WriteBuffer(GLSLprogram* _shader, std::vector<class MeshComponent*> _mesh)
 {
-
 	// フレームバッファのバインド
 	glBindFramebuffer(GL_FRAMEBUFFER, m_miniMapFBO);
 	// ビューポートを変更
@@ -62,26 +65,25 @@ void MiniMapHUD::WriteBuffer(Shader* in_shader, std::vector<class MeshComponent*
 	Matrix4 view = Matrix4::CreateLookAt(m_viewPos, m_target->GetPosition() + Vector3(0.0f, -3900.0f, 0.0f), Vector3::UnitX);
 	// ビュー・プロジェクション合成行列を作成
 	Matrix4 viewProj = view * m_projection;
-	
-	in_shader->SetActive();
-	in_shader->SetMatrixUniform("u_viewProj", viewProj);
+
+	_shader->UseProgram();
+	_shader->SetUniform("u_viewProj", viewProj);
 	glClearColor(1.0f, 0.6f, 0.0f, 1.0f);
 
 	// バッファに書き込む
-	for (auto mesh : in_mesh)
+	for (auto mesh : _mesh)
 	{
-		mesh->DrawMap(in_shader);
+		mesh->DrawMap(_shader);
 	}
 
 	// フレームバッファのバインド解除
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	//// ビューポートを画面サイズに戻す
 	glViewport(0, 0, GAME_CONFIG->GetScreenWidth(), GAME_CONFIG->GetScreenHeight());
-
 }
 
 // 書き込まれたバッファを描画する
-void MiniMapHUD::Draw(Shader* in_shader)
+void MiniMapHUD::Draw(GLSLprogram* in_shader)
 {
 	// テクスチャの縦横サイズにスケールを掛け合わせた値をスケール行列として定義
 	Matrix4 scaleMat = Matrix4::CreateScale(
@@ -97,18 +99,16 @@ void MiniMapHUD::Draw(Shader* in_shader)
 	// スケールと変換行列をワールド行列へ変換
 	Matrix4 world = scaleMat * rotZ * rotY * transMat;
 
-	in_shader->SetActive();
-	in_shader->SetMatrixUniform("u_worldTransform", world);
-	//in_shader->SetMatrixUniform("u_viewProj", viewProj);
-	in_shader->SetInt("u_texture", 0);
-	in_shader->SetInt("u_mapTex", 1);
-	in_shader->SetFloat("u_intensity", 0.1f);
+	in_shader->UseProgram();
+	in_shader->SetUniform("u_worldTransform", world);
+	in_shader->SetUniform("u_texture", 0);
+	in_shader->SetUniform("u_mapTex", 1);
+	in_shader->SetUniform("u_intensity", 0.1f);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_mapBuffer);
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, m_mapTex->GetTextureID());
-
 
 	RENDERER->SetActiveSpriteVAO();
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);

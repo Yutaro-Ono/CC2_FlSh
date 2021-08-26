@@ -11,7 +11,20 @@ class VertexArray
 {
 public:
 
-	// 頂点レイアウト (シェーダへ渡すデータ)
+	//-------------------------------------------------------------------------------------------------------------------+
+    // 頂点レイアウトのデータサイズ
+    // POS_NORMAL_UV = 8 * sizeof(float) = 32 bytes
+    // | POSITION  | NORMAL    | TEXTURE |
+    // | x | y | z | x | y | z | u  | v  | 
+    //
+    // ※タンジェント空間は通常の座標と同じ <3 * sizeof(float) = 12byte>
+    //
+    // POS_NORMAL_SKIN_UV
+    // POS_NORMAL_SKIN_UV = (8 * sizeof(float)) + (8 * sizeof(char)) = 40 bytes
+    // | POSITION  | NORMAL    | BONES   | WEIGHT  |TEXTURE|
+    // | x | y | z | x | y | z | char[4] | char[4] | u | v |
+    //                                    ※WEIGHTの確保はcharだが、精度が必要ないので8bit固定小数として使用する
+    //-------------------------------------------------------------------------------------------------------------------+
 	enum Layout
 	{
 		POS_NORMAL_TEX,                  // 位置、法線、テクスチャUVを持つフォーマット
@@ -24,10 +37,10 @@ public:
 	VertexArray(const void* in_verts, unsigned int in_vertsNum, Layout in_layout, const unsigned int* in_inDices, unsigned int in_numInDices);     // 頂点配列コンストラクタ
 	VertexArray(const float* in_verts, unsigned int in_vertsNum, const unsigned int* in_inDices, unsigned int in_numInDices);
 	VertexArray(const float* in_verts, unsigned int in_vertsNum);
-	// スカイボックス用頂点配列オブジェクトの作成
-	void CreateCubeVerts();
-	// スクリーン用頂点配列オブジェクトの作成
-	void CreateScreenVerts();
+	
+	void CreateCubeVerts();                      // スカイボックス用頂点配列オブジェクトの作成
+	void CreateScreenVerts();                    // スクリーン用頂点配列オブジェクトの作成
+	void CreateSpriteVerts();                    // スプライト用頂点配列オブジェクトの作成
 
 	~VertexArray();                                                        // デストラクタ
 

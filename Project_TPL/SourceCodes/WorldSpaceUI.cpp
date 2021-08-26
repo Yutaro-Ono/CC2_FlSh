@@ -2,32 +2,32 @@
 #include "GameMain.h"
 #include "Renderer.h"
 #include "Texture.h"
-#include "Shader.h"
+#include "GLSLprogram.h"
 #include "CameraComponent.h"
 
 Matrix4 WorldSpaceUI::m_staticBillboardMat;
 const Vector3 adjustPos = Vector3(0.0f, 0.0f, 100.0f);
 
 // コンストラクタ
-WorldSpaceUI::WorldSpaceUI(const Vector3& in_pos, const std::string& in_filePath, float in_scale)
-	:m_position(in_pos + adjustPos)
-	, m_scale(in_scale)
+WorldSpaceUI::WorldSpaceUI(const Vector3& _pos, const std::string& _filePath, float _scale)
+	:m_position(_pos + adjustPos)
+	, m_scale(_scale)
 	, m_texture(nullptr)
 	, m_isVisible(true)
 	,m_worldTransform(Matrix4::Identity)
 {
 	// テクスチャの取得・生成
-	m_texture = RENDERER->GetTexture(in_filePath);
+	m_texture = RENDERER->GetTexture(_filePath);
 	RENDERER->AddSpriteWorld(this);
 }
 
-WorldSpaceUI::WorldSpaceUI(const Vector3& in_pos, Texture* in_texture, float in_scale)
-	:m_position(in_pos + adjustPos)
-	, m_scale(in_scale)
+WorldSpaceUI::WorldSpaceUI(const Vector3& _pos, Texture* _texture, float _scale)
+	:m_position(_pos + adjustPos)
+	, m_scale(_scale)
 	, m_texture(nullptr)
 	, m_isVisible(true)
 {
-	m_texture = in_texture;
+	m_texture = _texture;
 	RENDERER->AddSpriteWorld(this);
 }
 
@@ -38,7 +38,7 @@ WorldSpaceUI::~WorldSpaceUI()
 }
 
 // 描画処理
-void WorldSpaceUI::Draw(Shader* in_shader)
+void WorldSpaceUI::Draw(GLSLprogram* _shader)
 {
 	if (m_isVisible)
 	{
@@ -59,11 +59,11 @@ void WorldSpaceUI::Draw(Shader* in_shader)
 		view = RENDERER->GetViewMatrix();
 
 		Matrix4 simpleViewProj = Matrix4::CreateSimpleViewProj(1920, 1080);
-		in_shader->SetMatrixUniform("u_viewProj", simpleViewProj);
+		_shader->SetUniform("u_viewProj", simpleViewProj);
 
 		// シェーダのユニフォームへワールド合成行列・アルファ値をセット
-		in_shader->SetMatrixUniform("u_worldTransform", scale * m_staticBillboardMat * mat);
-		in_shader->SetInt("u_texture", 0);
+		_shader->SetUniform("u_worldTransform", scale * m_staticBillboardMat * mat);
+		_shader->SetUniform("u_texture", 0);
 		//in_shader->SetMatrixUniform("u_View", view);
 		//in_shader->SetMatrixUniform("u_Projection", projection);
 

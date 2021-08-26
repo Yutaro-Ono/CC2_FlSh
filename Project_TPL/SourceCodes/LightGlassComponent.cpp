@@ -1,12 +1,12 @@
 #include "LightGlassComponent.h"
 #include "Mesh.h"
-#include "Shader.h"
+#include "GLSLprogram.h"
 #include "VertexArray.h"
 #include "Actor.h"
 #include "Renderer.h"
 
-LightGlassComponent::LightGlassComponent(Actor* in_owner)
-	:Component(in_owner)
+LightGlassComponent::LightGlassComponent(Actor* _owner)
+	:Component(_owner)
 	,m_mesh(nullptr)
 	,m_lightColor(Vector3(0.5f, 0.5f, 0.5f))
 	,m_luminance(1.0f)
@@ -20,7 +20,7 @@ LightGlassComponent::~LightGlassComponent()
 	RENDERER->RemoveLightGlassComponent(this);
 }
 
-void LightGlassComponent::Draw(Shader* in_shader)
+void LightGlassComponent::Draw(GLSLprogram* _shader)
 {
 
 	if (!m_isVisible)
@@ -31,9 +31,9 @@ void LightGlassComponent::Draw(Shader* in_shader)
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		// uniformへのセット
-		in_shader->SetMatrixUniform("u_worldTransform", m_owner->GetWorldTransform());
-		in_shader->SetVectorUniform("u_lightColor", m_lightColor);
-		in_shader->SetFloat("u_luminance", m_luminance);
+		_shader->SetMatrixUniform("u_worldTransform", m_owner->GetWorldTransform());
+		_shader->SetVectorUniform("u_lightColor", m_lightColor);
+		_shader->SetFloat("u_luminance", m_luminance);
 
 		// 頂点配列のバインド
 		VertexArray* vao = m_mesh->GetVertexArray();

@@ -1,12 +1,12 @@
 #include "PointLightComponent.h"
 #include "GameMain.h"
 #include "Renderer.h"
-#include "Shader.h"
+#include "GLSLprogram.h"
 #include "Mesh.h"
 
-PointLightComponent::PointLightComponent(PointLight* in_light)
-	:Component(in_light)
-	,m_light(in_light)
+PointLightComponent::PointLightComponent(PointLight* _light)
+	:Component(_light)
+	,m_light(_light)
 	,m_mesh(nullptr)
 	,m_constant(1.0f)
 {
@@ -28,21 +28,21 @@ PointLightComponent::~PointLightComponent()
 
 
 // ライトの描画
-void PointLightComponent::Draw(Shader* in_shader)
+void PointLightComponent::Draw(GLSLprogram* _shader)
 {
 	// ポイントライトパラメータをセット
-	in_shader->SetVectorUniform("u_pl.position", m_light->GetPosition());
-	in_shader->SetFloat("u_pl.constant", m_constant);
-	in_shader->SetFloat("u_pl.linear", m_linear);
-	in_shader->SetFloat("u_pl.quadratic", m_quadratic);
+	_shader->SetUniform("u_pl.position", m_light->GetPosition());
+	_shader->SetUniform("u_pl.constant", m_constant);
+	_shader->SetUniform("u_pl.linear", m_linear);
+	_shader->SetUniform("u_pl.quadratic", m_quadratic);
 	// カラーのセット
-	in_shader->SetVectorUniform("u_pl.diffuse", m_light->GetDiffuseColor());
-	in_shader->SetVectorUniform("u_pl.ambient", m_light->GetAmbientColor());
-	in_shader->SetVectorUniform("u_pl.specular", m_light->GetSpecularColor());
-	in_shader->SetFloat("u_pl.luminance", m_light->GetLuminance());
+	_shader->SetUniform("u_pl.diffuse", m_light->GetDiffuseColor());
+	_shader->SetUniform("u_pl.ambient", m_light->GetAmbientColor());
+	_shader->SetUniform("u_pl.specular", m_light->GetSpecularColor());
+	_shader->SetUniform("u_pl.luminance", m_light->GetLuminance());
 
 	// 座標のセット
-	in_shader->SetMatrixUniform("u_worldTransform", m_light->GetWorldTransform());
+	_shader->SetUniform("u_worldTransform", m_light->GetWorldTransform());
 
 	// 頂点配列をアクティブに
 	VertexArray* va = m_mesh->GetVertexArray();
@@ -55,30 +55,30 @@ void PointLightComponent::Draw(Shader* in_shader)
 /// ライトパラメータのセット・ボリュームタイプに応じた値をセット
 /// </summary>
 /// <param name="in_vol"> ポイントライトアクタのボリュームタイプ </param>
-void PointLightComponent::SetLightParam(PointLight::LIGHT_VOLUME in_vol)
+void PointLightComponent::SetLightParam(PointLight::LIGHT_VOLUME _vol)
 {
 	// 小サイズ
-	if (in_vol == PointLight::LIGHT_VOLUME::VL_SMALL)
+	if (_vol == PointLight::LIGHT_VOLUME::VL_SMALL)
 	{
 		m_radius = 325.0f;
 		m_linear = 0.014;
 		m_quadratic = 0.0007;
 	}
-	else if (in_vol == PointLight::LIGHT_VOLUME::VL_VERY_SMALL)
+	else if (_vol == PointLight::LIGHT_VOLUME::VL_VERY_SMALL)
 	{
 		m_radius = 50.0f;
 		m_linear = 0.09;
 		m_quadratic = 0.032;
 	}
 	// 中サイズ
-	else if (in_vol == PointLight::LIGHT_VOLUME::VL_MEDIUM)
+	else if (_vol == PointLight::LIGHT_VOLUME::VL_MEDIUM)
 	{
 		m_radius = 600.0f;
 		m_linear = 0.007;
 		m_quadratic = 0.0002;
 	}
 	// 大サイズ
-	else if (in_vol == PointLight::LIGHT_VOLUME::VL_BIG)
+	else if (_vol == PointLight::LIGHT_VOLUME::VL_BIG)
 	{
 		m_radius = 3250.0f;
 		m_linear = 0.0014;

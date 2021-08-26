@@ -27,7 +27,12 @@ enum class GLSL_SHADER : unsigned char
 
 	GBUFFER_NORMAL,
 	GBUFFER_PHONG_NORMAL,
+	GBUFFER_NORMAL_SHADOW,
+	GBUFFER_SKINMESH,
 	GBUFFER_SKYBOX,
+	GBUFFER_ENVIRONMENT,
+	GBUFFER_CAR_BODY,
+	GBUFFER_GLASS,
 
 	DOWNSAMPLING,
 	GAUSSIAN_BLUR,
@@ -36,6 +41,8 @@ enum class GLSL_SHADER : unsigned char
 	BASIC_ENVIRONMENT,
 	GBUFFER_ENVIRONMENT,
 
+	SPRITE_2D,
+	SPRITE_3D,
 	HUD_INPUT,
 	HUD_OUTPUT,
 
@@ -60,13 +67,10 @@ public:
 
 	class GLSLprogram* GetShader(GLSL_SHADER _type);
 
+
 private:
-
-
 
 	// シェーダークラス格納用の連想配列
 	std::unordered_map<GLSL_SHADER, class GLSLprogram*> m_shaders;
-
-
 
 };

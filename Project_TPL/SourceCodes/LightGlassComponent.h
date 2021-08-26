@@ -6,22 +6,22 @@ class LightGlassComponent : public Component
 {
 public:
 
-	LightGlassComponent(class Actor* in_owner);
+	LightGlassComponent(class Actor* _owner);
 	~LightGlassComponent();
 
 	// メッシュのセット
-	void SetMesh(class Mesh* in_mesh) { m_mesh = in_mesh; }
+	void SetMesh(class Mesh* _mesh) { m_mesh = _mesh; }
 
 	// 描画処理
-	void Draw(class Shader* in_shader);
+	void Draw(class GLSLprogram* _shader);
 
 
 	//----------------------------------------------+
 	// Setter / Getter
 	//----------------------------------------------+
-	void SetLightColor(const Vector3& in_color) { m_lightColor = in_color; }         // ライトカラーのセット
-	void SetLightLuminance(float in_luminance) { m_luminance = in_luminance; }       // ライト輝度のセット
-	void SetVisible(bool in_visible) { m_isVisible = in_visible; }
+	void SetLightColor(const Vector3& _color) { m_lightColor = _color; }         // ライトカラーのセット
+	void SetLightLuminance(float _luminance) { m_luminance = _luminance; }       // ライト輝度のセット
+	void SetVisible(bool _visible) { m_isVisible = _visible; }
 
 private:
 

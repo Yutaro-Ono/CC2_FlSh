@@ -77,6 +77,9 @@ void GLSLprogram::Delete()
 {
     // シェーダープログラムの解放
     glDeleteProgram(m_shaderProgram);
+    glDeleteShader(m_vertexShader);
+    glDeleteShader(m_fragmentShader);
+    glDeleteShader(m_geometryShader);
 }
 
 /// <summary>
@@ -159,7 +162,6 @@ bool GLSLprogram::LinkShaders(const unsigned int& _vertShader, const unsigned in
 
         return false;
     }
-
 
     return true;
 }
@@ -299,5 +301,15 @@ void GLSLprogram::SetUniform(const char* _name, const Matrix4& _mat)
     if (loc >= 0)
     {
         glUniformMatrix4fv(loc, 1, GL_FALSE, _mat.GetAsFloatPtr());
+    }
+}
+
+void GLSLprogram::SetUniform(const char* _name, Matrix4* _matrices, unsigned _count)
+{
+    int loc = glGetUniformLocation(m_shaderProgram, _name);
+
+    if (loc >= 0)
+    {
+        glUniformMatrix4fv(loc, _count, GL_TRUE, _matrices->GetAsFloatPtr());
     }
 }

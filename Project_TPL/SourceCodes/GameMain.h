@@ -14,16 +14,12 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
-#include "glad/glad.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_types.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
-#include "../imgui/imconfig.h"
-#include "../imgui/imgui.h"
-#include "../imgui/imgui_impl_opengl3.h"
-#include "../imgui/imgui_impl_sdl.h"
+#include "GL/glew.h"
 #include "Math.h"
 #include "GameConfig.h"
 #include "Renderer.h"
@@ -74,9 +70,10 @@ public:
 	//-------------------------------------------------------------------//
 	class GameConfig* GetConfig() const { return m_config; }                         // ゲーム設定クラスのゲッター
 	class Renderer* GetRenderer() const { return m_renderer; }                       // レンダラー取得
-	class AudioManager* const GetAudio() { return m_audio; }                          // オーディオのゲッター
+	class Debugger* GetDebugger() const { return m_debugger; }                       // デバッガ―取得
+	class AudioManager* const GetAudio() { return m_audio; }                         // オーディオのゲッター
 	class PhysicsWorld* const GetPhysics() { return m_physicsWorld; }                // 当たり判定クラスのゲッター
-	class LoadScreen* const GetLoadScreen() { return m_loadScreen; }                       // ロードスクリーンクラスのゲッター
+	class LoadScreen* const GetLoadScreen() { return m_loadScreen; }                 // ロードスクリーンクラスのゲッター
 
 	SDL_Renderer* GetSDLRenderer();                                                  // 2D用SDLレンダラーの取得
 	// カメラ
@@ -170,4 +167,5 @@ private:
 // 各クラスポインタのゲッターdefine化
 #define RENDERER GameMain::GetInstance().GetRenderer()
 #define GAME_CONFIG GameMain::GetInstance().GetConfig()
+#define DEBUGGER GameMain::GetInstance().GetDebugger()
 #define AUDIO GameMain::GetInstance().GetAudio()

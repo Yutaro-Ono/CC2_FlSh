@@ -5,7 +5,7 @@
 // copyright (C) 2019 Yutaro Ono. all rights reserved.
 //------------------------------------------------------------------------------+
 #include "VertexArray.h"
-#include <glad/glad.h>
+#include <GL/glew.h>
 
 // 標準コンストラクタ
 VertexArray::VertexArray()
@@ -281,6 +281,48 @@ void VertexArray::CreateScreenVerts()
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+}
+
+/// <summary>
+/// スプライト(2Dオブジェクト)用 頂点配列の生成
+/// </summary>
+void VertexArray::CreateSpriteVerts()
+{
+	float vertices[] =
+	{
+		// x     y     z    nx   ny   nz    u    v
+		  -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // 左上頂点
+		   0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, // 右上頂点
+		   0.5f,-0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, // 右下頂点
+		  -0.5f,-0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f  // 左下頂点
+	};
+
+	unsigned int indices[] =
+	{
+		0, 2, 1,
+		2, 0, 3
+	};
+
+	unsigned vertexSize = 8 * sizeof(float);
+	// 頂点バッファの作成
+	glGenBuffers(1, &m_VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	glBufferData(GL_ARRAY_BUFFER, 4 * vertexSize, vertices, GL_STATIC_DRAW);
+	// インデックスバッファの作成
+	glGenBuffers(1, &m_indexBuffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+	// float 3個分　→　位置 x,y,z　位置属性をセット
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertexSize, 0);
+	// 次のfloat 3個分 → 法線 nx, ny, nz　法線属性をセット
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertexSize,
+		reinterpret_cast<void*>(sizeof(float) * 3));
+	// 次のfloat 2個分 u, v  テクスチャ座標属性をセット
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, vertexSize,
+		reinterpret_cast<void*>(sizeof(float) * 6));
 }
 
 // デストラクタ

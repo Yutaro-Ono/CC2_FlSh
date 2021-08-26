@@ -1,5 +1,5 @@
 #include "SkeletalMeshComponent.h"
-#include "Shader.h"
+#include "GLSLprogram.h"
 #include "Mesh.h"
 #include "Actor.h"
 #include "GameMain.h"
@@ -16,18 +16,18 @@ SkeletalMeshComponent::SkeletalMeshComponent(Actor* in_owner)
 {
 }
 
-void SkeletalMeshComponent::Draw(Shader* in_shader)                         // •`‰æ
+void SkeletalMeshComponent::Draw(GLSLprogram* in_shader)                         // •`‰æ
 {
 	if (m_mesh && m_visible)
 	{
 		// ƒ[ƒ‹ƒh•ÏŠ·s—ñƒZƒbƒg
-		in_shader->SetMatrixUniform("u_worldTransform",
+		in_shader->SetUniform("u_worldTransform",
 			m_owner->GetWorldTransform());
 		// s—ñƒpƒŒƒbƒg‚ğƒZƒbƒg    
-		in_shader->SetMatrixUniforms("u_matrixPalette", &m_palette.mEntry[0],
+		in_shader->SetUniform("u_matrixPalette", &m_palette.mEntry[0],
 			MAX_SKELETON_BONES);
 		// ƒXƒyƒLƒ…ƒ‰[‹­“x‚ğƒZƒbƒg
-		in_shader->SetFloatUniform("u_specPower", 21);
+		in_shader->SetUniform("u_specPower", 21);
 
 		// ŠeíƒeƒNƒXƒ`ƒƒ‚ğƒVƒF[ƒ_‚ÉƒZƒbƒg‚·‚é
 		// ƒeƒNƒXƒ`ƒƒ‚ª“Ç‚İ‚Ü‚ê‚Ä‚¢‚È‚¢ê‡‚Í–³Œø‚È”š "0" ‚ª•Ô‚³‚ê‚é
@@ -51,15 +51,15 @@ void SkeletalMeshComponent::Draw(Shader* in_shader)                         // •
 	}
 }
 
-void SkeletalMeshComponent::DrawShadow(Shader* in_shader)
+void SkeletalMeshComponent::DrawShadow(GLSLprogram* in_shader)
 {
 	if (m_mesh)
 	{
 		// ƒ[ƒ‹ƒh•ÏŠ·s—ñƒZƒbƒg
-		in_shader->SetMatrixUniform("u_worldTransform",
+		in_shader->SetUniform("u_worldTransform",
 			m_owner->GetWorldTransform());
 		// s—ñƒpƒŒƒbƒg‚ğƒZƒbƒg    
-		in_shader->SetMatrixUniforms("u_matrixPalette", &m_palette.mEntry[0],
+		in_shader->SetUniform("u_matrixPalette", &m_palette.mEntry[0],
 			MAX_SKELETON_BONES);
 
 		// ƒƒbƒVƒ…‚Ì’¸“_”z—ñ‚ğƒAƒNƒeƒBƒu‚É

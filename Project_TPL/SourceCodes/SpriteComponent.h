@@ -15,17 +15,17 @@ class SpriteComponent : public Component
 
 public:
 
-	SpriteComponent(class Actor* in_owner, int in_drawOrder = 100);
+	SpriteComponent(class Actor* _owner, int _drawOrder = 100);
 	~SpriteComponent();
 
-	virtual void Draw(class Shader* in_shader);
-	virtual void SetTexture(class Texture* in_texture);
+	virtual void Draw(class GLSLprogram* _shader);
+	virtual void SetTexture(class Texture* _texture);
 
 	int GetDrawOrder() const { return m_drawOrder; }
 	int GetTexHeight() const { return m_textureHeight; }
 	int GetTexWidth() const { return m_textureWidth; }	
 
-	void SetVisible(bool in_visible) { m_visible = in_visible; }
+	void SetVisible(bool _visible) { m_visible = _visible; }
 	bool GetVisible() const { return m_visible; }
 
 	class Texture* GetTexture() { return m_texture; }

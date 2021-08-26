@@ -1,6 +1,6 @@
-//
+//------------------------------------------------------------------+
 // 環境マップオブジェクトコンポーネント
-//
+//------------------------------------------------------------------+
 #pragma once
 #include "Component.h"
 #include <vector>
@@ -10,16 +10,16 @@ class EnvironmentMapComponent : public Component
 
 public:
 
-	EnvironmentMapComponent(class Actor* in_owner);     // コンストラクタ
+	EnvironmentMapComponent(class Actor* _owner);     // コンストラクタ
 	~EnvironmentMapComponent();                         // デストラクタ
 
-	void SetMesh(class Mesh* in_mesh) { m_mesh = in_mesh; }
+	void SetMesh(class Mesh* _mesh) { m_mesh = _mesh; }
 
 	// 環境マップオブジェクトの描画処理
-	void DrawEnvironmentMap(class Shader* in_envShader);
+	void DrawEnvironmentMap(class GLSLprogram* _envShader);
 
-	void SetLuminance(float in_lum) { m_luminance = in_lum; }
-	void SetAlpha(float in_alpha) { m_alpha = in_alpha; }
+	void SetLuminance(float _lum) { m_luminance = _lum; }
+	void SetAlpha(float _alpha) { m_alpha = _alpha; }
 
 private:
 

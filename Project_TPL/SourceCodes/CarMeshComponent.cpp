@@ -3,13 +3,13 @@
 #include "Renderer.h"
 #include "Actor.h"
 #include "Mesh.h"
-#include "Shader.h"
+#include "GLSLprogram.h"
 #include "Texture.h"
 #include "ShadowMap.h"
 #include "SkyBox.h"
 
-CarMeshComponent::CarMeshComponent(Actor* in_owner)
-	:Component(in_owner)
+CarMeshComponent::CarMeshComponent(Actor* _owner)
+	:Component(_owner)
 	, m_mesh(nullptr)
 	, m_reflect(true)
 	, m_textureIndex(0)
@@ -23,14 +23,14 @@ CarMeshComponent::~CarMeshComponent()
 	RENDERER->RemoveCarMeshComponent(this);
 }
 
-void CarMeshComponent::Draw(Shader* in_shader)
+void CarMeshComponent::Draw(GLSLprogram* _shader)
 {
 	if (m_mesh != nullptr && m_visible)
 	{
 		// ワールド変換をセット
-		in_shader->SetMatrixUniform("u_worldTransform", m_owner->GetWorldTransform());
+		_shader->SetUniform("u_worldTransform", m_owner->GetWorldTransform());
 		// スペキュラ強度セット
-		in_shader->SetFloatUniform("u_specPower", 32.0f);
+		_shader->SetUniform("u_specPower", 32.0f);
 
 		// 各種テクスチャをシェーダにセットする
 		// テクスチャが読み込まれていない場合は無視する
@@ -44,7 +44,7 @@ void CarMeshComponent::Draw(Shader* in_shader)
 		// 反射有効時、環境マップ使用
 		if (m_reflect)
 		{
-			in_shader->SetInt("u_skybox", 3);
+			_shader->SetUniform("u_skybox", 3);
 			glActiveTexture(GL_TEXTURE3);
 			glBindTexture(GL_TEXTURE_CUBE_MAP, RENDERER->GetSkyBox()->GetSkyBoxTexture()->GetTextureID());;
 		}
@@ -57,12 +57,12 @@ void CarMeshComponent::Draw(Shader* in_shader)
 	}
 }
 
-void CarMeshComponent::DrawShadow(Shader* in_shader)
+void CarMeshComponent::DrawShadow(GLSLprogram* _shader)
 {
 	if (m_mesh != nullptr && m_visible)
 	{
 		// ワールド変換をセット
-		in_shader->SetMatrixUniform("u_worldTransform", m_owner->GetWorldTransform());
+		_shader->SetUniform("u_worldTransform", m_owner->GetWorldTransform());
 
 		// 頂点配列をアクティブに
 		VertexArray* va = m_mesh->GetVertexArray();

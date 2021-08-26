@@ -11,27 +11,27 @@ class WorldSpaceUI
 
 public:
 
-	WorldSpaceUI(const Vector3& in_pos, const std::string& in_filePath, float in_scale = 1.0f);
-	WorldSpaceUI(const Vector3& in_pos, class Texture* in_texture, float in_scale = 1.0f);
+	WorldSpaceUI(const Vector3& _pos, const std::string& _filePath, float _scale = 1.0f);
+	WorldSpaceUI(const Vector3& _pos, class Texture* _texture, float iscale = 1.0f);
 	~WorldSpaceUI();
 
 
-	void SetPosition(const Vector3& in_pos) { m_position = in_pos; }
-	void SetTexture(class Texture* in_tex) { m_texture = in_tex; }
+	void SetPosition(const Vector3& _pos) { m_position = _pos; }
+	void SetTexture(class Texture* _tex) { m_texture = _tex; }
 	int GetTextureID() { return m_textureID; }
 
-	void Draw(class Shader* in_shader);
+	void Draw(class GLSLprogram* _shader);
 
 	// 座標のセット
-	void SetUIPosition(const Vector3& in_pos);
+	void SetUIPosition(const Vector3& _pos);
 
 	// ビルボード行列を定義・取得
 	Matrix4 GetBillboardMatrix();
 
 	// 表示非表示フラグのセッター
-	void SetVisible(bool in_visible) { m_isVisible = in_visible; }
+	void SetVisible(bool _visible) { m_isVisible = _visible; }
 
-	void SetScale(float in_scale) { m_scale = in_scale; }
+	void SetScale(float _scale) { m_scale = _scale; }
 
 private:
 

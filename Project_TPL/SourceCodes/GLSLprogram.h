@@ -9,7 +9,7 @@
 // 2021/ 3/25   コンパイル・リンク処理追加
 //----------------------------------------------------------------------------------+
 #pragma once
-#include <glad/glad.h>
+#include <GL/glew.h>
 #include <iostream>
 #include <string>
 #include "Math.h"
@@ -45,7 +45,7 @@ public:
 	void SetUniform(const char* _name, const Vector3& _vec);
 	void SetUniform(const char* _name, const Matrix3& _mat);
 	void SetUniform(const char* _name, const Matrix4& _mat);
-
+	void SetUniform(const char* _name, Matrix4* _matrices, unsigned _count);
 
 private:
 

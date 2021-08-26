@@ -174,6 +174,12 @@
     <Filter Include="Source\GLSL\ForwardRendering\SkyBox">
       <UniqueIdentifier>{5bd9ec00-3535-4f94-a059-ee513dd08146}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Render\Effekseer">
+      <UniqueIdentifier>{d44d6d63-964a-45d6-af8f-66f33b7f167c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\Particle">
+      <UniqueIdentifier>{dc4ac2a6-058a-47f2-b990-5a03940dcb8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -252,9 +258,6 @@
       <Filter>Source\ObjectPool</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\ActorPool.cpp">
-      <Filter>Source\ObjectPool</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\ShaderManager.cpp">
       <Filter>Source\ObjectPool</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\ActorDebugObject.cpp">
@@ -602,6 +605,18 @@
     <ClCompile Include="SourceCodes\TexturePool.cpp">
       <Filter>Source\ObjectPool</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCodes\EffekseerEffect.cpp">
+      <Filter>Source\Render\Effekseer</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ShaderManager.cpp">
+      <Filter>Source\Render\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\DirectionalLight.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\DirectionalLightDebug.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -689,9 +704,6 @@
       <Filter>Source\ObjectPool</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\ActorPool.h">
-      <Filter>Source\ObjectPool</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\ShaderManager.h">
       <Filter>Source\ObjectPool</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\ActorDebugObject.h">
@@ -1045,6 +1057,18 @@
     <ClInclude Include="SourceCodes\TexturePool.h">
       <Filter>Source\ObjectPool</Filter>
     </ClInclude>
+    <ClInclude Include="SourceCodes\EffekseerEffect.h">
+      <Filter>Source\Render\Effekseer</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ShaderManager.h">
+      <Filter>Source\Render\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\DirectionalLight.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\DirectionalLightDebug.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\ForwardRendering\BasicMesh.frag">
@@ -1244,6 +1268,15 @@
     </None>
     <None Include="Shaders\HUD\HUD_MapInput.vert">
       <Filter>Source\GLSL\HUD</Filter>
+    </None>
+    <None Include="Shaders\Particle\Particle_Bloom.frag">
+      <Filter>Source\GLSL\Particle</Filter>
+    </None>
+    <None Include="Shaders\Particle\Particle_Bloom.vert">
+      <Filter>Source\GLSL\Particle</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\GBuffer_SkinNormShadow.vert">
+      <Filter>Source\GLSL\DefferedRendering</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -60,9 +60,8 @@ GameMain::~GameMain()
 bool GameMain::Initialize()
 {
 	//--------------------------------------------------------------------+
-	// SDL
+	// SDL初期化
 	//--------------------------------------------------------------------+
-	// SDLの初期化
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMECONTROLLER) != 0)
 	{
 		SDL_Log("SDL Initialize Failed : %s\n", SDL_GetError());
@@ -227,7 +226,6 @@ void GameMain::Delete()
 
 	SDL_Quit();
 
-
 }
 
 // メインループ
@@ -236,7 +234,7 @@ void GameMain::RunLoop()
 	// 開始シーンが定義されていなかったら終了
 	if (!m_nowScene)
 	{
-		printf("開始シーンが設定されていません");
+		std::cout << "ERROR::Scene is not set" << std::endl;
 		return;
 	}
 
@@ -422,12 +420,6 @@ void GameMain::Input()
 	if (INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_ESCAPE))
 	{
 		m_isRunning = false;
-	}
-
-	// レンダリングリソース表示
-	if (INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_F11))
-	{
-		GetRenderer()->ShowResource();
 	}
 
 	// ポーズモード移行／解除

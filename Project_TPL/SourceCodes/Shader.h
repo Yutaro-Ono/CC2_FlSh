@@ -7,7 +7,7 @@
 #pragma once
 #include <string>
 #include "Math.h"
-#include <glad/glad.h>
+#include <GL/glew.h>
 
 class Shader
 {

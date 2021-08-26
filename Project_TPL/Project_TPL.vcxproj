@@ -186,6 +186,9 @@
     <ClCompile Include="SourceCodes\DebugObjectBase.cpp" />
     <ClCompile Include="SourceCodes\DebugObjectPool.cpp" />
     <ClCompile Include="SourceCodes\DefferedRenderer.cpp" />
+    <ClCompile Include="SourceCodes\DirectionalLight.cpp" />
+    <ClCompile Include="SourceCodes\DirectionalLightDebug.cpp" />
+    <ClCompile Include="SourceCodes\EffekseerEffect.cpp" />
     <ClCompile Include="SourceCodes\Environment.cpp" />
     <ClCompile Include="SourceCodes\EnvironmentMapComponent.cpp" />
     <ClCompile Include="SourceCodes\Font.cpp" />
@@ -331,6 +334,9 @@
     <ClInclude Include="SourceCodes\DebugObjectBase.h" />
     <ClInclude Include="SourceCodes\DebugObjectPool.h" />
     <ClInclude Include="SourceCodes\DefferedRenderer.h" />
+    <ClInclude Include="SourceCodes\DirectionalLight.h" />
+    <ClInclude Include="SourceCodes\DirectionalLightDebug.h" />
+    <ClInclude Include="SourceCodes\EffekseerEffect.h" />
     <ClInclude Include="SourceCodes\Environment.h" />
     <ClInclude Include="SourceCodes\EnvironmentMapComponent.h" />
     <ClInclude Include="SourceCodes\Font.h" />
@@ -464,6 +470,7 @@
     <None Include="Shaders\DefferedRendering\GBuffer_Phong.frag" />
     <None Include="Shaders\DefferedRendering\GBuffer_Phong.vert" />
     <None Include="Shaders\DefferedRendering\GBuffer_Shadow.frag" />
+    <None Include="Shaders\DefferedRendering\GBuffer_SkinNormShadow.vert" />
     <None Include="Shaders\DefferedRendering\Lighting\GBuffer_DirectionalLight.frag" />
     <None Include="Shaders\DefferedRendering\Lighting\GBuffer_LightPass.vert" />
     <None Include="Shaders\DefferedRendering\Lighting\GBuffer_PointLight.frag" />
@@ -496,6 +503,8 @@
     <None Include="Shaders\HUD\HUD_MapOutput.vert" />
     <None Include="Shaders\OutScreen.frag" />
     <None Include="Shaders\OutScreen.vert" />
+    <None Include="Shaders\Particle\Particle_Bloom.frag" />
+    <None Include="Shaders\Particle\Particle_Bloom.vert" />
     <None Include="Shaders\PBR\PBR_Basic.frag" />
     <None Include="Shaders\PBR\PBR_Basic.vert" />
     <None Include="Shaders\PostEffect\BlurScreen.frag" />

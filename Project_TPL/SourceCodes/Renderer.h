@@ -10,28 +10,24 @@
 // 2021/ 5/26   各種バッファを登録 (Gバッファ・ライト・MSAA)
 //----------------------------------------------------------------------------------+
 #pragma once
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_syswm.h>
+#include <GL/glew.h>
+#include <Effekseer.h>
+#include <EffekseerRendererGL.h>
 #include <Windows.h>
 #include <string>
 #include <algorithm>
 #include <unordered_map>
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_syswm.h>
-#include <glad/glad.h>
 #include "Math.h"
 
-// ディレクショナルライト構造体(平行ライト:シーン全体に降り注ぐ光)
-typedef struct DirectionalLight
+// 描画モード（正面・遅延）
+enum class RENDER_MODE : unsigned char
 {
-	Vector3 position;      // 光源位置
-	Vector3 target;        // ターゲット(方向を割り出しやすくするため)
-	Vector3 direction;     // ターゲット - 光源位置
-	Vector3 ambient;
-	Vector3 diffuse;
-	Vector3 specular;
-
-}dirLight;
-
+	FORWARD = 0,
+	DEFFERED
+};
 
 
 class Renderer
@@ -39,12 +35,6 @@ class Renderer
 
 public:
 
-	// 描画モード（正面・遅延）
-	enum RENDER_MODE
-	{
-		FORWARD = 0,
-		DEFFERED
-	};
 
 	Renderer();
 	~Renderer();
@@ -83,8 +73,6 @@ public:
 	// TextureComponent
 	void RemoveTexture(class Texture* in_texture);
 
-	void ShowResource();
-
 	// ShadowMap
 	class ShadowMap* GetShadowMap() { return m_shadowMap; }
 
@@ -93,9 +81,10 @@ public:
 
 	void SetWindowTitle(const std::string& in_title);
 	void SetWorldSpriteVertex();
-	void SetDirectionalLight(const dirLight& in_dirLight);
+	void SetDirectionalLight(class DirectionalLight* _dirLight) { m_dirLight = _dirLight; }
 	void SetActiveSpriteVAO();                                            // スプライト頂点配列のアクティブ化
 
+	void UpdateUBO();
 
 	//--------------------------------------------+
 	// Getter / Setter
@@ -113,19 +102,19 @@ public:
 	float GetScreenWidth() { return static_cast<float>(m_screenWidth); }
 	float GetScreenHeight() { return static_cast<float>(m_screenHeight); }
 	// ディレクショナルライト
-	DirectionalLight& GetDirectionalLight() { return m_directionalLight; }
+	class DirectionalLight* GetDirectionalLight() { return m_dirLight; }
 	// カメラ位置セット
 	void SetCameraPosition(const Vector3& in_cameraPos) { m_cameraPos = in_cameraPos; }
 	// 行列
-	const Matrix4& GetViewMatrix() { return m_view; }
-	const Matrix4& GetProjectionMatrix() { return m_projection; }
+	const Matrix4& GetViewMatrix() { return m_viewMat; }
+	const Matrix4& GetProjectionMatrix() { return m_projMat; }
 	// ParticleManager
 	class ParticleManager* GetParticleManager() const;
 
-	void SetViewMatrix(const Matrix4& in_view) { m_view = in_view; }
+	void SetViewMatrix(const Matrix4& in_view) { m_viewMat = in_view; }
 	void SetAmbientLight(const Vector3& in_ambientColor) { m_ambientLight = in_ambientColor; }
 	const Vector3 GetAmbientLight() { return m_ambientLight; }
-	void SetProjectionMatrix(const Matrix4& in_proj) { m_projection = in_proj; }
+	void SetProjectionMatrix(const Matrix4& in_proj) { m_projMat = in_proj; }
 
 	// アクティブスカイボックス
 	void SetActiveSkyBox(class CubeMapComponent* in_skyBox) { m_activeSkyBox = in_skyBox; }
@@ -141,16 +130,17 @@ public:
 	// ブルームクラスゲッター
 	class RenderBloom* GetBloom() { return m_bloom; }
 
+	// シェーダー管理クラスのゲッター
+	class ShaderManager* GetShaderManager() { return m_shaderManager; }
+
+	// Effekseer関連のゲッター
+	Effekseer::RefPtr<EffekseerRendererGL::Renderer> GetEffekseerRenderer() { return m_effekseerRenderer; }
+	Effekseer::RefPtr<Effekseer::Manager> GetEffekseerManager() { return m_effekseerManager; }
 
 private:
 
-	void CreateCubeVerts();                                                // キューブマップ(スカイボックス用)頂点配列定義
-	void CreateSpriteVerts();                                              // スプライト用頂点配列定義
-	void CreateWorldSpriteVerts();                                         // パーティクル用頂点配列定義
-	void CreateScreenVerts();                                              // スクリーン用四角形頂点配列
-
+	void CreateUBOs();
 	bool LoadShaders();                                                    // シェーダーの初期化
-	void SetLightUniforms(class Shader* in_shader);                        // ライト値をシェーダーにセット
 
 	int m_screenWidth, m_screenHeight;                                     // ウィンドウの横幅、縦幅
 	bool m_fullScreen;                                                     // フルスクリーンかどうか
@@ -182,27 +172,13 @@ private:
 	// マップHUD
 	class MiniMapHUD* m_mapHUD;
 
-	//--------------------------------------------+
-	// シェーダオブジェクト
-	//--------------------------------------------+
-	class Shader* m_meshShader;                                            // 標準メッシュシェーダ
-	class Shader* m_meshNormalShader;                                      // 法線マップメッシュシェーダ
-	class Shader* m_skinnedShader;                                         // スキン(ボーン入り)メッシュシェーダ
-	class Shader* m_environmentMapShader;                                  // 環境マップシェーダ
-
-	class Shader* m_spriteShader;                                          // スプライト基本シェーダ
-	class Shader* m_worldSpaceSpriteShader;                                // ワールド空間上のスプライトシェーダ
-	class Shader* m_particleShader;
-	class Shader* m_skyboxShader;                                          // スカイボックス用シェーダ
-	class Shader* m_mapInputShader;                                        // マップHUD入力用シェーダ
-	class Shader* m_mapOutputShader;                                       // マップHUD出力用シェーダ
-
 	//---------------------------------------------------+
 	// uniformバッファ (uniform変数の格納用バッファ)
 	//---------------------------------------------------+
 	unsigned int m_uboMatrices;                  // ビュー・プロジェクション行列用UBO
-
 	unsigned int m_uboCamera;                    // カメラ情報
+	unsigned int m_uboTriggers;                  // トリガー類(ブルーム効果のオンオフ)
+	unsigned int m_uboDirLights;                 // ディレクショナルライトUBO
 
 	//--------------------------------------------+
 	// 頂点配列
@@ -216,7 +192,7 @@ private:
 	// ライティング関連
 	//--------------------------------------------+
 	Vector3 m_ambientLight;                                                // アンビエントライト
-	dirLight m_directionalLight;                                   // ディレクショナルライト構造体
+	class DirectionalLight* m_dirLight;
 
 	//--------------------------------------------+
 	// シャドウ関連
@@ -247,9 +223,8 @@ private:
 	//--------------------------------------------+
 	// 基本行列関連
 	//--------------------------------------------+
-	Matrix4 m_view;
-	Matrix4 m_projection;       // プロジェクション(視錐台)
-	//AABB m_projCullingZone;   // 視錐台範囲外かどうかを検出する
+	Matrix4 m_viewMat;
+	Matrix4 m_projMat;       // プロジェクション(視錐台)
 
 	//--------------------------------------------+
 	// アプリケーション情報関連
@@ -263,6 +238,15 @@ private:
 	class ForwardRenderer* m_fRenderer;
 	class DefferedRenderer* m_dRenderer;
 	RENDER_MODE m_renderMode;             // レンダリングモード (フォワードかディファードか)
+
+	//--------------------------------------------+
+	// シェーダ管理
+	//--------------------------------------------+
+	class ShaderManager* m_shaderManager;
+
+	// Effekseer
+	Effekseer::RefPtr<EffekseerRendererGL::Renderer> m_effekseerRenderer;    // Effekseer用レンダラー
+	Effekseer::RefPtr<Effekseer::Manager> m_effekseerManager;                // Effekseer用マネージャー
 
 	// フレンドクラス (フォワード・ディファードクラスはレンダラーに直接アクセス可能)
 	friend class ForwardRenderer;

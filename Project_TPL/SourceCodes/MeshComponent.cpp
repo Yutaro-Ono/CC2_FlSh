@@ -5,7 +5,7 @@
 // copyright (C) 2019 Yutaro Ono. all rights reserved.
 //-----------------------------------------------------------------------+
 #include "MeshComponent.h"
-#include "Shader.h"
+#include "GLSLprogram.h"
 #include "Mesh.h"
 #include "Actor.h"
 #include "GameMain.h"
@@ -16,18 +16,18 @@
 #include <typeinfo>
 
 // コンストラクタ
-MeshComponent::MeshComponent(Actor * in_owner, bool in_isSkeletal)
-	:Component(in_owner)
+MeshComponent::MeshComponent(Actor * _owner, bool _isSkeletal)
+	:Component(_owner)
 	,m_mesh(nullptr)
 	,m_textureIndex(0)
 	,m_visible(true)
 	,m_isDrawMap(true)
-	,m_isSkeletal(in_isSkeletal)
+	,m_isSkeletal(_isSkeletal)
 	,m_intensity(1.0f)
 	,m_mapColor(Vector3(0.5f, 0.5f, 0.5f))
 {
 	RENDERER->AddMeshComponent(this);
-	//printf("new MeshComponent : [%5d] owner->( 0x%p )\n", GetID(), in_owner);
+	//printf("new MeshComponent : [%5d] owner->( 0x%p )\n", GetID(), _owner);
 }
 
 // デストラクタ
@@ -38,18 +38,18 @@ MeshComponent::~MeshComponent()
 }
 
 // 通常描画処理
-void MeshComponent::Draw(Shader * in_shader)
+void MeshComponent::Draw(GLSLprogram * _shader)
 {
 	if (m_mesh != nullptr && m_visible)
 	{
 		// ワールド変換をセット
-		in_shader->SetMatrixUniform("u_worldTransform", m_owner->GetWorldTransform());
+		_shader->SetUniform("u_worldTransform", m_owner->GetWorldTransform());
 		// スペキュラ強度セット
-		in_shader->SetFloatUniform("u_specPower", 32);
+		_shader->SetUniform("u_specPower", 32);
 		// 輝度強度セット
-		in_shader->SetFloatUniform("u_intensity", m_intensity);
+		_shader->SetUniform("u_intensity", m_intensity);
 
-		SetTexturesToUniform(in_shader);          // Uniformに各種テクスチャをセット
+		SetTexturesToUniform(_shader);          // Uniformに各種テクスチャをセット
 
 		// 頂点配列をアクティブに
 		VertexArray* va = m_mesh->GetVertexArray();
@@ -60,12 +60,12 @@ void MeshComponent::Draw(Shader * in_shader)
 }
 
 // シャドウ生成用の描画
-void MeshComponent::DrawShadow(Shader* in_shader)
+void MeshComponent::DrawShadow(GLSLprogram* _shader)
 {
 	if (m_mesh != nullptr && m_visible)
 	{
 		// ワールド変換をセット
-		in_shader->SetMatrixUniform("u_worldTransform", m_owner->GetWorldTransform());
+		_shader->SetUniform("u_worldTransform", m_owner->GetWorldTransform());
 
 		// 頂点配列をアクティブに
 		VertexArray* va = m_mesh->GetVertexArray();
@@ -75,14 +75,14 @@ void MeshComponent::DrawShadow(Shader* in_shader)
 	}
 }
 
-void MeshComponent::DrawMap(Shader* in_shader)
+void MeshComponent::DrawMap(GLSLprogram* _shader)
 {
 	if (m_mesh != nullptr && m_isDrawMap)
 	{
 		// ワールド変換をセット
-		in_shader->SetMatrixUniform("u_worldTransform", m_owner->GetWorldTransform());
+		_shader->SetUniform("u_worldTransform", m_owner->GetWorldTransform());
 		// スペキュラ強度セット
-		in_shader->SetVectorUniform("u_mapColor", m_mapColor);
+		_shader->SetUniform("u_mapColor", m_mapColor);
 
 		// 頂点配列をアクティブに
 		VertexArray* va = m_mesh->GetVertexArray();
@@ -95,8 +95,8 @@ void MeshComponent::DrawMap(Shader* in_shader)
 /// <summary>
 /// シェーダuniformに各種テクスチャをセットする関数
 /// </summary>
-/// <param name="in_shader"> シェーダクラスのポインタ </param>
-void MeshComponent::SetTexturesToUniform(Shader* in_shader)
+/// <param name="_shader"> シェーダクラスのポインタ </param>
+void MeshComponent::SetTexturesToUniform(GLSLprogram* _shader)
 {
 	// ディフューズ → スペキュラ → ノーマル → エミッシブ → シャドウ の順でセット
 	// 指定タイプのテクスチャをMeshが保持していなかった場合、無効数字 "0"がセット

@@ -9,6 +9,8 @@
 // 2021/ 4/23   新規作成
 //----------------------------------------------------------------------------------+
 #include "ShaderManager.h"
+#include "GameMain.h"
+#include "Renderer.h"
 
 ShaderManager::ShaderManager()
 {
@@ -30,6 +32,11 @@ ShaderManager::~ShaderManager()
 /// <returns> シェーダープログラムの作成に失敗した場合にfalseを返す </returns>
 bool ShaderManager::CreateShaders()
 {
+	// uniform用
+	Matrix4 screenMat = Matrix4::CreateSimpleViewProj(RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight());
+
+
+
 	// 画面出力用シェーダー
 	m_shaders[GLSL_SHADER::OUT_SCREEN] = new GLSLprogram();
 	if (!m_shaders[GLSL_SHADER::OUT_SCREEN]->LoadShaders("Shaders/OutScreen.vert", "Shaders/OutScreen.frag", ""))
@@ -80,6 +87,20 @@ bool ShaderManager::CreateShaders()
 		return false;
 	}
 
+	// GBuffer+法線マップ+シャドウ
+	m_shaders[GLSL_SHADER::GBUFFER_NORMAL_SHADOW] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::GBUFFER_NORMAL_SHADOW]->LoadShaders("Shaders/DefferedRendering/GBuffer_Normal_Shadow.vert", "Shaders/DefferedRendering/GBuffer_Normal_Shadow.frag", ""))
+	{
+		return false;
+	}
+
+	// GBufferスキンメッシュ
+	m_shaders[GLSL_SHADER::GBUFFER_SKINMESH] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::GBUFFER_SKINMESH]->LoadShaders("Shaders/DefferedRendering/GBuffer_SkinNormShadow.vert", "Shaders/DefferedRendering/GBuffer_Shadow.frag", ""))
+	{
+		return false;
+	}
+
 	// GBuffer+スカイボックス
 	m_shaders[GLSL_SHADER::GBUFFER_SKYBOX] = new GLSLprogram();
 	if (!m_shaders[GLSL_SHADER::GBUFFER_SKYBOX]->LoadShaders("Shaders/DefferedRendering/GBuffer_Basic_SkyBox.vert", "Shaders/DefferedRendering/GBuffer_Basic_SkyBox.frag", ""))
@@ -88,6 +109,26 @@ bool ShaderManager::CreateShaders()
 	}
 	m_shaders[GLSL_SHADER::GBUFFER_SKYBOX]->SetUniform("u_cubeMap", 0);
 
+	// GBuffer+環境マップ
+	m_shaders[GLSL_SHADER::GBUFFER_ENVIRONMENT] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::GBUFFER_ENVIRONMENT]->LoadShaders("Shaders/DefferedRendering/GBuffer_EnvironmentMap.vert", "Shaders/DefferedRendering/GBuffer_EnvironmentMap.frag", ""))
+	{
+		return false;
+	}
+
+	// GBuffer+車ボディ用
+	m_shaders[GLSL_SHADER::GBUFFER_CAR_BODY] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::GBUFFER_CAR_BODY]->LoadShaders("Shaders/DefferedRendering/GBuffer_CarShaderReflect.vert", "Shaders/DefferedRendering/GBuffer_CarShaderReflect.frag", ""))
+	{
+		return false;
+	}
+
+	// GBuffer+ガラス(反射)
+	m_shaders[GLSL_SHADER::GBUFFER_GLASS] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::GBUFFER_GLASS]->LoadShaders("Shaders/DefferedRendering/GBuffer_LightGlass.vert", "Shaders/DefferedRendering/GBuffer_LightGlass.frag", ""))
+	{
+		return false;
+	}
 
 	//-------------------------------------------------------------------------+
 	// Bloom用シェーダー
@@ -116,11 +157,40 @@ bool ShaderManager::CreateShaders()
 	//---------------------------------------------------------------------------+
 	// ライトパス
 	//---------------------------------------------------------------------------+
+	// ディレクショナルライト
 	m_shaders[GLSL_SHADER::DIRECTIONAL_LIGHT] = new GLSLprogram();
-	if (!m_shaders[GLSL_SHADER::DIRECTIONAL_LIGHT]->LoadShaders("Shaders/GBuffer/GBuffer_LightPass.vert", "Shaders/GBuffer/GBuffer_DirectionalLight.frag", ""))
+	if (!m_shaders[GLSL_SHADER::DIRECTIONAL_LIGHT]->LoadShaders("Shaders/DefferedRendering/Lighting/GBuffer_LightPass.vert", "Shaders/DefferedRendering/Lighting/GBuffer_DirectionalLight.frag", ""))
 	{
 		return false;
 	}
+
+	// ポイントライト
+	m_shaders[GLSL_SHADER::POINT_LIGHT] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::POINT_LIGHT]->LoadShaders("Shaders/DefferedRendering/Lighting/GBuffer_LightPass.vert", "Shaders/DefferedRendering/Lighting/GBuffer_PointLight.frag", ""))
+	{
+		return false;
+	}
+
+
+	//-------------------------------------------------------------------------+
+    // スプライト用シェーダー
+    //-------------------------------------------------------------------------+
+	// 2D空間
+	m_shaders[GLSL_SHADER::SPRITE_2D] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::SPRITE_2D]->LoadShaders("Shaders/SpriteShader.vert", "Shaders/SpriteShader.frag", ""))
+	{
+		return false;
+	}
+	m_shaders[GLSL_SHADER::SPRITE_2D]->UseProgram();
+	m_shaders[GLSL_SHADER::SPRITE_2D]->SetUniform("u_viewProj", screenMat);
+
+	// 3D空間
+	m_shaders[GLSL_SHADER::SPRITE_3D] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::SPRITE_3D]->LoadShaders("Shaders/Particle/Particle_Bloom.vert", "Shaders/Sprite/WorldSpaceSprite.frag", ""))
+	{
+		return false;
+	}
+
 
     //-------------------------------------------------------------------------+
     // マップHUD用シェーダー
@@ -136,7 +206,8 @@ bool ShaderManager::CreateShaders()
 	{
 		return false;
 	}
-	
+	m_shaders[GLSL_SHADER::HUD_OUTPUT]->UseProgram();
+	m_shaders[GLSL_SHADER::HUD_OUTPUT]->SetUniform("u_viewProj", screenMat);
 
 	//---------------------------------------------------------------------------+
 	// その他のシェーダー (デバッグ用ビジュアライザー系)

@@ -1,7 +1,7 @@
 #include "FrameBuffer.h"
 #include <SDL_image.h>
 #include <SDL.h>
-#include <glad/glad.h>
+#include <GL/glew.h>
 #include "GameMain.h"
 #include "Shader.h"
 #include "VertexArray.h"

@@ -7,18 +7,18 @@ class CubeMapComponent : public Component
 
 public:
 
-	CubeMapComponent(class Actor* in_owner);
+	CubeMapComponent(class Actor* _owner);
 	~CubeMapComponent();
 
-	void CreateTexture(const std::string& in_filePath);
+	void CreateTexture(const std::string& _filePath);
 
-	void Draw(class Shader* in_shader);
+	void Draw(class GLSLprogram* _shader);
 
 	class Texture* GetSkyBoxTexture() { return m_texture; }
 
 	
-	void SetIsVisible(bool in_visible) { m_isVisible = in_visible; }         // キューブを表示するかしないかのセット
-	void SetLuminance(float in_luminance) { m_luminance = in_luminance; }    // 輝度情報のセット
+	void SetIsVisible(bool _visible) { m_isVisible = _visible; }         // キューブを表示するかしないかのセット
+	void SetLuminance(float _luminance) { m_luminance = _luminance; }    // 輝度情報のセット
 
 
 private:

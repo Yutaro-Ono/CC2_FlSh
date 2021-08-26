@@ -1,17 +1,18 @@
 #include "Renderer.h"
 #include "GameMain.h"
 #include "Texture.h"
-#include "SpriteComponent.h"
 #include "Mesh.h"
 #include "MeshGpmesh.h"
 #include "MeshObj.h"
-#include "MeshComponent.h"
 #include "Skeleton.h"
+#include "MeshComponent.h"
+#include "SpriteComponent.h"
 #include "SkeletalMeshComponent.h"
 #include "CubeMapComponent.h"
-#include "Animation.h"
-#include "Shader.h"
+#include "EnvironmentMapComponent.h"
 #include "VertexArray.h"
+#include "Shader.h"
+#include "Animation.h"
 #include "ParticleManager.h"
 #include "UIScreen.h"
 #include "FrameBuffer.h"
@@ -19,15 +20,17 @@
 #include "Collision.h"
 #include "WorldSpaceUI.h"
 #include "ShadowMap.h"
-#include "EnvironmentMapComponent.h"
 #include "CameraComponent.h"
 #include "RenderBloom.h"
 #include "ForwardRenderer.h"
 #include "DefferedRenderer.h"
+#include "ShaderManager.h"
 #include "../imgui/imconfig.h"
 #include "../imgui/imgui.h"
 #include "../imgui/imgui_impl_opengl3.h"
 #include "../imgui/imgui_impl_sdl.h"
+#include <iostream>
+#include "DirectionalLight.h"
 
 // コンストラクタ
 Renderer::Renderer()
@@ -35,13 +38,6 @@ Renderer::Renderer()
 	,m_SDLRenderer(nullptr)
 	,m_context(0)
 	,m_uboMatrices(0)
-	,m_spriteShader(nullptr)
-	,m_meshShader(nullptr)
-	,m_meshNormalShader(nullptr)
-	,m_skinnedShader(nullptr)
-	,m_skyboxShader(nullptr)
-	,m_mapInputShader(nullptr)
-	,m_mapOutputShader(nullptr)
 	,m_frameBuffer(nullptr)
 	,m_bloom(nullptr)
 	,m_switchShader(0)
@@ -49,9 +45,13 @@ Renderer::Renderer()
 	,m_fRenderer(nullptr)
 	,m_dRenderer(nullptr)
 	,m_mapHUD(nullptr)
-	,m_renderMode(RENDER_MODE::DEFFERED)
+	,m_shaderManager(nullptr)
 {
-
+	// 描画方法の設定
+	if (GAME_CONFIG->GetEnableDeferred())
+	{
+		m_renderMode = RENDER_MODE::DEFFERED;
+	}
 }
 
 // デストラクタ
@@ -88,7 +88,7 @@ bool Renderer::Initialize(int in_screenW, int in_screenH, bool in_full)
 	// SDLウィンドウの作成
 	m_window = SDL_CreateWindow
 	(
-		"TheNightDriver",                                 // ウィンドウの名称
+		"ProjectTPL",                                     // ウィンドウの名称
 		0,                                                // x座標のウィンドウ描画原点
 		0,                                                // y座標のウィンドウ描画原点
 		m_screenWidth,                                    // 画面の横幅
@@ -98,18 +98,13 @@ bool Renderer::Initialize(int in_screenW, int in_screenH, bool in_full)
 	// ウィンドウの作成に失敗したら
 	if (!m_window)
 	{
-		printf("Create Window Failed : %s", SDL_GetError());
+		std::cout << "FAILED::SDL::CreateWindow::" << SDL_GetError() << std::endl;
 		return false;
 	}
-	printf("(%d, %d) Create Window\n", m_screenWidth, m_screenHeight);
-	// フルスクリーンだったら
+	// フルスクリーン化処理
 	if (in_full)
 	{
-		if (SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP))
-		{
-			printf("(%d x %d) Change FullScreen Failed\n", in_screenW, in_screenH);
-			return false;
-		}
+		SDL_SetWindowFullscreen(m_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	}
 
 	// wminfo構造体
@@ -125,17 +120,20 @@ bool Renderer::Initialize(int in_screenW, int in_screenH, bool in_full)
 	m_context = SDL_GL_CreateContext(m_window);
 	SDL_GL_MakeCurrent(m_window, m_context);
 
-	//----------------------------------------------------------------+
-    // GLAD初期化
     //----------------------------------------------------------------+
-	gladLoadGL();
-	const int version = GL_TRUE;
-	// 初期化に失敗したら
-	if (version == 0)
+    // GLEW初期化
+    //----------------------------------------------------------------+
+	glewExperimental = GL_TRUE;
+	if (glewInit() != GLEW_OK)
 	{
-		SDL_Log("GLAD Initialize : Failed");
+		std::cout << "FAILED::GLEW::glewInit()" << std::endl;
 		return false;
 	}
+	// 幾つかのプラットホームでは、GLEWが無害なエラーコードを吐くのでクリアしておく
+	glGetError();
+
+
+	// ビューポート設定
 	glViewport(0, 0, m_screenWidth, m_screenHeight);
 
 	//-----------------------------------------------------------------+
@@ -144,60 +142,37 @@ bool Renderer::Initialize(int in_screenW, int in_screenH, bool in_full)
 	m_SDLRenderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (!m_SDLRenderer)
 	{
-		printf("SDLRendererの作成に失敗 : %s", SDL_GetError());
+		std::cout << "FAILED::SDL::CreateRenderer::" << SDL_GetError() << std::endl;
 		return false;
 	}
-	printf("Create SDLRenderer : Success\n");
 
 	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
 	{
-		printf("SDLImageInitPNG初期化に失敗 : %s", SDL_GetError());
-		return false;
-	}
-	printf("SDLImageInitPNG : Success\n");
-
-	//--------------------------------------------------------------------+
-    // Imgui初期化
-    //--------------------------------------------------------------------+
-	// imguiコンテキスト生成
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	// imguiスタイル設定 (黒テーマ)
-	ImGui::StyleColorsDark();
-	// 使用しているプラットフォームにバインド
-	ImGui_ImplSDL2_InitForOpenGL(m_window, m_context);
-	ImGui_ImplOpenGL3_Init("#version 420");
-
-	// GLEWは無害なエラーコードを出すのでクリアしておく
-	glGetError();
-
-
-
-	// シェーダープログラムの初期化
-	if (!LoadShaders())
-	{
-		printf("Shader Load : Failed");
+		std::cout << "FAILED::SDL_Image::INIT_PNG::" << SDL_GetError() << std::endl;
 		return false;
 	}
 
 	//------------------------------------------------------------------+
-	// ワールド空間用スプライト関連
+	// パーティクル関連
 	//------------------------------------------------------------------+
-	// ワールド空間用スプライト頂点作成
-	CreateWorldSpriteVerts();
 	// パーティクルマネージャー作成
 	m_particleManager = new ParticleManager;
 
 	//------------------------------------------------------------------+
-	// スクリーン空間用Sprite
-	//------------------------------------------------------------------+
-	CreateSpriteVerts();        // スプライト用の頂点作成
-
-	//------------------------------------------------------------------+
-	// キューブ頂点配列の生成
-	//------------------------------------------------------------------+
-	CreateCubeVerts();
+    // 頂点配列オブジェクト系の生成
+    //------------------------------------------------------------------+
+	// パーティクル用
+	m_particleVerts = new VertexArray();
+	m_particleVerts->CreateSpriteVerts();
+	// スプライト用
+	m_spriteVerts = new VertexArray();
+	m_spriteVerts->CreateSpriteVerts();
+	// キューブマップ用
+	m_cubeVerts = new VertexArray();
+	m_cubeVerts->CreateCubeVerts();
+	// 画面出力用
+	m_screenVerts = new VertexArray();
+	m_screenVerts->CreateScreenVerts();
 
 	//------------------------------------------------------------------+
 	// ポストエフェクト
@@ -224,19 +199,40 @@ bool Renderer::Initialize(int in_screenW, int in_screenH, bool in_full)
 	{
 		return false;
 	}
-	CreateScreenVerts();
-	// uniformバッファ生成
-	glGenBuffers(1, &m_uboMatrices);
-	glBindBuffer(GL_UNIFORM_BUFFER, m_uboMatrices);
-	glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(Matrix4::mat), NULL, GL_DYNAMIC_DRAW);
-	glBindBuffer(GL_UNIFORM_BUFFER, 0);
-	glBindBufferRange(GL_UNIFORM_BUFFER, 0, m_uboMatrices, 0, 2 * sizeof(Matrix4::mat));
-	glGenBuffers(1, &m_uboCamera);
-	glBindBuffer(GL_UNIFORM_BUFFER, m_uboCamera);
-	glBufferData(GL_UNIFORM_BUFFER, sizeof(Vector3::x) + sizeof(Vector3::y) + sizeof(Vector3::z), NULL, GL_DYNAMIC_DRAW);
-	glBindBuffer(GL_UNIFORM_BUFFER, 0);
-	glBindBufferRange(GL_UNIFORM_BUFFER, 1, m_uboCamera, 0, sizeof(Vector3::x) + sizeof(Vector3::y) + sizeof(Vector3::z));
 
+	//--------------------------------------------+
+    // uniform Buffer Object
+    //--------------------------------------------+
+	CreateUBOs();
+
+	//--------------------------------------------+
+	// Effekseer初期化
+	//--------------------------------------------+
+	m_effekseerRenderer = EffekseerRendererGL::Renderer::Create(8000, EffekseerRendererGL::OpenGLDeviceType::OpenGL3);
+	m_effekseerManager = Effekseer::Manager::Create(8000);
+	// 描画モジュール作成
+	m_effekseerManager->SetSpriteRenderer(m_effekseerRenderer->CreateSpriteRenderer());
+	m_effekseerManager->SetRibbonRenderer(m_effekseerRenderer->CreateRibbonRenderer());
+	m_effekseerManager->SetRingRenderer(m_effekseerRenderer->CreateRingRenderer());
+	m_effekseerManager->SetTrackRenderer(m_effekseerRenderer->CreateTrackRenderer());
+	m_effekseerManager->SetModelRenderer(m_effekseerRenderer->CreateModelRenderer());
+	// Effekseer用のテクスチャ・モデル・マテリアルローダー
+	m_effekseerManager->SetTextureLoader(m_effekseerRenderer->CreateTextureLoader());
+	m_effekseerManager->SetModelLoader(m_effekseerRenderer->CreateModelLoader());
+	m_effekseerManager->SetMaterialLoader(m_effekseerRenderer->CreateMaterialLoader());
+
+	//--------------------------------------------+
+    // シェーダー管理クラス
+    //--------------------------------------------+
+	m_shaderManager = new ShaderManager();
+	if (!m_shaderManager->CreateShaders())
+	{
+		std::cout << "ERROR::ShaderManager::Func::CreateShaders()" << std::endl;
+		return false;
+	}
+	
+	// ディレクショナルライト
+	m_dirLight = new DirectionalLight();
 
 	// 初期化に成功
 	return true;
@@ -318,14 +314,10 @@ void Renderer::Delete()
 		delete spLight;
 	}
 
-	// シェーダーの解放
-	delete m_spriteShader;
-	delete m_meshShader;
-	delete m_worldSpaceSpriteShader;
-	delete m_skyboxShader;
-	delete m_mapInputShader;
-	delete m_mapOutputShader;
+	// シェーダー管理クラスの解放
+	delete m_shaderManager;
 
+	delete m_dirLight;
 	delete m_spriteVerts;
 	delete m_cubeVerts;
 	delete m_fRenderer;
@@ -333,6 +325,11 @@ void Renderer::Delete()
 	delete m_frameBuffer;
 	delete m_shadowMap;
 	delete m_bloom;
+
+	// Effekseer関連の解放
+	m_effekseerManager.Reset();
+	m_effekseerRenderer.Reset();
+
 	// コンテキストの破棄
 	SDL_GL_DeleteContext(m_context);
 	// ウィンドウの破棄
@@ -343,39 +340,12 @@ void Renderer::Delete()
 void Renderer::Draw()
 {
 
-//#ifdef _DEBUG
-	// ImGuiフレームを開始
-	//ImGui_ImplOpenGL3_NewFrame();
-	//ImGui_ImplSDL2_NewFrame(GAME_INSTANCE.GetRenderer()->GetSDLWindow());
-	//ImGui::NewFrame();
-	//// ImGui更新
-	//ImGui::Begin("Renderer");
-	//ImGui::SliderInt("MeshShader", &m_switchShader, 0, 2);
-
-	//m_renderMode = FORWARD;
-
-//#endif
-
 	//------------------------------------------------+
 	// レンダリング (Forward or Deffered)
 	//------------------------------------------------+
 	// 共通処理
 	// uniformバッファへ共通情報を格納する
-	// 行列UBO
-	glBindBuffer(GL_UNIFORM_BUFFER, m_uboMatrices);
-	// 行列を転送するときは転置する
-	Matrix4 transView = m_view;
-	transView.Transpose();
-	Matrix4 transProj = m_projection;
-	transProj.Transpose();
-	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Matrix4::mat), transView.GetAsFloatPtr());
-	glBufferSubData(GL_UNIFORM_BUFFER, sizeof(Matrix4::mat), sizeof(Matrix4::mat), transProj.GetAsFloatPtr());
-	glBindBuffer(GL_UNIFORM_BUFFER, 0);
-	// カメラUBO
-	glBindBuffer(GL_UNIFORM_BUFFER, m_uboCamera);
-	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Vector3::x) + sizeof(Vector3::y) + sizeof(Vector3::z), m_view.GetTranslation().GetAsFloatPtr());
-	glBindBuffer(GL_UNIFORM_BUFFER, 0);
-
+	UpdateUBO();
 
 	// シャドウ描画用の深度マップにライト視点から見た空間で書き込む
 	m_shadowMap->RenderDepthMapFromLightView(m_meshComponents, m_skeletalMeshComponents, m_carMeshComponents);
@@ -389,20 +359,14 @@ void Renderer::Draw()
 		m_dRenderer->Draw();
 	}
 
-//#ifdef _DEBUG
+#ifdef _DEBUG
 
-	// ImGuiの終了処理
-	//ImGui::End();
-	//ImGui::Render();
-	//glViewport(0, 0, (int)ImGui::GetIO().DisplaySize.x, (int)ImGui::GetIO().DisplaySize.y);
-	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-//#endif
+
+#endif
 
 	// 画面のスワップ
 	SDL_GL_SwapWindow(m_window);
-
-
 }
 
 
@@ -497,21 +461,6 @@ void Renderer::RemoveCarMeshComponent(CarMeshComponent* in_carMesh)
 	m_carMeshComponents.erase(iter);
 }
 
-void Renderer::ShowResource()
-{
-	printf("\n\n<------------------ textures ------------------>\n");
-	for (auto i : m_textures)
-	{
-		printf("texfile %s\n", i.first.c_str());
-	}
-
-	printf("\n<------------------  meshes  ------------------->\n");
-	for (auto i : m_meshes)
-	{
-		printf("meshfile %s\n", i.first.c_str());
-	}
-}
-
 // 環境マップオブジェクト配列への追加
 void Renderer::AddEnvironmentComponent(EnvironmentMapComponent* in_envMesh)
 {
@@ -575,6 +524,9 @@ void Renderer::RemoveSpotLightComponent(SpotLightComponent* in_spotL)
 	m_spotLights.erase(iter);
 }
 
+/// <summary>
+/// マップHUDの単体削除
+/// </summary>
 void Renderer::RemoveMapHUD()
 {
 	delete m_mapHUD;
@@ -610,16 +562,78 @@ void Renderer::SetWorldSpriteVertex()
 	m_particleVerts->SetActive();
 }
 
-// ディレクショナルライトのセット
-void Renderer::SetDirectionalLight(const dirLight& in_dirLight)
-{
-	m_directionalLight = in_dirLight;
-}
 
 // スプライト頂点配列のアクティブ化
 void Renderer::SetActiveSpriteVAO()
 {
 	m_spriteVerts->SetActive();
+}
+
+/// <summary>
+/// 各種UBOの生成処理
+/// </summary>
+void Renderer::CreateUBOs()
+{
+	// 変換行列UBO
+	glGenBuffers(1, &m_uboMatrices);
+	glBindBuffer(GL_UNIFORM_BUFFER, m_uboMatrices);
+	glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(Matrix4::mat), NULL, GL_DYNAMIC_DRAW);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	glBindBufferRange(GL_UNIFORM_BUFFER, 0, m_uboMatrices, 0, 2 * sizeof(Matrix4::mat));
+	// カメラUBO
+	glGenBuffers(1, &m_uboCamera);
+	glBindBuffer(GL_UNIFORM_BUFFER, m_uboCamera);
+	glBufferData(GL_UNIFORM_BUFFER, sizeof(Vector3::x) + sizeof(Vector3::y) + sizeof(Vector3::z), NULL, GL_DYNAMIC_DRAW);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	glBindBufferRange(GL_UNIFORM_BUFFER, 1, m_uboCamera, 0, sizeof(Vector3::x) + sizeof(Vector3::y) + sizeof(Vector3::z));
+	// トリガーUBO
+	glGenBuffers(1, &m_uboTriggers);
+	glBindBuffer(GL_UNIFORM_BUFFER, m_uboTriggers);
+	glBufferData(GL_UNIFORM_BUFFER, sizeof(int), NULL, GL_DYNAMIC_DRAW);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	glBindBufferRange(GL_UNIFORM_BUFFER, 2, m_uboTriggers, 0, sizeof(int));
+	// ディレクショナルライトUBO(vec3→vec4として送信)
+	glGenBuffers(1, &m_uboDirLights);
+	glBindBuffer(GL_UNIFORM_BUFFER, m_uboDirLights);
+	glBufferData(GL_UNIFORM_BUFFER, 4 * sizeof(Matrix4::mat), NULL, GL_DYNAMIC_DRAW);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	glBindBufferRange(GL_UNIFORM_BUFFER, 3, m_uboDirLights, 0, 4 * sizeof(Matrix4::mat));
+}
+
+/// <summary>
+/// UBOに値をセットする
+/// </summary>
+void Renderer::UpdateUBO()
+{
+	glBindBuffer(GL_UNIFORM_BUFFER, m_uboMatrices);
+	// 行列を転送するときは転置する
+	Matrix4 transView = m_viewMat;
+	transView.Transpose();
+	Matrix4 transProj = m_projMat;
+	transProj.Transpose();
+	// 変換行列UBO
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Matrix4::mat), transView.GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, sizeof(Matrix4::mat), sizeof(Matrix4::mat), transProj.GetAsFloatPtr());
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	// カメラUBO
+	glBindBuffer(GL_UNIFORM_BUFFER, m_uboCamera);
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Vector3::x) + sizeof(Vector3::y) + sizeof(Vector3::z), m_viewMat.GetTranslation().GetAsFloatPtr());
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	// トリガーFBO
+	glBindBuffer(GL_UNIFORM_BUFFER, m_uboTriggers);
+	int bloom = static_cast<int>(GAME_CONFIG->GetEnableBloom());
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(int), &bloom);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	// ディレクショナルライト
+	glBindBuffer(GL_UNIFORM_BUFFER, m_uboDirLights);
+	// 送信時のストライド(シェーダー側ではvec4型として受け取り ※メモリ読み取りがうまくいかないため)
+	auto stride = sizeof(Matrix4::mat);
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, stride, m_dirLight->GetDirection().GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, stride, stride, m_dirLight->GetDiffuse().GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, stride * 2, stride, m_dirLight->GetSpecular().GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, stride * 3, stride, m_dirLight->GetAmbient().GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, stride * 4, sizeof(float), &m_dirLight->GetIntensity());
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
 // テクスチャの取得
@@ -785,63 +799,10 @@ void Renderer::SetMapHUD(MiniMapHUD* in_mapHUD)
 	m_mapHUD = in_mapHUD;
 }
 
-// スカイボックス用頂点配列定義
-void Renderer::CreateCubeVerts()
-{
-	m_cubeVerts = new VertexArray();
-	m_cubeVerts->CreateCubeVerts();
-}
-
-// スプライト(2D用)の頂点配列を生成
-void Renderer::CreateSpriteVerts()
-{
-	float vertices[] = 
-	{
-      // x     y     z    nx   ny   nz    u    v
-		-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // 左上頂点
-		 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, // 右上頂点
-		 0.5f,-0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, // 右下頂点
-		-0.5f,-0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f  // 左下頂点
-	};
-
-	unsigned int indices[] = 
-	{
-	    0, 2, 1,
-	    2, 0, 3
-	};
-
-	m_spriteVerts = new VertexArray(vertices, 4, VertexArray::POS_NORMAL_TEX, indices, 6);
-}
-
-// パーティクル用の頂点配列を生成
-void Renderer::CreateWorldSpriteVerts()
-{
-	float vertices[] = 
-	{
-		-0.5f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, // 左上頂点
-		 0.5f, 0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, // 右上頂点
-		 0.5f, 0.0f,-0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, // 右下頂点
-		-0.5f, 0.0f,-0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f  // 左下頂点
-	};
-
-	unsigned int indices[] = 
-	{
-		0, 2, 1,
-		2, 0, 3
-	};
-	m_particleVerts = new VertexArray(vertices, 4, VertexArray::POS_NORMAL_TEX, indices, 6);
-}
-
-void Renderer::CreateScreenVerts()
-{
-	m_screenVerts = new VertexArray();
-	m_screenVerts->CreateScreenVerts();
-}
-
 // シェーダーのロード
 bool Renderer::LoadShaders()
 {
-
+	/*
 	// スプライトシェーダー
 	m_spriteShader = new Shader();
 
@@ -939,25 +900,7 @@ bool Renderer::LoadShaders()
 	m_mapOutputShader->SetActive();
 	// スクリーン用の行列を作成 (UIやスプライトは以降この行列を基準に描画)
 	m_mapOutputShader->SetMatrixUniform("u_viewProj", viewProj);
-
+	*/
 	return true;
-}
-
-// シェーダーのuniformに値をセット
-void Renderer::SetLightUniforms(Shader * in_shader)
-{
-	// ビュー行列からカメラ位置を逆算出する
-	Matrix4 invView = m_view;
-	invView.Invert();
-	in_shader->SetVectorUniform("uCameraPos", invView.GetTranslation());
-	in_shader->SetVectorUniform("u_viewPos", invView.GetTranslation());
-
-	// アンビエントライト
-	in_shader->SetVectorUniform("u_ambientLight", m_ambientLight);
-
-	// ディレクショナルライト
-	in_shader->SetVectorUniform("uDirLight.mPosition", m_directionalLight.position);
-	in_shader->SetVectorUniform("uDirLight.mDirection", m_directionalLight.direction);
-	in_shader->SetVectorUniform("uDirLight.mDiffuseColor", m_directionalLight.diffuse);
-	in_shader->SetVectorUniform("uDirLight.mSpecColor", m_directionalLight.specular);
+	
 }
