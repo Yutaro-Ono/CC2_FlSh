@@ -60,7 +60,7 @@ void LoadScreen::Update(float in_deltaTime)
 {
 }
 
-void LoadScreen::Draw(Shader * in_shader)
+void LoadScreen::Draw(GLSLprogram * in_shader)
 {
 
 	if (m_state == ENABLE)

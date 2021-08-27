@@ -128,7 +128,7 @@ void ScoreUI::Update(float in_deltaTime)
 
 
 // 描画処理
-void ScoreUI::Draw(Shader * in_shader)
+void ScoreUI::Draw(GLSLprogram * in_shader)
 {
 
 	// スコアの描画 (0 = 影, 1 = 本体)

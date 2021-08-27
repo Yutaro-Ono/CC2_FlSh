@@ -16,7 +16,7 @@ public:
 
 	void Update(float in_deltaTime) override;
 
-	void Draw(class Shader* in_shader) override;
+	void Draw(class GLSLprogram* in_shader) override;
 
 	void SetFindPlayer(bool in_find) { m_findPlayer = in_find; }
 

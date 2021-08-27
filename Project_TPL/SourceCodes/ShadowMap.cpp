@@ -7,6 +7,9 @@
 #include "MeshComponent.h"
 #include "SkeletalMeshComponent.h"
 #include "CarMeshComponent.h"
+#include "GLSLprogram.h"
+#include "ShaderManager.h"
+#include "DirectionalLight.h"
 
 const int ShadowMap::SHADOW_WIDTH = 8192;
 const int ShadowMap::SHADOW_HEIGHT = 8192;
@@ -37,6 +40,7 @@ ShadowMap::ShadowMap()
 	// フレームバッファのバインド解除
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+	/*
 	// シェーダの作成
 	// デプスマップシェーダ
 	m_depthShader = new GLSLprogram();
@@ -50,7 +54,7 @@ ShadowMap::ShadowMap()
 	m_depthSkinShader->Load("Data/GLSLprograms/SkinnedDepth.vert", "Data/GLSLprograms/DepthMap.frag");
 	m_skinShadowShader = new GLSLprogram();
 	m_skinShadowShader->Load("Data/GLSLprograms/SkinnedShadow.vert", "Data/GLSLprograms/PhongShadow.frag");
-
+	*/
 }
 
 ShadowMap::~ShadowMap()
@@ -58,10 +62,6 @@ ShadowMap::~ShadowMap()
 
 	glDeleteFramebuffers(1, &m_depthMapFBO);
 	glDeleteTextures(1, &m_depthMap);
-	delete m_depthGLSLprogram;
-	delete m_depthSkinGLSLprogram;
-	delete m_shadowGLSLprogram;
-	delete m_skinShadowGLSLprogram;
 }
 
 
@@ -82,7 +82,7 @@ void ShadowMap::RenderDepthMapFromLightView(const std::vector<class MeshComponen
 	//m_lightProj = Matrix4::CreateOrtho(7000.0f, 7000.0f, 1.0f, 5000.0f);
 	m_lightProj = Matrix4::CreateOrtho(7000.0f, 7000.0f, -10.0f, 5000.0f);
 
-	m_lightView = Matrix4::CreateLookAt(RENDERER->GetDirectionalLight().position, RENDERER->GetDirectionalLight().target, Vector3::UnitZ);
+	m_lightView = Matrix4::CreateLookAt(RENDERER->GetDirectionalLight()->GetPosition(), RENDERER->GetDirectionalLight()->GetTargetPos(), Vector3::UnitZ);
 	m_lightSpace = m_lightView * m_lightProj;
 
 	// シャドウマップはレンダリング時の解像度とは異なり、シャドウマップのサイズに合わせてViewportパラメータを変更する必要がある
@@ -91,27 +91,32 @@ void ShadowMap::RenderDepthMapFromLightView(const std::vector<class MeshComponen
 	// フレームバッファのバインド
 	glBindFramebuffer(GL_FRAMEBUFFER, m_depthMapFBO);
 	glClear(GL_DEPTH_BUFFER_BIT);
-	m_depthGLSLprogram->SetActive();
-	m_depthGLSLprogram->SetMatrixUniform("u_lightSpaceMatrix", m_lightSpace);
+
+	// 深度マップ書き込み用シェーダー
+	GLSLprogram* depthMesh = RENDERER->GetShaderManager()->GetShader(GLSL_SHADER::DEPTH_MESH);
+	GLSLprogram* depthSkin = RENDERER->GetShaderManager()->GetShader(GLSL_SHADER::DEPTH_SKIN);
+
+	depthMesh->UseProgram();
+	depthMesh->SetUniform("u_lightSpaceMatrix", m_lightSpace);
 
 	// デプスバッファを得るためにライトから見たシーンをレンダリングする
 	//----------------------------------------------------------------------+
 	for (auto mesh : in_mesh)
 	{
-		mesh->DrawShadow(m_depthGLSLprogram);
+		mesh->DrawShadow(depthMesh);
 	}
 	for (auto mesh : in_carMesh)
 	{
-		mesh->DrawShadow(m_depthGLSLprogram);
+		mesh->DrawShadow(depthMesh);
 	}
 
-	m_depthSkinGLSLprogram->SetActive();
-	m_depthSkinGLSLprogram->SetMatrixUniform("u_lightSpaceMatrix", m_lightSpace);
+	depthSkin->UseProgram();
+	depthSkin->SetUniform("u_lightSpaceMatrix", m_lightSpace);
 	for (auto skel : in_skelMesh)
 	{
 		if (skel->GetVisible())
 		{
-			skel->DrawShadow(m_depthSkinGLSLprogram);
+			skel->DrawShadow(depthSkin);
 		}
 
 	}
@@ -128,6 +133,7 @@ void ShadowMap::RenderDepthMapFromLightView(const std::vector<class MeshComponen
 // シャドウとメッシュの描画 (スキンメッシュは対象外)
 void ShadowMap::DrawShadowMesh(const std::vector<class MeshComponent*>& in_mesh)
 {
+	/*
 	// サンプリング用テクスチャセット
 	m_shadowGLSLprogram->SetInt("u_mat.diffuseMap", 0);
 	m_shadowGLSLprogram->SetInt("u_mat.specularMap", 1);
@@ -139,11 +145,12 @@ void ShadowMap::DrawShadowMesh(const std::vector<class MeshComponent*>& in_mesh)
 	{
 		mesh->Draw(m_shadowGLSLprogram);
 	}
-
+	*/
 }
 
 void ShadowMap::DrawShadowMesh(const std::vector<class MeshComponent*>& in_mesh, const std::vector<class SkeletalMeshComponent*>& in_skelMesh)
 {
+	/*
 	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	// ビューポートを画面サイズに戻す
 	glViewport(0, 0, GAME_CONFIG->GetScreenWidth(), GAME_CONFIG->GetScreenHeight());
@@ -201,6 +208,6 @@ void ShadowMap::DrawShadowMesh(const std::vector<class MeshComponent*>& in_mesh,
 			skel->Draw(m_skinShadowGLSLprogram);
 		}
 	}
-
+	*/
 }
 

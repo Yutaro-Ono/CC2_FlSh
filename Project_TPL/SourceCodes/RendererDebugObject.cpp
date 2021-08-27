@@ -35,15 +35,15 @@ void RendererDebugObject::Render()
 	glBindFramebuffer(GL_FRAMEBUFFER, DEBUGGER->GetDebugFrameBuffer());
 
 	// レンダリング方法の変更
-	bool method = (int)m_renderer->m_renderMethodType;
+	bool method = (int)m_renderer->GetRenderMode();
 	ImGui::Checkbox("RenderingMode : 0 = Forward, 1 = Deferred", &method);
 	if (method == 0)
 	{
-		m_renderer->SetRenderMethod(RENDER_METHOD::FORWARD);
+		m_renderer->SetRenderMode(RENDER_MODE::FORWARD);
 	}
 	else
 	{
-		m_renderer->SetRenderMethod(RENDER_METHOD::DEFERRED);
+		m_renderer->SetRenderMode(RENDER_MODE::DEFFERED);
 	}
 
 	// ブルーム効果の有効・無効化

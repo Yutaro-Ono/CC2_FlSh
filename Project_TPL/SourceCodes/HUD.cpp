@@ -65,7 +65,7 @@ void HUD::Update(float in_deltaTime)
 }
 
 // •`‰æˆ—
-void HUD::Draw(Shader * in_shader)
+void HUD::Draw(GLSLprogram * in_shader)
 {
 
 	// ƒwƒŠ‚ÉŒ©‚Â‚©‚Á‚½‚ÉDANGER•\¦

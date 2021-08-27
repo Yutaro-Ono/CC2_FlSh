@@ -24,8 +24,6 @@ public:
 	void DrawShadowMesh(const std::vector<class MeshComponent*>& in_mesh, const std::vector<class SkeletalMeshComponent*>& in_skelMesh);
 
 	// Getter/Setter
-	class GLSLprogram* GetDepthShader() { return m_depthShader; }
-	class GLSLprogram* GetShadowShader() { return m_shadowShader; }
 	unsigned int GetDepthMap() { return m_depthMap; }
 
 private:

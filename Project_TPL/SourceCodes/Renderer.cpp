@@ -31,6 +31,7 @@
 #include "../imgui/imgui_impl_sdl.h"
 #include <iostream>
 #include "DirectionalLight.h"
+#include "EffekseerEffect.h"
 
 // コンストラクタ
 Renderer::Renderer()
@@ -47,6 +48,9 @@ Renderer::Renderer()
 	,m_mapHUD(nullptr)
 	,m_shaderManager(nullptr)
 {
+	m_enableBloom = GAME_CONFIG->GetEnableBloom();
+	m_visualizeNormal = false;
+
 	// 描画方法の設定
 	if (GAME_CONFIG->GetEnableDeferred())
 	{
@@ -208,8 +212,8 @@ bool Renderer::Initialize(int in_screenW, int in_screenH, bool in_full)
 	//--------------------------------------------+
 	// Effekseer初期化
 	//--------------------------------------------+
-	m_effekseerRenderer = EffekseerRendererGL::Renderer::Create(8000, EffekseerRendererGL::OpenGLDeviceType::OpenGL3);
-	m_effekseerManager = Effekseer::Manager::Create(8000);
+	m_effekseerRenderer = ::EffekseerRendererGL::Renderer::Create(8000, EffekseerRendererGL::OpenGLDeviceType::OpenGL3);
+	m_effekseerManager = ::Effekseer::Manager::Create(8000);
 	// 描画モジュール作成
 	m_effekseerManager->SetSpriteRenderer(m_effekseerRenderer->CreateSpriteRenderer());
 	m_effekseerManager->SetRibbonRenderer(m_effekseerRenderer->CreateRibbonRenderer());
@@ -344,6 +348,8 @@ void Renderer::Draw()
 	// レンダリング (Forward or Deffered)
 	//------------------------------------------------+
 	// 共通処理
+	// ディレクショナルライトの更新
+	m_dirLight->Update();
 	// uniformバッファへ共通情報を格納する
 	UpdateUBO();
 
@@ -686,7 +692,7 @@ Mesh * Renderer::GetMesh(const std::string & in_fileName)
 		if (fileExtension == ".gpmesh")       // gpmesh形式
 		{
 			mesh = new MeshGpmesh();
-			if (mesh->Load(in_fileName, GAME_INSTANCE.GetRenderer()))
+			if (mesh->Load(in_fileName))
 			{
 				m_meshes.emplace(in_fileName, mesh);
 			}
@@ -700,7 +706,7 @@ Mesh * Renderer::GetMesh(const std::string & in_fileName)
 		else if (fileExtension == ".obj" || fileExtension == ".OBJ")     // obj形式
 		{
 			mesh = new MeshObj();
-			if (mesh->Load(in_fileName, GAME_INSTANCE.GetRenderer()))
+			if (mesh->Load(in_fileName))
 			{
 				m_meshes.emplace(in_fileName, mesh);
 			}

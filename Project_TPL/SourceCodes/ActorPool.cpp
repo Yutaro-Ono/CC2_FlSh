@@ -32,7 +32,7 @@ void ActorPool::UpdateObjects(float _deltaTime)
 		iter.second->UpdateActor(_deltaTime);
 		iter.second->Update(_deltaTime);
 	}
-
+	/*
 	// 死亡状態のアクターを保管→消去
 	std::vector<Actor*> deadActors;
 	for (auto actor : m_objPool)
@@ -62,7 +62,7 @@ void ActorPool::UpdateObjects(float _deltaTime)
 		DeleteKeyObject(key);
 	}
 	deadKeys.clear();
-
+	*/
 
 }
 

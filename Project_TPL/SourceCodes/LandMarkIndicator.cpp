@@ -10,7 +10,8 @@
 #include "CameraComponent.h"
 
 LandMarkIndicator::LandMarkIndicator(PlayerManager* in_player)
-	:m_player(in_player)
+	:Actor(OBJECT_TAG::PARTICLE)
+	,m_player(in_player)
 {
 	SetScale(750.0f);
 	// マップ矢印のモデル読み込み

@@ -216,19 +216,30 @@ bool ShaderManager::CreateShaders()
 	//-------------------------------------------------------------------------+
     // シャドウマップ用シェーダー
     //-------------------------------------------------------------------------+
-	// 深度マップ(通常メッシュ用)
+	// 深度マップ書き込み(通常メッシュ用)
 	m_shaders[GLSL_SHADER::DEPTH_MESH] = new GLSLprogram();
 	if (!m_shaders[GLSL_SHADER::DEPTH_MESH]->LoadShaders("Shaders/Depth/DepthMap.vert", "Shaders/Depth/DepthMap.frag", ""))
 	{
 		return false;
 	}
-	// 深度マップ(スキンメッシュ用)
+	// 深度マップ書き込み(スキンメッシュ用)
 	m_shaders[GLSL_SHADER::DEPTH_SKIN] = new GLSLprogram();
 	if (!m_shaders[GLSL_SHADER::DEPTH_SKIN]->LoadShaders("Shaders/Depth/SkinnedDepth.vert", "Shaders/Depth/DepthMap.frag", ""))
 	{
 		return false;
 	}
-
+	// シャドウ描画(通常メッシュ用)
+	m_shaders[GLSL_SHADER::SHADOW_MESH] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::SHADOW_MESH]->LoadShaders("Shaders/ForwardRendering/ShadowNormalMap.vert", "Shaders/ForwardRendering/ShadowNormalMap.frag", ""))
+	{
+		return false;
+	}
+	// シャドウ描画(スキンメッシュ用)
+	m_shaders[GLSL_SHADER::SHADOW_SKIN] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::SHADOW_SKIN]->LoadShaders("Shaders/ForwardRendering/SkinnedShadow.vert", "Shaders/ForwardRendering/PhongShadow.frag", ""))
+	{
+		return false;
+	}
 
     //-------------------------------------------------------------------------+
     // マップHUD用シェーダー

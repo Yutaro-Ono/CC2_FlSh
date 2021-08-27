@@ -92,7 +92,7 @@ void TitleScreen::Update(float in_deltaTime)
 
 
 // •`‰æˆ—
-void TitleScreen::Draw(Shader * in_shader)
+void TitleScreen::Draw(GLSLprogram * in_shader)
 {
 
 	//---------------------------------------------------------------------------+

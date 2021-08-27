@@ -107,7 +107,7 @@ void ResultScreen::Update(float in_deltaTime)
 
 }
 
-void ResultScreen::Draw(Shader * in_shader)
+void ResultScreen::Draw(GLSLprogram * in_shader)
 {
 
 	for (int i = 0; i < 2; i++)

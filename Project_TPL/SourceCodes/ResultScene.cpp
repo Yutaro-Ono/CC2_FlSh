@@ -21,6 +21,7 @@
 #include "ResultCar.h"
 #include "BridgeObject.h"
 #include "RenderBloom.h"
+#include "ActorPool.h"
 
 // コンストラクタ
 ResultScene::ResultScene(int in_score, float in_bestSpeed)
@@ -139,7 +140,7 @@ SceneBase * ResultScene::Update()
 			}
 
 			// 全てのアクターを削除
-			for (auto actor : GAME_INSTANCE.GetActorStack())
+			for (auto actor : ACTOR_POOL->GetPool())
 			{
 				actor->SetState(Actor::STATE_DEAD);
 			}

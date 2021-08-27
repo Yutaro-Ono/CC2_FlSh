@@ -86,7 +86,7 @@ void SpeedMeterUI::Update(float in_deltaTime)
 }
 
 // 描画処理
-void SpeedMeterUI::Draw(Shader * in_shader)
+void SpeedMeterUI::Draw(GLSLprogram * in_shader)
 {
 	// スピード数値の描画
 	// DrawTexture(in_shader, m_speedTex, m_speedTexPos, 1.0f);

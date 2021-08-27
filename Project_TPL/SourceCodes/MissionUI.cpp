@@ -189,7 +189,7 @@ void MissionUI::UpdateMissionInfo()
 }
 
 // •`‰æˆ—
-void MissionUI::Draw(Shader* in_shader)
+void MissionUI::Draw(GLSLprogram* in_shader)
 {
 	glEnable(GL_BLEND);
 	// ‰æ‘œƒXƒP[ƒ‹

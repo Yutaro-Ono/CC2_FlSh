@@ -8,7 +8,7 @@ MeshObj::~MeshObj()
 {
 }
 
-bool MeshObj::Load(const std::string& in_filePath, Renderer* in_renderer)
+bool MeshObj::Load(const std::string& in_filePath)
 {
 	// 頂点レイアウトをセット(基本メッシュタイプに固定)
 	VertexArray::Layout layout = VertexArray::POS_NORMAL_TEX_TAN;
@@ -134,7 +134,7 @@ bool MeshObj::Load(const std::string& in_filePath, Renderer* in_renderer)
 
 
 	// テクスチャの追加処理
-	AddTexture(in_filePath, in_renderer);
+	AddTexture(in_filePath);
 
 
 	return true;

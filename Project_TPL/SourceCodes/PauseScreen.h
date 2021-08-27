@@ -18,7 +18,7 @@ public:
 	~PauseScreen();
 
 
-	void Draw(class Shader* in_shader) override;
+	void Draw(class GLSLprogram* in_shader) override;
 
 
 

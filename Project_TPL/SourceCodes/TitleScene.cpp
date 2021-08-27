@@ -27,6 +27,7 @@
 #include "BridgeObject.h"
 #include "RenderBloom.h"
 #include "TutorialScene.h"
+#include "ActorPool.h"
 const int TitleScene::STAGE_ALL_NUM = 1;
 
 // コンストラクタ
@@ -155,7 +156,7 @@ SceneBase * TitleScene::Update()
 			}
 
 			// 全てのアクターを削除
-			for (auto actor : GAME_INSTANCE.GetActorStack())
+			for (auto actor : ACTOR_POOL->GetPool())
 			{
 				actor->SetState(Actor::STATE_DEAD);
 			}
@@ -307,7 +308,7 @@ SceneBase * TitleScene::Update()
 			}
 
 			// 全てのアクターを削除
-			for (auto actor : GAME_INSTANCE.GetActorStack())
+			for (auto actor : ACTOR_POOL->GetPool())
 			{
 				actor->SetState(Actor::STATE_DEAD);
 			}

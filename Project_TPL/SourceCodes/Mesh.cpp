@@ -36,7 +36,7 @@ void Mesh::Delete()
 /// </summary>
 /// <param name="in_meshName"> メッシュファイルのパス </param>
 /// <param name="in_renderer"> レンダラークラス。メモリを圧迫しないようGetTexture関数を使用するため </param>
-void Mesh::AddTexture(const std::string& in_meshName, class Renderer* in_renderer)
+void Mesh::AddTexture(const std::string& in_meshName)
 {
 	std::string filePath = in_meshName;
 

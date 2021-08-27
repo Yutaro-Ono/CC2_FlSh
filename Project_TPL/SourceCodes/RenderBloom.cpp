@@ -92,6 +92,7 @@ RenderBloom::~RenderBloom()
 // カラーバッファ・高輝度バッファへの書き込み(専用のシェーダでメッシュの全描画を行う)
 void RenderBloom::WriteBuffer(std::vector<class MeshComponent*> in_meshComp, std::vector<class SkeletalMeshComponent*> in_skelComp, CubeMapComponent* in_cubeMapComp, std::vector<class EnvironmentMapComponent*> in_envComp)
 {
+	/*
 	glBindFramebuffer(GL_FRAMEBUFFER, m_hdrFBO);
 	glEnable(GL_DEPTH_TEST);
 	// ビューポートを画面サイズに戻す
@@ -179,7 +180,7 @@ void RenderBloom::WriteBuffer(std::vector<class MeshComponent*> in_meshComp, std
 	m_multiRenderCubeMapShader->SetMatrixUniform("u_projection", projection);
 	m_multiRenderCubeMapShader->SetInt("u_skybox", 0);
 	in_cubeMapComp->Draw(m_multiRenderCubeMapShader);
-
+	*/
 
 }
 

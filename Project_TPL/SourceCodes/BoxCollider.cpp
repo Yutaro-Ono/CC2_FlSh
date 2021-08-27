@@ -34,8 +34,8 @@ void BoxCollider::OnUpdateWorldTransform()
 	m_worldBox = m_objectBox;
 
 	// スケーリング
-	m_worldBox.m_min *= m_owner->GetScale();
-	m_worldBox.m_max *= m_owner->GetScale();
+	m_worldBox.m_min *= m_owner->GetScale().x;
+	m_worldBox.m_max *= m_owner->GetScale().x;
 
 	// 回転
 	if (m_rotatable)

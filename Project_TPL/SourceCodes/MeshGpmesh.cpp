@@ -10,7 +10,7 @@ MeshGpmesh::~MeshGpmesh()
 {
 }
 
-bool MeshGpmesh::Load(const std::string& in_filePath, Renderer* in_renderer)
+bool MeshGpmesh::Load(const std::string& in_filePath)
 {
 	std::ifstream file(in_filePath);
 	if (!file.is_open())
@@ -74,7 +74,7 @@ bool MeshGpmesh::Load(const std::string& in_filePath, Renderer* in_renderer)
 	m_specValue = static_cast<float>(doc["specularPower"].GetDouble());
 
 	// テクスチャ生成
-	AddTexture(in_filePath, in_renderer);
+	AddTexture(in_filePath);
 
 	// 法線マップタンジェント計算用
 	// 頂点座標・テクスチャUV格納用配列

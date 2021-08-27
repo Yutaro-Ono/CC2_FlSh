@@ -41,13 +41,11 @@ GameWorld::GameWorld()
 	m_mission = new MissionManager(this);
 	// 環境(光源など)作成
 	m_environment = new Environment(this, Environment::GAME_TIME::NIGHT);
-	//m_environment = new Environment(this, Environment::GAME_TIME::MORNING);
 
 	// ヘリコプターを三機生成
 	for (int i = 0; i < 3; i++)
 	{
 		m_helicopters.emplace_back(new Helicopter(this, Vector3(5000.0f * (i + 1), 18000.0f * (i + 1), 1200.0f), i));
-		//m_helicopters.emplace_back(new Helicopter(this, Vector3(1800.0f, 2400.0f, 1200.0f), i));
 	}
 
 	// UI生成

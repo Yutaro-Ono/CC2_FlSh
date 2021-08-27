@@ -15,7 +15,7 @@ public:
 
 	void UpdateMissionInfo();                       // ミッション情報の生成・更新処理
 
-	void Draw(class Shader* in_shader) override;    // 描画処理
+	void Draw(class GLSLprogram* in_shader) override;    // 描画処理
 
 	void SetUIPosition();
 

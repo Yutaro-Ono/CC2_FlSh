@@ -167,7 +167,7 @@ void CountDownUI::Update(float in_deltaTime)
 }
 
 // 描画処理
-void CountDownUI::Draw(Shader * in_shader)
+void CountDownUI::Draw(GLSLprogram * in_shader)
 {
 	// フリーモード時の"Skip"
 	if (m_time->GetCountState() == m_time->STATE_FREE)

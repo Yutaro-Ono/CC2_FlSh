@@ -23,7 +23,7 @@ public:
 
 	void Update(float in_deltaTime) override;          // 更新処理
 
-	void Draw(class Shader* in_shader);                // 描画処理
+	void Draw(class GLSLprogram* in_shader);                // 描画処理
 
 
 	// ロード画面の表示、非表示

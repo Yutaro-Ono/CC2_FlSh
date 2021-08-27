@@ -4,7 +4,8 @@
 
 
 SkyBox::SkyBox()
-	:m_environmnet(nullptr)
+	:Actor(OBJECT_TAG::SKYBOX)
+	,m_environmnet(nullptr)
 {
 	m_cubeMapComp = new CubeMapComponent(this);
 	m_cubeMapComp->CreateTexture("Data/Textures/TND/Skybox/night/");
@@ -12,7 +13,8 @@ SkyBox::SkyBox()
 }
 
 SkyBox::SkyBox(Environment* in_environment, Environment::GAME_TIME in_gameTime)
-	:m_environmnet(in_environment)
+	:Actor(OBJECT_TAG::SKYBOX)
+	,m_environmnet(in_environment)
 {
 	SetSkyBox(in_gameTime);
 	m_position = Vector3(100, 100, 100);

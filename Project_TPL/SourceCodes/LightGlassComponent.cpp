@@ -31,9 +31,9 @@ void LightGlassComponent::Draw(GLSLprogram* _shader)
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		// uniformへのセット
-		_shader->SetMatrixUniform("u_worldTransform", m_owner->GetWorldTransform());
-		_shader->SetVectorUniform("u_lightColor", m_lightColor);
-		_shader->SetFloat("u_luminance", m_luminance);
+		_shader->SetUniform("u_worldTransform", m_owner->GetWorldTransform());
+		_shader->SetUniform("u_lightColor", m_lightColor);
+		_shader->SetUniform("u_luminance", m_luminance);
 
 		// 頂点配列のバインド
 		VertexArray* vao = m_mesh->GetVertexArray();

@@ -30,6 +30,7 @@ enum class OBJECT_TAG : unsigned char
 
 	STATIC_OBJECT,
 
+	SKYBOX,
 	PARTICLE,
 
 	DEBUG_SPHERE,

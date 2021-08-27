@@ -7,7 +7,8 @@
 #include "ClientActor.h"
 
 PlayerManager::PlayerManager()
-	:m_playerMode(PLAYER_MODE::MODE_HUMAN)
+	:Actor(OBJECT_TAG::STATIC_OBJECT)
+	,m_playerMode(PLAYER_MODE::MODE_HUMAN)
 	,m_searchSphere(Vector3::Zero, 150.0f)
 	,m_isDetectedCar(false)
 	,m_isDetectedClient(false)

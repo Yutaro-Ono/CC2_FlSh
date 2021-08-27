@@ -19,7 +19,7 @@ PauseScreen::~PauseScreen()
 }
 
 // •`‰æˆ—
-void PauseScreen::Draw(Shader * in_shader)
+void PauseScreen::Draw(GLSLprogram * in_shader)
 {
 	if (m_pause == MODE_ON)
 	{

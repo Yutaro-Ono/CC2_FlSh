@@ -5,6 +5,7 @@
 #include "GameWorld.h"
 #include "PlayerManager.h"
 #include "RenderBloom.h"
+#include "DirectionalLight.h"
 
 static Vector3 playerPos = Vector3::Zero;
 //static const Vector3 ADJUST_POS = Vector3(2000.0f, 0.0f, 3000.0f);
@@ -51,7 +52,7 @@ Environment::~Environment()
 void Environment::Update()
 {
 
-
+	// 毎フレームのプレイヤー座標
 	Vector3 framePlayerPos = m_world->GetPlayer()->GetPosition();
 
 	// 影のちらつきを抑えるため4000以上の移動で平行ライトの位置をプレイヤーにスナップする
@@ -59,15 +60,11 @@ void Environment::Update()
 		framePlayerPos.y >= playerPos.y + 2000 || framePlayerPos.y <= playerPos.y - 2000)
 	{
 		// プレイヤーの位置に応じて平行ライトの座標・向きを最適化
-		RENDERER->GetDirectionalLight().position = Vector3((int)framePlayerPos.x, (int)framePlayerPos.y, 0.0f);
-		RENDERER->GetDirectionalLight().position.x += (int)ADJUST_POS.x;
-		RENDERER->GetDirectionalLight().position.y += (int)ADJUST_POS.y;
-		RENDERER->GetDirectionalLight().position.z += (int)ADJUST_POS.z;
+		RENDERER->GetDirectionalLight()->SetPosition(Vector3((int)framePlayerPos.x + (int)ADJUST_POS.x, 
+			                                                 (int)framePlayerPos.y + (int)ADJUST_POS.y, 
+			                                                  0.0f + (int)ADJUST_POS.z));
 
-		RENDERER->GetDirectionalLight().target = framePlayerPos;
-
-		RENDERER->GetDirectionalLight().direction = RENDERER->GetDirectionalLight().target - RENDERER->GetDirectionalLight().position;
-		RENDERER->GetDirectionalLight().direction.Normalize();
+		RENDERER->GetDirectionalLight()->SetTarget(framePlayerPos);
 
 		playerPos = framePlayerPos;
 	}
@@ -111,16 +108,14 @@ void Environment::SetDirectionalLight(GAME_TIME in_gameTime, const Vector3& in_p
 	{
 		// ライティング
 		RENDERER->SetAmbientLight(Vector3(0.5f, 0.5f, 0.52f));
-		dirLight& dir = RENDERER->GetDirectionalLight();
-		//dir.position = Vector3(30000.0f, 15400.0f, 15000.0f);
-		dir.position = playerPos + ADJUST_POS;
-		dir.target = playerPos;
-		dir.direction = dir.target - dir.position;
-		dir.direction.Normalize();
-		dir.ambient = Vector3(0.5f, 0.5f, 0.51f);
-		dir.diffuse = Vector3(0.4f, 0.5f, 0.5f);
-		dir.specular = Vector3(0.3f, 0.3f, 0.3f);
 
+		// ディレクショナルライトの調整
+		RENDERER->GetDirectionalLight()->SetPosition(playerPos + ADJUST_POS);
+		RENDERER->GetDirectionalLight()->SetTarget(playerPos);
+		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.5f, 0.5f, 0.51f));
+		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.4f, 0.5f, 0.5f));
+		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.3f, 0.3f, 0.3f));
+		// ブルームの設定
 		RENDERER->GetBloom()->SetGamma(0.085f);
 		RENDERER->GetBloom()->SetExposureVal(4.5f);
 
@@ -132,15 +127,15 @@ void Environment::SetDirectionalLight(GAME_TIME in_gameTime, const Vector3& in_p
 	{
 		// ライティング
 		RENDERER->SetAmbientLight(Vector3(0.1f, 0.1f, 0.15f));
-		dirLight& dir = RENDERER->GetDirectionalLight();
-		dir.position = playerPos + ADJUST_POS;
-		dir.target = playerPos;
-		dir.direction = dir.target - dir.position;
-		dir.direction.Normalize();
-		dir.ambient = Vector3(0.7f, 0.7f, 0.75f);
-		dir.diffuse = Vector3(0.4f, 0.4f, 0.45f);
-		dir.specular = Vector3(0.5f, 0.5f, 0.6f);
 
+		// ディレクショナルライトの調整
+		RENDERER->SetAmbientLight(Vector3(0.15f, 0.15f, 0.2f));
+		RENDERER->GetDirectionalLight()->SetPosition(playerPos + ADJUST_POS);
+		RENDERER->GetDirectionalLight()->SetTarget(playerPos);
+		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.7f, 0.7f, 0.75f));
+		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.4f, 0.4f, 0.45f));
+		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.5f, 0.5f, 0.6f));
+		// ブルームの設定
 		RENDERER->GetBloom()->SetGamma(1.0f);
 		RENDERER->GetBloom()->SetExposureVal(4.5f);
 
@@ -152,15 +147,15 @@ void Environment::SetDirectionalLight(GAME_TIME in_gameTime, const Vector3& in_p
 	{
 		// ライティング
 		RENDERER->SetAmbientLight(Vector3(0.1f, 0.1f, 0.15f));
-		dirLight& dir = RENDERER->GetDirectionalLight();
-		dir.position = playerPos + ADJUST_POS;
-		dir.target = playerPos;
-		dir.direction = dir.target - dir.position;
-		dir.direction.Normalize();
-		dir.ambient = Vector3(0.4f, 0.4f, 0.4f);
-		dir.diffuse = Vector3(0.07f, 0.05f, 0.3f);
-		dir.specular = Vector3(0.01f, 0.0f, 0.1f);
 
+		// ディレクショナルライトの調整
+		RENDERER->SetAmbientLight(Vector3(0.15f, 0.15f, 0.2f));
+		RENDERER->GetDirectionalLight()->SetPosition(playerPos + ADJUST_POS);
+		RENDERER->GetDirectionalLight()->SetTarget(playerPos);
+		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.4f, 0.4f, 0.4f));
+		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.07f, 0.05f, 0.3f));
+		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.01f, 0.0f, 0.1f));
+		// ブルームの設定
 		RENDERER->GetBloom()->SetGamma(1.0f);
 		RENDERER->GetBloom()->SetExposureVal(4.5f);
 
@@ -171,24 +166,19 @@ void Environment::SetDirectionalLight(GAME_TIME in_gameTime, const Vector3& in_p
 
 	if (m_gameTime == GAME_TIME::NIGHT)
 	{
-		// ライティング
+		// ディレクショナルライトの調整
 		RENDERER->SetAmbientLight(Vector3(0.15f, 0.15f, 0.2f));
-		dirLight& dir = RENDERER->GetDirectionalLight();
-		dir.position = playerPos + ADJUST_POS;
-		dir.target = playerPos;
-		dir.direction = dir.target - dir.position;
-		dir.direction.Normalize();
-		//dir.ambient = Vector3(0.2f, 0.2f, 0.2f);
-		dir.ambient = Vector3(0.31f, 0.415f, 0.46f);
-		dir.diffuse = Vector3(0.1f, 0.485f, 0.46f);
-		//dir.diffuse = Vector3(0.1f, 0.25f, 0.37f);
-
-		dir.specular = Vector3(0.1f, 0.35f, 0.4f);
-
+		RENDERER->GetDirectionalLight()->SetPosition(playerPos + ADJUST_POS);
+		RENDERER->GetDirectionalLight()->SetTarget(playerPos);
+		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.31f, 0.415f, 0.46f));
+		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.1f, 0.485f, 0.46f));
+		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.1f, 0.35f, 0.4f));
+		// ブルームの設定
 		RENDERER->GetBloom()->SetGamma(0.085f);
 		RENDERER->GetBloom()->SetExposureVal(5.5f);
-
+		// 夜用スカイボックスの有効化
 		m_nightBox->GetCubeMapComp()->SetIsVisible(true);
+
 		return;
 	}
 
@@ -198,13 +188,9 @@ void Environment::SetDirectionalLight(GAME_TIME in_gameTime, const Vector3& in_p
 void Environment::SetDirectionalLightPos(const Vector3& in_pos)
 {
 	// プレイヤーの位置に応じて平行ライトの座標・向きを最適化
-	RENDERER->GetDirectionalLight().position = in_pos;
-	RENDERER->GetDirectionalLight().position.x += (int)ADJUST_POS.x;
-	RENDERER->GetDirectionalLight().position.y += (int)ADJUST_POS.y;
-	RENDERER->GetDirectionalLight().position.z += (int)ADJUST_POS.z;
+	RENDERER->GetDirectionalLight()->SetPosition(Vector3(in_pos.x + (int)ADJUST_POS.x, 
+		                                                 in_pos.y + (int)ADJUST_POS.y, 
+		                                                 in_pos.z + (int)ADJUST_POS.z));
 
-	RENDERER->GetDirectionalLight().target = in_pos;
-
-	RENDERER->GetDirectionalLight().direction = RENDERER->GetDirectionalLight().target - RENDERER->GetDirectionalLight().position;
-	RENDERER->GetDirectionalLight().direction.Normalize();
+	RENDERER->GetDirectionalLight()->SetTarget(in_pos);
 }

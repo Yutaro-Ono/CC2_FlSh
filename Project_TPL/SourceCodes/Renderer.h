@@ -23,7 +23,7 @@
 #include "Math.h"
 
 // 描画モード（正面・遅延）
-enum class RENDER_MODE : unsigned char
+enum class RENDER_MODE : unsigned int
 {
 	FORWARD = 0,
 	DEFFERED
@@ -130,6 +130,9 @@ public:
 	// ブルームクラスゲッター
 	class RenderBloom* GetBloom() { return m_bloom; }
 
+	// 描画モード
+	RENDER_MODE GetRenderMode() { return m_renderMode; }
+	void SetRenderMode(RENDER_MODE _renderMode) { m_renderMode = _renderMode; }
 	// シェーダー管理クラスのゲッター
 	class ShaderManager* GetShaderManager() { return m_shaderManager; }
 
@@ -248,7 +251,12 @@ private:
 	Effekseer::RefPtr<EffekseerRendererGL::Renderer> m_effekseerRenderer;    // Effekseer用レンダラー
 	Effekseer::RefPtr<Effekseer::Manager> m_effekseerManager;                // Effekseer用マネージャー
 
+	// フラグ関連
+	bool m_enableBloom;
+	bool m_visualizeNormal;
+
 	// フレンドクラス (フォワード・ディファードクラスはレンダラーに直接アクセス可能)
 	friend class ForwardRenderer;
 	friend class DefferedRenderer;
+	friend class RendererDebugObject;
 };

@@ -25,7 +25,7 @@ ThirdPersonCamera::ThirdPersonCamera(Actor* in_owner)
 	, m_mousePos(MOUSE_INSTANCE.GetPosition())
 	, m_frameMousePos(MOUSE_INSTANCE.GetPosition())
 {
-	m_cameraActor = new Actor();
+	m_cameraActor = new Actor(OBJECT_TAG::CAMERA);
 	m_cameraActor->SetPosition(m_position);
 
 	// Œü‚«ƒxƒNƒgƒ‹‰Šú‰»

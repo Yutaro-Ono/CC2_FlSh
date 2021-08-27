@@ -19,7 +19,7 @@ public:
 
 	void Update(float in_deltaTime) override;
 
-	void Draw(class Shader* in_shader);
+	void Draw(class GLSLprogram* in_shader);
 
 
 

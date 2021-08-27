@@ -74,6 +74,7 @@ public:
 	class AudioManager* const GetAudio() { return m_audio; }                         // オーディオのゲッター
 	class PhysicsWorld* const GetPhysics() { return m_physicsWorld; }                // 当たり判定クラスのゲッター
 	class LoadScreen* const GetLoadScreen() { return m_loadScreen; }                 // ロードスクリーンクラスのゲッター
+	class ActorPool* const GetActorPool() { return m_actorPool; }
 
 	SDL_Renderer* GetSDLRenderer();                                                  // 2D用SDLレンダラーの取得
 	// カメラ
@@ -169,3 +170,4 @@ private:
 #define GAME_CONFIG GameMain::GetInstance().GetConfig()
 #define DEBUGGER GameMain::GetInstance().GetDebugger()
 #define AUDIO GameMain::GetInstance().GetAudio()
+#define ACTOR_POOL GameMain::GetInstance().GetActorPool()

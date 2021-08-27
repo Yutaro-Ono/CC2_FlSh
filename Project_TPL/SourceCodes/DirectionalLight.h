@@ -20,9 +20,12 @@ public:
 	DirectionalLight();
 	~DirectionalLight();
 
+	void Update();
+
 	void ReAdjustmentDirection();
 
 	// Setter/Getter
+	void SetPosition(const Vector3& _pos) { m_position = _pos; m_readjustDir = true; }
 	void SetTarget(const Vector3& _targetPos) { m_targetPos = _targetPos; m_readjustDir = true; }
 	void SetLightDirection(const Vector3& _lightDir) { m_direction = _lightDir; }
 	void SetDiffuse(const Vector3& _color) { m_diffuse = _color; }

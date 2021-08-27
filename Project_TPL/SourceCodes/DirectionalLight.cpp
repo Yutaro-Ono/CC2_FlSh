@@ -27,6 +27,15 @@ DirectionalLight::~DirectionalLight()
 {
 }
 
+void DirectionalLight::Update()
+{
+	// 光の方向の再調整が必要な時
+	if (m_readjustDir)
+	{
+		ReAdjustmentDirection();
+	}
+}
+
 /// <summary>
 /// ターゲット座標が更新された際
 /// 光の方向を再調整する

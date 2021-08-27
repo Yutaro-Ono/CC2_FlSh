@@ -42,7 +42,7 @@ Texture* TexturePool::GetTexture(const std::string& _texturePath)
 		// テクスチャの生成
 		texture = new Texture();
 
-		if (texture->LoadTexture(_texturePath))
+		if (texture->Load(_texturePath))
 		{
 			// 成功
 			m_keyObjPool.emplace(_texturePath, texture);

@@ -1,6 +1,7 @@
 #include "EffekseerEffect.h"
 #include "GameMain.h"
 #include "Renderer.h"
+#include <Effekseer.h>
 #include <EffekseerRendererGL.h>
 #include <iostream>
 

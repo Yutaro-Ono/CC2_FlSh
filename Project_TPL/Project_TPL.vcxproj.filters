@@ -21,9 +21,6 @@
     <Filter Include="リソース ファイル\stb_image">
       <UniqueIdentifier>{016031fa-b191-4678-b457-5917bfcbbece}</UniqueIdentifier>
     </Filter>
-    <Filter Include="リソース ファイル\glad">
-      <UniqueIdentifier>{d82e7910-e561-4f67-9c11-51a238e9b1a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\ObjectPool">
       <UniqueIdentifier>{6e8bc125-86af-40f7-abfa-373b2d37e899}</UniqueIdentifier>
     </Filter>
@@ -205,9 +202,6 @@
     </ClCompile>
     <ClCompile Include="imgui\imgui_impl_opengl3.cpp">
       <Filter>リソース ファイル\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="glad\glad.c">
-      <Filter>リソース ファイル\glad</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\Font.cpp">
       <Filter>Source</Filter>

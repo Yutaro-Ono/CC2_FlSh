@@ -8,6 +8,7 @@
 #include "GameScene.h"
 #include "Environment.h"
 #include "ParticleManager.h"
+#include "ActorPool.h"
 
 TutorialScene::TutorialScene()
 	:m_state(STATE_FADE_IN)
@@ -89,7 +90,7 @@ SceneBase* TutorialScene::Update()
 			}
 
 			// 全てのアクターを削除
-			for (auto actor : GAME_INSTANCE.GetActorStack())
+			for (auto actor : ACTOR_POOL->GetPool())
 			{
 				actor->SetState(Actor::STATE_DEAD);
 			}

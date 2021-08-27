@@ -7,7 +7,8 @@ const float RuleTime::LIMIT_TIME = 210.0f;
 const float RuleTime::FINISH_TIME = 3.0f;
 
 RuleTime::RuleTime(class GameScene* in_scene)
-	:m_nowCount(START_TIME)
+	:Actor(OBJECT_TAG::STATIC_OBJECT)
+	,m_nowCount(START_TIME)
 	,m_state(STATE_FREE)
 	,m_isAddingFrame(0.0f)
 	,m_isAdding(false)

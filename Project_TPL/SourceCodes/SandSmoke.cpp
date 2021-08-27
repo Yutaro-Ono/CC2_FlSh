@@ -92,7 +92,7 @@ void SandSmoke::UpdateActor(float in_deltaTime)
 				pos = pos + randV;
 
 				// パーティクルを生成
-				Particle* p = new Particle(pos, Velocity, m_scale, 0.1f, randV.x * 0.08f);
+				Particle* p = new Particle(pos, Velocity, m_scale.x, 0.1f, randV.x * 0.08f);
 
 				p->SetTextureID(m_texture->GetTextureID());
 				p->SetColor(m_color);

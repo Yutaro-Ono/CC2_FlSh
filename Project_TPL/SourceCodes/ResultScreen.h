@@ -20,7 +20,7 @@ public:
 
 	void Update(float in_deltaTime) override;
 
-	void Draw(class Shader* in_shader) override;
+	void Draw(class GLSLprogram* in_shader) override;
 
 	int GetDispScore() { return m_dispScore; }
 

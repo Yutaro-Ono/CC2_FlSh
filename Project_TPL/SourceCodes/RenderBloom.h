@@ -82,4 +82,7 @@ private:
 	float m_saveExposure;                              // フェードアウト処理時の露出保存用
 
 	float m_gamma;                                     // ガンマコレクション
+
+	// デバッグ用クラス
+	friend class RenderBloomDebugObject;
 };

@@ -64,7 +64,7 @@ void PlayerControlUI::Update(float in_deltaTime)
 }
 
 // •`‰æˆ—
-void PlayerControlUI::Draw(Shader* in_shader)
+void PlayerControlUI::Draw(GLSLprogram* in_shader)
 {
 	float scale = 0.3f;
 

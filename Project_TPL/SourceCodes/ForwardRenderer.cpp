@@ -30,7 +30,7 @@ ForwardRenderer::~ForwardRenderer()
 // 描画処理
 void ForwardRenderer::Draw()
 {
-
+	/*
 	// 深度テストをON、ブレンドをオフ
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
@@ -230,5 +230,5 @@ void ForwardRenderer::Draw()
 	{
 		ui->Draw(m_renderer->m_spriteShader);
 	}
-
+	*/
 }

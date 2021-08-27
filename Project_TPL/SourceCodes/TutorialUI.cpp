@@ -41,7 +41,7 @@ void TutorialUI::Update(float in_deltaTime)
 
 
 // •`‰æˆ—
-void TutorialUI::Draw(Shader * in_shader)
+void TutorialUI::Draw(GLSLprogram * in_shader)
 {
 
 	// ƒRƒ“ƒgƒ[ƒ‰Ú‘±‚Æ‚»‚¤‚Å‚È‚¢‚Æ‚Å•`‰æ‚ğ•Ï‚¦‚é
