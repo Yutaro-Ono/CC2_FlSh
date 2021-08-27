@@ -2,7 +2,8 @@
 #include "SpotLightComponent.h"
 
 SpotLight::SpotLight(const Vector3& in_pos, LIGHT_VOLUME in_vol)
-	:m_lighting(true)
+	:Actor(OBJECT_TAG::LIGHT)
+	,m_lighting(true)
 	,m_target(nullptr)
 	, m_lightVolume(in_vol)
 	, m_diffuse(Vector3(10.0f, 10.0f, 10.0f))

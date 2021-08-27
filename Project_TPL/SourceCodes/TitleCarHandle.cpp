@@ -3,7 +3,8 @@
 #include "MeshComponent.h"
 
 TitleCarHandle::TitleCarHandle(Actor* in_owner, const std::string& in_meshPath)
-	:m_owner(in_owner)
+	:Actor(OBJECT_TAG::VEHICLE)
+	,m_owner(in_owner)
 {
 	// オーナーの座標をセット
 	m_position = m_owner->GetPosition();

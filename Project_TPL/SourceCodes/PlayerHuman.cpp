@@ -18,7 +18,8 @@
 const float cAnimationSpeed = 14.0f;          // アニメーションの速度
 
 PlayerHuman::PlayerHuman(class PlayerManager* in_manager)
-	:m_manager(in_manager)
+	:Actor(OBJECT_TAG::PLAYER)
+	,m_manager(in_manager)
 	,m_pov(POV_THIRD_PERSON)
 	,m_jumpVec(Vector3(0.0f, 0.0f, 0.0f))
 	,m_faceLight(nullptr)

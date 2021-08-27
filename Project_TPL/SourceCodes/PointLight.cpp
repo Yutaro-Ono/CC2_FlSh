@@ -4,7 +4,8 @@
 #include "Mesh.h"
 
 PointLight::PointLight(LIGHT_VOLUME in_vol)
-	:m_lighting(true)
+	:Actor(OBJECT_TAG::LIGHT)
+	,m_lighting(true)
 	,m_lightVolume(in_vol)
 	,m_diffuse(Vector3(0.3f, 0.68f, 1.0f))
 	,m_ambient(m_diffuse * 0.2f)

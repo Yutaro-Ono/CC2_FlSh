@@ -64,6 +64,27 @@ bool ShaderManager::CreateShaders()
 	}
 	m_shaders[GLSL_SHADER::BASIC_PHONG]->SetUniform("u_mat.albedo", 0);
 
+	// 標準シェーダー+Phongライティング+シャドウ
+	m_shaders[GLSL_SHADER::BASIC_PHONG_SHADOW] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::BASIC_PHONG_SHADOW]->LoadShaders("Shaders/ForwardRendering/PhongShadow.vert", "Shaders/ForwardRendering/PhongShadow.frag", ""))
+	{
+		return false;
+	}
+
+	// 標準シェーダー+スキンメッシュ
+	m_shaders[GLSL_SHADER::BASIC_SKINMESH] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::BASIC_SKINMESH]->LoadShaders("Shaders/ForwardRendering/Skinned.vert", "Shaders/ForwardRendering/BasicMesh.frag", ""))
+	{
+		return false;
+	}
+
+	// 標準シェーダー+SkyBox
+	m_shaders[GLSL_SHADER::BASIC_SKYBOX] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::BASIC_SKYBOX]->LoadShaders("Shaders/ForwardRendering/SkyBox.vert", "Shaders/ForwardRendering/SkyBox.frag", ""))
+	{
+		return false;
+	}
+
     //-------------------------------------------------------------------------+
     // 遅延レンダリング用シェーダー
     //-------------------------------------------------------------------------+
@@ -187,6 +208,23 @@ bool ShaderManager::CreateShaders()
 	// 3D空間
 	m_shaders[GLSL_SHADER::SPRITE_3D] = new GLSLprogram();
 	if (!m_shaders[GLSL_SHADER::SPRITE_3D]->LoadShaders("Shaders/Particle/Particle_Bloom.vert", "Shaders/Sprite/WorldSpaceSprite.frag", ""))
+	{
+		return false;
+	}
+
+
+	//-------------------------------------------------------------------------+
+    // シャドウマップ用シェーダー
+    //-------------------------------------------------------------------------+
+	// 深度マップ(通常メッシュ用)
+	m_shaders[GLSL_SHADER::DEPTH_MESH] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::DEPTH_MESH]->LoadShaders("Shaders/Depth/DepthMap.vert", "Shaders/Depth/DepthMap.frag", ""))
+	{
+		return false;
+	}
+	// 深度マップ(スキンメッシュ用)
+	m_shaders[GLSL_SHADER::DEPTH_SKIN] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::DEPTH_SKIN]->LoadShaders("Shaders/Depth/SkinnedDepth.vert", "Shaders/Depth/DepthMap.frag", ""))
 	{
 		return false;
 	}

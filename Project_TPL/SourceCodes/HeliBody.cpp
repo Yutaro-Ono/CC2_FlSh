@@ -6,6 +6,7 @@
 #include "Helicopter.h"
 
 HeliBody::HeliBody(Helicopter* in_heli, const std::string& in_filePath)
+	:Actor(OBJECT_TAG::VEHICLE)
 {
 	// オーナークラスをセット
 	m_owner = in_heli;

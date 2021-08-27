@@ -24,20 +24,19 @@ public:
 	void DrawShadowMesh(const std::vector<class MeshComponent*>& in_mesh, const std::vector<class SkeletalMeshComponent*>& in_skelMesh);
 
 	// Getter/Setter
-	class Shader* GetDepthShader() { return m_depthShader; }
-	class Shader* GetShadowShader() { return m_shadowShader; }
+	class GLSLprogram* GetDepthShader() { return m_depthShader; }
+	class GLSLprogram* GetShadowShader() { return m_shadowShader; }
 	unsigned int GetDepthMap() { return m_depthMap; }
 
 private:
 
 
-	unsigned int m_depthMapFBO;              // デプスバッファオブジェクト
-	unsigned int m_depthMap;                 // 深度を書き込むための2Dテクスチャ
+	unsigned int m_depthMapFBO;                // デプスバッファオブジェクト
+	unsigned int m_depthMap;                   // 深度を書き込むための2Dテクスチャ
 
-	class Shader* m_depthShader;          // デプスシェーダ (影描画の前準備に使用する)
-	class Shader* m_depthSkinShader;      // デプスシェーダ (スキンメッシュ用)
-	class Shader* m_shadowShader;         // シャドウマッピングシェーダ
-	class Shader* m_skinShadowShader;     // シャドウ適用のスキンシェーダ
+	class GLSLprogram* m_depthShader;          // デプスシェーダ (影描画の前準備に使用する)
+	class GLSLprogram* m_depthSkinShader;          // デプスシェーダ (スキンメッシュ用)
+	class GLSLprogram* m_skinShadowShader;     // シャドウ適用のスキンシェーダ
 
 	// ライト空間用行列
 	Matrix4 m_lightView, m_lightProj, m_lightSpace;

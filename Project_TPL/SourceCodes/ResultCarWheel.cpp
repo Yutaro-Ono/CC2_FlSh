@@ -10,7 +10,8 @@ const std::string ResultCarWheel::CAR_WHEEL_STEEL_MESH_PATH = "Data/Meshes/TND/A
 
 
 ResultCarWheel::ResultCarWheel(Actor* in_owner, WHEEL_POSITION in_enumPos)
-	:m_owner(in_owner)
+	:Actor(OBJECT_TAG::VEHICLE)
+	,m_owner(in_owner)
 	,m_wheelPosition(in_enumPos)
 	,m_spin(false)
 {

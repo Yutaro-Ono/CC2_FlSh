@@ -146,10 +146,14 @@ void DefferedRenderer::DrawGBuffer()
     //------------------------------------------------------------+
 	GLSLprogram* skyboxShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_SKYBOX);
 	skyboxShader->UseProgram();
-	// Uniformに逆行列をセット
-	Matrix4 InvView = m_renderer->m_viewMat;
-	InvView.Invert();
-	skyboxShader->SetUniform("u_invView", InvView);
+	// 座標系の問題でスカイボックスが正常な向きに描画されないので、回転オフセットを設定
+	Matrix4 offset = Matrix4::CreateRotationX(Math::ToRadians(90.0f));
+	// Uniformに逆→転置行列をセット
+	Matrix4 InvTransView = m_renderer->m_viewMat;
+	InvTransView.Invert();
+	InvTransView.Transpose();
+	skyboxShader->SetUniform("u_offset", offset);
+	skyboxShader->SetUniform("u_invTransView", InvTransView);
 	skyboxShader->SetUniform("u_projection", m_renderer->m_projMat);
 	skyboxShader->SetUniform("u_skybox", 0);
 	m_renderer->GetSkyBox()->Draw(skyboxShader);

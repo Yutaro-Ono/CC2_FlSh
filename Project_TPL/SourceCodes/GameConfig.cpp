@@ -10,6 +10,10 @@ GameConfig::GameConfig()
 	,m_graphicsEnableDeferred(false)
 	,m_graphicsEnableEnvMap(false)
 	,m_graphicsEnableBloom(false)
+	,m_graphicsEnableNormal(false)
+	,m_graphicsEnableShadow(false)
+	,m_graphicsShadowScale(2048)
+	,m_graphicsShadowRange(7000)
 {
 }
 
@@ -29,11 +33,16 @@ bool GameConfig::LoadConfig(const std::string& _iniPath)
 	// iniからデータをロード
 	loadSuccess = LoadIntValue(pt, "Display", "ScreenWidth", m_screenWidth);
 	loadSuccess = LoadIntValue(pt, "Display", "ScreenHeight", m_screenHeight);
-
+	// グラフィック設定
 	loadSuccess = LoadBoolValue(pt, "Display", "FullScreen", m_fullScreen);
 	loadSuccess = LoadBoolValue(pt, "Graphics", "EnableDeferredRendering", m_graphicsEnableDeferred);
 	loadSuccess = LoadBoolValue(pt, "Graphics", "EnableEnvironmentMap", m_graphicsEnableEnvMap);
 	loadSuccess = LoadBoolValue(pt, "Graphics", "EnableBloom", m_graphicsEnableBloom);
+	loadSuccess = LoadBoolValue(pt, "Graphics", "EnableNormal", m_graphicsEnableNormal);
+	loadSuccess = LoadBoolValue(pt, "Graphics", "EnableShadow", m_graphicsEnableShadow);
+	loadSuccess = LoadIntValue(pt, "Graphics", "ShadowScale", m_graphicsShadowScale);
+	loadSuccess = LoadIntValue(pt, "Graphics", "ShadowRange", m_graphicsShadowRange);
+
 
 	return loadSuccess;
 

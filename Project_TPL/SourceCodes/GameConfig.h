@@ -37,5 +37,9 @@ private:
 	bool m_graphicsEnableDeferred;
 	bool m_graphicsEnableEnvMap;
 	bool m_graphicsEnableBloom;
+	bool m_graphicsEnableNormal;
+	bool m_graphicsEnableShadow;
+	int  m_graphicsShadowScale;
+	int  m_graphicsShadowRange;
 
 };

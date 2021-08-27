@@ -16,7 +16,8 @@ const std::string ResultCarBody::CAR_INTERIOR_MESH_PATH = "Data/Meshes/TND/Actor
 
 // コンストラクタ
 ResultCarBody::ResultCarBody(Actor* in_owner)
-	:m_owner(in_owner)
+	:Actor(OBJECT_TAG::VEHICLE)
+	,m_owner(in_owner)
 {
 	// オーナーの拡大率・座標・回転行列に合わせておく
 	m_scale = m_owner->GetScale();

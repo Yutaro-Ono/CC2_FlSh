@@ -156,9 +156,6 @@
     <Filter Include="Source\GLSL\Sprite">
       <UniqueIdentifier>{eb77c239-97ab-4147-80dc-8fe13ac6d9f5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\GLSL\ForwardRendering\ShadowMap">
-      <UniqueIdentifier>{c03f7d9b-df4f-4ca4-ac80-735022ca5145}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\GLSL\ForwardRendering\EnvironmentMap">
       <UniqueIdentifier>{2798b10d-a02a-4098-a122-2ba714baa205}</UniqueIdentifier>
     </Filter>
@@ -179,6 +176,9 @@
     </Filter>
     <Filter Include="Source\GLSL\Particle">
       <UniqueIdentifier>{dc4ac2a6-058a-47f2-b990-5a03940dcb8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GLSL\Depth">
+      <UniqueIdentifier>{852f2cfb-dc75-415e-9e67-97d5c2cb736c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1206,12 +1206,6 @@
     <None Include="Shaders\Sprite\WorldSpaceSprite.frag">
       <Filter>Source\GLSL\Sprite</Filter>
     </None>
-    <None Include="Shaders\ForwardRendering\DepthMap.frag">
-      <Filter>Source\GLSL\ForwardRendering\ShadowMap</Filter>
-    </None>
-    <None Include="Shaders\ForwardRendering\DepthMap.vert">
-      <Filter>Source\GLSL\ForwardRendering\ShadowMap</Filter>
-    </None>
     <None Include="Shaders\ForwardRendering\EnvironmentMap.frag">
       <Filter>Source\GLSL\ForwardRendering\EnvironmentMap</Filter>
     </None>
@@ -1231,12 +1225,6 @@
       <Filter>Source\GLSL\ForwardRendering\Phong</Filter>
     </None>
     <None Include="Shaders\ForwardRendering\Skinned.vert">
-      <Filter>Source\GLSL\ForwardRendering\Skinned</Filter>
-    </None>
-    <None Include="Shaders\ForwardRendering\SkinnedDepth.vert">
-      <Filter>Source\GLSL\ForwardRendering\Skinned</Filter>
-    </None>
-    <None Include="Shaders\ForwardRendering\SkinnedDepthNormal.vert">
       <Filter>Source\GLSL\ForwardRendering\Skinned</Filter>
     </None>
     <None Include="Shaders\ForwardRendering\SkinnedShadow.vert">
@@ -1277,6 +1265,18 @@
     </None>
     <None Include="Shaders\DefferedRendering\GBuffer_SkinNormShadow.vert">
       <Filter>Source\GLSL\DefferedRendering</Filter>
+    </None>
+    <None Include="Shaders\Depth\DepthMap.frag">
+      <Filter>Source\GLSL\Depth</Filter>
+    </None>
+    <None Include="Shaders\Depth\DepthMap.vert">
+      <Filter>Source\GLSL\Depth</Filter>
+    </None>
+    <None Include="Shaders\Depth\SkinnedDepth.vert">
+      <Filter>Source\GLSL\Depth</Filter>
+    </None>
+    <None Include="Shaders\Depth\SkinnedDepthNormal.vert">
+      <Filter>Source\GLSL\Depth</Filter>
     </None>
   </ItemGroup>
 </Project>

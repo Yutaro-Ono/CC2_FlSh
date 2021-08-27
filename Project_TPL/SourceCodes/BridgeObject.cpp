@@ -15,7 +15,8 @@
 /// <param name="in_startPos"> 最初の橋オブジェクトの設置座標 </param>
 /// <param name="in_bright"> 橋のライトを光らせるか </param>
 BridgeObject::BridgeObject(int in_num, const Vector3& in_startPos, bool in_bright)
-	:m_bridgeNum(in_num)
+	:Actor(OBJECT_TAG::STATIC_OBJECT)
+	,m_bridgeNum(in_num)
 {
 	// 各種メッシュ情報の取得
 	Mesh* road = RENDERER->GetMesh("Data/Meshes/TND/Objects/Bridge/Bridge_Road/Bridge_Road.OBJ");

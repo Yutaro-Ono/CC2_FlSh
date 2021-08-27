@@ -1,7 +1,8 @@
 #include "CarHandle.h"
 
 CarHandle::CarHandle(PlayerCar* in_owner, const std::string& in_meshPath)
-	:m_owner(in_owner)
+	:Actor(OBJECT_TAG::VEHICLE)
+	.m_owner(in_owner)
 {
 	SetScale(m_owner->GetScale());
 	// メッシュのセット

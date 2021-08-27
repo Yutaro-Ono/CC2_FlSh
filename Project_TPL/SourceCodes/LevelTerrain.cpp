@@ -5,7 +5,8 @@
 #include "Renderer.h"
 
 LevelTerrain::LevelTerrain(Mesh* in_mesh, TERRAIN_TYPE in_type)
-	:m_type(in_type)
+	:Actor(OBJECT_TAG::STATIC_OBJECT)
+	,m_type(in_type)
 {
 	m_friction = SetTerrainFric(m_type);
 

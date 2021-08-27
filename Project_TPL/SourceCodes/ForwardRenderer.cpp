@@ -3,6 +3,9 @@
 #include "GameMain.h"
 #include "FrameBuffer.h"
 #include "Shader.h"
+#include "GLSLprogram.h"
+#include "ShaderManager.h"
+#include "CubeMapComponent.h"
 #include "MeshComponent.h"
 #include "SkeletalMeshComponent.h"
 #include "SpriteComponent.h"
@@ -37,8 +40,8 @@ void ForwardRenderer::Draw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// ビュー行列・プロジェクション行列をレンダラーから取得
-	Matrix4 view = m_renderer->m_view;
-	Matrix4 proj = m_renderer->m_projection;
+	Matrix4 view = m_renderer->m_viewMat;
+	Matrix4 proj = m_renderer->m_projMat;
 
 	//----------------------------------------------+
 	// メッシュシェーダー(phong)
@@ -171,8 +174,19 @@ void ForwardRenderer::Draw()
 	//---------------------------------------------------------------+
 	// スカイボックスの描画
 	//---------------------------------------------------------------+
-	// キューブマップシェーダをアクティブ化・キューブVAOをバインド
-	//m_activeSkyBox->Draw(m_skyboxShader);
+	GLSLprogram* skyboxShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_SKYBOX);
+	skyboxShader->UseProgram();
+	// 座標系の問題でスカイボックスが正常な向きに描画されないので、回転オフセットを設定
+	Matrix4 offset = Matrix4::CreateRotationX(Math::ToRadians(90.0f));
+	// Uniformに逆→転置行列をセット
+	Matrix4 InvTransView = m_renderer->m_viewMat;
+	InvTransView.Invert();
+	InvTransView.Transpose();
+	skyboxShader->SetUniform("u_offset", offset);
+	skyboxShader->SetUniform("u_invTransView", InvTransView);
+	skyboxShader->SetUniform("u_projection", m_renderer->m_projMat);
+	skyboxShader->SetUniform("u_skybox", 0);
+	m_renderer->GetSkyBox()->Draw(skyboxShader);
 
 	//----------------------------------------------------------------+
 	// パーティクル描画

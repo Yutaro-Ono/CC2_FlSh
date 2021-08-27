@@ -27,14 +27,15 @@ out VS_OUT
 	vec3 fragLocalPos;
 }vs_out;
 
-uniform mat4 u_removeTransView;
+uniform mat4 u_offset;
+uniform mat4 u_invTransView;
 
 void main()
 {
 
 	vs_out.fragLocalPos = a_vertexPos;
 	
-	vec4 clipPos = u_projection * u_removeTransView * vec4(a_vertexPos, 1.0f);
+	vec4 clipPos = vec4(a_vertexPos, 1.0f) * u_offset * u_invTransView * u_projection ;
 
 	gl_Position = clipPos.xyww;
 	

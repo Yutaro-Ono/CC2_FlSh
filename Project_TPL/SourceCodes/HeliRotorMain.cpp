@@ -8,7 +8,8 @@
 static float radian = 0.0f;
 
 HeliRotorMain::HeliRotorMain(Helicopter* in_heli, const std::string& in_filePath)
-	:m_owner(in_heli)
+	:Actor(OBJECT_TAG::VEHICLE)
+	,m_owner(in_heli)
 {
 
 	// メッシュのロード・レンダラーへの登録

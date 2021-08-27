@@ -11,6 +11,7 @@
 /// </summary>
 /// <param name="in_mesh">メッシュファイルのパス</param>
 LevelObject::LevelObject(Mesh * in_mesh)
+	:Actor(OBJECT_TAG::STATIC_OBJECT)
 {
 	Mesh* mesh = in_mesh;
 	m_meshComp = new MeshComponent(this);

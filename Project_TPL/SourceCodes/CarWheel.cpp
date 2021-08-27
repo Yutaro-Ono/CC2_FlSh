@@ -10,7 +10,8 @@ const std::string CarWheel::CAR_WHEEL_STEEL_MESH_PATH = "Data/Meshes/TND/Actors/
 
 
 CarWheel::CarWheel(PlayerCar* in_owner, WHEEL_POSITION in_enumPos)
-	:m_owner(in_owner)
+	:Actor(OBJECT_TAG::VEHICLE)
+	,m_owner(in_owner)
 	,m_smoke(nullptr)
 	,m_wheelPosition(in_enumPos)
 	,m_playerRadian(m_owner->GetRadian())

@@ -1,5 +1,5 @@
 #include "ShadowMap.h"
-#include "Shader.h"
+#include "GLSLprogram.h"
 #include "Renderer.h"
 #include "GameMain.h"
 #include "GameConfig.h"
@@ -39,23 +39,17 @@ ShadowMap::ShadowMap()
 
 	// シェーダの作成
 	// デプスマップシェーダ
-	m_depthShader = new Shader();
-	m_depthShader->Load("Data/Shaders/DepthMap.vert", "Data/Shaders/DepthMap.frag");
-	//m_shadowShader = new Shader();
-	//m_shadowShader->Load("Data/Shaders/PhongShadow.vert", "Data/Shaders/PhongShadow.frag");
+	m_depthShader = new GLSLprogram();
+	m_depthShader->("Data/GLSLprograms/DepthMap.vert", "Data/GLSLprograms/DepthMap.frag");
+
 	// ノーマルマップ + 影シェーダ
-	m_shadowShader = new Shader();
-	m_shadowShader->Load("Data/Shaders/ShadowNormalMap.vert", "Data/Shaders/ShadowNormalMap.frag");
+	m_shadowShader = new GLSLprogram();
+	m_shadowShader->Load("Data/GLSLprograms/ShadowNormalMap.vert", "Data/GLSLprograms/ShadowNormalMap.frag");
 	
-	m_depthSkinShader = new Shader();
-	m_depthSkinShader->Load("Data/Shaders/SkinnedDepth.vert", "Data/Shaders/DepthMap.frag");
-	m_skinShadowShader = new Shader();
-	m_skinShadowShader->Load("Data/Shaders/SkinnedShadow.vert", "Data/Shaders/PhongShadow.frag");
-	
-	//m_depthSkinShader = new Shader();
-	//m_depthSkinShader->Load("Data/Shaders/SkinnedDepthNormal.vert", "Data/Shaders/DepthMap.frag");
-	//m_skinShadowShader = new Shader();
-	//m_skinShadowShader->Load("Data/Shaders/ShadowSkinnedNormal.vert", "Data/Shaders/ShadowNormalMap.frag");
+	m_depthSkinShader = new GLSLprogram();
+	m_depthSkinShader->Load("Data/GLSLprograms/SkinnedDepth.vert", "Data/GLSLprograms/DepthMap.frag");
+	m_skinShadowShader = new GLSLprogram();
+	m_skinShadowShader->Load("Data/GLSLprograms/SkinnedShadow.vert", "Data/GLSLprograms/PhongShadow.frag");
 
 }
 
@@ -64,10 +58,10 @@ ShadowMap::~ShadowMap()
 
 	glDeleteFramebuffers(1, &m_depthMapFBO);
 	glDeleteTextures(1, &m_depthMap);
-	delete m_depthShader;
-	delete m_depthSkinShader;
-	delete m_shadowShader;
-	delete m_skinShadowShader;
+	delete m_depthGLSLprogram;
+	delete m_depthSkinGLSLprogram;
+	delete m_shadowGLSLprogram;
+	delete m_skinShadowGLSLprogram;
 }
 
 
@@ -97,27 +91,27 @@ void ShadowMap::RenderDepthMapFromLightView(const std::vector<class MeshComponen
 	// フレームバッファのバインド
 	glBindFramebuffer(GL_FRAMEBUFFER, m_depthMapFBO);
 	glClear(GL_DEPTH_BUFFER_BIT);
-	m_depthShader->SetActive();
-	m_depthShader->SetMatrixUniform("u_lightSpaceMatrix", m_lightSpace);
+	m_depthGLSLprogram->SetActive();
+	m_depthGLSLprogram->SetMatrixUniform("u_lightSpaceMatrix", m_lightSpace);
 
 	// デプスバッファを得るためにライトから見たシーンをレンダリングする
 	//----------------------------------------------------------------------+
 	for (auto mesh : in_mesh)
 	{
-		mesh->DrawShadow(m_depthShader);
+		mesh->DrawShadow(m_depthGLSLprogram);
 	}
 	for (auto mesh : in_carMesh)
 	{
-		mesh->DrawShadow(m_depthShader);
+		mesh->DrawShadow(m_depthGLSLprogram);
 	}
 
-	m_depthSkinShader->SetActive();
-	m_depthSkinShader->SetMatrixUniform("u_lightSpaceMatrix", m_lightSpace);
+	m_depthSkinGLSLprogram->SetActive();
+	m_depthSkinGLSLprogram->SetMatrixUniform("u_lightSpaceMatrix", m_lightSpace);
 	for (auto skel : in_skelMesh)
 	{
 		if (skel->GetVisible())
 		{
-			skel->DrawShadow(m_depthSkinShader);
+			skel->DrawShadow(m_depthSkinGLSLprogram);
 		}
 
 	}
@@ -135,15 +129,15 @@ void ShadowMap::RenderDepthMapFromLightView(const std::vector<class MeshComponen
 void ShadowMap::DrawShadowMesh(const std::vector<class MeshComponent*>& in_mesh)
 {
 	// サンプリング用テクスチャセット
-	m_shadowShader->SetInt("u_mat.diffuseMap", 0);
-	m_shadowShader->SetInt("u_mat.specularMap", 1);
-	m_shadowShader->SetInt("u_mat.normalMap", 2);
-	m_shadowShader->SetInt("u_mat.depthMap", 3);
+	m_shadowGLSLprogram->SetInt("u_mat.diffuseMap", 0);
+	m_shadowGLSLprogram->SetInt("u_mat.specularMap", 1);
+	m_shadowGLSLprogram->SetInt("u_mat.normalMap", 2);
+	m_shadowGLSLprogram->SetInt("u_mat.depthMap", 3);
 	
 	// シャドウシェーダによるメッシュ描画
 	for (auto mesh : in_mesh)
 	{
-		mesh->Draw(m_shadowShader);
+		mesh->Draw(m_shadowGLSLprogram);
 	}
 
 }
@@ -157,54 +151,54 @@ void ShadowMap::DrawShadowMesh(const std::vector<class MeshComponent*>& in_mesh,
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// シャドウシェーダのアクティブ化・uniformへのセット
-	m_shadowShader->SetActive();
-	m_shadowShader->SetVectorUniform("u_dirLight.direction", RENDERER->GetDirectionalLight().direction);
-	m_shadowShader->SetVectorUniform("u_dirLight.ambient", RENDERER->GetDirectionalLight().ambient);
-	m_shadowShader->SetVectorUniform("u_dirLight.diffuse", RENDERER->GetDirectionalLight().diffuse);
-	m_shadowShader->SetVectorUniform("u_dirLight.specular", RENDERER->GetDirectionalLight().specular);
+	m_shadowGLSLprogram->SetActive();
+	m_shadowGLSLprogram->SetVectorUniform("u_dirLight.direction", RENDERER->GetDirectionalLight().direction);
+	m_shadowGLSLprogram->SetVectorUniform("u_dirLight.ambient", RENDERER->GetDirectionalLight().ambient);
+	m_shadowGLSLprogram->SetVectorUniform("u_dirLight.diffuse", RENDERER->GetDirectionalLight().diffuse);
+	m_shadowGLSLprogram->SetVectorUniform("u_dirLight.specular", RENDERER->GetDirectionalLight().specular);
 
-	m_shadowShader->SetMatrixUniform("u_view", RENDERER->GetViewMatrix());
-	m_shadowShader->SetMatrixUniform("u_projection", RENDERER->GetProjectionMatrix());
-	m_shadowShader->SetMatrixUniform("u_lightSpaceMatrix", m_lightSpace);
-	m_shadowShader->SetVectorUniform("u_viewPos", RENDERER->GetViewMatrix().GetTranslation());
-	m_shadowShader->SetVectorUniform("u_lightPos", RENDERER->GetDirectionalLight().position);
+	m_shadowGLSLprogram->SetMatrixUniform("u_view", RENDERER->GetViewMatrix());
+	m_shadowGLSLprogram->SetMatrixUniform("u_projection", RENDERER->GetProjectionMatrix());
+	m_shadowGLSLprogram->SetMatrixUniform("u_lightSpaceMatrix", m_lightSpace);
+	m_shadowGLSLprogram->SetVectorUniform("u_viewPos", RENDERER->GetViewMatrix().GetTranslation());
+	m_shadowGLSLprogram->SetVectorUniform("u_lightPos", RENDERER->GetDirectionalLight().position);
 
 	// サンプリング用テクスチャセット
-	m_shadowShader->SetInt("u_mat.diffuseMap", 0);
-	m_shadowShader->SetInt("u_mat.specularMap", 1);
-	m_shadowShader->SetInt("u_mat.normalMap", 2);
-	m_shadowShader->SetInt("u_mat.depthMap", 3);
+	m_shadowGLSLprogram->SetInt("u_mat.diffuseMap", 0);
+	m_shadowGLSLprogram->SetInt("u_mat.specularMap", 1);
+	m_shadowGLSLprogram->SetInt("u_mat.normalMap", 2);
+	m_shadowGLSLprogram->SetInt("u_mat.depthMap", 3);
 
 	// シャドウシェーダによるメッシュ描画
 	for (auto mesh : in_mesh)
 	{
-		mesh->Draw(m_shadowShader);
+		mesh->Draw(m_shadowGLSLprogram);
 	}
 
 	// シャドウシェーダのアクティブ化・uniformへのセット
-	m_skinShadowShader->SetActive();
-	m_skinShadowShader->SetVectorUniform("u_viewPos", RENDERER->GetViewMatrix().GetTranslation());
-	m_skinShadowShader->SetVectorUniform("u_dirLight.direction", RENDERER->GetDirectionalLight().direction);
-	m_skinShadowShader->SetVectorUniform("u_dirLight.ambient", RENDERER->GetDirectionalLight().ambient);
-	m_skinShadowShader->SetVectorUniform("u_dirLight.diffuse", RENDERER->GetDirectionalLight().diffuse);
-	m_skinShadowShader->SetVectorUniform("u_dirLight.specular", RENDERER->GetDirectionalLight().specular);
+	m_skinShadowGLSLprogram->SetActive();
+	m_skinShadowGLSLprogram->SetVectorUniform("u_viewPos", RENDERER->GetViewMatrix().GetTranslation());
+	m_skinShadowGLSLprogram->SetVectorUniform("u_dirLight.direction", RENDERER->GetDirectionalLight().direction);
+	m_skinShadowGLSLprogram->SetVectorUniform("u_dirLight.ambient", RENDERER->GetDirectionalLight().ambient);
+	m_skinShadowGLSLprogram->SetVectorUniform("u_dirLight.diffuse", RENDERER->GetDirectionalLight().diffuse);
+	m_skinShadowGLSLprogram->SetVectorUniform("u_dirLight.specular", RENDERER->GetDirectionalLight().specular);
 
-	m_skinShadowShader->SetMatrixUniform("u_view", RENDERER->GetViewMatrix());
-	m_skinShadowShader->SetMatrixUniform("u_projection", RENDERER->GetProjectionMatrix());
-	m_skinShadowShader->SetMatrixUniform("u_lightSpaceMatrix", m_lightSpace);
-	m_skinShadowShader->SetVectorUniform("u_lightPos", RENDERER->GetDirectionalLight().position);
+	m_skinShadowGLSLprogram->SetMatrixUniform("u_view", RENDERER->GetViewMatrix());
+	m_skinShadowGLSLprogram->SetMatrixUniform("u_projection", RENDERER->GetProjectionMatrix());
+	m_skinShadowGLSLprogram->SetMatrixUniform("u_lightSpaceMatrix", m_lightSpace);
+	m_skinShadowGLSLprogram->SetVectorUniform("u_lightPos", RENDERER->GetDirectionalLight().position);
 
 	// サンプリング用テクスチャセット
-	m_skinShadowShader->SetInt("u_mat.diffuseMap", 0);
-	m_skinShadowShader->SetInt("u_mat.specularMap", 1);
-	m_skinShadowShader->SetInt("u_mat.normalMap", 2);
-	m_skinShadowShader->SetInt("u_mat.depthMap", 3);
+	m_skinShadowGLSLprogram->SetInt("u_mat.diffuseMap", 0);
+	m_skinShadowGLSLprogram->SetInt("u_mat.specularMap", 1);
+	m_skinShadowGLSLprogram->SetInt("u_mat.normalMap", 2);
+	m_skinShadowGLSLprogram->SetInt("u_mat.depthMap", 3);
 	// シャドウシェーダによるスキンメッシュ描画
 	for (auto skel : in_skelMesh)
 	{
 		if (skel->GetVisible())
 		{
-			skel->Draw(m_skinShadowShader);
+			skel->Draw(m_skinShadowGLSLprogram);
 		}
 	}
 
