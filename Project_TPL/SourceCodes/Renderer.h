@@ -10,12 +10,14 @@
 // 2021/ 5/26   各種バッファを登録 (Gバッファ・ライト・MSAA)
 //----------------------------------------------------------------------------------+
 #pragma once
+#include <GL/glew.h>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_syswm.h>
-#include <GL/glew.h>
+/*
 #include <Effekseer.h>
 #include <EffekseerRendererGL.h>
+*/
 #include <Windows.h>
 #include <string>
 #include <algorithm>
@@ -40,6 +42,7 @@ public:
 	~Renderer();
 
 	bool Initialize(int in_screenW, int in_screenH, bool in_full);          // 各種初期化処理 (GL SDL)
+	bool Load();                                                            // ロード関数
 	void Delete();                                                          // 各種解放処理
 	void Draw();                                                            // 描画
 
@@ -136,10 +139,11 @@ public:
 	// シェーダー管理クラスのゲッター
 	class ShaderManager* GetShaderManager() { return m_shaderManager; }
 
+	/*
 	// Effekseer関連のゲッター
 	Effekseer::RefPtr<EffekseerRendererGL::Renderer> GetEffekseerRenderer() { return m_effekseerRenderer; }
 	Effekseer::RefPtr<Effekseer::Manager> GetEffekseerManager() { return m_effekseerManager; }
-
+	*/
 private:
 
 	void CreateUBOs();
@@ -247,9 +251,11 @@ private:
 	//--------------------------------------------+
 	class ShaderManager* m_shaderManager;
 
+	/*
 	// Effekseer
 	Effekseer::RefPtr<EffekseerRendererGL::Renderer> m_effekseerRenderer;    // Effekseer用レンダラー
 	Effekseer::RefPtr<Effekseer::Manager> m_effekseerManager;                // Effekseer用マネージャー
+	*/
 
 	// フラグ関連
 	bool m_enableBloom;

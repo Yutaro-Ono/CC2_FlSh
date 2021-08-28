@@ -14,12 +14,12 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
+#include <GL/glew.h>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_types.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
-#include "GL/glew.h"
 #include "Math.h"
 #include "GameConfig.h"
 #include "Renderer.h"

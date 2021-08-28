@@ -69,7 +69,7 @@ void LoadScreen::Draw(GLSLprogram * in_shader)
 		if (m_bgTexture)
 		{
 			glDisable(GL_BLEND);
-			DrawTexture(in_shader, m_bgTexture, Vector2(0.0f, 0.0f), 1.0f);
+			//DrawTexture(in_shader, m_bgTexture, Vector2(0.0f, 0.0f), 1.0f);
 			glEnable(GL_BLEND);
 		}
 
@@ -81,13 +81,13 @@ void LoadScreen::Draw(GLSLprogram * in_shader)
 
 		if (m_loading)
 		{
-			DrawTexture(in_shader, m_loading, m_loadingPos, 1.0f);
+			//DrawTexture(in_shader, m_loading, m_loadingPos, 1.0f);
 		}
 
 		// ロードゲージの描画
 		for (int i = 0; i < m_gaugeNum; i++)
 		{
-			DrawTexture(in_shader, m_loadGauges[i], m_loadGaugePos, 1.0f);
+			//DrawTexture(in_shader, m_loadGauges[i], m_loadGaugePos, 1.0f);
 		}
 	}
 

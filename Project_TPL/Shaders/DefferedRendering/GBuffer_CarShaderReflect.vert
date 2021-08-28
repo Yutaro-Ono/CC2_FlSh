@@ -21,12 +21,10 @@ layout(std140, binding = 1) uniform CameraVariable
 	vec3 u_viewPos;
 };
 
-// ワールド変換行列・ビュープロジェクション行列・ライトスペース
+// ワールド変換行列・ライトスペース
 uniform mat4 u_worldTransform;
-//uniform mat4 u_view;
-//uniform mat4 u_projection;
 uniform mat4 u_lightSpaceMatrix;   
-// 光源座標・カメラ座標
+// 光源座標
 uniform vec3 u_lightPos;
 
 // フラグメントへの出力

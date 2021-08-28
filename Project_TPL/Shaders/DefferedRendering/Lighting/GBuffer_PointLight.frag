@@ -1,7 +1,7 @@
 //---------------------------------------------------+
 // ポイントライトシェーダ
 //---------------------------------------------------+
-#version 330 core
+#version 420
 // 出力
 layout (location = 0) out vec4 out_colorBuffer;
 layout (location = 1) out vec4 out_brightColor;

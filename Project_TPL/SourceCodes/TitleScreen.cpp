@@ -94,7 +94,7 @@ void TitleScreen::Update(float in_deltaTime)
 // 描画処理
 void TitleScreen::Draw(GLSLprogram * in_shader)
 {
-
+	/*
 	//---------------------------------------------------------------------------+
 	// 基本描画(タイトルロゴ, チュートリアル表示)
 	//---------------------------------------------------------------------------+
@@ -223,6 +223,6 @@ void TitleScreen::Draw(GLSLprogram * in_shader)
 
 
 	}
-
+	*/
 
 }

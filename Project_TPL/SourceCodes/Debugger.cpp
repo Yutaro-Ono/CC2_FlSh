@@ -69,18 +69,26 @@ bool Debugger::Initialize()
 			std::cout << "Failed : Create Debugger Window" << std::endl;
 			return false;
 		}
+
+		// デバッグウィンドウとコンテキストのリンク (レンダラーと共通のコンテキストを使用)
+		SDL_GL_MakeCurrent(m_debugWindow, RENDERER->GetSDLGLContext());
+
+		// SDLレンダラーの作成
+		m_debugRenderer = SDL_CreateRenderer(m_debugWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
 	}
 	else
 	{
 		// メインウィンドウと同じウィンドウをセット
 		m_debugWindow = RENDERER->GetSDLWindow();
+
+		// デバッグウィンドウとコンテキストのリンク (レンダラーと共通のコンテキストを使用)
+		SDL_GL_MakeCurrent(m_debugWindow, RENDERER->GetSDLGLContext());
+
+		// SDLレンダラーの取得
+		m_debugRenderer = RENDERER->GetSDLRenderer();
 	}
 
-	// デバッグウィンドウとコンテキストのリンク (レンダラーと共通のコンテキストを使用)
-	SDL_GL_MakeCurrent(m_debugWindow, RENDERER->GetSDLGLContext());
-
-	// SDLレンダラーの作成
-	m_debugRenderer = SDL_CreateRenderer(m_debugWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (!m_debugRenderer)
 	{
 		std::cout << "Failed : Create Debugger Renderer" << std::endl;

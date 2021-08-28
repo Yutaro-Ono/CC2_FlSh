@@ -5,9 +5,9 @@
 // copyright (C) 2019 Yutaro Ono. all rights reserved.
 //-----------------------------------------------------------------------+
 #pragma once
+#include <GL/glew.h>
 #include <string>
 #include "Math.h"
-#include <GL/glew.h>
 
 class Shader
 {

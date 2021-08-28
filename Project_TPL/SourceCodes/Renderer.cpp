@@ -156,15 +156,40 @@ bool Renderer::Initialize(int in_screenW, int in_screenH, bool in_full)
 		return false;
 	}
 
+	//--------------------------------------------+
+	// Effekseer初期化
+	//--------------------------------------------+
+	/*
+	m_effekseerRenderer = ::EffekseerRendererGL::Renderer::Create(8000, EffekseerRendererGL::OpenGLDeviceType::OpenGL3);
+	m_effekseerManager = ::Effekseer::Manager::Create(8000);
+	// 描画モジュール作成
+	m_effekseerManager->SetSpriteRenderer(m_effekseerRenderer->CreateSpriteRenderer());
+	m_effekseerManager->SetRibbonRenderer(m_effekseerRenderer->CreateRibbonRenderer());
+	m_effekseerManager->SetRingRenderer(m_effekseerRenderer->CreateRingRenderer());
+	m_effekseerManager->SetTrackRenderer(m_effekseerRenderer->CreateTrackRenderer());
+	m_effekseerManager->SetModelRenderer(m_effekseerRenderer->CreateModelRenderer());
+	// Effekseer用のテクスチャ・モデル・マテリアルローダー
+	m_effekseerManager->SetTextureLoader(m_effekseerRenderer->CreateTextureLoader());
+	m_effekseerManager->SetModelLoader(m_effekseerRenderer->CreateModelLoader());
+	m_effekseerManager->SetMaterialLoader(m_effekseerRenderer->CreateMaterialLoader());
+	*/
+
+
+	// 初期化に成功
+	return true;
+}
+
+bool Renderer::Load()
+{
 	//------------------------------------------------------------------+
-	// パーティクル関連
-	//------------------------------------------------------------------+
-	// パーティクルマネージャー作成
+    // パーティクル関連
+    //------------------------------------------------------------------+
+    // パーティクルマネージャー作成
 	m_particleManager = new ParticleManager;
 
 	//------------------------------------------------------------------+
-    // 頂点配列オブジェクト系の生成
-    //------------------------------------------------------------------+
+	// 頂点配列オブジェクト系の生成
+	//------------------------------------------------------------------+
 	// パーティクル用
 	m_particleVerts = new VertexArray();
 	m_particleVerts->CreateSpriteVerts();
@@ -178,20 +203,27 @@ bool Renderer::Initialize(int in_screenW, int in_screenH, bool in_full)
 	m_screenVerts = new VertexArray();
 	m_screenVerts->CreateScreenVerts();
 
+
+
+	//--------------------------------------------+
+	// uniform Buffer Object
+	//--------------------------------------------+
+	CreateUBOs();
+
 	//------------------------------------------------------------------+
-	// ポストエフェクト
-	//------------------------------------------------------------------+
+    // ポストエフェクト
+    //------------------------------------------------------------------+
 	m_frameBuffer = new FrameBuffer();
 	m_frameBuffer->CreateFrameBuffer();
 
 	//--------------------------------------------+
-    // シャドウマップ
-    //--------------------------------------------+
+	// シャドウマップ
+	//--------------------------------------------+
 	m_shadowMap = new ShadowMap();
 
 	//--------------------------------------------+
-    // Bloom
-    //--------------------------------------------+
+	// Bloom
+	//--------------------------------------------+
 	m_bloom = new RenderBloom();
 
 	//--------------------------------------------+
@@ -205,27 +237,6 @@ bool Renderer::Initialize(int in_screenW, int in_screenH, bool in_full)
 	}
 
 	//--------------------------------------------+
-    // uniform Buffer Object
-    //--------------------------------------------+
-	CreateUBOs();
-
-	//--------------------------------------------+
-	// Effekseer初期化
-	//--------------------------------------------+
-	m_effekseerRenderer = ::EffekseerRendererGL::Renderer::Create(8000, EffekseerRendererGL::OpenGLDeviceType::OpenGL3);
-	m_effekseerManager = ::Effekseer::Manager::Create(8000);
-	// 描画モジュール作成
-	m_effekseerManager->SetSpriteRenderer(m_effekseerRenderer->CreateSpriteRenderer());
-	m_effekseerManager->SetRibbonRenderer(m_effekseerRenderer->CreateRibbonRenderer());
-	m_effekseerManager->SetRingRenderer(m_effekseerRenderer->CreateRingRenderer());
-	m_effekseerManager->SetTrackRenderer(m_effekseerRenderer->CreateTrackRenderer());
-	m_effekseerManager->SetModelRenderer(m_effekseerRenderer->CreateModelRenderer());
-	// Effekseer用のテクスチャ・モデル・マテリアルローダー
-	m_effekseerManager->SetTextureLoader(m_effekseerRenderer->CreateTextureLoader());
-	m_effekseerManager->SetModelLoader(m_effekseerRenderer->CreateModelLoader());
-	m_effekseerManager->SetMaterialLoader(m_effekseerRenderer->CreateMaterialLoader());
-
-	//--------------------------------------------+
     // シェーダー管理クラス
     //--------------------------------------------+
 	m_shaderManager = new ShaderManager();
@@ -234,11 +245,10 @@ bool Renderer::Initialize(int in_screenW, int in_screenH, bool in_full)
 		std::cout << "ERROR::ShaderManager::Func::CreateShaders()" << std::endl;
 		return false;
 	}
-	
+
 	// ディレクショナルライト
 	m_dirLight = new DirectionalLight();
 
-	// 初期化に成功
 	return true;
 }
 
@@ -330,9 +340,11 @@ void Renderer::Delete()
 	delete m_shadowMap;
 	delete m_bloom;
 
+	/*
 	// Effekseer関連の解放
 	m_effekseerManager.Reset();
 	m_effekseerRenderer.Reset();
+	*/
 
 	// コンテキストの破棄
 	SDL_GL_DeleteContext(m_context);
@@ -354,7 +366,7 @@ void Renderer::Draw()
 	UpdateUBO();
 
 	// シャドウ描画用の深度マップにライト視点から見た空間で書き込む
-	m_shadowMap->RenderDepthMapFromLightView(m_meshComponents, m_skeletalMeshComponents, m_carMeshComponents);
+	//m_shadowMap->RenderDepthMapFromLightView(m_meshComponents, m_skeletalMeshComponents, m_carMeshComponents);
 	// ここから分岐
 	if (m_renderMode == RENDER_MODE::FORWARD)
 	{
@@ -589,21 +601,21 @@ void Renderer::CreateUBOs()
 	// カメラUBO
 	glGenBuffers(1, &m_uboCamera);
 	glBindBuffer(GL_UNIFORM_BUFFER, m_uboCamera);
-	glBufferData(GL_UNIFORM_BUFFER, sizeof(Vector3::x) + sizeof(Vector3::y) + sizeof(Vector3::z), NULL, GL_DYNAMIC_DRAW);
+	glBufferData(GL_UNIFORM_BUFFER, 16, NULL, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
-	glBindBufferRange(GL_UNIFORM_BUFFER, 1, m_uboCamera, 0, sizeof(Vector3::x) + sizeof(Vector3::y) + sizeof(Vector3::z));
+	glBindBufferRange(GL_UNIFORM_BUFFER, 1, m_uboCamera, 0, 16);
 	// トリガーUBO
 	glGenBuffers(1, &m_uboTriggers);
 	glBindBuffer(GL_UNIFORM_BUFFER, m_uboTriggers);
-	glBufferData(GL_UNIFORM_BUFFER, sizeof(int), NULL, GL_DYNAMIC_DRAW);
+	glBufferData(GL_UNIFORM_BUFFER, 16, NULL, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
-	glBindBufferRange(GL_UNIFORM_BUFFER, 2, m_uboTriggers, 0, sizeof(int));
-	// ディレクショナルライトUBO(vec3→vec4として送信)
+	glBindBufferRange(GL_UNIFORM_BUFFER, 2, m_uboTriggers, 0, 16);
+	// ディレクショナルライトUBO
 	glGenBuffers(1, &m_uboDirLights);
 	glBindBuffer(GL_UNIFORM_BUFFER, m_uboDirLights);
-	glBufferData(GL_UNIFORM_BUFFER, 4 * sizeof(Matrix4::mat), NULL, GL_DYNAMIC_DRAW);
+	glBufferData(GL_UNIFORM_BUFFER, 64, NULL, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
-	glBindBufferRange(GL_UNIFORM_BUFFER, 3, m_uboDirLights, 0, 4 * sizeof(Matrix4::mat));
+	glBindBufferRange(GL_UNIFORM_BUFFER, 3, m_uboDirLights, 0, 64);
 }
 
 /// <summary>
@@ -617,28 +629,52 @@ void Renderer::UpdateUBO()
 	transView.Transpose();
 	Matrix4 transProj = m_projMat;
 	transProj.Transpose();
+
 	// 変換行列UBO
 	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Matrix4::mat), transView.GetAsFloatPtr());
 	glBufferSubData(GL_UNIFORM_BUFFER, sizeof(Matrix4::mat), sizeof(Matrix4::mat), transProj.GetAsFloatPtr());
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
 	// カメラUBO
+	Vector3 camPos = m_viewMat.GetTranslation();
 	glBindBuffer(GL_UNIFORM_BUFFER, m_uboCamera);
-	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Vector3::x) + sizeof(Vector3::y) + sizeof(Vector3::z), m_viewMat.GetTranslation().GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, 12, camPos.GetAsFloatPtr());
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
 	// トリガーFBO
 	glBindBuffer(GL_UNIFORM_BUFFER, m_uboTriggers);
 	int bloom = static_cast<int>(GAME_CONFIG->GetEnableBloom());
 	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(int), &bloom);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
 	// ディレクショナルライト
 	glBindBuffer(GL_UNIFORM_BUFFER, m_uboDirLights);
-	// 送信時のストライド(シェーダー側ではvec4型として受け取り ※メモリ読み取りがうまくいかないため)
-	auto stride = sizeof(Matrix4::mat);
-	glBufferSubData(GL_UNIFORM_BUFFER, 0, stride, m_dirLight->GetDirection().GetAsFloatPtr());
-	glBufferSubData(GL_UNIFORM_BUFFER, stride, stride, m_dirLight->GetDiffuse().GetAsFloatPtr());
-	glBufferSubData(GL_UNIFORM_BUFFER, stride * 2, stride, m_dirLight->GetSpecular().GetAsFloatPtr());
-	glBufferSubData(GL_UNIFORM_BUFFER, stride * 3, stride, m_dirLight->GetAmbient().GetAsFloatPtr());
-	glBufferSubData(GL_UNIFORM_BUFFER, stride * 4, sizeof(float), &m_dirLight->GetIntensity());
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, 12, m_dirLight->GetDirection().GetAsFloatPtr());
+	// ※ストライドが合わない+最初のfloatがスルーされるので
+	// ※対策として最初が0.0fのVector2に一個ずつ値を突っ込む→UBOの最後から値を送信
+	Vector2 diff1 = Vector2(0.0f, m_dirLight->GetDiffuse().x);
+	Vector2 diff2 = Vector2(0.0f, m_dirLight->GetDiffuse().y);
+	Vector2 diff3 = Vector2(0.0f, m_dirLight->GetDiffuse().z);
+	Vector2 spec1 = Vector2(0.0f, m_dirLight->GetSpecular().x);
+	Vector2 spec2 = Vector2(0.0f, m_dirLight->GetSpecular().y);
+	Vector2 spec3 = Vector2(0.0f, m_dirLight->GetSpecular().z);
+	Vector2 amb1 = Vector2(0.0f, m_dirLight->GetAmbient().x);
+	Vector2 amb2 = Vector2(0.0f, m_dirLight->GetAmbient().y);
+	Vector2 amb3 = Vector2(0.0f, m_dirLight->GetAmbient().z);
+	Vector2 intens = Vector2(0.0f, m_dirLight->GetIntensity());
+	glBufferSubData(GL_UNIFORM_BUFFER, 56, 8, intens.GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, 52, 8, amb3.GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, 48, 8, amb2.GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, 44, 8, amb1.GetAsFloatPtr());
+
+	glBufferSubData(GL_UNIFORM_BUFFER, 36, 8, spec3.GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, 32, 8, spec2.GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, 28, 8, spec1.GetAsFloatPtr());
+
+	glBufferSubData(GL_UNIFORM_BUFFER, 20, 8, diff3.GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, 16, 8, diff2.GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, 12, 8, diff1.GetAsFloatPtr());
+
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 

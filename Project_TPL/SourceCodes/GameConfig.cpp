@@ -1,5 +1,6 @@
 #include "GameConfig.h"
 #include <windows.h>
+#include <string>
 #include <sstream>
 #include <array>
 
@@ -38,7 +39,7 @@ bool GameConfig::LoadConfig(const std::string& _iniPath)
 	loadSuccess = LoadBoolValue(pt, "Graphics", "EnableDeferredRendering", m_graphicsEnableDeferred);
 	loadSuccess = LoadBoolValue(pt, "Graphics", "EnableEnvironmentMap", m_graphicsEnableEnvMap);
 	loadSuccess = LoadBoolValue(pt, "Graphics", "EnableBloom", m_graphicsEnableBloom);
-	loadSuccess = LoadBoolValue(pt, "Graphics", "EnableNormal", m_graphicsEnableNormal);
+	loadSuccess = LoadBoolValue(pt, "Graphics", "EnableNormalMap", m_graphicsEnableNormal);
 	loadSuccess = LoadBoolValue(pt, "Graphics", "EnableShadow", m_graphicsEnableShadow);
 	loadSuccess = LoadIntValue(pt, "Graphics", "ShadowScale", m_graphicsShadowScale);
 	loadSuccess = LoadIntValue(pt, "Graphics", "ShadowRange", m_graphicsShadowRange);

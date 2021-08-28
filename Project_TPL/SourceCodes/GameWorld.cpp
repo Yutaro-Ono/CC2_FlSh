@@ -19,6 +19,9 @@
 #include <Windows.h>
 #include <iostream>
 #include <algorithm>
+#include <numeric>
+#include <iterator>
+#include <random>
 
 static Vector3 playerPos;
 static Vector3 tempPos;
@@ -119,13 +122,17 @@ void GameWorld::AddPatrolPoint(PatrolPoint* in_patrolPoint)
 // 巡回地点のシャッフル
 void GameWorld::ShufflePatrolPoint()
 {
-	std::random_shuffle(m_patrolPoints.begin(), m_patrolPoints.end());
+	std::random_device seed_gen;
+	std::mt19937 engine(seed_gen());
+	std::shuffle(m_patrolPoints.begin(), m_patrolPoints.end(), engine);
 }
 
 // 依頼人アクタ配列のシャッフル
 void GameWorld::ShuffleClientActor()
 {
-	std::random_shuffle(m_clients.begin(), m_clients.end() - 1);
+	std::random_device seed_gen;
+	std::mt19937 engine(seed_gen());
+	std::shuffle(m_clients.begin(), m_clients.end() - 1, engine);
 }
 
 void GameWorld::ImGuiDebugWorld()

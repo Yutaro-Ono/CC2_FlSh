@@ -8,9 +8,12 @@
 // @changelog
 // 2021/ 8/26   新規作成
 //----------------------------------------------------------------------------------+
+/*
 #pragma once
 #include <string>
+#include <GL/glew.h>
 #include <Effekseer.h>
+#include <EffekseerRendererGL.h>
 #include "Math.h"
 
 class EffekseerEffect
@@ -42,3 +45,4 @@ private:
 	Effekseer::Handle      m_handle;        // エフェクト再生ハンドル
 
 };
+*/

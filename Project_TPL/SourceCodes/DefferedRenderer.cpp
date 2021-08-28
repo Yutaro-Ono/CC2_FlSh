@@ -6,7 +6,6 @@
 #include "DefferedRenderer.h"
 #include <stdlib.h>
 #include <iostream>
-#include <GL/glew.h>
 #include "Shader.h"
 #include "Renderer.h"
 #include "GameMain.h"
@@ -118,7 +117,7 @@ void DefferedRenderer::DrawGBuffer()
 	// メッシュ描画 (ここでGBufferの各要素に情報が書き込まれる)
 	for (auto skel : m_renderer->m_skeletalMeshComponents)
 	{
-		skel->Draw(skinShader);
+		//skel->Draw(skinShader);
 	}
 
 	//------------------------------------------------------------+
@@ -138,7 +137,7 @@ void DefferedRenderer::DrawGBuffer()
 	// 車メッシュ描画
 	for (auto car : m_renderer->m_carMeshComponents)
 	{
-		car->Draw(carShader);
+		//car->Draw(carShader);
 	}
 
 	//------------------------------------------------------------+
@@ -156,7 +155,7 @@ void DefferedRenderer::DrawGBuffer()
 	skyboxShader->SetUniform("u_invTransView", InvTransView);
 	skyboxShader->SetUniform("u_projection", m_renderer->m_projMat);
 	skyboxShader->SetUniform("u_skybox", 0);
-	m_renderer->GetSkyBox()->Draw(skyboxShader);
+	//m_renderer->GetSkyBox()->Draw(skyboxShader);
 
 	//------------------------------------------------------------+
 	// EnvironmentMap
@@ -171,7 +170,7 @@ void DefferedRenderer::DrawGBuffer()
 	envShader->SetUniform("u_skybox", 0);
 	for (auto env : m_renderer->m_envMeshComponents)
 	{
-		env->DrawEnvironmentMap(envShader);
+		//env->DrawEnvironmentMap(envShader);
 	}
 	// カリングのオフ
 	glDisable(GL_CULL_FACE);
@@ -185,7 +184,7 @@ void DefferedRenderer::DrawGBuffer()
 	glassShader->SetUniform("u_skybox", 0);
 	for (auto light : m_renderer->m_lightGlassComponents)
 	{
-		light->Draw(glassShader);
+		//light->Draw(glassShader);
 	}
 
 	// GBufferのバインド解除
@@ -229,7 +228,7 @@ void DefferedRenderer::DrawLightPass()
 	// ポイントライトシェーダへのセット
 	GLSLprogram* pointLightShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::POINT_LIGHT);
 	pointLightShader->UseProgram();
-	pointLightShader->SetUniform("u_viewPos",    GAME_INSTANCE.GetViewVector());
+	pointLightShader->SetUniform("u_viewPos",    m_renderer->m_viewMat.GetTranslation());
 	pointLightShader->SetUniform("u_gBuffer.pos",     0);
 	pointLightShader->SetUniform("u_gBuffer.normal",       1);
 	pointLightShader->SetUniform("u_gBuffer.albedoSpec",   2);
@@ -277,7 +276,7 @@ void DefferedRenderer::DrawLightPass()
 	dirLightShader->SetUniform("u_dirLight.color",        m_renderer->GetDirectionalLight()->GetDiffuse());
 	dirLightShader->SetUniform("u_dirLight.specular",     m_renderer->GetDirectionalLight()->GetSpecular());
 	dirLightShader->SetUniform("u_dirLight.intensity", intensity);
-	dirLightShader->SetUniform("u_gBuffer.pos", 0);
+	dirLightShader->SetUniform("u_gBuffer.position", 0);
 	dirLightShader->SetUniform("u_gBuffer.normal", 1);
 	dirLightShader->SetUniform("u_gBuffer.albedoSpec", 2);
 	dirLightShader->SetUniform("u_gBuffer.emissive", 3);

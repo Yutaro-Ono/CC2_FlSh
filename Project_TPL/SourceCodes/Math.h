@@ -190,6 +190,12 @@ public:
 		return *this;
 	}
 
+	// Cast to a const float pointer
+	const float* GetAsFloatPtr() const
+	{
+		return reinterpret_cast<const float*>(&x);
+	}
+
 	// Length squared of vector
 	float LengthSq() const
 	{

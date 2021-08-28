@@ -98,6 +98,14 @@ bool GameMain::Initialize()
 
 #endif
 
+	// レンダラーのロード処理(Debuggerを生成した後)
+	if (!m_renderer->Load())
+	{
+		SDL_Log("Renderer Load Failed : %s\n", SDL_GetError());
+		delete m_renderer;
+		return false;
+	}
+
 	//--------------------------------------------------------------------+
 	// フォント(TTF)レンダリングシステム初期化
 	//--------------------------------------------------------------------+
@@ -256,7 +264,7 @@ void GameMain::RunLoop()
 #ifdef _DEBUG
 
 		// デバッグ用の描画処理(※デバッグビルドのみ)
-		DebugRenderer();
+		//DebugRenderer();
 
 #endif
 
@@ -393,8 +401,6 @@ void GameMain::Input()
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
-		ImGui_ImplSDL2_ProcessEvent(&event);
-
 		switch (event.type)
 		{
 		case SDL_QUIT:

@@ -170,9 +170,9 @@ void Environment::SetDirectionalLight(GAME_TIME in_gameTime, const Vector3& in_p
 		RENDERER->SetAmbientLight(Vector3(0.15f, 0.15f, 0.2f));
 		RENDERER->GetDirectionalLight()->SetPosition(playerPos + ADJUST_POS);
 		RENDERER->GetDirectionalLight()->SetTarget(playerPos);
-		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.31f, 0.415f, 0.46f));
 		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.1f, 0.485f, 0.46f));
 		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.1f, 0.35f, 0.4f));
+		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.31f, 0.415f, 0.46f));
 		// ƒuƒ‹[ƒ€‚ÌÝ’è
 		RENDERER->GetBloom()->SetGamma(0.085f);
 		RENDERER->GetBloom()->SetExposureVal(5.5f);

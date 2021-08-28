@@ -78,8 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
-    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -116,16 +116,18 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW</PreprocessorDefinitions>
+      <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Effekseer\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\EffekseerRendererGL\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Utils;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\zlib\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libpng\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libgd\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glew\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glfw\include;$(SolutionDir)..\Libraries\Effekseer\Downloads\OpenSoundMixer\src;$(SolutionDir)..\Libraries\glew\include\;$(SolutionDir)..\Libraries\SDL2\include\;$(SolutionDir)..\Libraries\glm\;$(SolutionDir)..\Libraries\boost\;$(SolutionDir)..\Libraries\rapidjson\;$(SolutionDir)..\Libraries\stb_image\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)..\Libraries\SDL2\lib\x64\;$(SolutionDir)..\Libraries\GLEW\lib\x64;$(SolutionDir)../Libraries/Effekseer/build/ThirdParty/Install/zlib/lib;$(SolutionDir)../Libraries/Effekseer/build/ThirdParty/Install/zlib/lib/$(Configuration);$(SolutionDir)../Libraries/Effekseer/build/ThirdParty/Install/libpng/lib;$(SolutionDir)../Libraries/Effekseer/build/ThirdParty/Install/libpng/lib/$(Configuration);$(SolutionDir)../Libraries/Effekseer/build/ThirdParty/Install/libgd/lib;$(SolutionDir)../Libraries/Effekseer/build/ThirdParty/Install/libgd/lib/$(Configuration);$(SolutionDir)../Libraries/Effekseer/build/ThirdParty/Install/glew/lib;$(SolutionDir)../Libraries/Effekseer/build/ThirdParty/Install/glew/lib/$(Configuration);$(SolutionDir)../Libraries/Effekseer/build/ThirdParty/Install/OpenSoundMixer/lib;$(SolutionDir)../Libraries/Effekseer/build/ThirdParty/Install/OpenSoundMixer/lib/$(Configuration);$(SolutionDir)../Libraries/Effekseer/build/ThirdParty/Install/glfw/lib;$(SolutionDir)../Libraries/Effekseer/build/ThirdParty/Install/glfw/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_image.lib;glew32.lib;glfw3.lib;glfw3.lib;$(SolutionDir)..\Libraries\Effekseer\build\Dev\Cpp\Effekseer\Debug\Effekseer.lib;$(SolutionDir)..\Libraries\Effekseer\build\Dev\Cpp\EffekseerRendererGL\Debug\EffekseerRendererGL.lib;$(SolutionDir)..\Libraries\Effekseer\build\Dev\Cpp\Utils\Debug\Example_Utils.lib;libpng16_static.lib;zlibstatic.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -134,10 +136,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW</PreprocessorDefinitions>
+      <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Effekseer\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\EffekseerRendererGL\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Utils;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\zlib\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libpng\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libgd\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glew\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glfw\include;$(SolutionDir)..\Libraries\Effekseer\Downloads\OpenSoundMixer\src;$(SolutionDir)..\Libraries\glew\include\;$(SolutionDir)..\Libraries\SDL2\include\;$(SolutionDir)..\Libraries\glm\;$(SolutionDir)..\Libraries\boost\;$(SolutionDir)..\Libraries\rapidjson\;$(SolutionDir)..\Libraries\stb_image\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

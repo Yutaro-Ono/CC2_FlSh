@@ -2,7 +2,7 @@
 // GBuffer・車のモデル用 フラグメントシェーダ
 // 環境マップ適用
 //-------------------------------------------------------------------------+
-#version 330 core
+#version 420
 // GBuffer出力
 layout (location = 0) out vec3 out_gPosition;
 layout (location = 1) out vec3 out_gNormal;

@@ -108,7 +108,7 @@ void TitleScene::Initialize()
 	// ロード画面の無効化
 	GAME_INSTANCE.GetLoadScreen()->DisableScreen();
 	// タイトル用UI
-	TitleScreen* hud = new TitleScreen(this);
+	UIScreen* hud = new TitleScreen(this);
 
 	// BGM再生開始
 	AUDIO->PlayMusic(m_sound["BGM"]);

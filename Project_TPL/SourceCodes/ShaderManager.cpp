@@ -43,6 +43,7 @@ bool ShaderManager::CreateShaders()
 	{
 		return false;
 	}
+	m_shaders[GLSL_SHADER::OUT_SCREEN]->UseProgram();
 	m_shaders[GLSL_SHADER::OUT_SCREEN]->SetUniform("u_screenTexture", 0);
 
 
@@ -54,7 +55,8 @@ bool ShaderManager::CreateShaders()
 	{
 		return false;
 	}
-	m_shaders[GLSL_SHADER::BASIC_PHONG]->SetUniform("u_mat.albedo", 0);
+	m_shaders[GLSL_SHADER::BASIC]->UseProgram();
+	m_shaders[GLSL_SHADER::BASIC]->SetUniform("u_mat.albedo", 0);
 	
 	// 標準シェーダー+Phongライティング
 	m_shaders[GLSL_SHADER::BASIC_PHONG] = new GLSLprogram();
@@ -62,6 +64,7 @@ bool ShaderManager::CreateShaders()
 	{
 		return false;
 	}
+	m_shaders[GLSL_SHADER::BASIC_PHONG]->UseProgram();
 	m_shaders[GLSL_SHADER::BASIC_PHONG]->SetUniform("u_mat.albedo", 0);
 
 	// 標準シェーダー+Phongライティング+シャドウ
@@ -73,7 +76,7 @@ bool ShaderManager::CreateShaders()
 
 	// 標準シェーダー+スキンメッシュ
 	m_shaders[GLSL_SHADER::BASIC_SKINMESH] = new GLSLprogram();
-	if (!m_shaders[GLSL_SHADER::BASIC_SKINMESH]->LoadShaders("Shaders/ForwardRendering/Skinned.vert", "Shaders/ForwardRendering/BasicMesh.frag", ""))
+	if (!m_shaders[GLSL_SHADER::BASIC_SKINMESH]->LoadShaders("Shaders/ForwardRendering/Skinned.vert", "Shaders/ForwardRendering/Phong.frag", ""))
 	{
 		return false;
 	}
@@ -159,6 +162,7 @@ bool ShaderManager::CreateShaders()
 	{
 		return false;
 	}
+	m_shaders[GLSL_SHADER::DOWNSAMPLING]->UseProgram();
 	m_shaders[GLSL_SHADER::DOWNSAMPLING]->SetUniform("u_scene", 0);
 
 	m_shaders[GLSL_SHADER::GAUSSIAN_BLUR] = new GLSLprogram();
@@ -166,6 +170,7 @@ bool ShaderManager::CreateShaders()
 	{
 		return false;
 	}
+	m_shaders[GLSL_SHADER::GAUSSIAN_BLUR]->UseProgram();
 	m_shaders[GLSL_SHADER::GAUSSIAN_BLUR]->SetUniform("u_blurSource", 0);
 
 	m_shaders[GLSL_SHADER::TONEMAPPING] = new GLSLprogram();
@@ -173,6 +178,7 @@ bool ShaderManager::CreateShaders()
 	{
 		return false;
 	}
+	m_shaders[GLSL_SHADER::TONEMAPPING]->UseProgram();
 	m_shaders[GLSL_SHADER::TONEMAPPING]->SetUniform("u_scene", 0);
 
 	//---------------------------------------------------------------------------+
@@ -198,7 +204,7 @@ bool ShaderManager::CreateShaders()
     //-------------------------------------------------------------------------+
 	// 2D空間
 	m_shaders[GLSL_SHADER::SPRITE_2D] = new GLSLprogram();
-	if (!m_shaders[GLSL_SHADER::SPRITE_2D]->LoadShaders("Shaders/SpriteShader.vert", "Shaders/SpriteShader.frag", ""))
+	if (!m_shaders[GLSL_SHADER::SPRITE_2D]->LoadShaders("Shaders/Sprite/SpriteShader.vert", "Shaders/Sprite/SpriteShader.frag", ""))
 	{
 		return false;
 	}
@@ -245,7 +251,7 @@ bool ShaderManager::CreateShaders()
     // マップHUD用シェーダー
     //-------------------------------------------------------------------------+
 	m_shaders[GLSL_SHADER::HUD_INPUT] = new GLSLprogram();
-	if (!m_shaders[GLSL_SHADER::HUD_INPUT]->LoadShaders("Shaders/HUD/HUD_MapShader.vert", "Shaders/HUD/HUD_MapShader.frag", ""))
+	if (!m_shaders[GLSL_SHADER::HUD_INPUT]->LoadShaders("Shaders/HUD/HUD_MapInput.vert", "Shaders/HUD/HUD_MapInput.frag", ""))
 	{
 		return false;
 	}
@@ -262,7 +268,7 @@ bool ShaderManager::CreateShaders()
 	// その他のシェーダー (デバッグ用ビジュアライザー系)
 	//---------------------------------------------------------------------------+
 	m_shaders[GLSL_SHADER::OPTION_NORMAL_VISUALIZE] = new GLSLprogram();
-	if (!m_shaders[GLSL_SHADER::OPTION_NORMAL_VISUALIZE]->LoadShaders("Shaders/Debug/Normal_Visualization.vert", "Shaders/Debug/Normal_Visualization.frag", "Shaders/option/Normal_Visualization.geom"))
+	if (!m_shaders[GLSL_SHADER::OPTION_NORMAL_VISUALIZE]->LoadShaders("Shaders/Debug/Normal_Visualization.vert", "Shaders/Debug/Normal_Visualization.frag", "Shaders/Debug/Normal_Visualization.geom"))
 	{
 		return false;
 	}
