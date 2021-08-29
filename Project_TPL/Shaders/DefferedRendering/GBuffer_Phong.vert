@@ -37,7 +37,7 @@ void main()
 {
 	gl_Position = u_projection * u_view * u_worldTransform * vec4(a_vertexPos, 1.0);
 
-	vs_out.fragWorldPos = vec3(u_worldTransform * vec4(a_vertexPos, 1.0f));
-	vs_out.fragNormal = mat3(transpose(inverse(u_worldTransform))) * a_normal;
+	vs_out.fragWorldPos = vec3(vec4(a_vertexPos, 1.0f) * u_worldTransform);
+	vs_out.fragNormal =  a_normal * mat3(transpose(inverse(u_worldTransform)));
 	vs_out.fragTexCoords = a_texCoords;
 }

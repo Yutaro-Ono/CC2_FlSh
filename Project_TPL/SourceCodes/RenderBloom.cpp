@@ -15,6 +15,8 @@
 #include "ParticleManager.h"
 #include "VertexArray.h"
 #include "Shader.h"
+#include "ShaderManager.h"
+#include "GLSLprogram.h"
 #include <iostream>
 
 const unsigned int maxLevelNum = 5;
@@ -203,6 +205,9 @@ void RenderBloom::DrawDownSampling(unsigned int in_brightBuffer)
 
 	unsigned int renderSource = in_brightBuffer;   // ダウンサンプリングターゲット (高輝度バッファ)
 
+	// ダウンサンプリングシェーダー
+	GLSLprogram* dsShader = RENDERER->GetShaderManager()->GetShader(GLSL_SHADER::DOWNSAMPLING);
+
 	int reduceX = GAME_CONFIG->GetScreenWidth();
 	int reduceY = GAME_CONFIG->GetScreenHeight();
 
@@ -221,8 +226,8 @@ void RenderBloom::DrawDownSampling(unsigned int in_brightBuffer)
 		// テクスチャに高輝度バッファをセットし、シェーダ内でダウンサンプリングした結果を出力する
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, renderSource);
-		m_downSamplingShader->SetActive();
-		m_downSamplingShader->SetInt("u_screenTex", 0);
+		dsShader->UseProgram();
+		dsShader->SetUniform("u_scene", 0);
 
 		// 描画する
 		RENDERER->GetScreenVAO()->SetActive();
@@ -238,13 +243,16 @@ void RenderBloom::DrawDownSampling(unsigned int in_brightBuffer)
 // 高輝度面のガウスぼかし処理
 void RenderBloom::DrawGaussBlur()
 {
-	const unsigned int sampleCount = 15;
+	const int sampleCount = 15;
 	Vector3 offset[sampleCount];
 
 	int reduceX = GAME_CONFIG->GetScreenWidth();
 	int reduceY = GAME_CONFIG->GetScreenHeight();;
 	float deviation = 2.0f;
 	unsigned int renderSource = m_blurBufferTex[1];
+
+	// ガウスぼかしシェーダー
+	GLSLprogram* gaussShader = RENDERER->GetShaderManager()->GetShader(GLSL_SHADER::GAUSSIAN_BLUR);
 
 	// ガウスレベル数分
 	for (int i = 0; i < maxLevelNum; i++)
@@ -275,15 +283,15 @@ void RenderBloom::DrawGaussBlur()
 
 				glActiveTexture(GL_TEXTURE0);
 				glBindTexture(GL_TEXTURE_2D, renderSource);
-				m_gaussShader->SetActive();
-				m_gaussShader->SetInt("u_blurSource", 0);
-				m_gaussShader->SetInt("u_param.sampleCount", 15);
+				gaussShader->UseProgram();
+				gaussShader->SetUniform("u_blurSource", 0);
+				gaussShader->SetUniform("u_gaussParam.sampleCount", sampleCount);
 
 				// ガウスシェーダーにoffsetをセット
 				for (int i = 0; i < sampleCount; i++)
 				{
-					std::string s = "u_param.offset[" + std::to_string(i) + "]";
-					m_gaussShader->SetVectorUniform(s.c_str(), offset[i]);
+					std::string s = "u_gaussParam.offset[" + std::to_string(i) + "]";
+					gaussShader->SetUniform(s.c_str(), offset[i]);
 				}
 
 				RENDERER->GetScreenVAO();
@@ -308,21 +316,24 @@ void RenderBloom::DrawBlendBloom(unsigned int in_colorBuffer)
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	m_hdrBloomShader->SetActive();
-	m_hdrBloomShader->SetFloat("u_exposure", m_exposure);
-	m_hdrBloomShader->SetFloat("u_gamma", m_gamma);
-	m_hdrBloomShader->SetInt("u_scene", 0);
-	
+	// ブルーム(トーンマッピング)シェーダー
+	GLSLprogram* bloomShader = RENDERER->GetShaderManager()->GetShader(GLSL_SHADER::TONEMAPPING);
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, in_colorBuffer);
+	bloomShader->UseProgram();
+	bloomShader->SetUniform("u_exposure", m_exposure);
+	bloomShader->SetUniform("u_gamma", m_gamma);
+	bloomShader->SetUniform("u_scene", 0);
+	
 
 	for (unsigned int i = 0; i < 5; i++)
 	{
 		int num = i + 1;
 		std::string s = "u_bloom" + std::to_string(num);
-		m_hdrBloomShader->SetInt(s, num);
 		glActiveTexture(GL_TEXTURE0 + num);
 		glBindTexture(GL_TEXTURE_2D, m_blurBufferTex[i * 2 + 1]);
+		bloomShader->SetUniform(s.c_str(), num);
 	}
 
 	RENDERER->GetScreenVAO()->SetActive();

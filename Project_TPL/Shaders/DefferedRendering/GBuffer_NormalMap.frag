@@ -81,18 +81,13 @@ void main()
 
 	// pass to output gBuffer
 	out_gPosition = fs_in.fragWorldPos;
-
-	vec3 resultColor = ambient + diffuse;
-	out_gAlbedoSpec.rgb = resultColor;
-
-	float resultAlpha = texture(u_mat.emissive, fs_in.fragTexCoords).a + specular.r;
-	out_gAlbedoSpec.a = texture(u_mat.specular, fs_in.fragTexCoords).r;
+	out_gAlbedoSpec = vec4(ambient + diffuse + specular, texture(u_mat.emissive, fs_in.fragTexCoords).a + specular.r);
 
 	// bloom
 	if(u_enableBloom == 1)
 	{
 		vec4 emissiveColor = texture(u_mat.emissive, fs_in.fragTexCoords);
-		out_gEmissive = emissiveColor * 500000.0f;
+		out_gEmissive = emissiveColor * u_dLightIntensity;
 	}
 
 }

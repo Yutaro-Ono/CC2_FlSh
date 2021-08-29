@@ -98,7 +98,8 @@ void main()
 	vec3 envMap = texture(u_skybox, eR).rgb * 0.5f;
 
 	// ディフューズ計算
-	vec3 Diffuse = u_dirLight.diffuse * texture(u_mat.diffuseMap, fs_in.fragTexCoords).rgb;
+	vec3 color = texture(u_mat.diffuseMap, fs_in.fragTexCoords).rgb;
+	vec3 Diffuse = u_dirLight.diffuse;
 	// スペキュラ計算
 	vec3 Specular = u_dirLight.specular * pow(max(0.0, dot(R, V)), u_specPower) * texture(u_mat.specularMap, fs_in.fragTexCoords).rgb;
 	// アンビエント
@@ -112,7 +113,6 @@ void main()
 	out_gPosition = fs_in.fragWorldPos;
 	out_gNormal = vec3(fs_in.fragNormal.z, fs_in.fragNormal.x, -fs_in.fragNormal.y);
 	// シャドウの逆数を取り、0 = 影の時にディフューズとスペキュラの値がキャンセルされる(影となる)
-	out_gAlbedoSpec.rgb = ambient + (1.8 - shadow) * Diffuse * envMap;
-	out_gAlbedoSpec.a = (1.8 - shadow) * Specular.r;
+	out_gAlbedoSpec = vec4(ambient + (1.8 - shadow) * (Diffuse + Specular + envMap) * color, Specular.r);
 	out_gBrightColor = texture(u_mat.emissiveMap, fs_in.fragTexCoords) * 0.095f;     // 0.03f
 }

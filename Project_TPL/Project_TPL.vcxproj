@@ -476,6 +476,7 @@
     <None Include="Shaders\DefferedRendering\Lighting\GBuffer_DirectionalLight.frag" />
     <None Include="Shaders\DefferedRendering\Lighting\GBuffer_LightPass.vert" />
     <None Include="Shaders\DefferedRendering\Lighting\GBuffer_PointLight.frag" />
+    <None Include="Shaders\DefferedRendering\Lighting\GBuffer_PointLight.vert" />
     <None Include="Shaders\DefferedRendering\Lighting\GBuffer_SpotLight.frag" />
     <None Include="Shaders\Depth\DepthMap.frag" />
     <None Include="Shaders\Depth\DepthMap.vert" />

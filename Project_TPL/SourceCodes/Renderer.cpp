@@ -595,9 +595,9 @@ void Renderer::CreateUBOs()
 	// 変換行列UBO
 	glGenBuffers(1, &m_uboMatrices);
 	glBindBuffer(GL_UNIFORM_BUFFER, m_uboMatrices);
-	glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(Matrix4::mat), NULL, GL_DYNAMIC_DRAW);
+	glBufferData(GL_UNIFORM_BUFFER, 128, NULL, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
-	glBindBufferRange(GL_UNIFORM_BUFFER, 0, m_uboMatrices, 0, 2 * sizeof(Matrix4::mat));
+	glBindBufferRange(GL_UNIFORM_BUFFER, 0, m_uboMatrices, 0, 128);
 	// カメラUBO
 	glGenBuffers(1, &m_uboCamera);
 	glBindBuffer(GL_UNIFORM_BUFFER, m_uboCamera);
@@ -624,15 +624,10 @@ void Renderer::CreateUBOs()
 void Renderer::UpdateUBO()
 {
 	glBindBuffer(GL_UNIFORM_BUFFER, m_uboMatrices);
-	// 行列を転送するときは転置する
-	Matrix4 transView = m_viewMat;
-	transView.Transpose();
-	Matrix4 transProj = m_projMat;
-	transProj.Transpose();
 
 	// 変換行列UBO
-	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Matrix4::mat), transView.GetAsFloatPtr());
-	glBufferSubData(GL_UNIFORM_BUFFER, sizeof(Matrix4::mat), sizeof(Matrix4::mat), transProj.GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, 64, 64, m_projMat.GetAsFloatPtr());
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, 64, m_viewMat.GetAsFloatPtr());
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
 	// カメラUBO

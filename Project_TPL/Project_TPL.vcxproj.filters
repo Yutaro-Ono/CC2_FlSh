@@ -1272,5 +1272,8 @@
     <None Include="Shaders\Depth\SkinnedDepthNormal.vert">
       <Filter>Source\GLSL\Depth</Filter>
     </None>
+    <None Include="Shaders\DefferedRendering\Lighting\GBuffer_PointLight.vert">
+      <Filter>Source\GLSL\DefferedRendering\Lighting</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -37,8 +37,7 @@ void CubeMapComponent::Draw(GLSLprogram* _shader)
 	{
 		// 深度設定
 		glDepthFunc(GL_LEQUAL);
-		// 輝度情報をシェーダに渡す
-		_shader->SetUniform("u_skyLuminance", m_luminance);
+
 		// テクスチャバインド
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture->GetTextureID());

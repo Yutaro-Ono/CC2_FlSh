@@ -131,6 +131,7 @@ bool ShaderManager::CreateShaders()
 	{
 		return false;
 	}
+	m_shaders[GLSL_SHADER::GBUFFER_SKYBOX]->UseProgram();
 	m_shaders[GLSL_SHADER::GBUFFER_SKYBOX]->SetUniform("u_cubeMap", 0);
 
 	// GBuffer+環境マップ
@@ -193,7 +194,7 @@ bool ShaderManager::CreateShaders()
 
 	// ポイントライト
 	m_shaders[GLSL_SHADER::POINT_LIGHT] = new GLSLprogram();
-	if (!m_shaders[GLSL_SHADER::POINT_LIGHT]->LoadShaders("Shaders/DefferedRendering/Lighting/GBuffer_LightPass.vert", "Shaders/DefferedRendering/Lighting/GBuffer_PointLight.frag", ""))
+	if (!m_shaders[GLSL_SHADER::POINT_LIGHT]->LoadShaders("Shaders/DefferedRendering/Lighting/GBuffer_PointLight.vert", "Shaders/DefferedRendering/Lighting/GBuffer_PointLight.frag", ""))
 	{
 		return false;
 	}

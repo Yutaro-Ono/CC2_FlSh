@@ -62,7 +62,7 @@ TitleCarBody::TitleCarBody(Actor* in_owner)
 		m_frontLight[i] = new PointLight(PointLight::VL_BIG);
 		m_frontLight[i]->SetPosition(Vector3(m_owner->GetPosition().x - 30.0f, m_owner->GetPosition().y + (10.0f * (i + 1)), m_owner->GetPosition().z));
 		m_frontLight[i]->SetLightColor(Vector3(1.0f, 1.0f, 1.0f), Vector3(1.0f, 1.0f, 1.0f));
-		m_frontLight[i]->SetLuminance(3.0f);
+		m_frontLight[i]->SetLuminance(13.0f);
 
 		m_backLight[i] = new PointLight(PointLight::VL_BIG);
 		m_backLight[i]->SetLightColor(Vector3(1.0f, 0.1f, 0.4f), Vector3(1.0f, 0.1f, 0.4f));

@@ -9,6 +9,27 @@ layout (location = 1) out vec3 out_gNormal;
 layout (location = 2) out vec4 out_gAlbedoSpec;
 layout (location = 3) out vec4 out_gBrightColor;
 
+//----------------------------------------------------+
+// uniform buffer block
+// camera variables
+layout(std140, binding = 1) uniform CameraVariable
+{
+	vec3 u_viewPos;
+};
+// triggers
+layout(std140, binding = 2) uniform Triggers
+{
+	int u_enableBloom;
+};
+// Directional Light
+layout(std140, binding = 3) uniform DirLight
+{
+	vec3 u_dLightDir;
+	vec3 u_dLightDiffuse;
+	vec3 u_dLightSpecular;
+	vec3 u_dLightAmbient;
+	float u_dLightIntensity;
+};
 
 // 頂点シェーダーからの入力受け取り
 in VS_OUT
@@ -35,20 +56,8 @@ struct Material
 };
 
 
-// ディレクショナルライト用構造体
-struct DirectionalLight
-{
-	vec3 direction;      // ライト方向
-	vec3 ambient;        // アンビエント
-	vec3 diffuse;        // ディフューズ色
-	vec3 specular;       // スペキュラー色
-};
-
 // uniform
 uniform Material u_mat;
-uniform DirectionalLight u_dirLight;
-uniform vec3 u_viewPos;                   // カメラ座標
-uniform float u_intensity;                // エミッシブの強度
 
 // シャドウの計算
 float ShadowCalculation(vec4 fragPosLightSpace)
@@ -63,7 +72,7 @@ float ShadowCalculation(vec4 fragPosLightSpace)
     float currentDepth = projCoords.z;
     // シャドウ判定 (1.0:シャドウ 0.0:シャドウの外)
     // バイアスを法線とライトの向きから調整する
-    float bias = max(0.0001 * (1.0 - dot(normalize(fs_in.fragNormal), u_dirLight.direction)), 0.0001);
+    float bias = max(0.0001 * (1.0 - dot(normalize(fs_in.fragNormal), u_dLightDir)), 0.0001);
     // 現在の深度が最も近いフラグメントの深度より大きければ1.0、小さければ0.0(影になる)
     float shadow = currentDepth - bias > closestDepth  ? 1.0 : 0.0;
 
@@ -93,19 +102,19 @@ void main()
 	vec3 color = texture(u_mat.diffuseMap, fs_in.fragTexCoords).rgb;
 
 	// アンビエント計算
-	vec3 ambient = u_dirLight.ambient * color;
+	vec3 ambient = u_dLightAmbient * color;
 
 	// ディフューズ計算
 	vec3 lightDir = normalize(fs_in.TangentLightPos - fs_in.TangentFragPos);
 	float diff = max(dot(lightDir, normal), 0.0);
-	vec3 diffuse = u_dirLight.diffuse * diff * texture(u_mat.diffuseMap, fs_in.fragTexCoords).rgb;
+	vec3 diffuse = u_dLightDiffuse * diff;
 
 	// スペキュラ計算
 	vec3 viewDir = normalize(fs_in.TangentViewPos - fs_in.TangentFragPos);
 	vec3 reflectDir = reflect(-lightDir, normal);
 	vec3 halfwayDir = normalize(lightDir + viewDir);
 	float spec = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
-	vec3 specular = u_dirLight.specular * spec * texture(u_mat.specularMap, fs_in.fragTexCoords).rgb;
+	vec3 specular = u_dLightSpecular * spec * texture(u_mat.specularMap, fs_in.fragTexCoords).rgb;
 
 	// 影成分の算出
 	float shadow = ShadowCalculation(fs_in.fragPosLightSpace);
@@ -114,13 +123,17 @@ void main()
 	out_gPosition = fs_in.fragWorldPos;
 	out_gNormal = normal;
 	// シャドウの逆数を取り、0 = 影の時にディフューズとスペキュラの値がキャンセルされる(影となる)
-	vec3 resultColor = ambient + (1.0 - shadow) * diffuse;
+	vec3 resultColor = (ambient + (1.0 - shadow) * (diffuse + specular)) * color;
 	out_gAlbedoSpec.rgb = resultColor;
 	float resultAlpha = texture(u_mat.emissiveMap, fs_in.fragTexCoords).a + (1.0 - shadow) * specular.r;
-	out_gAlbedoSpec.a =  resultAlpha;
+	out_gAlbedoSpec.a = resultAlpha;
 
 	// エミッシブカラーのサンプリング/出力
-	vec4 resultEmissive = texture(u_mat.emissiveMap, fs_in.fragTexCoords);
-	out_gBrightColor = resultEmissive * u_intensity;
+	if(u_enableBloom == 1)
+	{
+	    vec4 resultEmissive = texture(u_mat.emissiveMap, fs_in.fragTexCoords);
+	    out_gBrightColor = resultEmissive * u_dLightIntensity;
+	}
+
 
 }

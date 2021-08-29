@@ -35,7 +35,7 @@ void main()
 
 	vs_out.fragLocalPos = a_vertexPos;
 	
-	vec4 clipPos = vec4(a_vertexPos, 1.0f) * u_offset * u_invTransView * u_projection ;
+	vec4 clipPos = u_projection * u_invTransView * u_offset * vec4(a_vertexPos, 1.0f);
 
 	gl_Position = clipPos.xyww;
 	

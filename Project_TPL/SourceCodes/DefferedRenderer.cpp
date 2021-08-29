@@ -55,7 +55,7 @@ void DefferedRenderer::DrawGBuffer()
 	// マップHUD書き込み処理
 	if (m_renderer->GetMapHUD() != nullptr)
 	{
-		m_renderer->GetMapHUD()->WriteBuffer(m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::HUD_INPUT), m_renderer->m_meshComponents);
+		//m_renderer->GetMapHUD()->WriteBuffer(m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::HUD_INPUT), m_renderer->m_meshComponents);
 	}
 	// 描画先をGBufferとしてバインドする
 	glBindFramebuffer(GL_FRAMEBUFFER, m_gBuffer);
@@ -78,10 +78,6 @@ void DefferedRenderer::DrawGBuffer()
 	// シェーダにuniformセット
 	GLSLprogram* meshShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_NORMAL_SHADOW);
 	meshShader->UseProgram();
-	meshShader->SetUniform("u_dirLight.direction", m_renderer->GetDirectionalLight()->GetDirection());
-	meshShader->SetUniform("u_dirLight.ambient", m_renderer->GetDirectionalLight()->GetAmbient());
-	meshShader->SetUniform("u_dirLight.diffuse", m_renderer->GetDirectionalLight()->GetDiffuse());
-	meshShader->SetUniform("u_dirLight.specular", m_renderer->GetDirectionalLight()->GetSpecular());
 	meshShader->SetUniform("u_lightSpaceMatrix", lightSpace);
 	meshShader->SetUniform("u_lightPos", m_renderer->GetDirectionalLight()->GetPosition());
 	meshShader->SetUniform("u_mat.diffuseMap", 0);
@@ -137,25 +133,28 @@ void DefferedRenderer::DrawGBuffer()
 	// 車メッシュ描画
 	for (auto car : m_renderer->m_carMeshComponents)
 	{
-		//car->Draw(carShader);
+		car->Draw(carShader);
 	}
 
 	//------------------------------------------------------------+
     // SkyBox
     //------------------------------------------------------------+
 	GLSLprogram* skyboxShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_SKYBOX);
-	skyboxShader->UseProgram();
 	// 座標系の問題でスカイボックスが正常な向きに描画されないので、回転オフセットを設定
-	Matrix4 offset = Matrix4::CreateRotationX(Math::ToRadians(90.0f));
+	Matrix4 offset;
+	offset = Matrix4::CreateRotationX(Math::ToRadians(90.0f));
 	// Uniformに逆→転置行列をセット
 	Matrix4 InvTransView = m_renderer->m_viewMat;
 	InvTransView.Invert();
 	InvTransView.Transpose();
+	skyboxShader->UseProgram();
+	skyboxShader->SetUniform("u_view", m_renderer->m_viewMat);
+	skyboxShader->SetUniform("u_projection", m_renderer->m_projMat);
+	skyboxShader->SetUniform("u_viewPos", m_renderer->m_viewMat.GetTranslation());
 	skyboxShader->SetUniform("u_offset", offset);
 	skyboxShader->SetUniform("u_invTransView", InvTransView);
-	skyboxShader->SetUniform("u_projection", m_renderer->m_projMat);
-	skyboxShader->SetUniform("u_skybox", 0);
-	//m_renderer->GetSkyBox()->Draw(skyboxShader);
+	skyboxShader->SetUniform("u_cubeMap", 0);
+	m_renderer->GetSkyBox()->Draw(skyboxShader);
 
 	//------------------------------------------------------------+
 	// EnvironmentMap
@@ -217,10 +216,11 @@ void DefferedRenderer::DrawLightPass()
 	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_2D, m_gEmissive);
 
+
 	// カリング設定：ライトはメッシュの裏側のみ描画する
+	glFrontFace(GL_CCW);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_FRONT);
-	glFrontFace(GL_CCW);
 
 	//------------------------------------------------------+
 	// ポイントライト
@@ -228,11 +228,10 @@ void DefferedRenderer::DrawLightPass()
 	// ポイントライトシェーダへのセット
 	GLSLprogram* pointLightShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::POINT_LIGHT);
 	pointLightShader->UseProgram();
-	pointLightShader->SetUniform("u_viewPos",    m_renderer->m_viewMat.GetTranslation());
-	pointLightShader->SetUniform("u_gBuffer.pos",     0);
+	pointLightShader->SetUniform("u_gBuffer.position",     0);
 	pointLightShader->SetUniform("u_gBuffer.normal",       1);
 	pointLightShader->SetUniform("u_gBuffer.albedoSpec",   2);
-	pointLightShader->SetUniform("u_gBuffer.emissive", 3);
+	pointLightShader->SetUniform("u_gBuffer.emissive",     3);
 	// ポイントライトの描画
 	for (auto pl : m_renderer->m_pointLights)
 	{
@@ -267,15 +266,10 @@ void DefferedRenderer::DrawLightPass()
 	//-----------------------------------------------+
 	// 輝度定義
 	float intensity = 1.65f;
+	m_renderer->GetDirectionalLight()->SetIntensity(intensity);
 	GLSLprogram* dirLightShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::DIRECTIONAL_LIGHT);
 	// シェーダのセット
 	dirLightShader->UseProgram();
-	dirLightShader->SetUniform("u_viewPos", GAME_INSTANCE.GetViewVector());
-	dirLightShader->SetUniform("u_dirLight.direction",    m_renderer->GetDirectionalLight()->GetDirection());
-	dirLightShader->SetUniform("u_dirLight.ambientColor", m_renderer->GetDirectionalLight()->GetAmbient());
-	dirLightShader->SetUniform("u_dirLight.color",        m_renderer->GetDirectionalLight()->GetDiffuse());
-	dirLightShader->SetUniform("u_dirLight.specular",     m_renderer->GetDirectionalLight()->GetSpecular());
-	dirLightShader->SetUniform("u_dirLight.intensity", intensity);
 	dirLightShader->SetUniform("u_gBuffer.position", 0);
 	dirLightShader->SetUniform("u_gBuffer.normal", 1);
 	dirLightShader->SetUniform("u_gBuffer.albedoSpec", 2);
@@ -303,7 +297,7 @@ void DefferedRenderer::DrawLightPass()
 	sprite3Dshader->SetUniform("u_projection", projection);
 	for (auto spr : m_renderer->m_worldSprites)
 	{
-		spr->Draw(sprite3Dshader);
+		//spr->Draw(sprite3Dshader);
 	}
 
 	// spriteシェーダーのアクティブ化
@@ -315,19 +309,19 @@ void DefferedRenderer::DrawLightPass()
 	{
 		if (sprite->GetVisible())
 		{
-			sprite->Draw(sprite2Dshader);
+			//sprite->Draw(sprite2Dshader);
 		}
 	}
 	// 全てのUIを更新
 	for (auto ui : GAME_INSTANCE.GetUIStack())
 	{
-		ui->Draw(sprite2Dshader);
+		//ui->Draw(sprite2Dshader);
 	}
 
 	// マップHUD
 	if (m_renderer->GetMapHUD() != nullptr)
 	{
-		m_renderer->GetMapHUD()->Draw(m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::HUD_OUTPUT));
+		//m_renderer->GetMapHUD()->Draw(m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::HUD_OUTPUT));
 	}
 
 	// ブレンドをオフ
@@ -349,7 +343,7 @@ void DefferedRenderer::DrawLightPass()
 	//----------------------------------------------------------------+
     // パーティクル描画
     //----------------------------------------------------------------+
-	m_renderer->GetParticleManager()->Draw();
+	//m_renderer->GetParticleManager()->Draw();
 
 
 	// ライトFBOへの書き込みを止める
@@ -368,7 +362,7 @@ void DefferedRenderer::Draw()
 
 	// Bloom処理を施した描画
 	RenderBloom* bloom = m_renderer->GetBloom();
-	//bloom->SetExposureVal(4.5f);
+	bloom->SetExposureVal(4.5f);
 	bloom->DrawDownSampling(m_lightHighBright);
 	bloom->DrawGaussBlur();
 	bloom->DrawBlendBloom(m_lightHDR);
@@ -377,22 +371,22 @@ void DefferedRenderer::Draw()
 	// 最終出力結果を描画
 	//----------------------------------------------------------------+
 	// GBufferに書き込まれた要素をスクリーンに描画
+	//GLSLprogram* screenShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::OUT_SCREEN);
 	//glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//glDisable(GL_DEPTH_TEST);
 	//// スクリーンシェーダのuniformセット
-	//m_screenShader->UseProgram();
-	//m_screenShader->SetInt("u_screenTexture", 0);
+	//screenShader->UseProgram();
+	//screenShader->SetUniform("u_screenTexture", 0);
 
 	//// GBufferテクスチャセット
 	//glActiveTexture(GL_TEXTURE0);
-	////glBindTexture(GL_TEXTURE_2D, m_lightHDR);
+	//glBindTexture(GL_TEXTURE_2D, m_lightHDR);
 	////glBindTexture(GL_TEXTURE_2D, m_gAlbedoSpec);
-	//glBindTexture(GL_TEXTURE_2D, m_gEmissive);
-	////glBindTexture(GL_TEXTURE_2D, m_gBrightBuffer);
+	////glBindTexture(GL_TEXTURE_2D, m_gEmissive);
 
 	//// スクリーンに描画
-	//m_renderer->m_screenVerts->UseProgram();
+	//m_renderer->m_screenVerts->SetActive();
 	//glDrawArrays(GL_TRIANGLES, 0, 6);
 
 }

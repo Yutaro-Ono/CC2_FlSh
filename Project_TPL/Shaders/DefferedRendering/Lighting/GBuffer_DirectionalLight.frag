@@ -61,17 +61,17 @@ void main()
 
 	// ambient
 	vec3 ambient = u_dLightAmbient * gAlbedo;
-	vec3 lightDir = normalize(u_dLightDir);
+	vec3 lightDir = normalize(-u_dLightDir);
 	float diff = max(dot(gNormal, lightDir), 0.0f);
 
 	// diffuse
-	vec3 diffuse = u_dLightDiffuse * u_dLightIntensity * gAlbedo * diff;
+	vec3 diffuse = u_dLightDiffuse * u_dLightIntensity * diff * gAlbedo;
 
 	// specular
 	vec3 viewDir = normalize(u_viewPos - gPos);
 	vec3 halfVec = normalize(lightDir + viewDir);
 	float spec = pow(max(dot(gNormal, halfVec), 0.0f), 64.0f);
-	vec3 specular = u_dLightSpecular * u_dLightIntensity * spec * gSpec;
+	vec3 specular = u_dLightSpecular * spec * gSpec;
 
 	// output to color buffer
 	vec3 result = ambient + diffuse + specular + texture(u_gBuffer.emissive, fs_in.fragTexCoords).rgb;
@@ -80,7 +80,7 @@ void main()
 	// High Bright
 	if(u_enableBloom == 1)
 	{
-		vec3 brightColor = result;
+		vec3 brightColor = ambient + diffuse + texture(u_gBuffer.emissive, fs_in.fragTexCoords).rgb;
 		float brightness = dot(brightColor, vec3(0.1326f, 0.1352f, 0.642f));
 
 		if(brightness > u_highBrightLine)
