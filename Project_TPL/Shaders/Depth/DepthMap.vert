@@ -7,5 +7,5 @@ uniform mat4 u_worldTransform;
 void main()
 {
 
-    gl_Position = vec4(a_pos, 1.0) * u_worldTransform * u_lightSpaceMatrix;
+    gl_Position = u_lightSpaceMatrix * u_worldTransform * vec4(a_pos, 1.0);
 }  

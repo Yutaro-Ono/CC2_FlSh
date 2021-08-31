@@ -19,6 +19,28 @@ in VS_OUT
 	vec4 fragPosLightSpace;         // ライトスペース上の座標
 }fs_in;
 
+//----------------------------------------------------+
+// uniform buffer block
+// camera variables
+layout(std140, binding = 1) uniform CameraVariable
+{
+	vec3 u_viewPos;
+};
+// triggers
+layout(std140, binding = 2) uniform Triggers
+{
+	int u_enableBloom;
+};
+// Directional Light
+layout(std140, binding = 3) uniform DirLight
+{
+	vec3 u_dLightDir;
+	vec3 u_dLightDiffuse;
+	vec3 u_dLightSpecular;
+	vec3 u_dLightAmbient;
+	float u_dLightIntensity;
+};
+
 // マテリアル構造体
 struct Material
 {
@@ -28,18 +50,9 @@ struct Material
 	sampler2D emissiveMap;
 };
 
-// ディレクショナルライト用構造体
-struct DirectionalLight
-{
-	vec3 direction;      // ライト方向
-	vec3 ambient;        // アンビエント
-	vec3 diffuse;        // ディフューズ色
-	vec3 specular;       // スペキュラー色
-};
 
 // 各種構造体 (uniform)
 uniform Material u_mat;
-uniform DirectionalLight u_dirLight;
 
 uniform samplerCube u_skybox;     // サンプリング用キューブマップ
 
@@ -58,7 +71,7 @@ float ShadowCalculation(vec4 fragPosLightSpace)
     float currentDepth = projCoords.z;
     // シャドウ判定 (1.0:シャドウ 0.0:シャドウの外)
     // バイアスを法線とライトの向きから調整する
-    float bias = max(0.0001 * (1.0 - dot(normalize(fs_in.fragNormal), u_dirLight.direction)), 0.0001);
+    float bias = max(0.0001 * (1.0 - dot(normalize(fs_in.fragNormal), u_dLightDir)), 0.0001);
     // 現在の深度が最も近いフラグメントの深度より大きければ1.0、小さければ0.0(影になる)
     float shadow = currentDepth - bias > closestDepth  ? 1.0 : 0.0;
 
@@ -78,32 +91,29 @@ float ShadowCalculation(vec4 fragPosLightSpace)
 
 void main()
 {
-	// ポリゴン表面の法線（フラグメントシェーダー上で補間されている）
-	vec3 N = normalize(fs_in.fragNormal);
-	// ポリゴン表面からライト方向へのベクトル
-	vec3 L = normalize(-u_dirLight.direction);
-	// ポリゴン表面からカメラ方向
-	vec3 V = normalize(fs_in.fragViewPos - fs_in.fragWorldPos);
-	// -L ベクトルを 法線 N に対して反射したベクトルRを求める
-	vec3 R = normalize(reflect(-L, N));
-
-	// フォン反射計算
-	vec3 Phong = u_dirLight.ambient;
-	float NdotL = dot(L, N);
-
+    // PhongLighting
+	vec3 N = normalize(fs_in.fragNormal);                    // Polygon Surface normal
+	vec3 L = normalize(-u_dLightDir);                        // Vector from : Neg Light Direction
+	vec3 V = normalize(u_viewPos - fs_in.fragWorldPos);      // Vector from : Polygon Pos -> Camera Pos
+	vec3 R = normalize(reflect(-L, N));                      // Reflect Vector from : Light Dir -> Polygon Surface
+	// Phong Reflection Calculation
+	vec3 Phong = u_dLightAmbient;
+	float NdotL = dot(N, L);
 	// 環境マップサンプリング
 	float ratio = 1.00 / 1.309;                                        // 反射率
 	vec3 I = normalize(fs_in.fragWorldPos - fs_in.fragViewPos);        // カメラの向きベクトル
-	vec3 eR = refract(I, N, ratio);                                    // カメラの向きベクトルと法線から反射ベクトルを生成
+	vec3 eR = reflect(I, normalize(fs_in.fragNormal));                 // カメラの向きベクトルと法線から反射ベクトルを生成
 	vec3 envMap = texture(u_skybox, eR).rgb * 0.5f;
 
 	// ディフューズ計算
 	vec3 color = texture(u_mat.diffuseMap, fs_in.fragTexCoords).rgb;
-	vec3 Diffuse = u_dirLight.diffuse;
+	vec3 Diffuse = u_dLightDiffuse;
 	// スペキュラ計算
-	vec3 Specular = u_dirLight.specular * pow(max(0.0, dot(R, V)), u_specPower) * texture(u_mat.specularMap, fs_in.fragTexCoords).rgb;
+	vec3 Specular = u_dLightSpecular * pow(max(0.0, dot(R, V)), u_specPower) * texture(u_mat.specularMap, fs_in.fragTexCoords).rgb;
+	//vec3 Specular = u_dLightSpecular * texture(u_mat.specularMap, fs_in.fragTexCoords).rgb;
+
 	// アンビエント
-	vec3 ambient = u_dirLight.ambient * texture(u_mat.diffuseMap, fs_in.fragTexCoords).rgb;
+	vec3 ambient = u_dLightAmbient * color;
 
 	// 影成分の算出
 	float shadow = ShadowCalculation(fs_in.fragPosLightSpace);
@@ -111,8 +121,12 @@ void main()
 	// GBuffer出力
 	//out_gPosition = vec3(fs_in.fragWorldPos.z, fs_in.fragWorldPos.x, -fs_in.fragWorldPos.y);
 	out_gPosition = fs_in.fragWorldPos;
-	out_gNormal = vec3(fs_in.fragNormal.z, fs_in.fragNormal.x, -fs_in.fragNormal.y);
+	out_gNormal = fs_in.fragNormal;
 	// シャドウの逆数を取り、0 = 影の時にディフューズとスペキュラの値がキャンセルされる(影となる)
-	out_gAlbedoSpec = vec4(ambient + (1.8 - shadow) * (Diffuse + Specular + envMap) * color, Specular.r);
-	out_gBrightColor = texture(u_mat.emissiveMap, fs_in.fragTexCoords) * 0.095f;     // 0.03f
+	//out_gAlbedoSpec = vec4(ambient + (1.0 - shadow) * (Diffuse + Specular + envMap) * color, Specular.r);
+	out_gAlbedoSpec = vec4((ambient + (0.8f - shadow)) * (Diffuse + Specular + envMap), Specular.r);
+	if(u_enableBloom == 1)
+	{
+	    out_gBrightColor = vec4(envMap, 1.0f) + texture(u_mat.emissiveMap, fs_in.fragTexCoords) * 0.095f;     // 0.03f
+	}
 }

@@ -117,6 +117,26 @@ void DefferedRenderer::DrawGBuffer()
 	}
 
 	//------------------------------------------------------------+
+    // SkyBox
+    //------------------------------------------------------------+
+	GLSLprogram* skyboxShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_SKYBOX);
+	// 座標系の問題でスカイボックスが正常な向きに描画されないので、回転オフセットを設定
+	Matrix4 offset;
+	offset = Matrix4::CreateRotationX(Math::ToRadians(90.0f));
+	// Uniformに逆→転置行列をセット
+	Matrix4 InvTransView = m_renderer->m_viewMat;
+	InvTransView.Invert();
+	InvTransView.Transpose();
+	skyboxShader->UseProgram();
+	skyboxShader->SetUniform("u_view", m_renderer->m_viewMat);
+	skyboxShader->SetUniform("u_projection", m_renderer->m_projMat);
+	skyboxShader->SetUniform("u_viewPos", m_renderer->m_viewMat.GetTranslation());
+	skyboxShader->SetUniform("u_offset", offset);
+	skyboxShader->SetUniform("u_invTransView", InvTransView);
+	skyboxShader->SetUniform("u_cubeMap", 0);
+	m_renderer->GetSkyBox()->Draw(skyboxShader);
+
+	//------------------------------------------------------------+
 	// 車
 	//------------------------------------------------------------+
 	GLSLprogram* carShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_CAR_BODY);
@@ -136,25 +156,6 @@ void DefferedRenderer::DrawGBuffer()
 		car->Draw(carShader);
 	}
 
-	//------------------------------------------------------------+
-    // SkyBox
-    //------------------------------------------------------------+
-	GLSLprogram* skyboxShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_SKYBOX);
-	// 座標系の問題でスカイボックスが正常な向きに描画されないので、回転オフセットを設定
-	Matrix4 offset;
-	offset = Matrix4::CreateRotationX(Math::ToRadians(90.0f));
-	// Uniformに逆→転置行列をセット
-	Matrix4 InvTransView = m_renderer->m_viewMat;
-	InvTransView.Invert();
-	InvTransView.Transpose();
-	skyboxShader->UseProgram();
-	skyboxShader->SetUniform("u_view", m_renderer->m_viewMat);
-	skyboxShader->SetUniform("u_projection", m_renderer->m_projMat);
-	skyboxShader->SetUniform("u_viewPos", m_renderer->m_viewMat.GetTranslation());
-	skyboxShader->SetUniform("u_offset", offset);
-	skyboxShader->SetUniform("u_invTransView", InvTransView);
-	skyboxShader->SetUniform("u_cubeMap", 0);
-	m_renderer->GetSkyBox()->Draw(skyboxShader);
 
 	//------------------------------------------------------------+
 	// EnvironmentMap
