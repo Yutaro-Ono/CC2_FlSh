@@ -46,7 +46,7 @@ void main()
 	gl_Position = u_projection * u_view * pos;
 	vs_out.fragWorldPos    = pos.xyz;
 	vs_out.fragNormal      = mat3(transpose(inverse(u_worldTransform))) * a_normal;
-	vs_out.fragNormal      = vec3(vs_out.fragNormal.y, vs_out.fragNormal.z, vs_out.fragNormal.x);
+	vs_out.fragNormal      = vec3(vs_out.fragNormal.y, -vs_out.fragNormal.z, vs_out.fragNormal.x);
 	vs_out.fragTexCoords   = a_texCoords;
 	vs_out.fragViewPos     = u_viewPos;
 	// ワールド座標の頂点をライトスペースに変換して保存

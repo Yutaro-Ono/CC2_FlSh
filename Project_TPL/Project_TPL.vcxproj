@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Effekseer\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\EffekseerRendererGL\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Utils;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\zlib\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libpng\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libgd\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glew\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glfw\include;$(SolutionDir)..\Libraries\Effekseer\Downloads\OpenSoundMixer\src;$(SolutionDir)..\Libraries\glew\include\;$(SolutionDir)..\Libraries\SDL2\include\;$(SolutionDir)..\Libraries\glm\;$(SolutionDir)..\Libraries\boost\;$(SolutionDir)..\Libraries\rapidjson\;$(SolutionDir)..\Libraries\stb_image\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Effekseer\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\EffekseerRendererGL\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Utils;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\zlib\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libpng\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libgd\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glew\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glfw\include;$(SolutionDir)..\Libraries\Effekseer\Downloads\OpenSoundMixer\src;$(SolutionDir)..\Libraries\glew\include\;$(SolutionDir)..\Libraries\SDL2\include\;$(SolutionDir)..\Libraries\glm\;$(SolutionDir)..\Libraries\boost\;$(SolutionDir)..\Libraries\rapidjson\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -139,7 +139,7 @@
       <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Effekseer\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\EffekseerRendererGL\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Utils;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\zlib\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libpng\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libgd\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glew\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glfw\include;$(SolutionDir)..\Libraries\Effekseer\Downloads\OpenSoundMixer\src;$(SolutionDir)..\Libraries\glew\include\;$(SolutionDir)..\Libraries\SDL2\include\;$(SolutionDir)..\Libraries\glm\;$(SolutionDir)..\Libraries\boost\;$(SolutionDir)..\Libraries\rapidjson\;$(SolutionDir)..\Libraries\stb_image\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Effekseer\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\EffekseerRendererGL\;$(SolutionDir)..\Libraries\Effekseer\Dev\Cpp\Utils;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\zlib\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libpng\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\libgd\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glew\include;$(SolutionDir)..\Libraries\Effekseer\build\ThirdParty\Install\glfw\include;$(SolutionDir)..\Libraries\Effekseer\Downloads\OpenSoundMixer\src;$(SolutionDir)..\Libraries\glew\include\;$(SolutionDir)..\Libraries\SDL2\include\;$(SolutionDir)..\Libraries\glm\;$(SolutionDir)..\Libraries\boost\;$(SolutionDir)..\Libraries\rapidjson\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -428,6 +428,7 @@
     <ClInclude Include="SourceCodes\SpotLight.h" />
     <ClInclude Include="SourceCodes\SpotLightComponent.h" />
     <ClInclude Include="SourceCodes\SpriteComponent.h" />
+    <ClInclude Include="SourceCodes\stb_image.h" />
     <ClInclude Include="SourceCodes\Tag.h" />
     <ClInclude Include="SourceCodes\Texture.h" />
     <ClInclude Include="SourceCodes\TexturePool.h" />
@@ -447,7 +448,6 @@
     <ClInclude Include="SourceCodes\WorldBase.h" />
     <ClInclude Include="SourceCodes\WorldSpaceUI.h" />
     <ClInclude Include="SourceCode\tiny_obj_loader.h" />
-    <ClInclude Include="std\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Bloom\Bloom_DownSampling.frag" />

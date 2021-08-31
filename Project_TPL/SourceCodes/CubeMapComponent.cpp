@@ -36,6 +36,7 @@ void CubeMapComponent::Draw(GLSLprogram* _shader)
 	if (m_isVisible)
 	{
 		// 深度設定
+		glDepthMask(GL_FALSE);
 		glDepthFunc(GL_LEQUAL);
 
 		// テクスチャバインド
@@ -49,6 +50,7 @@ void CubeMapComponent::Draw(GLSLprogram* _shader)
 		// 念のためバインド解除
 		glBindVertexArray(0);
 
+		glDepthMask(GL_TRUE);
 		glDepthFunc(GL_LESS);
 	}
 

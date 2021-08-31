@@ -57,7 +57,7 @@ void SkyBox::SetSkyBox(Environment::GAME_TIME in_gameTime)
 	if (in_gameTime == Environment::GAME_TIME::NIGHT)
 	{
 		m_cubeMapComp = new CubeMapComponent(this);
-		m_cubeMapComp->CreateTexture("Data/Textures/TND/Skybox/yokohama/");
+		m_cubeMapComp->CreateTexture("Data/Textures/TND/Skybox/NightCity/");
 		m_cubeMapComp->SetLuminance(0.5f);
 		return;
 	}

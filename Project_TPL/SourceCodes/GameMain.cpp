@@ -264,7 +264,7 @@ void GameMain::RunLoop()
 #ifdef _DEBUG
 
 		// デバッグ用の描画処理(※デバッグビルドのみ)
-		DebugRenderer();
+		//DebugRenderer();
 
 #endif
 

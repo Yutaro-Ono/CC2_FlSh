@@ -17,7 +17,7 @@ Environment::Environment(GAME_TIME in_gameTime, const Vector3& in_pos)
 {
 	// スカイボックス生成
 	m_morningBox = new SkyBox(this, GAME_TIME::MORNING);
-	m_eveningBox = new SkyBox(this, GAME_TIME::EVENING);
+	//m_eveningBox = new SkyBox(this, GAME_TIME::EVENING);
 	m_nightBox = new SkyBox(this, GAME_TIME::NIGHT);
 	// 設定された時間帯ごとにスカイボックスをセット
 	SetSkyBox(m_gameTime);
@@ -31,7 +31,7 @@ Environment::Environment(GameWorld* in_world, GAME_TIME in_gameTime)
 {
 	// スカイボックス生成
 	m_morningBox = new SkyBox(this, GAME_TIME::MORNING);
-	m_eveningBox = new SkyBox(this, GAME_TIME::EVENING);
+	//m_eveningBox = new SkyBox(this, GAME_TIME::EVENING);
 	m_nightBox = new SkyBox(this, GAME_TIME::NIGHT);
 
 	playerPos = m_world->GetPlayer()->GetPosition();
