@@ -315,7 +315,7 @@ void DefferedRenderer::DrawLightPass()
 	// 全てのUIを更新
 	for (auto ui : GAME_INSTANCE.GetUIStack())
 	{
-		//ui->Draw(sprite2Dshader);
+		ui->Draw(sprite2Dshader);
 	}
 
 	// マップHUD

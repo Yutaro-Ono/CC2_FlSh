@@ -11,7 +11,6 @@
 #include <functional>
 #include <vector>
 
-
 class UIScreen
 {
 
@@ -21,8 +20,8 @@ public:
 	UIScreen();                                                // コンストラクタ
 	virtual ~UIScreen();                                       // デストラクタ
 
-	virtual void Update(float _deltaTime);                   // 更新処理
-	virtual void Draw(class GLSLprogram* _shader) = 0;                // 描画処理
+	virtual void Update(float _deltaTime) = 0;                   // 更新処理
+	virtual void Draw(class GLSLprogram* _shader) = 0;       // 描画処理
 	virtual void ProcessInput();
 	virtual void HandleKeyPress(int _key);
 	

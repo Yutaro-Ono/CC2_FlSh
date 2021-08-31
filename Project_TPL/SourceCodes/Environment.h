@@ -15,7 +15,7 @@ public:
 	};
 
 	Environment(GAME_TIME in_gameTime, const Vector3& in_pos);     // コンストラクタ1
-	Environment(class GameWorld* in_world, GAME_TIME in_gameTime);     // コンストラクタ2
+	Environment(class WorldGameScene* in_world, GAME_TIME in_gameTime);     // コンストラクタ2
 	~Environment();                         // デストラクタ
 
 	void Update();
@@ -35,7 +35,7 @@ private:
 
 	GAME_TIME m_gameTime;
 
-	class GameWorld* m_world;
+	class WorldGameScene* m_world;
 
 	DirectionalLight* m_dirLight;
 

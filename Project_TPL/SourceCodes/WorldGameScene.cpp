@@ -1,4 +1,4 @@
-#include "GameWorld.h"
+#include "WorldGameScene.h"
 #include "GameScene.h"
 #include "GameMain.h"
 #include "Input.h"
@@ -27,7 +27,7 @@ static Vector3 playerPos;
 static Vector3 tempPos;
 
 // コンストラクタ
-GameWorld::GameWorld()
+WorldGameScene::WorldGameScene()
 	:m_foundPlayer(false)
 {
 	// プレイヤーの生成
@@ -58,7 +58,7 @@ GameWorld::GameWorld()
 	m_mapHUD = new MiniMapHUD(m_player);
 }
 
-GameWorld::~GameWorld()
+WorldGameScene::~WorldGameScene()
 {
 	RENDERER->RemoveMapHUD();
 
@@ -76,7 +76,7 @@ GameWorld::~GameWorld()
 	delete m_environment;
 }
 
-void GameWorld::Update(float in_deltaTime)
+void WorldGameScene::Update(float in_deltaTime)
 {
 
 	m_environment->Update();
@@ -107,20 +107,24 @@ void GameWorld::Update(float in_deltaTime)
 	}
 }
 
+void WorldGameScene::UpdateWorld(float _deltaTime)
+{
+}
+
 // 依頼人アクタの登録
-void GameWorld::AddClientActor(ClientActor* in_client)
+void WorldGameScene::AddClientActor(ClientActor* in_client)
 {
 	m_clients.push_back(in_client);
 }
 
 // 巡回地点の登録
-void GameWorld::AddPatrolPoint(PatrolPoint* in_patrolPoint)
+void WorldGameScene::AddPatrolPoint(PatrolPoint* in_patrolPoint)
 {
 	m_patrolPoints.push_back(in_patrolPoint);
 }
 
 // 巡回地点のシャッフル
-void GameWorld::ShufflePatrolPoint()
+void WorldGameScene::ShufflePatrolPoint()
 {
 	std::random_device seed_gen;
 	std::mt19937 engine(seed_gen());
@@ -128,13 +132,13 @@ void GameWorld::ShufflePatrolPoint()
 }
 
 // 依頼人アクタ配列のシャッフル
-void GameWorld::ShuffleClientActor()
+void WorldGameScene::ShuffleClientActor()
 {
 	std::random_device seed_gen;
 	std::mt19937 engine(seed_gen());
 	std::shuffle(m_clients.begin(), m_clients.end() - 1, engine);
 }
 
-void GameWorld::ImGuiDebugWorld()
+void WorldGameScene::ImGuiDebugWorld()
 {
 }

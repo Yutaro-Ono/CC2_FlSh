@@ -177,6 +177,9 @@
     <Filter Include="リソース ファイル\stbi">
       <UniqueIdentifier>{9148bc50-12cc-4c7f-9bd7-a95304ab2044}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Interface\Canvas">
+      <UniqueIdentifier>{0786f2e0-4013-45b7-a8f7-b96e78a3c1f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -503,9 +506,6 @@
     <ClCompile Include="SourceCodes\ClientActor.cpp">
       <Filter>Source\Actor\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\Canvas.cpp">
-      <Filter>Source\Interface</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCodes\GameScene.cpp">
       <Filter>Source\Scene</Filter>
     </ClCompile>
@@ -557,9 +557,6 @@
     <ClCompile Include="SourceCodes\ResultScreen.cpp">
       <Filter>Source\Interface</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\GameWorld.cpp">
-      <Filter>Source\World</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCodes\GameConfig.cpp">
       <Filter>Source\Config</Filter>
     </ClCompile>
@@ -610,6 +607,21 @@
     </ClCompile>
     <ClCompile Include="SourceCodes\DirectionalLightDebug.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\WorldTitleScene.cpp">
+      <Filter>Source\World</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\WorldGameScene.cpp">
+      <Filter>Source\World</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Canvas.cpp">
+      <Filter>Source\Interface\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CanvasGameScene.cpp">
+      <Filter>Source\Interface\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CanvasTitleScene.cpp">
+      <Filter>Source\Interface\Canvas</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -946,9 +958,6 @@
     <ClInclude Include="SourceCodes\ClientActor.h">
       <Filter>Source\Actor\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\Canvas.h">
-      <Filter>Source\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCodes\GameScene.h">
       <Filter>Source\Scene</Filter>
     </ClInclude>
@@ -1006,9 +1015,6 @@
     <ClInclude Include="SourceCodes\ResultScreen.h">
       <Filter>Source\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\GameWorld.h">
-      <Filter>Source\World</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCodes\GameConfig.h">
       <Filter>Source\Config</Filter>
     </ClInclude>
@@ -1062,6 +1068,21 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\stb_image.h">
       <Filter>リソース ファイル\stbi</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\WorldTitleScene.h">
+      <Filter>Source\World</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\WorldGameScene.h">
+      <Filter>Source\World</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Canvas.h">
+      <Filter>Source\Interface\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CanvasGameScene.h">
+      <Filter>Source\Interface\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CanvasTitleScene.h">
+      <Filter>Source\Interface\Canvas</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

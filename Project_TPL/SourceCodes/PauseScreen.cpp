@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "Texture.h"
 #include "Font.h"
+#include "GLSLprogram.h"
 
 // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 PauseScreen::PauseScreen()
@@ -18,16 +19,20 @@ PauseScreen::~PauseScreen()
 {
 }
 
+void PauseScreen::Update(float _deltaTime)
+{
+}
+
 // •`‰æˆ—
-void PauseScreen::Draw(GLSLprogram * in_shader)
+void PauseScreen::Draw(GLSLprogram * _shader)
 {
 	if (m_pause == MODE_ON)
 	{
 		// ”wŒi
-		DrawTexture(in_shader, m_backGroundTex, Vector2(0.0f, 0.0f), 1.0f);
+		DrawTexture(_shader, m_backGroundTex, Vector2(0.0f, 0.0f), 1.0f);
 
 		// "Pause"
-		DrawTexture(in_shader, m_pauseTex, Vector2(0.0f, 0.0f), 1.0f);
+		DrawTexture(_shader, m_pauseTex, Vector2(0.0f, 0.0f), 1.0f);
 
 	}
 

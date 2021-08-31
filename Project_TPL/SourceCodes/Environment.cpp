@@ -2,7 +2,7 @@
 #include "GameMain.h"
 #include "SkyBox.h"
 #include "CubeMapComponent.h"
-#include "GameWorld.h"
+#include "WorldGameScene.h"
 #include "PlayerManager.h"
 #include "RenderBloom.h"
 #include "DirectionalLight.h"
@@ -25,7 +25,7 @@ Environment::Environment(GAME_TIME in_gameTime, const Vector3& in_pos)
 }
 
 
-Environment::Environment(GameWorld* in_world, GAME_TIME in_gameTime)
+Environment::Environment(WorldGameScene* in_world, GAME_TIME in_gameTime)
 	:m_gameTime(in_gameTime)
 	,m_world(in_world)
 {

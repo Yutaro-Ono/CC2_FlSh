@@ -17,8 +17,8 @@ public:
 	PauseScreen();
 	~PauseScreen();
 
-
-	void Draw(class GLSLprogram* in_shader) override;
+	void Update(float _deltaTime) override;
+	void Draw(class GLSLprogram* _shader) override;
 
 
 

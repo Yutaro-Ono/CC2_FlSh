@@ -5,18 +5,20 @@
 //---------------------------------------------------------+
 #pragma once
 #include <vector>
+#include "WorldBase.h"
 #include "Environment.h"
 
-class GameWorld
+class WorldGameScene : public WorldBase
 {
 
 public:
 
 
-	GameWorld();             // コンストラクタ
-	~GameWorld();            // デストラクタ
+	WorldGameScene();             // コンストラクタ
+	~WorldGameScene();            // デストラクタ
 
 	void Update(float in_deltaTime);
+	void UpdateWorld(float _deltaTime) override;
 
 	// 配列への追加処理 (依頼人・巡回地点)
 	void AddClientActor(class ClientActor* in_client);

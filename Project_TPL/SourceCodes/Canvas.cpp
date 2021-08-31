@@ -1,20 +1,14 @@
 #include "Canvas.h"
 #include "UIScreen.h"
-#include "GameWorld.h"
+#include "WorldBase.h"
 #include "PlayerManager.h"
 #include "PlayerControlUI.h"
 #include "ScoreUI.h"
 
 // コンストラクタ
-Canvas::Canvas(GameWorld* in_world)
+Canvas::Canvas(WorldBase* in_world)
 	:m_world(in_world)
-	,m_pControlUI(nullptr)
 {
-	// 操作説明用UIの生成
-	m_pControlUI = new PlayerControlUI(m_world);
-
-	// スコアUIを生成
-	m_scoreUI = new ScoreUI(this);
 }
 
 // デストラクタ
@@ -28,7 +22,14 @@ Canvas::~Canvas()
 	m_interfaces.clear();
 }
 
-void Canvas::Update(float in_deltaTime)
+/// <summary>
+/// インターフェースの更新処理
+/// </summary>
+/// <param name="_deltaTime"> デルタタイム </param>
+void Canvas::Update(float _deltaTime)
 {
-
+	for (auto ui : m_interfaces)
+	{
+		ui->Update(_deltaTime);
+	}
 }

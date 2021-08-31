@@ -54,19 +54,19 @@ void TitleScene::Initialize()
 	m_environment = new Environment(Environment::GAME_TIME::NIGHT, Vector3(0.0f, -65.0f, 0.0f));
 	// ロード画面処理
 	{
-		//GAME_INSTANCE.GetLoadScreen()->EnableScreen();
+		GAME_INSTANCE.GetLoadScreen()->EnableScreen();
 	}
 
 	// ロード処理
-	//GAME_INSTANCE.GetLoadScreen()->AddGauge();
+	GAME_INSTANCE.GetLoadScreen()->AddGauge();
 
 	// 音楽
 	m_sound["BGM"] = "Data/Music/BGM/TND/Title/cyrf_crashed_dimension (mp3cut.net).wav";
 	// ロード処理
-	//GAME_INSTANCE.GetLoadScreen()->AddGauge();
+	GAME_INSTANCE.GetLoadScreen()->AddGauge();
 	m_sound["Enter"] = "Data/Music/SE/TND/System/Enter/decide13.wav";
 	// ロード処理
-	//GAME_INSTANCE.GetLoadScreen()->AddGauge();
+	GAME_INSTANCE.GetLoadScreen()->AddGauge();
 	m_sound["Select"] = "Data/Music/SE/TND/System/Select/decide14.wav";
 
 	// SE
@@ -74,13 +74,13 @@ void TitleScene::Initialize()
 	AUDIO->GetSound(m_sound["Select"]);                                      // 選択音
 
 	// ロード処理
-	//GAME_INSTANCE.GetLoadScreen()->AddGauge();
+	GAME_INSTANCE.GetLoadScreen()->AddGauge();
 
 	// BGM
 	AUDIO->GetMusic(m_sound["BGM"]);
 
 	// ロード処理
-	//GAME_INSTANCE.GetLoadScreen()->AddGauge();
+	GAME_INSTANCE.GetLoadScreen()->AddGauge();
 
 	// プレイヤー
 	//m_car = new PlayerCar();
@@ -89,24 +89,24 @@ void TitleScene::Initialize()
 	m_car->SetScale(0.4f);
 	//m_car->SetState(Actor::STATE_PAUSED);
 
-	//GAME_INSTANCE.GetLoadScreen()->AddGauge();
+	GAME_INSTANCE.GetLoadScreen()->AddGauge();
 
 	// 橋オブジェクトの生成
 	for (int i = 0; i < 8; i++)
 	{
 		//m_bridge[i] = new BridgeObject(1, Vector3(i * 6515.0f, -2000.0f, 0.0f));
 
-		//GAME_INSTANCE.GetLoadScreen()->AddGauge();
+		GAME_INSTANCE.GetLoadScreen()->AddGauge();
 	}
 
 
 	for (int i = 0; i < 61; i++)
 	{
-		//GAME_INSTANCE.GetLoadScreen()->AddGauge();
+		GAME_INSTANCE.GetLoadScreen()->AddGauge();
 	}
 
 	// ロード画面の無効化
-	//GAME_INSTANCE.GetLoadScreen()->DisableScreen();
+	GAME_INSTANCE.GetLoadScreen()->DisableScreen();
 	// タイトル用UI
 	UIScreen* hud = new TitleScreen(this);
 

@@ -171,6 +171,8 @@
     <ClCompile Include="SourceCodes\CameraActor.cpp" />
     <ClCompile Include="SourceCodes\CameraComponent.cpp" />
     <ClCompile Include="SourceCodes\Canvas.cpp" />
+    <ClCompile Include="SourceCodes\CanvasGameScene.cpp" />
+    <ClCompile Include="SourceCodes\CanvasTitleScene.cpp" />
     <ClCompile Include="SourceCodes\CarBody.cpp" />
     <ClCompile Include="SourceCodes\CarDoor.cpp" />
     <ClCompile Include="SourceCodes\CarHandle.cpp" />
@@ -199,7 +201,7 @@
     <ClCompile Include="SourceCodes\GameConfig.cpp" />
     <ClCompile Include="SourceCodes\GameMain.cpp" />
     <ClCompile Include="SourceCodes\GameScene.cpp" />
-    <ClCompile Include="SourceCodes\GameWorld.cpp" />
+    <ClCompile Include="SourceCodes\WorldGameScene.cpp" />
     <ClCompile Include="SourceCodes\GLSLprogram.cpp" />
     <ClCompile Include="SourceCodes\HeliBody.cpp" />
     <ClCompile Include="SourceCodes\Helicopter.cpp" />
@@ -295,6 +297,7 @@
     <ClCompile Include="SourceCodes\VertexArray.cpp" />
     <ClCompile Include="SourceCodes\WorldBase.cpp" />
     <ClCompile Include="SourceCodes\WorldSpaceUI.cpp" />
+    <ClCompile Include="SourceCodes\WorldTitleScene.cpp" />
     <ClCompile Include="SourceCode\tiny_obj_loader.cc" />
   </ItemGroup>
   <ItemGroup>
@@ -318,6 +321,8 @@
     <ClInclude Include="SourceCodes\CameraActor.h" />
     <ClInclude Include="SourceCodes\CameraComponent.h" />
     <ClInclude Include="SourceCodes\Canvas.h" />
+    <ClInclude Include="SourceCodes\CanvasGameScene.h" />
+    <ClInclude Include="SourceCodes\CanvasTitleScene.h" />
     <ClInclude Include="SourceCodes\CarBody.h" />
     <ClInclude Include="SourceCodes\CarDoor.h" />
     <ClInclude Include="SourceCodes\CarHandle.h" />
@@ -347,7 +352,7 @@
     <ClInclude Include="SourceCodes\GameConfig.h" />
     <ClInclude Include="SourceCodes\GameMain.h" />
     <ClInclude Include="SourceCodes\GameScene.h" />
-    <ClInclude Include="SourceCodes\GameWorld.h" />
+    <ClInclude Include="SourceCodes\WorldGameScene.h" />
     <ClInclude Include="SourceCodes\GLSLprogram.h" />
     <ClInclude Include="SourceCodes\HeliBody.h" />
     <ClInclude Include="SourceCodes\Helicopter.h" />
@@ -447,6 +452,7 @@
     <ClInclude Include="SourceCodes\VertexArray.h" />
     <ClInclude Include="SourceCodes\WorldBase.h" />
     <ClInclude Include="SourceCodes\WorldSpaceUI.h" />
+    <ClInclude Include="SourceCodes\WorldTitleScene.h" />
     <ClInclude Include="SourceCode\tiny_obj_loader.h" />
   </ItemGroup>
   <ItemGroup>

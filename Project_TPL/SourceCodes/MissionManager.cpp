@@ -1,5 +1,5 @@
 #include "MissionManager.h"
-#include "GameWorld.h"
+#include "WorldGameScene.h"
 #include "Canvas.h"
 #include "MissionBase.h"
 #include "MissionUI.h"
@@ -15,7 +15,7 @@
 const int MissionManager::MISSION_ALL_NUM = 3;    // 同時進行する任務の限界数
 
 // コンストラクタ
-MissionManager::MissionManager(GameWorld* in_world)
+MissionManager::MissionManager(WorldGameScene* in_world)
 	:m_player(in_world->GetPlayer())
 	,m_world(in_world)
 	,m_selectNum(0)

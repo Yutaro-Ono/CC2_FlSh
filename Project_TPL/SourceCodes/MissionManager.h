@@ -9,7 +9,7 @@ class MissionManager
 public:
 
 
-	MissionManager(class GameWorld* in_world);
+	MissionManager(class WorldGameScene* in_world);
 	~MissionManager();
 
 	void Update(float in_deltaTime);
@@ -32,7 +32,7 @@ private:
 
 	class PlayerManager* m_player;                // プレイヤーへのポインタ
 
-	class GameWorld* m_world;                     // ワールドへのポインタ
+	class WorldGameScene* m_world;                     // ワールドへのポインタ
 
 	std::vector<class MissionBase*> m_missions;   // 任務スタック
 

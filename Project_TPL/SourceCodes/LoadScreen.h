@@ -21,9 +21,9 @@ public:
 
 	void Initialize();
 
-	void Update(float in_deltaTime) override;          // 更新処理
+	void Update(float _deltaTime) override;          // 更新処理
 
-	void Draw(class GLSLprogram* in_shader) override;                // 描画処理
+	void Draw(class GLSLprogram* _shader) override;                // 描画処理
 
 
 	// ロード画面の表示、非表示

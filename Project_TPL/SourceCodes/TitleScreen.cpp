@@ -13,6 +13,7 @@
 #include "Texture.h"
 #include "Math.h"
 #include "TitleScene.h"
+#include "GLSLprogram.h"
 #include <sstream>
 #include <SDL.h>
 
@@ -80,10 +81,10 @@ TitleScreen::~TitleScreen()
 
 
 // 更新処理
-void TitleScreen::Update(float in_deltaTime)
+void TitleScreen::Update(float _deltaTime)
 {
 
-	m_counter += 1.0f * in_deltaTime;
+	m_counter += 1.0f * _deltaTime;
 	// 上下するアニメーション
 	m_startPos.y = m_startPos.y + Math::Sin(m_counter) * 0.2f;
 	m_quitPos.y = m_quitPos.y + Math::Sin(m_counter) * 0.2f;
@@ -92,7 +93,7 @@ void TitleScreen::Update(float in_deltaTime)
 
 
 // 描画処理
-void TitleScreen::Draw(GLSLprogram * in_shader)
+void TitleScreen::Draw(GLSLprogram * _shader)
 {
 	
 	//---------------------------------------------------------------------------+
@@ -101,16 +102,16 @@ void TitleScreen::Draw(GLSLprogram * in_shader)
 	// タイトルロゴ
 	if (m_logo)
 	{
-		DrawTexture(in_shader, m_logo, m_logoPos, 1.0f);
+		DrawTexture(_shader, m_logo, m_logoPos, 1.0f);
 	}
 	// チュートリアルUI(パッド接続時と未接続時で処理を分ける)
 	if (CONTROLLER_INSTANCE.IsAvailable() == true)
 	{
-		DrawTexture(in_shader, m_xpadTutorialTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.4f), 0.9f);
+		DrawTexture(_shader, m_xpadTutorialTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.4f), 0.9f);
 	}
 	else
 	{
-		DrawTexture(in_shader, m_keyboardTutorialTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.4f), 0.9f);
+		DrawTexture(_shader, m_keyboardTutorialTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.4f), 0.9f);
 	}
 
 	switch (m_targetScene->GetState())
@@ -123,8 +124,8 @@ void TitleScreen::Draw(GLSLprogram * in_shader)
 		// PRESS ANY KEY
 		if (m_anyKey[0] != nullptr || m_anyKey[1] != nullptr)
 		{
-			DrawTexture(in_shader, m_anyKey[0], m_anyKeyPos, 1.0f);
-			DrawTexture(in_shader, m_anyKey[1], m_anyKeyPos + Vector2(-3.0f, 3.0f), 1.0f);
+			DrawTexture(_shader, m_anyKey[0], m_anyKeyPos, 1.0f);
+			DrawTexture(_shader, m_anyKey[1], m_anyKeyPos + Vector2(-3.0f, 3.0f), 1.0f);
 			
 		}
 
@@ -136,26 +137,26 @@ void TitleScreen::Draw(GLSLprogram * in_shader)
 		// スタートボタン
 		if (m_startButton[0] != nullptr || m_startButton[1] != nullptr)
 		{
-			DrawTexture(in_shader, m_startButton[0], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_startButton[0]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_startButton[0]->GetHeight() + 280), 1.0f);
-			DrawTexture(in_shader, m_startButton[1], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_startButton[1]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_startButton[1]->GetHeight() + 280) + Vector2(-3.0f, 3.0f), 1.0f);
+			DrawTexture(_shader, m_startButton[0], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_startButton[0]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_startButton[0]->GetHeight() + 280), 1.0f);
+			DrawTexture(_shader, m_startButton[1], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_startButton[1]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_startButton[1]->GetHeight() + 280) + Vector2(-3.0f, 3.0f), 1.0f);
 			
 		}
 		// 終了ボタン
 		if (m_quitButton[0] != nullptr || m_quitButton[1] != nullptr)
 		{
-			DrawTexture(in_shader, m_quitButton[0], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_quitButton[0]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_quitButton[0]->GetHeight() + 180), 1.0f);
-			DrawTexture(in_shader, m_quitButton[1], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_quitButton[1]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_quitButton[1]->GetHeight() + 180) + Vector2(-3.0f, 3.0f), 1.0f);
+			DrawTexture(_shader, m_quitButton[0], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_quitButton[0]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_quitButton[0]->GetHeight() + 180), 1.0f);
+			DrawTexture(_shader, m_quitButton[1], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_quitButton[1]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_quitButton[1]->GetHeight() + 180) + Vector2(-3.0f, 3.0f), 1.0f);
 		}
 
 		// カーソル
 		if (m_cursol != nullptr)
 		{
-			DrawTexture(in_shader, m_cursol, Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_startButton[1]->GetWidth() - m_cursol->GetWidth() * 2, -RENDERER->GetScreenHeight() / 2 + m_startButton[1]->GetHeight() + 280) + m_startPos, 0.9f);
+			DrawTexture(_shader, m_cursol, Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_startButton[1]->GetWidth() - m_cursol->GetWidth() * 2, -RENDERER->GetScreenHeight() / 2 + m_startButton[1]->GetHeight() + 280) + m_startPos, 0.9f);
 		}
 		// 十字キー
 		if (m_cross != nullptr)
 		{
-			DrawTexture(in_shader, m_cross, Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_startButton[1]->GetWidth() - m_cursol->GetWidth() * 3, -RENDERER->GetScreenHeight() / 2 + m_startButton[1]->GetHeight() + 280) + m_startPos, 0.1f);
+			DrawTexture(_shader, m_cross, Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_startButton[1]->GetWidth() - m_cursol->GetWidth() * 3, -RENDERER->GetScreenHeight() / 2 + m_startButton[1]->GetHeight() + 280) + m_startPos, 0.1f);
 		}
 
 
@@ -170,11 +171,11 @@ void TitleScreen::Draw(GLSLprogram * in_shader)
 			// 選択中のステージは拡大して描画
 			if (i != m_targetScene->GetNowSelectStage())
 			{
-				DrawTexture(in_shader, m_stage[i], Vector2(m_startPos.x, m_startPos.y - (m_stage[i]->GetHeight() * 1.5f * i)), 0.5f);
+				DrawTexture(_shader, m_stage[i], Vector2(m_startPos.x, m_startPos.y - (m_stage[i]->GetHeight() * 1.5f * i)), 0.5f);
 			}
 			else
 			{
-				DrawTexture(in_shader, m_stage[i], Vector2(m_startPos.x, m_startPos.y - (m_stage[i]->GetHeight() * 1.5f * i)), 1.0f);
+				DrawTexture(_shader, m_stage[i], Vector2(m_startPos.x, m_startPos.y - (m_stage[i]->GetHeight() * 1.5f * i)), 1.0f);
 
 			}
 
@@ -189,26 +190,26 @@ void TitleScreen::Draw(GLSLprogram * in_shader)
 		// スタートボタン
 		if (m_startButton[0] != nullptr || m_startButton[1] != nullptr)
 		{
-			DrawTexture(in_shader, m_startButton[0], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_startButton[0]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_startButton[0]->GetHeight() + 280), 1.0f);
-			DrawTexture(in_shader, m_startButton[1], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_startButton[1]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_startButton[1]->GetHeight() + 280) + Vector2(-3.0f, 3.0f), 1.0f);
+			DrawTexture(_shader, m_startButton[0], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_startButton[0]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_startButton[0]->GetHeight() + 280), 1.0f);
+			DrawTexture(_shader, m_startButton[1], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_startButton[1]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_startButton[1]->GetHeight() + 280) + Vector2(-3.0f, 3.0f), 1.0f);
 
 		}
 		// 終了ボタン
 		if (m_quitButton[0] != nullptr || m_quitButton[1] != nullptr)
 		{
-			DrawTexture(in_shader, m_quitButton[0], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_quitButton[0]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_quitButton[0]->GetHeight() + 180), 1.0f);
-			DrawTexture(in_shader, m_quitButton[1], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_quitButton[1]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_quitButton[1]->GetHeight() + 180) + Vector2(-3.0f, 3.0f), 1.0f);
+			DrawTexture(_shader, m_quitButton[0], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_quitButton[0]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_quitButton[0]->GetHeight() + 180), 1.0f);
+			DrawTexture(_shader, m_quitButton[1], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_quitButton[1]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_quitButton[1]->GetHeight() + 180) + Vector2(-3.0f, 3.0f), 1.0f);
 		}
 
 		// カーソル
 		if (m_cursol != nullptr)
 		{
-			DrawTexture(in_shader, m_cursol, Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_quitButton[1]->GetWidth() - m_cursol->GetWidth() * 2, -RENDERER->GetScreenHeight() / 2 + m_quitButton[1]->GetHeight() + 180) + m_startPos, 0.9f);
+			DrawTexture(_shader, m_cursol, Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_quitButton[1]->GetWidth() - m_cursol->GetWidth() * 2, -RENDERER->GetScreenHeight() / 2 + m_quitButton[1]->GetHeight() + 180) + m_startPos, 0.9f);
 		}
 		// 十字キー
 		if (m_cross != nullptr)
 		{
-			DrawTexture(in_shader, m_cross, Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_quitButton[1]->GetWidth() - m_cursol->GetWidth() * 3, -RENDERER->GetScreenHeight() / 2 + m_quitButton[1]->GetHeight() + 180) + m_startPos, 0.1f);
+			DrawTexture(_shader, m_cross, Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_quitButton[1]->GetWidth() - m_cursol->GetWidth() * 3, -RENDERER->GetScreenHeight() / 2 + m_quitButton[1]->GetHeight() + 180) + m_startPos, 0.1f);
 		}
 
 		break;

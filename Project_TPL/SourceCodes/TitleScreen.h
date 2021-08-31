@@ -19,9 +19,9 @@ public:
 	TitleScreen(class TitleScene* in_target);
 	~TitleScreen();
 
-	void Update(float in_deltaTime) override;
+	void Update(float _deltaTime) override;
 
-	void Draw(class GLSLprogram* in_shader) override;
+	void Draw(class GLSLprogram* _shader) override;
 
 
 private:

@@ -3,6 +3,7 @@
 #include "Font.h"
 #include "GameMain.h"
 #include "AudioManager.h"
+#include "GLSLprogram.h"
 #include <Windows.h>
 #include <sstream>
 
@@ -56,11 +57,11 @@ void LoadScreen::Initialize()
 	m_state = ENABLE;
 }
 
-void LoadScreen::Update(float in_deltaTime)
+void LoadScreen::Update(float _deltaTime)
 {
 }
 
-void LoadScreen::Draw(GLSLprogram * in_shader)
+void LoadScreen::Draw(GLSLprogram * _shader)
 {
 
 	if (m_state == ENABLE)
@@ -69,25 +70,25 @@ void LoadScreen::Draw(GLSLprogram * in_shader)
 		if (m_bgTexture)
 		{
 			glDisable(GL_BLEND);
-			//DrawTexture(in_shader, m_bgTexture, Vector2(0.0f, 0.0f), 1.0f);
+			DrawTexture(_shader, m_bgTexture, Vector2(0.0f, 0.0f), 1.0f);
 			glEnable(GL_BLEND);
 		}
 
 		// 操作説明
 		if (m_tutorialMsg && m_isGame == true)
 		{
-			//DrawTexture(in_shader, m_tutorialMsg, Vector2(0.0f, 0.0f), 1.0f);
+			DrawTexture(_shader, m_tutorialMsg, Vector2(0.0f, 0.0f), 1.0f);
 		}
 
 		if (m_loading)
 		{
-			//DrawTexture(in_shader, m_loading, m_loadingPos, 1.0f);
+			DrawTexture(_shader, m_loading, m_loadingPos, 1.0f);
 		}
 
 		// ロードゲージの描画
 		for (int i = 0; i < m_gaugeNum; i++)
 		{
-			//DrawTexture(in_shader, m_loadGauges[i], m_loadGaugePos, 1.0f);
+			DrawTexture(_shader, m_loadGauges[i], m_loadGaugePos, 1.0f);
 		}
 	}
 

@@ -19,13 +19,18 @@ public:
 	WorldBase();
 	virtual ~WorldBase();
 
-	virtual void UpdateWorld(float _deltaTime);
+	virtual bool Load() = 0;
+
+	virtual void UpdateWorld(float _deltaTime) = 0;
+
 
 
 private:
 
 
 
+	class Environment* m_environment;     // 環境クラス
 
+	class Canvas* m_canvas;               // UIキャンバス
 
 };

@@ -9,11 +9,11 @@
 #include "ActorPool.h"
 #include "MeshPool.h"
 #include "TexturePool.h"
+#include "UIScreen.h"
 #include "Camera.h"
 #include "CameraComponent.h"
 #include "DebugBox.h"
 #include "ParticleManager.h"
-#include "UIScreen.h"
 #include "Font.h"
 #include "PauseScreen.h"
 #include "LoadScreen.h"
@@ -264,7 +264,7 @@ void GameMain::RunLoop()
 #ifdef _DEBUG
 
 		// デバッグ用の描画処理(※デバッグビルドのみ)
-		DebugRenderer();
+		//DebugRenderer();
 
 #endif
 

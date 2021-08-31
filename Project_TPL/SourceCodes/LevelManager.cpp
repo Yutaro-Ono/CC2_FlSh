@@ -14,7 +14,7 @@
 #include "ClientActor.h"
 #include "PatrolPoint.h"
 #include "RapidJsonHelper.h"
-#include "GameWorld.h"
+#include "WorldGameScene.h"
 #include "PointLight.h"
 #include "LampObject.h"
 #include "LoadScreen.h"
@@ -27,7 +27,7 @@ const int LevelManager::MAP_INDEX_GROUND = 16;
 
 
 // コンストラクタ
-LevelManager::LevelManager(GameWorld* in_world, int in_stageNum)
+LevelManager::LevelManager(WorldGameScene* in_world, int in_stageNum)
 	:m_camera(nullptr)
 {
 	// マップの配置を保存したjsonへのファイルパスを生成

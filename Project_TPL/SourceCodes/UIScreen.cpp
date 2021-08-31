@@ -37,15 +37,6 @@ UIScreen::~UIScreen()
 
 }
 
-void UIScreen::Update(float _deltaTime)
-{
-}
-
-void UIScreen::Draw(GLSLprogram * _shader)
-{
-
-}
-
 void UIScreen::ProcessInput()
 {
 }
@@ -88,12 +79,12 @@ void UIScreen::DrawTexture(GLSLprogram * _shader, Texture * _texture, const Vect
 	Matrix4 transMat = Matrix4::CreateTranslation(
 		Vector3(_offset.x, _offset.y, 0.0f));
 	// スケールと変換行列をワールド行列へ変換
-	Matrix4 world = scaleMat * transMat;
+	Matrix4 world = transMat * scaleMat;
 	
 	// シェーダにワールド変換行列を送信
 	_shader->SetUniform("u_worldTransform", world);
 	_shader->SetUniform("u_texture", 0);
-	//in_texture->SetActive();
+	_texture->SetActive();
 
 	// テクスチャをアクティブ化
 	glActiveTexture(GL_TEXTURE0);

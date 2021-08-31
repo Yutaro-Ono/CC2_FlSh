@@ -15,7 +15,7 @@ public:
 		STOP
 	};
 
-	Helicopter(class GameWorld* in_world, const Vector3& in_pos, int in_num);              // コンストラクタ
+	Helicopter(class WorldGameScene* in_world, const Vector3& in_pos, int in_num);              // コンストラクタ
 	~Helicopter();                                                             // デストラクタ
 
 	void UpdateActor(float in_deltaTime) override;
@@ -25,7 +25,7 @@ public:
 	//---------------------------------------------------+
 	// Getter / Setter
 	//---------------------------------------------------+
-	class GameWorld* GetWorld()  { return m_world; }
+	class WorldGameScene* GetWorld()  { return m_world; }
 	bool  GetFoundPlayer()       { return m_foundPlayer; }
 
 	// ステートのゲッター・セッター
@@ -41,7 +41,7 @@ private:
 	HELI_STATE m_state;
 
 	// ワールドへのポインタ
-	class GameWorld* m_world;
+	class WorldGameScene* m_world;
 
 	// 巡回コンポーネント
 	class PatrolComponent* m_patrolComp;

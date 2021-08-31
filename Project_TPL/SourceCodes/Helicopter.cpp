@@ -7,7 +7,7 @@
 #include "HeliRotorBack.h"
 #include "HeliSpotLight.h"
 #include "PatrolComponent.h"
-#include "GameWorld.h"
+#include "WorldGameScene.h"
 #include "PlayerManager.h"
 #include "PointLight.h"
 #include "InputController.h"
@@ -19,7 +19,7 @@ const std::string HELI_ROTOR_BACK_MESH_PATH = "Data/Meshes/TND/Actors/Police/Hel
 const std::string HELI_SPOTLIGHT_MESH_PATH = "Data/Meshes/TND/Actors/Police/Helicopter/Helicopter_Spotlight_Internal.OBJ";
 
 // コンストラクタ
-Helicopter::Helicopter(GameWorld* in_world, const Vector3& in_pos, int in_num)
+Helicopter::Helicopter(WorldGameScene* in_world, const Vector3& in_pos, int in_num)
 	:Actor(OBJECT_TAG::VEHICLE)
 	,m_patrolComp(nullptr)
 	,m_state(HELI_STATE::STOP)
