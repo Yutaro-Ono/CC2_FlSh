@@ -25,11 +25,11 @@ out VS_OUT
 
 void main()
 {
-	vec4 pos = vec4(a_pos, 1.0) * u_worldTransform;
+	vec4 pos = u_worldTransform * vec4(a_pos, 1.0);
 
-	vs_out.fragNormal = a_normal * mat3(transpose(u_worldTransform));
+	vs_out.fragNormal = mat3(transpose(u_worldTransform)) * a_normal;
 	vs_out.fragNormal = vec3(vs_out.fragNormal.y, -vs_out.fragNormal.z, vs_out.fragNormal.x);
-	vs_out.fragWorldPos = vec3(pos.y, -pos.z, pos.x);                                                 // ワールド上の位置ベクトルを出力
+	vs_out.fragWorldPos = pos.yyz;                                                 // ワールド上の位置ベクトルを出力
 
-	gl_Position = pos * u_view * u_projection;
+	gl_Position = u_projection * u_view * pos;
 }

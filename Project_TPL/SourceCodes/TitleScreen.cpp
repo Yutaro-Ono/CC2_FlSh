@@ -94,7 +94,7 @@ void TitleScreen::Update(float in_deltaTime)
 // 描画処理
 void TitleScreen::Draw(GLSLprogram * in_shader)
 {
-	/*
+	
 	//---------------------------------------------------------------------------+
 	// 基本描画(タイトルロゴ, チュートリアル表示)
 	//---------------------------------------------------------------------------+
@@ -112,9 +112,6 @@ void TitleScreen::Draw(GLSLprogram * in_shader)
 	{
 		DrawTexture(in_shader, m_keyboardTutorialTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.4f), 0.9f);
 	}
-
-
-
 
 	switch (m_targetScene->GetState())
 	{
@@ -221,8 +218,6 @@ void TitleScreen::Draw(GLSLprogram * in_shader)
 
 		break;
 
-
 	}
-	*/
-
+	
 }

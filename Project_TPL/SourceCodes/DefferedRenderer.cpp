@@ -180,11 +180,10 @@ void DefferedRenderer::DrawGBuffer()
     //------------------------------------------------------------+
 	GLSLprogram* glassShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_GLASS);
 	glassShader->UseProgram();
-	glassShader->SetUniform("u_viewPos", m_renderer->m_viewMat.GetTranslation());
 	glassShader->SetUniform("u_skybox", 0);
 	for (auto light : m_renderer->m_lightGlassComponents)
 	{
-		//light->Draw(glassShader);
+		light->Draw(glassShader);
 	}
 
 	// GBuffer‚ÌƒoƒCƒ“ƒh‰ğœ

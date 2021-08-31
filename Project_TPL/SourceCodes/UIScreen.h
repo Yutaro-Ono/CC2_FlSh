@@ -22,7 +22,7 @@ public:
 	virtual ~UIScreen();                                       // デストラクタ
 
 	virtual void Update(float _deltaTime);                   // 更新処理
-	virtual void Draw(class GLSLprogram* _shader);                // 描画処理
+	virtual void Draw(class GLSLprogram* _shader) = 0;                // 描画処理
 	virtual void ProcessInput();
 	virtual void HandleKeyPress(int _key);
 	

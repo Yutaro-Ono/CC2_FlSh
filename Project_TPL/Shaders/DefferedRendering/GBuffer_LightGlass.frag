@@ -1,7 +1,7 @@
 //-----------------------------------------------------+
 // 環境マッピング (マルチレンダー対応)
 //-----------------------------------------------------+
-#version 330 core
+#version 420
 // 各バッファへの出力 (GBuffer)
 layout (location = 0) out vec3 out_gPos;
 layout (location = 1) out vec3 out_gNormal;
@@ -15,7 +15,17 @@ in VS_OUT
 	vec3 fragWorldPos;
 }fs_in;
 
-uniform vec3 u_viewPos;                // カメラ座標
+// 1.カメラ座標
+layout(std140, binding = 1) uniform CameraVariable
+{
+	vec3 u_viewPos;
+};
+// triggers
+layout(std140, binding = 2) uniform Triggers
+{
+	int u_enableBloom;
+};
+
 uniform samplerCube u_skybox;          // キューブマップ(スカイボックス)
 
 uniform vec3 u_lightColor;            // ライトのカラー
@@ -37,5 +47,12 @@ void main()
 	out_gNormal = fs_in.fragNormal;
 	out_gAlbedoSpec.rgb = u_lightColor * resultColor.rgb;
 	out_gAlbedoSpec.a = resultColor.a;
-	out_gBrightColor = vec4(u_lightColor * u_luminance, 1.0f);
+	out_gBrightColor = vec4(0.0f);
+
+	// エミッシブ出力
+	if(u_enableBloom == 1)
+	{
+		out_gBrightColor = vec4(u_lightColor * u_luminance, 1.0f);
+	}
+
 }
