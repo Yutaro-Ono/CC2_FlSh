@@ -3,20 +3,19 @@
 #include <string>
 
 
-SkyBox::SkyBox()
+SkyBox::SkyBox(ENVIRONMENT_TYPE _envType)
 	:Actor(OBJECT_TAG::SKYBOX)
-	,m_environmnet(nullptr)
+	,m_environment(nullptr)
 {
-	m_cubeMapComp = new CubeMapComponent(this);
-	m_cubeMapComp->CreateTexture("Data/Textures/TND/Skybox/night/");
-	
+	SetSkyBox(_envType);
+	m_position = Vector3(100, 100, 100);
 }
 
-SkyBox::SkyBox(Environment* in_environment, Environment::GAME_TIME in_gameTime)
+SkyBox::SkyBox(Environment* _environment, ENVIRONMENT_TYPE _envType)
 	:Actor(OBJECT_TAG::SKYBOX)
-	,m_environmnet(in_environment)
+	,m_environment(_environment)
 {
-	SetSkyBox(in_gameTime);
+	SetSkyBox(_envType);
 	m_position = Vector3(100, 100, 100);
 }
 
@@ -25,40 +24,40 @@ SkyBox::~SkyBox()
 
 }
 
-void SkyBox::UpdateActor(float in_deltaTime)
+void SkyBox::UpdateActor(float _deltaTime)
 {
 
 }
 
 // 時間帯ごとにスカイボックスを生成
-void SkyBox::SetSkyBox(Environment::GAME_TIME in_gameTime)
+void SkyBox::SetSkyBox(ENVIRONMENT_TYPE _envType)
 {
-	if (in_gameTime == Environment::GAME_TIME::MORNING)
+	if (_envType == ENVIRONMENT_TYPE::MORNING)
 	{
 		m_cubeMapComp = new CubeMapComponent(this);
 		m_cubeMapComp->CreateTexture("Data/Textures/TND/Skybox/morning/");
-		m_cubeMapComp->SetLuminance(0.8f);
+		m_cubeMapComp->SetIntensity(0.8f);
 		return;
 	}
-	if (in_gameTime == Environment::GAME_TIME::AFTERNOON)
+	if (_envType == ENVIRONMENT_TYPE::AFTERNOON)
 	{
 		m_cubeMapComp = new CubeMapComponent(this);
 		m_cubeMapComp->CreateTexture("Data/Textures/TND/Skybox/morning/");
-		m_cubeMapComp->SetLuminance(0.65f);
+		m_cubeMapComp->SetIntensity(0.65f);
 		return;
 	}
-	if (in_gameTime == Environment::GAME_TIME::EVENING)
+	if (_envType == ENVIRONMENT_TYPE::EVENING)
 	{
 		m_cubeMapComp = new CubeMapComponent(this);
 		m_cubeMapComp->CreateTexture("Data/Textures/TND/Skybox/sunset/");
-		m_cubeMapComp->SetLuminance(0.45f);
+		m_cubeMapComp->SetIntensity(0.45f);
 		return;
 	}
-	if (in_gameTime == Environment::GAME_TIME::NIGHT)
+	if (_envType == ENVIRONMENT_TYPE::NIGHT)
 	{
 		m_cubeMapComp = new CubeMapComponent(this);
 		m_cubeMapComp->CreateTexture("Data/Textures/TND/Skybox/NightCity/");
-		m_cubeMapComp->SetLuminance(0.5f);
+		m_cubeMapComp->SetIntensity(0.5f);
 		return;
 	}
 }

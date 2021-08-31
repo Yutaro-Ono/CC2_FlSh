@@ -104,7 +104,7 @@ void GameScene::Initialize()
 }
 
 // XVˆ—
-SceneBase * GameScene::Update()
+SceneBase * GameScene::Update(float _deltaTime)
 {
 
 	m_world->UpdateWorld(GAME_INSTANCE.GetDeltaTime());

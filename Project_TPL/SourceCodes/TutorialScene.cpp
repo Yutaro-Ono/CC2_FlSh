@@ -25,7 +25,7 @@ void TutorialScene::Initialize()
 {
 
 	// 環境生成
-	m_environment = new Environment(Environment::GAME_TIME::NIGHT, Vector3(0.0f, 0.0f, 0.0f));
+	//m_environment = new Environment(ENVIRONMENT_TYPE::NIGHT, Vector3(0.0f, 0.0f, 0.0f));
 
 	// ロード画面処理
 	{
@@ -56,7 +56,7 @@ void TutorialScene::Initialize()
 /// 更新処理
 /// </summary>
 /// <returns> 通常は自身のポインタを、シーン遷移の条件を達成した場合は次シーンへのポインタを返す </returns>
-SceneBase* TutorialScene::Update()
+SceneBase* TutorialScene::Update(float _deltaTime)
 {
 
 	// 一定距離進んだら次のシーンへ

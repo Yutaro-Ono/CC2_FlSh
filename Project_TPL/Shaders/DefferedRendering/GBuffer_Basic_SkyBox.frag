@@ -24,7 +24,7 @@ layout(std140, binding = 2) uniform Triggers
 };
 
 uniform samplerCube u_cubeMap;    // sample CubeMap Texture
-
+uniform float u_intensity;
 
 void main()
 {
@@ -34,7 +34,7 @@ void main()
 	// bloom
 	if(u_enableBloom == 1)
 	{
-		out_gEmissive = texture(u_cubeMap, fs_in.fragLocalPos);
+		out_gEmissive = texture(u_cubeMap, fs_in.fragLocalPos) * u_intensity;
 	}
 
 }

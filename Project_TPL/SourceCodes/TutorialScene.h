@@ -22,7 +22,7 @@ public:
 
 	void Initialize() override;
 
-	SceneBase* Update() override;
+	SceneBase* Update(float _deltaTime) override;
 
 	void Draw() override;
 

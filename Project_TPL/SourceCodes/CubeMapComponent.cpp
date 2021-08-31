@@ -12,7 +12,7 @@
 CubeMapComponent::CubeMapComponent(Actor* _owner)
 	:Component(_owner)
 	,m_texture(nullptr)
-	,m_luminance(1.0f)
+	,m_intensity(1.0f)
 	,m_isVisible(false)
 {
 }
@@ -42,6 +42,11 @@ void CubeMapComponent::Draw(GLSLprogram* _shader)
 		// テクスチャバインド
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture->GetTextureID());
+
+		// uniform
+		_shader->UseProgram();
+		_shader->SetUniform("u_intensity", m_intensity);
+
 		// キューブマップ用頂点配列のアクティブ化
 		RENDERER->GetCubeMapVerts()->SetActive();
 		// 描画

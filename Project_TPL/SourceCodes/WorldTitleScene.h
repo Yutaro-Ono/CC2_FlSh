@@ -26,7 +26,7 @@ public:
 
 private:
 
-
-	
+	class TitleCar* m_car;
+	class ClientActor* m_client;
 
 };

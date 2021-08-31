@@ -7,14 +7,14 @@ class SkyBox : public Actor
 {
 public:
 
-	SkyBox();
-	SkyBox(class Environment* in_environment, Environment::GAME_TIME in_gameTime);
+	SkyBox(ENVIRONMENT_TYPE _envType);
+	SkyBox(class Environment* _environment, ENVIRONMENT_TYPE _envType);
 	~SkyBox();
 
-	void UpdateActor(float in_deltaTime) override;
+	void UpdateActor(float _deltaTime) override;
 
 	// スカイボックスのセット
-	void SetSkyBox(Environment::GAME_TIME in_gameTime);
+	void SetSkyBox(ENVIRONMENT_TYPE _envType);
 
 	class CubeMapComponent* GetCubeMapComp() { return m_cubeMapComp; }
 
@@ -22,6 +22,6 @@ private:
 
 	class CubeMapComponent* m_cubeMapComp;
 
-	class Environment* m_environmnet;
+	class Environment* m_environment;
 
 };

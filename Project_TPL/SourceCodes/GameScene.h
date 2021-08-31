@@ -35,7 +35,7 @@ public:
 
 	void Initialize() override;                               // 初期化処理
 
-	SceneBase* Update() override;                             // 更新処理
+	SceneBase* Update(float _deltaTime) override;                             // 更新処理
 
 	void Draw() override;                                     // 描画処理
 

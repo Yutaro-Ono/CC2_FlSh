@@ -43,7 +43,7 @@ WorldGameScene::WorldGameScene()
 	// ミッションマネージャー生成
 	m_mission = new MissionManager(this);
 	// 環境(光源など)作成
-	m_environment = new Environment(this, Environment::GAME_TIME::NIGHT);
+	m_environment = new Environment(m_player, ENVIRONMENT_TYPE::NIGHT);
 
 	// ヘリコプターを三機生成
 	for (int i = 0; i < 3; i++)

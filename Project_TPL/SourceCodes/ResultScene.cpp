@@ -49,7 +49,7 @@ ResultScene::~ResultScene()
 void ResultScene::Initialize()
 {
 	// 環境生成
-	m_environment = new Environment(Environment::GAME_TIME::MORNING, Vector3(0.0f, -65.0f, 0.0f));
+	//m_environment = new Environment(ENVIRONMENT_TYPE::MORNING);
 
 	// ロード画面処理
 	{
@@ -101,7 +101,7 @@ void ResultScene::Initialize()
 
 
 // シーンの更新処理
-SceneBase * ResultScene::Update()
+SceneBase * ResultScene::Update(float _deltaTime)
 {
 
 	m_environment->SetDirectionalLightPos(m_car->GetPosition());

@@ -16,7 +16,7 @@ public:
 	SceneBase() {};                               // コンストラクタ
 	virtual ~SceneBase() {};                      // デストラクタ
 
-	virtual SceneBase* Update() = 0;         // シーンの更新処理(現在のシーンのポインタを返す)
+	virtual SceneBase* Update(float _deltaTime) = 0;         // シーンの更新処理(現在のシーンのポインタを返す)
 
 	virtual void Initialize() = 0;
 

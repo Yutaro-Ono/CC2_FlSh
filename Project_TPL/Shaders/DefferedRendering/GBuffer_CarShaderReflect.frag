@@ -123,7 +123,6 @@ void main()
 	out_gPosition = fs_in.fragWorldPos;
 	out_gNormal = fs_in.fragNormal;
 	// シャドウの逆数を取り、0 = 影の時にディフューズとスペキュラの値がキャンセルされる(影となる)
-	//out_gAlbedoSpec = vec4(ambient + (1.0 - shadow) * (Diffuse + Specular + envMap) * color, Specular.r);
 	out_gAlbedoSpec = vec4((ambient + (0.8f - shadow)) * (Diffuse + Specular + envMap), Specular.r);
 	if(u_enableBloom == 1)
 	{

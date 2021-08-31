@@ -9,22 +9,10 @@
 #include "Input.h"
 #include "InputController.h"
 #include "Renderer.h"
-#include "Texture.h"
-#include "Mesh.h"
+#include "WorldTitleScene.h"
 #include "TitleScreen.h"
-#include "Font.h"
 #include "GameScene.h"
-#include "PlayerCar.h"
 #include "LoadScreen.h"
-#include "Camera.h"
-#include "SkyBox.h"
-#include "Environment.h"
-#include "WorldSpaceUI.h"
-#include "ClientActor.h"
-#include "PointLight.h"
-#include "SpotLight.h"
-#include "TitleCar.h"
-#include "BridgeObject.h"
 #include "RenderBloom.h"
 #include "TutorialScene.h"
 #include "ActorPool.h"
@@ -34,9 +22,7 @@ const int TitleScene::STAGE_ALL_NUM = 1;
 TitleScene::TitleScene()
 	:m_state(FADE_IN)
 	,m_selectedStage(0)
-	,m_car(nullptr)
-	,m_client(nullptr)
-	,m_environment(nullptr)
+	,m_world(nullptr)
 {
 }
 
@@ -44,62 +30,33 @@ TitleScene::TitleScene()
 TitleScene::~TitleScene()
 {
 	GAME_INSTANCE.DeadAllActor();
-	delete m_environment;
 }
 
 // 初期化処理
 void TitleScene::Initialize()
 {
-	// 環境生成
-	m_environment = new Environment(Environment::GAME_TIME::NIGHT, Vector3(0.0f, -65.0f, 0.0f));
-	// ロード画面処理
+	// ロード画面の有効化
 	{
 		GAME_INSTANCE.GetLoadScreen()->EnableScreen();
 	}
 
-	// ロード処理
-	GAME_INSTANCE.GetLoadScreen()->AddGauge();
 
-	// 音楽
-	m_sound["BGM"] = "Data/Music/BGM/TND/Title/cyrf_crashed_dimension (mp3cut.net).wav";
-	// ロード処理
-	GAME_INSTANCE.GetLoadScreen()->AddGauge();
-	m_sound["Enter"] = "Data/Music/SE/TND/System/Enter/decide13.wav";
-	// ロード処理
-	GAME_INSTANCE.GetLoadScreen()->AddGauge();
-	m_sound["Select"] = "Data/Music/SE/TND/System/Select/decide14.wav";
+	// ワールド情報のロード
+	m_world = new WorldTitleScene();
+	m_world->Load();
 
+	//--------------------------------------------------------------------------------------------+
+	// 音楽関連
 	// SE
+	m_sound["Enter"] = "Data/Music/SE/TND/System/Enter/decide13.wav";
 	AUDIO->GetSound(m_sound["Enter"]);                                       // 決定音
+	m_sound["Select"] = "Data/Music/SE/TND/System/Select/decide14.wav";
 	AUDIO->GetSound(m_sound["Select"]);                                      // 選択音
-
-	// ロード処理
-	GAME_INSTANCE.GetLoadScreen()->AddGauge();
-
 	// BGM
+	m_sound["BGM"] = "Data/Music/BGM/TND/Title/cyrf_crashed_dimension (mp3cut.net).wav";
 	AUDIO->GetMusic(m_sound["BGM"]);
 
-	// ロード処理
-	GAME_INSTANCE.GetLoadScreen()->AddGauge();
-
-	// プレイヤー
-	//m_car = new PlayerCar();
-	m_car = new TitleCar();
-	m_car->SetPosition(Vector3(6500.0f, -65.0f, 0.0f));
-	m_car->SetScale(0.4f);
-	//m_car->SetState(Actor::STATE_PAUSED);
-
-	GAME_INSTANCE.GetLoadScreen()->AddGauge();
-
-	// 橋オブジェクトの生成
-	for (int i = 0; i < 8; i++)
-	{
-		//m_bridge[i] = new BridgeObject(1, Vector3(i * 6515.0f, -2000.0f, 0.0f));
-
-		GAME_INSTANCE.GetLoadScreen()->AddGauge();
-	}
-
-
+	// ロード演出(残り分)
 	for (int i = 0; i < 61; i++)
 	{
 		GAME_INSTANCE.GetLoadScreen()->AddGauge();
@@ -107,6 +64,7 @@ void TitleScene::Initialize()
 
 	// ロード画面の無効化
 	GAME_INSTANCE.GetLoadScreen()->DisableScreen();
+
 	// タイトル用UI
 	UIScreen* hud = new TitleScreen(this);
 
@@ -115,11 +73,11 @@ void TitleScene::Initialize()
 }
 
 // 更新処理
-SceneBase * TitleScene::Update()
+SceneBase * TitleScene::Update(float _deltaTime)
 {
 
-	// 環境光更新
-	m_environment->SetDirectionalLightPos(m_car->GetPosition());
+	// ワールドの更新
+	m_world->UpdateWorld(_deltaTime);
 
 
 	// タイトルメニュー
@@ -132,7 +90,7 @@ SceneBase * TitleScene::Update()
 	case FADE_IN:
 
 
-		if (RENDERER->GetBloom()->FadeIn(0.5f, GAME_INSTANCE.GetDeltaTime()))
+		if (RENDERER->GetBloom()->FadeIn(0.15f, _deltaTime))
 		{
 			m_state = PRESS_ANY_KEY;
 		}
@@ -145,7 +103,7 @@ SceneBase * TitleScene::Update()
     //----------------------------------------------------------------------+
 	case FADE_OUT:
 
-		if (RENDERER->GetBloom()->FadeOut(0.7f, GAME_INSTANCE.GetDeltaTime()))
+		if (RENDERER->GetBloom()->FadeOut(0.7f, _deltaTime))
 		{
 
 

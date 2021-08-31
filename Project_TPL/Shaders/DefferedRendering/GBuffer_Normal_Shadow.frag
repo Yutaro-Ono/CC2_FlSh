@@ -55,6 +55,8 @@ struct Material
 	sampler2D depthMap;
 };
 
+// 輝度(エミッシブ用)
+uniform float u_intensity;
 
 // uniform
 uniform Material u_mat;
@@ -132,7 +134,7 @@ void main()
 	if(u_enableBloom == 1)
 	{
 	    vec4 resultEmissive = texture(u_mat.emissiveMap, fs_in.fragTexCoords);
-	    out_gBrightColor = resultEmissive * u_dLightIntensity;
+	    out_gBrightColor = resultEmissive * u_intensity;
 	}
 
 

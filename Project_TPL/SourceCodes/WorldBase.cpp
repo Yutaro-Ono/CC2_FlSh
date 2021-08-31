@@ -8,4 +8,6 @@ WorldBase::WorldBase()
 
 WorldBase::~WorldBase()
 {
+	delete m_environment;
+	delete m_canvas;
 }

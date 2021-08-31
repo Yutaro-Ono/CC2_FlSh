@@ -24,7 +24,7 @@ uniform sampler2D u_bloom3;
 uniform sampler2D u_bloom4;
 uniform sampler2D u_bloom5;
 
-uniform float u_exposure;     // 0 -> Dark Screen
+uniform float u_exposure;             // 0 -> Dark Screen
 uniform float u_gamma = 0.085;        // gamma collection
 
 void main()

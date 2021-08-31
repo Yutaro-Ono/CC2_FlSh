@@ -18,14 +18,14 @@ public:
 
 	
 	void SetIsVisible(bool _visible) { m_isVisible = _visible; }         // キューブを表示するかしないかのセット
-	void SetLuminance(float _luminance) { m_luminance = _luminance; }    // 輝度情報のセット
+	void SetIntensity(float _intensity) { m_intensity = _intensity; }    // 輝度情報のセット
 
 
 private:
 
 	class Texture* m_texture;
 
-	float m_luminance;               // 輝度情報
+	float m_intensity;               // 輝度情報
 
 	bool m_isVisible;                // 描画するかしないかのフラグ
 

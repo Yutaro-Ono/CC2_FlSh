@@ -76,6 +76,13 @@ bool GameMain::Initialize()
 	m_config->LoadConfig("Project_TPL.ini");
 
 	//--------------------------------------------------------------------+
+	// 各種オブジェクトプールクラスの生成
+	//--------------------------------------------------------------------+
+	m_actorPool = new ActorPool();
+	m_meshPool = new MeshPool();
+	m_texturePool = new TexturePool();
+
+	//--------------------------------------------------------------------+
 	// レンダラー
 	//--------------------------------------------------------------------+
 	// レンダラーの生成
@@ -174,10 +181,7 @@ bool GameMain::Initialize()
 	m_loadScreen = new LoadScreen();
 	m_loadScreen->Initialize();
 
-	// 各種プールの生成
-	m_actorPool = new ActorPool();
-	m_meshPool = new MeshPool();
-	m_texturePool = new TexturePool();
+
 
 	return true;
 }
@@ -317,7 +321,7 @@ int GameMain::UpdateGame()
 	m_renderer->GetParticleManager()->Update(m_deltaTime);
 
 	//シーンを実行
-	tmpScene = m_nowScene->Update();
+	tmpScene = m_nowScene->Update(m_deltaTime);
 
 	// UIがCLOSEなら消す
 	auto iter = m_uiStack.begin();

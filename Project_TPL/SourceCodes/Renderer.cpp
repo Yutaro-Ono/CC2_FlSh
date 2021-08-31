@@ -32,6 +32,7 @@
 #include <iostream>
 #include "DirectionalLight.h"
 #include "EffekseerEffect.h"
+#include "SkyBox.h"
 
 // コンストラクタ
 Renderer::Renderer()
@@ -249,6 +250,10 @@ bool Renderer::Load()
 	// ディレクショナルライト
 	m_dirLight = new DirectionalLight();
 
+	// 仮のスカイボックス生成(キューブマップ)
+	SkyBox* skybox = new SkyBox(ENVIRONMENT_TYPE::NIGHT);
+	m_activeSkyBox = skybox->GetCubeMapComp();
+
 	return true;
 }
 
@@ -366,7 +371,7 @@ void Renderer::Draw()
 	UpdateUBO();
 
 	// シャドウ描画用の深度マップにライト視点から見た空間で書き込む
-	//m_shadowMap->RenderDepthMapFromLightView(m_meshComponents, m_skeletalMeshComponents, m_carMeshComponents);
+	m_shadowMap->RenderDepthMapFromLightView(m_meshComponents, m_skeletalMeshComponents, m_carMeshComponents);
 	// ここから分岐
 	if (m_renderMode == RENDER_MODE::FORWARD)
 	{

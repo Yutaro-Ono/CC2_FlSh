@@ -405,12 +405,13 @@ bool RenderBloom::FadeOut(float in_val, float in_deltaTime)
 /// <returns>Š®‘S‚É”’“]‚µ‚½‚çtrue‚ğ•Ô‚·</returns>
 bool RenderBloom::FadeIn(float in_val, float in_deltaTime)
 {
-
+	// Å‰‚Í˜Io‚ğ0‚É‚·‚é
 	if (m_exposure == m_saveExposure)
 	{
 		m_exposure = 0.0f;
 	}
 
+	// Œ¸Z
 	m_exposure += in_val * in_deltaTime;
 
 	bool end = false;

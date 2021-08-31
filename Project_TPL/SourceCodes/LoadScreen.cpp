@@ -122,8 +122,14 @@ void LoadScreen::AddGauge()
 		// ゲージ数を増やす
 		m_gaugeNum++;
 	}
+	else
+	{
+		return;
+	}
+
 	// 描画
 	RENDERER->Draw();
+
 	// ウェイト
 	Sleep(80);
 }
