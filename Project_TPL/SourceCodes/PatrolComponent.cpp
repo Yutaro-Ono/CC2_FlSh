@@ -1,16 +1,16 @@
 #include "PatrolComponent.h"
-#include "GameWorld.h"
+#include "WorldGameScene.h"
 #include "PatrolPoint.h"
 #include "Helicopter.h"
 #include "PlayerManager.h"
 #include <Windows.h>
 
 // コンストラクタ
-PatrolComponent::PatrolComponent(Helicopter* in_owner, GameWorld* in_world)
-	:Component(in_owner)
+PatrolComponent::PatrolComponent(Helicopter* _owner, WorldGameScene* _world)
+	:Component(_owner)
 	,m_patrolState(PATROL_STATE::PATROL)
-	,m_heli(in_owner)
-	,m_world(in_world)
+	,m_heli(_owner)
+	,m_world(_world)
 	,m_targetPoint(nullptr)
 {
 	// 巡回地点を走査して巡回先の座標としてセット
@@ -38,7 +38,7 @@ PatrolComponent::~PatrolComponent()
 }
 
 // 更新処理
-void PatrolComponent::Update(float in_deltaTime)
+void PatrolComponent::Update(float _deltaTime)
 {
 
 	// ヘリがプレイヤーを見つけたら
@@ -53,18 +53,18 @@ void PatrolComponent::Update(float in_deltaTime)
 		// ターゲット座標を更新
 		m_targetPos = m_targetPoint->GetPosition();
 
-		MoveToPatrolPos(in_deltaTime);
+		MoveToPatrolPos(_deltaTime);
 	}
 
 	// プレイヤー追跡処理
 	if (m_heli->GetHeliState() == Helicopter::HELI_STATE::CHASE)
 	{
-		ChasePlayer(in_deltaTime);
+		ChasePlayer(_deltaTime);
 	}
 }
 
 // 巡回地点への移動処理
-void PatrolComponent::MoveToPatrolPos(float in_deltaTime)
+void PatrolComponent::MoveToPatrolPos(float _deltaTime)
 {
 	// 巡回地点変更時に用いるポインタ
 	PatrolPoint* tempPoint = m_targetPoint;
@@ -79,7 +79,7 @@ void PatrolComponent::MoveToPatrolPos(float in_deltaTime)
 	m_owner->RotateToNewForward(forwardVec);
 
 	// 移動量を計算
-	Vector3 move = forwardVec * 800.0f * in_deltaTime;
+	Vector3 move = forwardVec * 800.0f * _deltaTime;
 
 	// ヘリを移動させる
 	m_owner->SetPosition(heliPos + move);
@@ -118,7 +118,7 @@ void PatrolComponent::MoveToPatrolPos(float in_deltaTime)
 }
 
 // プレイヤーの追尾
-void PatrolComponent::ChasePlayer(float in_deltaTime)
+void PatrolComponent::ChasePlayer(float _deltaTime)
 {
 
 	// ヘリコプターの現在地点座標
@@ -148,13 +148,13 @@ void PatrolComponent::ChasePlayer(float in_deltaTime)
 	}
 
 	// 移動量を計算
-	Vector3 move = forwardVec * 150.0f * in_deltaTime;
+	Vector3 move = forwardVec * 150.0f * _deltaTime;
 	
 	if (distance > 1000.0f)
 	{
 		if (distance >= 1800.0f)
 		{
-			move = forwardVec * 350.0f * in_deltaTime;
+			move = forwardVec * 350.0f * _deltaTime;
 		}
 
 		// ヘリを移動させる

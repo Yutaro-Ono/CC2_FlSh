@@ -90,8 +90,9 @@ void UIScreen::DrawTexture(GLSLprogram * _shader, Texture * _texture, const Vect
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, _texture->GetTextureID());
 
-	// •`‰æ‚·‚é
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+	// •`‰æ
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 }
 
 void UIScreen::SetRelativeMouseMode(bool _relative)

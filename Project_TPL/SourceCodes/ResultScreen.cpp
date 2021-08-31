@@ -10,15 +10,14 @@
 #include "Renderer.h"
 #include "Texture.h"
 #include "Font.h"
-#include "Shader.h"
 #include "Input.h"
 #include "InputController.h"
 #include <sstream>
 
 // コンストラクタ
-ResultScreen::ResultScreen(class ResultScene* in_targetScene, int in_score, float in_bestSpeed)
-	:m_targetScene(in_targetScene)
-	,m_score(in_score)
+ResultScreen::ResultScreen(class ResultScene* _targetScene, int _score, float _bestSpeed)
+	:m_targetScene(_targetScene)
+	,m_score(_score)
 	,m_rank(0)
 	,m_dispScore(0)
 	,m_counter(0.0f)
@@ -30,7 +29,7 @@ ResultScreen::ResultScreen(class ResultScene* in_targetScene, int in_score, floa
 	std::string strSpeed;
 	std::stringstream ssSpeed;
 	
-	ssSpeed << "MAX SPEED:" << (int)in_bestSpeed << "km/h";
+	ssSpeed << "MAX SPEED:" << (int)_bestSpeed << "km/h";
 	strSpeed = ssSpeed.str();
 
 	// フォントのロード(0 = 影、1 = 本体)
@@ -66,7 +65,7 @@ ResultScreen::~ResultScreen()
 
 }
 
-void ResultScreen::Update(float in_deltaTime)
+void ResultScreen::Update(float _deltaTime)
 {
 
 	// Scoreをstringstreamに変換
@@ -107,7 +106,7 @@ void ResultScreen::Update(float in_deltaTime)
 
 }
 
-void ResultScreen::Draw(GLSLprogram * in_shader)
+void ResultScreen::Draw(GLSLprogram * _shader)
 {
 
 	for (int i = 0; i < 2; i++)
@@ -119,7 +118,7 @@ void ResultScreen::Draw(GLSLprogram * in_shader)
 			// "RESULT" の描画
 			if (m_resultTex)
 			{
-				// DrawTexture(in_shader, m_resultTex[i], m_resultTexPos + Vector2(0.0f, -3.0f), 1.0f);
+				DrawTexture(_shader, m_resultTex[i], m_resultTexPos + Vector2(0.0f, -3.0f), 1.0f);
 			}
 
 
@@ -127,7 +126,7 @@ void ResultScreen::Draw(GLSLprogram * in_shader)
 			if (m_scoreTex)
 			{
 				// DrawTexture(in_shader, m_scoreTex[i], Vector2(0.0f, RENDERER->GetScreenHeight() / 5) + Vector2(0.0f, -3.0f), 1.0f);
-				DrawTexture(in_shader, m_scoreTex[i], m_resultTexPos + Vector2(0.0f, -3.0f), 1.0f);
+				DrawTexture(_shader, m_scoreTex[i], m_resultTexPos + Vector2(0.0f, -3.0f), 1.0f);
 
 			}
 
@@ -141,11 +140,11 @@ void ResultScreen::Draw(GLSLprogram * in_shader)
 					if (m_targetScene->GetResultState() == ResultScene::STATE_ONE_MORE)
 					{
 
-						DrawTexture(in_shader, m_restartButton[i], Vector2(-m_restartButton[i]->GetWidth(), -RENDERER->GetScreenHeight() / 2.9f) + Vector2(0.0f, -3.0f), 1.0f);
+						DrawTexture(_shader, m_restartButton[i], Vector2(-m_restartButton[i]->GetWidth(), -RENDERER->GetScreenHeight() / 2.9f) + Vector2(0.0f, -3.0f), 1.0f);
 					}
 					else
 					{
-						DrawTexture(in_shader, m_restartButton[i], Vector2(-m_restartButton[i]->GetWidth(), -RENDERER->GetScreenHeight() / 2.9f) + Vector2(0.0f, -3.0f), 0.5f);
+						DrawTexture(_shader, m_restartButton[i], Vector2(-m_restartButton[i]->GetWidth(), -RENDERER->GetScreenHeight() / 2.9f) + Vector2(0.0f, -3.0f), 0.5f);
 					}
 
 				}
@@ -155,11 +154,11 @@ void ResultScreen::Draw(GLSLprogram * in_shader)
 					// QUIT選択時と非選択時
 					if (m_targetScene->GetResultState() == ResultScene::STATE_GAME_QUIT)
 					{
-						DrawTexture(in_shader, m_quitButton[i], Vector2(m_quitButton[i]->GetWidth() * 1.5f, -RENDERER->GetScreenHeight() / 2.9f) + Vector2(0.0f, -3.0f), 1.0f);
+						DrawTexture(_shader, m_quitButton[i], Vector2(m_quitButton[i]->GetWidth() * 1.5f, -RENDERER->GetScreenHeight() / 2.9f) + Vector2(0.0f, -3.0f), 1.0f);
 					}
 					else
 					{
-						DrawTexture(in_shader, m_quitButton[i], Vector2(m_quitButton[i]->GetWidth() * 1.5f, -RENDERER->GetScreenHeight() / 2.9f) + Vector2(0.0f, -3.0f), 0.7f);
+						DrawTexture(_shader, m_quitButton[i], Vector2(m_quitButton[i]->GetWidth() * 1.5f, -RENDERER->GetScreenHeight() / 2.9f) + Vector2(0.0f, -3.0f), 0.7f);
 					}
 				}
 			}
@@ -176,7 +175,7 @@ void ResultScreen::Draw(GLSLprogram * in_shader)
 			if (m_scoreTex)
 			{
 				// DrawTexture(in_shader, m_scoreTex[i], Vector2(0.0f, RENDERER->GetScreenHeight() / 5), 1.0f);
-				DrawTexture(in_shader, m_scoreTex[i], m_resultTexPos, 1.0f);
+				DrawTexture(_shader, m_scoreTex[i], m_resultTexPos, 1.0f);
 			}
 
 
@@ -189,11 +188,11 @@ void ResultScreen::Draw(GLSLprogram * in_shader)
 					// リスタート選択時と非選択時
 					if (m_targetScene->GetResultState() == ResultScene::STATE_ONE_MORE)
 					{
-						DrawTexture(in_shader, m_restartButton[i], Vector2(-m_restartButton[i]->GetWidth(), -RENDERER->GetScreenHeight() / 2.9f), 1.0f);
+						DrawTexture(_shader, m_restartButton[i], Vector2(-m_restartButton[i]->GetWidth(), -RENDERER->GetScreenHeight() / 2.9f), 1.0f);
 					}
 					else
 					{
-						DrawTexture(in_shader, m_restartButton[i], Vector2(-m_restartButton[i]->GetWidth(), -RENDERER->GetScreenHeight() / 2.9f), 0.5f);
+						DrawTexture(_shader, m_restartButton[i], Vector2(-m_restartButton[i]->GetWidth(), -RENDERER->GetScreenHeight() / 2.9f), 0.5f);
 					}
 
 				}
@@ -203,11 +202,11 @@ void ResultScreen::Draw(GLSLprogram * in_shader)
 					// QUIT選択時と非選択時
 					if (m_targetScene->GetResultState() == ResultScene::STATE_GAME_QUIT)
 					{
-						DrawTexture(in_shader, m_quitButton[i], Vector2(m_quitButton[i]->GetWidth() * 1.5f, -RENDERER->GetScreenHeight() / 2.9f), 1.0f);
+						DrawTexture(_shader, m_quitButton[i], Vector2(m_quitButton[i]->GetWidth() * 1.5f, -RENDERER->GetScreenHeight() / 2.9f), 1.0f);
 					}
 					else
 					{
-						DrawTexture(in_shader, m_quitButton[i], Vector2(m_quitButton[i]->GetWidth() * 1.5f, -RENDERER->GetScreenHeight() / 2.9f), 0.7f);
+						DrawTexture(_shader, m_quitButton[i], Vector2(m_quitButton[i]->GetWidth() * 1.5f, -RENDERER->GetScreenHeight() / 2.9f), 0.7f);
 					}
 				}
 			}
@@ -235,13 +234,13 @@ void ResultScreen::Draw(GLSLprogram * in_shader)
 		{
 			if (i != (m_rank - 1))
 			{
-				DrawTexture(in_shader, m_rankingScore[i], Vector2(RENDERER->GetScreenWidth() / 2 - m_rankingScore[i]->GetHalfWidth() * scoreScale,
+				DrawTexture(_shader, m_rankingScore[i], Vector2(RENDERER->GetScreenWidth() / 2 - m_rankingScore[i]->GetHalfWidth() * scoreScale,
 					                                              (10.0f * (5 - i)) + (-m_rankingScore[i]->GetHeight()) * i), scoreScale);
 			}
 			else if ((int)m_counter % 3 == 0)
 			{
 
-				DrawTexture(in_shader, m_rankingScore[i], Vector2(RENDERER->GetScreenWidth() / 2 - m_rankingScore[i]->GetHalfWidth() * scoreScale,
+				DrawTexture(_shader, m_rankingScore[i], Vector2(RENDERER->GetScreenWidth() / 2 - m_rankingScore[i]->GetHalfWidth() * scoreScale,
 					                                              (10.0f * (5 - i)) + (-m_rankingScore[i]->GetHeight()) * i), scoreScale);
 			}
 		}
@@ -255,11 +254,11 @@ void ResultScreen::Draw(GLSLprogram * in_shader)
 	{
 		if (CONTROLLER_INSTANCE.IsAvailable() == true)
 		{
-			DrawTexture(in_shader, m_xpadSkipTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.3f), 1.0f);
+			DrawTexture(_shader, m_xpadSkipTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.3f), 1.0f);
 		}
 		else
 		{
-			DrawTexture(in_shader, m_keyboardSkipTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.3f), 1.0f);
+			DrawTexture(_shader, m_keyboardSkipTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.3f), 1.0f);
 		}
 
 	}
@@ -268,11 +267,11 @@ void ResultScreen::Draw(GLSLprogram * in_shader)
 	{
 		if (CONTROLLER_INSTANCE.IsAvailable() == true)
 		{
-			DrawTexture(in_shader, m_xpadTutorialTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.3f), 0.8f);
+			DrawTexture(_shader, m_xpadTutorialTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.3f), 0.8f);
 		}
 		else
 		{
-			DrawTexture(in_shader, m_keyboardTutorialTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.3f), 0.8f);
+			DrawTexture(_shader, m_keyboardTutorialTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.3f), 0.8f);
 
 		}
 	}

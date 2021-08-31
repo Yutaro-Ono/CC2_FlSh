@@ -17,6 +17,8 @@ public:
 	WorldGameScene();             // コンストラクタ
 	~WorldGameScene();            // デストラクタ
 
+	bool Load() override;
+
 	void Update(float in_deltaTime);
 	void UpdateWorld(float _deltaTime) override;
 
@@ -45,7 +47,7 @@ public:
 	class LevelManager* GetLevelManager() { return m_level; }
 
 	// UIキャンバスのゲッター
-	class Canvas* GetCanvas() { return m_canvas; }
+	class CanvasGameScene* GetCanvas() { return m_canvas; }
 
 	bool GetFoundPlayer() { return m_foundPlayer; }
 
@@ -61,7 +63,7 @@ private:
 
 	class MissionManager* m_mission;
 
-	class Canvas* m_canvas;                     // UIキャンバス
+	class CanvasGameScene* m_canvas;                     // UIキャンバス
 
 	class MiniMapHUD* m_mapHUD;                 // マップHUD
 

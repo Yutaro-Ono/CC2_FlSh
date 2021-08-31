@@ -167,7 +167,7 @@ void CountDownUI::Update(float in_deltaTime)
 }
 
 // ï`âÊèàóù
-void CountDownUI::Draw(GLSLprogram * in_shader)
+void CountDownUI::Draw(GLSLprogram * _shader)
 {
 	// ÉtÉäÅ[ÉÇÅ[ÉhéûÇÃ"Skip"
 	if (m_time->GetCountState() == m_time->STATE_FREE)
@@ -175,11 +175,11 @@ void CountDownUI::Draw(GLSLprogram * in_shader)
 		// ÉRÉìÉgÉçÅ[Éâê⁄ë±éûÇ∆ñ¢ê⁄ë±éûÇ≈ï\é¶ÇêÿÇËë÷Ç¶
 		if (CONTROLLER_INSTANCE.IsAvailable() == true)
 		{
-			//DrawTexture(in_shader, m_skipXpad, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.2f), 0.8f);
+			DrawTexture(_shader, m_skipXpad, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.2f), 0.8f);
 		}
 		else
 		{
-			//DrawTexture(in_shader, m_skipKey, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.2f), 0.8f);
+			DrawTexture(_shader, m_skipKey, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.2f), 0.8f);
 		}
 	}
 
@@ -187,12 +187,12 @@ void CountDownUI::Draw(GLSLprogram * in_shader)
 	if (m_timeTexShadow)
 	{
 		// âe
-		DrawTexture(in_shader, m_timeTexShadow, Vector2(m_timeTexPos.x, m_timeTexPos.y - 3.0f), 1.0f);
+		DrawTexture(_shader, m_timeTexShadow, Vector2(m_timeTexPos.x, m_timeTexPos.y - 3.0f), 1.0f);
 	}
 	if (m_timeTex)
 	{
 		// ñ{ëÃ
-		DrawTexture(in_shader, m_timeTex, m_timeTexPos, 1.0f);
+		DrawTexture(_shader, m_timeTex, m_timeTexPos, 1.0f);
 	}
 
 	// "TIME"ÇÃï`âÊ Å¶ÉQÅ[ÉÄíÜÇÃÇ›
@@ -204,13 +204,13 @@ void CountDownUI::Draw(GLSLprogram * in_shader)
 			if (i == 0)
 			{
 				// âe
-				DrawTexture(in_shader, m_timeLimitTex[i], Vector2(m_timeTexPos.x, m_timeTexPos.y + 57.0f), 1.0f);
+				DrawTexture(_shader, m_timeLimitTex[i], Vector2(m_timeTexPos.x, m_timeTexPos.y + 57.0f), 1.0f);
 			}
 
 			if (i == 1)
 			{
 				// âe
-				DrawTexture(in_shader, m_timeLimitTex[i], Vector2(m_timeTexPos.x, m_timeTexPos.y + 60.0f), 1.0f);
+				DrawTexture(_shader, m_timeLimitTex[i], Vector2(m_timeTexPos.x, m_timeTexPos.y + 60.0f), 1.0f);
 			}
 
 		}
@@ -221,11 +221,11 @@ void CountDownUI::Draw(GLSLprogram * in_shader)
 	{
 		if (m_addTimeTexShadow)
 		{
-			DrawTexture(in_shader, m_addTimeTexShadow, m_timeTexPos + Vector2(0.0f, -53.0f), 1.0f);
+			DrawTexture(_shader, m_addTimeTexShadow, m_timeTexPos + Vector2(0.0f, -53.0f), 1.0f);
 		}
 		if (m_addTimeTex)
 		{
-			DrawTexture(in_shader, m_addTimeTex, m_timeTexPos + Vector2(0.0f, -50.0f), 1.0f);
+			DrawTexture(_shader, m_addTimeTex, m_timeTexPos + Vector2(0.0f, -50.0f), 1.0f);
 		}
 	}
 

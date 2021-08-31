@@ -18,7 +18,7 @@
 #include <SDL.h>
 
 // コンストラクタ
-TitleScreen::TitleScreen(class TitleScene* in_target)
+TitleScreen::TitleScreen(class TitleScene* _target)
 	:m_logo(nullptr)
 	,m_cursol(nullptr)
 	,m_logoPos(0.0f, RENDERER->GetScreenHeight() / 3)
@@ -29,7 +29,7 @@ TitleScreen::TitleScreen(class TitleScene* in_target)
 {
 
 	// タイトルシーンを保持
-	m_targetScene = in_target;
+	m_targetScene = _target;
 
 	// タイトルロゴの読み込み
 	//m_logo = RENDERER->GetTexture("Data/Interface/Title/Title_LogoScreen.png");

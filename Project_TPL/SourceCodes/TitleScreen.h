@@ -16,12 +16,12 @@ class TitleScreen : public UIScreen
 
 public:
 
-	TitleScreen(class TitleScene* in_target);
+	TitleScreen(class TitleScene* _target);
 	~TitleScreen();
 
 	void Update(float _deltaTime) override;
 
-	void Draw(class GLSLprogram* _shader) override;
+	void Draw(GLSLprogram* _shader) override;
 
 
 private:

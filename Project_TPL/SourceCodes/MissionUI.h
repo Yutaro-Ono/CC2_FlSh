@@ -8,14 +8,14 @@ class MissionUI : public UIScreen
 
 public:
 
-	MissionUI(class MissionBase* in_mission);
+	MissionUI(class MissionBase* _mission);
 	~MissionUI();
 
-	void Update(float in_deltaTime) override;       // 更新処理
+	void Update(float _deltaTime) override;       // 更新処理
 
 	void UpdateMissionInfo();                       // ミッション情報の生成・更新処理
 
-	void Draw(class GLSLprogram* in_shader) override;    // 描画処理
+	void Draw(GLSLprogram* _shader) override;    // 描画処理
 
 	void SetUIPosition();
 

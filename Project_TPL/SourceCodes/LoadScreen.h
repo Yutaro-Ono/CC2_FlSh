@@ -1,7 +1,5 @@
 #pragma once
 #include "UIScreen.h"
-#include "GameMain.h"
-#include "Renderer.h"
 
 class LoadScreen : public UIScreen
 {
@@ -23,15 +21,15 @@ public:
 
 	void Update(float _deltaTime) override;          // 更新処理
 
-	void Draw(class GLSLprogram* _shader) override;                // 描画処理
+	void Draw(GLSLprogram* _shader) override;                // 描画処理
 
 
 	// ロード画面の表示、非表示
-	void EnableScreen() { m_state = LOAD_STATE::ENABLE; RENDERER->Draw(); }
-	void DisableScreen() { Sleep(150); m_state = LOAD_STATE::DISABLE; }
+	void EnableScreen();
+	void DisableScreen();
 
 	// ロード画面上で操作説明をする場合にフラグをオンにする
-	void SetIsGame() { m_isGame = true; RENDERER->Draw();}
+	void SetIsGame();
 
 	void AddGauge();
 

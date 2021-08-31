@@ -7,8 +7,8 @@
 #include <sstream>
 
 // コンストラクタ
-MissionUI::MissionUI(MissionBase* in_mission)
-	:m_mission(in_mission)
+MissionUI::MissionUI(MissionBase* _mission)
+	:m_mission(_mission)
 	,m_uiPos(Vector2::Zero)
 	,m_windowTex(nullptr)
 	,m_generalWindow(nullptr)
@@ -85,7 +85,7 @@ MissionUI::~MissionUI()
 }
 
 // 更新処理
-void MissionUI::Update(float in_deltaTime)
+void MissionUI::Update(float _deltaTime)
 {
 
 
@@ -189,7 +189,7 @@ void MissionUI::UpdateMissionInfo()
 }
 
 // 描画処理
-void MissionUI::Draw(GLSLprogram* in_shader)
+void MissionUI::Draw(GLSLprogram* _shader)
 {
 	glEnable(GL_BLEND);
 	// 画像スケール
@@ -229,7 +229,7 @@ void MissionUI::Draw(GLSLprogram* in_shader)
 	// 背景ウィンドウ描画
 	if (m_windowTex != nullptr)
 	{
-		DrawTexture(in_shader, m_windowTex, adjustPos, scale);
+		DrawTexture(_shader, m_windowTex, adjustPos, scale);
 	}
 
 
@@ -241,7 +241,7 @@ void MissionUI::Draw(GLSLprogram* in_shader)
 		// 制限時間の描画
 		if (m_timeTex[i] != nullptr)
 		{
-			DrawTexture(in_shader, m_timeTex[i], adjustPos + Vector2(m_windowTex->GetWidth() / 3 + m_timeTex[i]->GetHalfWidth(), -5.0f * i) * scale, 1.0f);
+			DrawTexture(_shader, m_timeTex[i], adjustPos + Vector2(m_windowTex->GetWidth() / 3 + m_timeTex[i]->GetHalfWidth(), -5.0f * i) * scale, 1.0f);
 		}
 
 		// 耐久値の描画
@@ -256,29 +256,29 @@ void MissionUI::Draw(GLSLprogram* in_shader)
 		// 距離の描画
 		if (m_distanceTex[i] != nullptr)
 		{
-			DrawTexture(in_shader, m_distanceTex[i], adjustPos - Vector2(m_windowTex->GetWidth() / 2 + m_distanceTex[i]->GetWidth(), m_distanceTex[i]->GetWidth() / 3 + -5.0f * i) * scale, 1.0f);
+			DrawTexture(_shader, m_distanceTex[i], adjustPos - Vector2(m_windowTex->GetWidth() / 2 + m_distanceTex[i]->GetWidth(), m_distanceTex[i]->GetWidth() / 3 + -5.0f * i) * scale, 1.0f);
 		}
 
 		// スコアの描画
 		if (m_scoreTex[i] != nullptr)
 		{
-			DrawTexture(in_shader, m_scoreTex[i], adjustPos - Vector2(m_windowTex->GetHalfWidth() / 2, -5.0f * i) * scale, 1.0f);
+			DrawTexture(_shader, m_scoreTex[i], adjustPos - Vector2(m_windowTex->GetHalfWidth() / 2, -5.0f * i) * scale, 1.0f);
 		}
 
 		// ミッションID描画
-		DrawTexture(in_shader, m_missionID[i], adjustPos + Vector2(-m_windowTex->GetHalfWidth() + m_missionID[i]->GetHalfWidth() * 4, -5.0f * i) * scale, 1.0f);
+		DrawTexture(_shader, m_missionID[i], adjustPos + Vector2(-m_windowTex->GetHalfWidth() + m_missionID[i]->GetHalfWidth() * 4, -5.0f * i) * scale, 1.0f);
 	}
 
 	// このミッションが選択されている時のみ、選択ポイントを描画
 	if (m_mission->GetMissionManager()->GetSelectedMission() == m_mission->GetListNum())
 	{
-		DrawTexture(in_shader, m_pointTex, adjustPos + Vector2(-m_windowTex->GetHalfWidth() * 1.1, m_pointTex->GetHeight() * 0.04f) * scale, 0.04f);
+		DrawTexture(_shader, m_pointTex, adjustPos + Vector2(-m_windowTex->GetHalfWidth() * 1.1, m_pointTex->GetHeight() * 0.04f) * scale, 0.04f);
 	}
 
 	// 「配達依頼」
 	if (m_mission->GetListNum() == 1)
 	{
-		DrawTexture(in_shader, m_generalWindow, m_uiPos + Vector2(0.0f, -m_windowTex->GetHalfHeight() / 3 * (m_mission->GetListNum() + 1)) * scale + Vector2(-m_generalWindow->GetHalfWidth(), m_generalWindow->GetHeight() * 2.0 * 0.275f) * 0.3f, 0.3f);
+		DrawTexture(_shader, m_generalWindow, m_uiPos + Vector2(0.0f, -m_windowTex->GetHalfHeight() / 3 * (m_mission->GetListNum() + 1)) * scale + Vector2(-m_generalWindow->GetHalfWidth(), m_generalWindow->GetHeight() * 2.0 * 0.275f) * 0.3f, 0.3f);
 	}
 	
 

@@ -19,7 +19,18 @@ public:
 	CanvasGameScene(class WorldGameScene* _world);
 	~CanvasGameScene();
 
+	bool Load() override;
+
 	void Update(float _deltaTime) override;
 
+	class WorldGameScene* GetWorld() { return m_gameWorld; }
+
+	class ScoreUI* GetScoreUI() { return m_scoreUI; }
+
+private:
+
+	class WorldGameScene* m_gameWorld;
+
+	class ScoreUI* m_scoreUI;
 
 };

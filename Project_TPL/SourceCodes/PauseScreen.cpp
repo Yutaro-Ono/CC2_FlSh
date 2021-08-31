@@ -1,9 +1,7 @@
 #include "PauseScreen.h"
 #include "GameMain.h"
-#include "Renderer.h"
 #include "Texture.h"
 #include "Font.h"
-#include "GLSLprogram.h"
 
 // コンストラクタ
 PauseScreen::PauseScreen()

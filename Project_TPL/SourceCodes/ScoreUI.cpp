@@ -10,14 +10,14 @@
 #include "Texture.h"
 #include "Font.h"
 #include "RuleScore.h"
-#include "Canvas.h"
-#include "GameWorld.h"
+#include "CanvasGameScene.h"
+#include "WorldGameScene.h"
 #include <string>
 #include <sstream>
 
 
 // コンストラクタ
-ScoreUI::ScoreUI(Canvas* in_canvas)
+ScoreUI::ScoreUI(CanvasGameScene* in_canvas)
 	:m_canvas(in_canvas)
 	,m_scoreTexPos(0.0f, 0.0f)
 	,m_fontSize(64)
@@ -128,14 +128,14 @@ void ScoreUI::Update(float in_deltaTime)
 
 
 // 描画処理
-void ScoreUI::Draw(GLSLprogram * in_shader)
+void ScoreUI::Draw(GLSLprogram * _shader)
 {
 
 	// スコアの描画 (0 = 影, 1 = 本体)
 	for (int i = 0; i < 2; i++)
 	{
 		// 現在のスコア
-		DrawTexture(in_shader, m_scoreTex[i], m_scoreTexPos + Vector2(3.0f, 3.0f) * i, 1.0f);
+		DrawTexture(_shader, m_scoreTex[i], m_scoreTexPos + Vector2(3.0f, 3.0f) * i, 1.0f);
 	}
 
 	// 加算分スコアの描画 (加算処理時のみ)
@@ -144,7 +144,7 @@ void ScoreUI::Draw(GLSLprogram * in_shader)
 		for (int i = 0; i < 2; i++)
 		{
 			// 現在のスコア
-			DrawTexture(in_shader, m_addScoreTex[i], m_addScoreTexPos + Vector2(3.0f, 3.0f) * i, 1.0f);
+			DrawTexture(_shader, m_addScoreTex[i], m_addScoreTexPos + Vector2(3.0f, 3.0f) * i, 1.0f);
 		}
 	}
 	// 減算分のスコア
@@ -153,7 +153,7 @@ void ScoreUI::Draw(GLSLprogram * in_shader)
 		for (int i = 0; i < 2; i++)
 		{
 			// 現在のスコア
-			DrawTexture(in_shader, m_subScoreTex[i], m_subScoreTexPos + Vector2(3.0f, 3.0f) * i, 1.0f);
+			DrawTexture(_shader, m_subScoreTex[i], m_subScoreTexPos + Vector2(3.0f, 3.0f) * i, 1.0f);
 		}
 	}
 }

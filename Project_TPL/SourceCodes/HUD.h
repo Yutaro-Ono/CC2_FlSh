@@ -14,12 +14,12 @@ class HUD : public UIScreen
 
 public:
 
-	HUD(class GameWorld* in_world);
+	HUD(class WorldGameScene* _world);
 	~HUD();
 
-	void Update(float in_deltaTime) override;
+	void Update(float _deltaTime) override;
 
-	void Draw(class GLSLprogram* in_shader) override;
+	void Draw(GLSLprogram* _shader) override;
 
 
 
@@ -33,7 +33,7 @@ private:
 
 	class Texture* m_impactTexture[2];                       // 集中線
 
-	class GameWorld* m_world;                         // ワールドへのポインタ
+	class WorldGameScene* m_world;                         // ワールドへのポインタ
 
 	std::vector<class Texture*> m_flameGauge;
 

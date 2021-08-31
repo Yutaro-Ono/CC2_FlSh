@@ -14,8 +14,8 @@
 
 
 // コンストラクタ
-SpeedMeterUI::SpeedMeterUI(Player * in_target)
-	:m_player(in_target)
+SpeedMeterUI::SpeedMeterUI(Player * _target)
+	:m_player(_target)
 	,m_fontSize(68)
 	,m_currentSpeedRate(0)
 {
@@ -57,7 +57,7 @@ SpeedMeterUI::~SpeedMeterUI()
 }
 
 // 更新処理
-void SpeedMeterUI::Update(float in_deltaTime)
+void SpeedMeterUI::Update(float _deltaTime)
 {
 
 
@@ -86,7 +86,7 @@ void SpeedMeterUI::Update(float in_deltaTime)
 }
 
 // 描画処理
-void SpeedMeterUI::Draw(GLSLprogram * in_shader)
+void SpeedMeterUI::Draw(GLSLprogram * _shader)
 {
 	// スピード数値の描画
 	// DrawTexture(in_shader, m_speedTex, m_speedTexPos, 1.0f);

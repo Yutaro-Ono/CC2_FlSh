@@ -10,14 +10,14 @@
 #include "Texture.h"
 #include "Font.h"
 #include "Shader.h"
-#include "GameWorld.h"
+#include "WorldGameScene.h"
 #include "PlayerManager.h"
 #include "Helicopter.h"
 #include <sstream>
 
 // コンストラクタ
-HUD::HUD(class GameWorld* in_world)
-	:m_world(in_world)
+HUD::HUD(WorldGameScene* _world)
+	:m_world(_world)
 	,m_dangerCall(nullptr)
 	,m_isImpact(false)
 	,m_dispAccel(0.0f)
@@ -49,7 +49,7 @@ HUD::~HUD()
 
 }
 
-void HUD::Update(float in_deltaTime)
+void HUD::Update(float _deltaTime)
 {
 
 	// プレイヤーの速度が100km/h以上なら集中線を表示
@@ -65,7 +65,7 @@ void HUD::Update(float in_deltaTime)
 }
 
 // 描画処理
-void HUD::Draw(GLSLprogram * in_shader)
+void HUD::Draw(GLSLprogram * _shader)
 {
 
 	// ヘリに見つかった時にDANGER表示
@@ -79,7 +79,7 @@ void HUD::Draw(GLSLprogram * in_shader)
 	if (m_dangerCall && found)
 	{
 		// 描画
-		DrawTexture(in_shader, m_dangerCall);
+		DrawTexture(_shader, m_dangerCall);
 	}
 
 	// 集中線の描画
@@ -98,7 +98,7 @@ void HUD::Draw(GLSLprogram * in_shader)
 		}
 
 		// 描画
-		DrawTexture(in_shader, m_impactTexture[pic], Vector2::Zero, 1.0f);
+		DrawTexture(_shader, m_impactTexture[pic], Vector2::Zero, 1.0f);
 	}
 
 }

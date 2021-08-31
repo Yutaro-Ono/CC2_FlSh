@@ -6,6 +6,7 @@
 //-----------------------------------------------------------------------+
 #pragma once
 #include "Math.h"
+#include "GLSLprogram.h"
 #include <cstdint>
 #include <string>
 #include <functional>
@@ -21,7 +22,7 @@ public:
 	virtual ~UIScreen();                                       // デストラクタ
 
 	virtual void Update(float _deltaTime) = 0;                   // 更新処理
-	virtual void Draw(class GLSLprogram* _shader) = 0;       // 描画処理
+	virtual void Draw(GLSLprogram* _shader) = 0;       // 描画処理
 	virtual void ProcessInput();
 	virtual void HandleKeyPress(int _key);
 	
@@ -45,7 +46,7 @@ public:
 protected:
 
 	
-	void DrawTexture(class GLSLprogram* _shader, class Texture* _texture,
+	void DrawTexture(GLSLprogram* _shader, class Texture* _texture,
 		const Vector2& _offset = Vector2::Zero,
 		float _scale = 1.0f);
 	

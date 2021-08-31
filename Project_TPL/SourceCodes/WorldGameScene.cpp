@@ -11,7 +11,7 @@
 #include "PlayerManager.h"
 #include "MissionManager.h"
 #include "Helicopter.h"
-#include "Canvas.h"
+#include "CanvasGameScene.h"
 #include "PlayerControlUI.h"
 #include "PointLight.h"
 #include "LandMarkIndicator.h"
@@ -52,7 +52,7 @@ WorldGameScene::WorldGameScene()
 	}
 
 	// UI¶¬
-	m_canvas = new Canvas(this);
+	m_canvas = new CanvasGameScene(this);
 
 	// ƒ}ƒbƒvHUD¶¬
 	m_mapHUD = new MiniMapHUD(m_player);
@@ -76,6 +76,11 @@ WorldGameScene::~WorldGameScene()
 	delete m_environment;
 }
 
+bool WorldGameScene::Load()
+{
+	return false;
+}
+
 void WorldGameScene::Update(float in_deltaTime)
 {
 
@@ -95,13 +100,13 @@ void WorldGameScene::Update(float in_deltaTime)
 	{
 		if (heli->GetFoundPlayer())
 		{
-			m_canvas->GetPlayerControlUI()->SetFindPlayer(true);
+			//m_canvas->GetPlayerControlUI()->SetFindPlayer(true);
 			m_foundPlayer = true;
 			break;
 		}
 		else
 		{
-			m_canvas->GetPlayerControlUI()->SetFindPlayer(false);
+			//m_canvas->GetPlayerControlUI()->SetFindPlayer(false);
 			m_foundPlayer = false;
 		}
 	}

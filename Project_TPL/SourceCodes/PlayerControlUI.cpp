@@ -5,15 +5,15 @@
 #include "GameMain.h"
 #include "Renderer.h"
 #include "WorldSpaceUI.h"
-#include "GameWorld.h"
+#include "WorldGameScene.h"
 #include "ClientActor.h"
 
 const Vector3 ADJUST_RIDETEX_POS(-20.0f, 0.0f, 70.0f);     // 乗車UIの位置調整用
 const Vector2 ADJUST_ACCESSTEX_POS(30.0f, 0.0f);    // 受注UIの位置調整用
 
 // コンストラクタ
-PlayerControlUI::PlayerControlUI(GameWorld* in_world)
-	:m_world(in_world)
+PlayerControlUI::PlayerControlUI(WorldGameScene* _world)
+	:m_world(_world)
 	,m_rideTexture(nullptr)
 	,m_chasing(nullptr)
 	,m_accessTex(nullptr)
@@ -64,24 +64,24 @@ void PlayerControlUI::Update(float in_deltaTime)
 }
 
 // 描画処理
-void PlayerControlUI::Draw(GLSLprogram* in_shader)
+void PlayerControlUI::Draw(GLSLprogram* _shader)
 {
 	float scale = 0.3f;
 
 	if (m_player->GetIsDetectedClient())
 	{
-		DrawTexture(in_shader, m_accessTex, m_accessTexPos + ADJUST_ACCESSTEX_POS, scale);
+		DrawTexture(_shader, m_accessTex, m_accessTexPos + ADJUST_ACCESSTEX_POS, scale);
 	}
 
 	if (m_findPlayer)
 	{
-		DrawTexture(in_shader, m_dangerFontTex, Vector2(0.0f, GAME_CONFIG->GetScreenHeight() / 2.5), 0.8);
+		DrawTexture(_shader, m_dangerFontTex, Vector2(0.0f, GAME_CONFIG->GetScreenHeight() / 2.5), 0.8);
 	}
 
 	// 車乗車時に操作パネルを表示する
 	if (m_player->GetPlayerMode() == PlayerManager::MODE_CAR)
 	{
-		DrawTexture(in_shader, m_controlPanel, Vector2(-GAME_CONFIG->GetScreenWidth() / 2 + m_controlPanel->GetWidth(), 0.0f), 0.6f);
+		DrawTexture(_shader, m_controlPanel, Vector2(-GAME_CONFIG->GetScreenWidth() / 2 + m_controlPanel->GetWidth(), 0.0f), 0.6f);
 	}
 
 
@@ -103,17 +103,17 @@ void PlayerControlUI::Draw(GLSLprogram* in_shader)
 		// 目標表示用のテクスチャ
 		if (task)
 		{
-			DrawTexture(in_shader, m_land2, Vector2(0.0f, GAME_CONFIG->GetScreenHeight() / 3.0f), 0.6f);
+			DrawTexture(_shader, m_land2, Vector2(0.0f, GAME_CONFIG->GetScreenHeight() / 3.0f), 0.6f);
 		}
 		else
 		{
-			DrawTexture(in_shader, m_land1, Vector2(0.0f, GAME_CONFIG->GetScreenHeight() / 3.0f), 0.6f);
+			DrawTexture(_shader, m_land1, Vector2(0.0f, GAME_CONFIG->GetScreenHeight() / 3.0f), 0.6f);
 		}
 	}
 
 
 	
 	// ミッション選択のチュートリアル
-	DrawTexture(in_shader, m_selectMission, Vector2(GAME_CONFIG->GetScreenWidth() / 2.0f - m_selectMission->GetHalfWidth() * 1.62f, -m_selectMission->GetHalfHeight() * 0.2f), 0.35f);
+	DrawTexture(_shader, m_selectMission, Vector2(GAME_CONFIG->GetScreenWidth() / 2.0f - m_selectMission->GetHalfWidth() * 1.62f, -m_selectMission->GetHalfHeight() * 0.2f), 0.35f);
 
 }

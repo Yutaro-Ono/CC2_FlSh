@@ -34,27 +34,27 @@ TutorialUI::~TutorialUI()
 
 
 // 更新処理
-void TutorialUI::Update(float in_deltaTime)
+void TutorialUI::Update(float _deltaTime)
 {
 	// 処理なし
 }
 
 
 // 描画処理
-void TutorialUI::Draw(GLSLprogram * in_shader)
+void TutorialUI::Draw(GLSLprogram * _shader)
 {
 
 	// コントローラ接続時とそうでない時とで描画を変える
 	if (m_controllerTex && CONTROLLER_INSTANCE.IsAvailable() == true)
 	{
-		DrawTexture(in_shader, m_controllerTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.7f), 0.75f);
+		DrawTexture(_shader, m_controllerTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.7f), 0.75f);
 	}
 	else if (m_keyboardTex)
 	{
-		DrawTexture(in_shader, m_keyboardTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.7f), 0.75f);
+		DrawTexture(_shader, m_keyboardTex, Vector2(0.0f, -RENDERER->GetScreenHeight() / 2.7f), 0.75f);
 	}
 
 	// 目標の表示
-	DrawTexture(in_shader, m_taskTex, Vector2(-RENDERER->GetScreenWidth() / 2.7f, RENDERER->GetScreenHeight() / 2.3f), 0.75f);
+	DrawTexture(_shader, m_taskTex, Vector2(-RENDERER->GetScreenWidth() / 2.7f, RENDERER->GetScreenHeight() / 2.3f), 0.75f);
 
 }

@@ -131,7 +131,7 @@ void MissionManager::Update(float in_deltaTime)
 		if ((*mission)->GetMissionState() == MissionBase::FAILED || (*mission)->GetMissionState() == MissionBase::SUCCESS)
 		{
 			// スコアUIにスコアをセット
-			m_world->GetCanvas()->GetScoreUI()->SetAddScore((*mission)->GetCalcScore());
+			//m_world->GetCanvas()->GetScoreUI()->SetAddScore((*mission)->GetCalcScore());
 			// 依頼人を非セレクト状態に
 			auto itr = std::find(m_world->GetClients().begin(), m_world->GetClients().end(), (*mission)->GetStartActor());
 			(*itr)->SetIsSelected(false);

@@ -3,7 +3,6 @@
 #include "Font.h"
 #include "GameMain.h"
 #include "AudioManager.h"
-#include "GLSLprogram.h"
 #include <Windows.h>
 #include <sstream>
 
@@ -94,6 +93,24 @@ void LoadScreen::Draw(GLSLprogram * _shader)
 
 }
 
+void LoadScreen::EnableScreen()
+{
+	m_state = LOAD_STATE::ENABLE;
+	RENDERER->Draw();
+}
+
+void LoadScreen::DisableScreen()
+{
+	Sleep(150);
+	m_state = LOAD_STATE::DISABLE;
+}
+
+
+void LoadScreen::SetIsGame()
+{
+	m_isGame = true;
+	RENDERER->Draw();
+}
 
 void LoadScreen::AddGauge()
 {

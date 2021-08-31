@@ -50,7 +50,7 @@ private:
 
 	int m_stageNum;                                           // ステージ番号
 
-	class GameWorld* m_world;                                 // ゲームワールドクラス
+	class WorldGameScene* m_world;                                 // ゲームワールドクラス
 
 	class RuleTime* m_time;
 	class RuleScore* m_score;                                 // スコア

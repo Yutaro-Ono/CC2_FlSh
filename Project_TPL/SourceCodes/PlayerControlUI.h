@@ -11,12 +11,12 @@ class PlayerControlUI : public UIScreen
 {
 public:
 
-	PlayerControlUI(class GameWorld* in_world);
+	PlayerControlUI(class WorldGameScene* _world);
 	~PlayerControlUI();
 
 	void Update(float in_deltaTime) override;
 
-	void Draw(class GLSLprogram* in_shader) override;
+	void Draw(GLSLprogram* _shader) override;
 
 	void SetFindPlayer(bool in_find) { m_findPlayer = in_find; }
 
@@ -27,7 +27,7 @@ private:
 
 	class PlayerManager* m_player;             // プレイヤーへのポインタ
 
-	class GameWorld* m_world;                  // ワールドへのポインタ
+	class WorldGameScene* m_world;                  // ワールドへのポインタ
 
 	class WorldSpaceUI* m_rideTexture;
 	

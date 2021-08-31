@@ -19,7 +19,7 @@ public:
 
 	void Update(float in_deltaTime) override;               // 更新処理
 
-	void Draw(class GLSLprogram* in_shader) override;            // 描画処理
+	void Draw(GLSLprogram* _shader) override;            // 描画処理
 
 	void SetTimeAdding() { m_isAdding = true; }             // ともし火取得時、時間が追加されたかどうかのセッター
 

@@ -25,9 +25,9 @@
 #include "Math.h"
 #include "PlayerCar.h"
 #include "PlayerManager.h"
-#include "GameWorld.h"
+#include "WorldGameScene.h"
 #include "TitleScene.h"
-#include "Canvas.h"
+#include "CanvasGameScene.h"
 #include "RenderBloom.h"
 #include <Windows.h>
 #include <iostream>
@@ -80,7 +80,7 @@ void GameScene::Initialize()
     // アクター
     //---------------------------------------------------------------------------------------------+
 	// ワールド生成
-	m_world = new GameWorld();
+	m_world = new WorldGameScene();
 
 	//---------------------------------------------------------------------------------------------+
     // 音楽
@@ -107,7 +107,7 @@ void GameScene::Initialize()
 SceneBase * GameScene::Update()
 {
 
-	m_world->Update(GAME_INSTANCE.GetDeltaTime());
+	m_world->UpdateWorld(GAME_INSTANCE.GetDeltaTime());
 
 	// シーンの状態により処理を分岐
 	switch (m_state)

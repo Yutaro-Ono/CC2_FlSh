@@ -14,20 +14,20 @@ class ResultScreen : public UIScreen
 
 public:
 
-	ResultScreen(class ResultScene* in_targetScene, int in_score, float in_bestSpeed);
+	ResultScreen(class ResultScene* _targetScene, int _score, float _bestSpeed);
 	~ResultScreen();
 
 
-	void Update(float in_deltaTime) override;
+	void Update(float _deltaTime) override;
 
-	void Draw(class GLSLprogram* in_shader) override;
+	void Draw(GLSLprogram* _shader) override;
 
 	int GetDispScore() { return m_dispScore; }
 
 
-	void SetRank(const int& in_rank) { m_rank = in_rank; }
+	void SetRank(const int& _rank) { m_rank = _rank; }
 
-	void SetScore(const int& in_num, const int& in_score);                    // ランキング情報のセッター
+	void SetScore(const int& _num, const int& _score);                    // ランキング情報のセッター
 
 
 private:

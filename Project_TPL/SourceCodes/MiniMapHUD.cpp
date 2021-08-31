@@ -2,7 +2,7 @@
 #include "GameMain.h"
 #include "Renderer.h"
 #include "GLSLprogram.h"
-#include "GameWorld.h"
+#include "WorldGameScene.h"
 #include "PlayerManager.h"
 #include "Texture.h"
 #include "MeshComponent.h"

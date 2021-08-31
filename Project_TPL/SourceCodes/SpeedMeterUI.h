@@ -13,12 +13,12 @@ class SpeedMeterUI : public UIScreen
 
 public:
 
-	SpeedMeterUI(class Player* in_target);
+	SpeedMeterUI(class Player* _target);
 	~SpeedMeterUI();
 
-	void Update(float in_deltaTime) override;
+	void Update(float _deltaTime) override;
 
-	void Draw(class GLSLprogram* in_shader) override;
+	void Draw(GLSLprogram* _shader) override;
 
 
 private:

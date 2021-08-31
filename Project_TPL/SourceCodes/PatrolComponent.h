@@ -17,16 +17,16 @@ public:
 	};
 
 
-	PatrolComponent(class Helicopter* in_owner, class GameWorld* in_world);
+	PatrolComponent(class Helicopter* _owner, class WorldGameScene* _world);
 	~PatrolComponent();
 
-	void Update(float in_deltaTime) override;      // 更新処理
+	void Update(float _deltaTime) override;      // 更新処理
 
-	void MoveToPatrolPos(float in_deltaTime);
+	void MoveToPatrolPos(float _deltaTime);
 
-	void ChasePlayer(float in_deltaTime);          // プレイヤー追跡
+	void ChasePlayer(float _deltaTime);          // プレイヤー追跡
 
-	void SetPatrolState(PatrolComponent::PATROL_STATE in_state) { m_patrolState = m_patrolState; }
+	void SetPatrolState(PatrolComponent::PATROL_STATE _state) { m_patrolState = _state; }
 
 private:
 
@@ -34,7 +34,7 @@ private:
 	PATROL_STATE m_patrolState;     // 巡回状態
 
 	class Helicopter* m_heli;
-	class GameWorld* m_world;
+	class WorldGameScene* m_world;
 	
 	class PatrolPoint* m_targetPoint;     // 巡回先のポイント
 	Vector3 m_targetPos;                  // 巡回地点の座標

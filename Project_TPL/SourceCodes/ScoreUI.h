@@ -13,12 +13,12 @@ class ScoreUI : public UIScreen
 
 public:
 
-	ScoreUI(class Canvas* in_canvas);                   // コンストラクタ
+	ScoreUI(class CanvasGameScene* _canvas);                   // コンストラクタ
 	~ScoreUI();                                          // デストラクタ
 
-	void Update(float in_deltaTime) override;            // 更新処理
+	void Update(float _deltaTime) override;            // 更新処理
 
-	void Draw(class GLSLprogram* in_shader) override;                  // 描画処理
+	void Draw(GLSLprogram* _shader) override;                  // 描画処理
 
 	//-------------------------------------------------+
 	// Setter/Getter
@@ -33,7 +33,7 @@ public:
 
 private:
 
-	class Canvas* m_canvas;
+	class CanvasGameScene* m_canvas;
 
 	class Texture* m_scoreTex[2];
 	class Texture* m_addScoreTex[2];
