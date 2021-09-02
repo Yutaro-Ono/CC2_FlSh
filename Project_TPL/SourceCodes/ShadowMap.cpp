@@ -85,6 +85,7 @@ void ShadowMap::RenderDepthMapFromLightView(const std::vector<class MeshComponen
 	m_lightView = Matrix4::CreateLookAt(RENDERER->GetDirectionalLight()->GetPosition(), RENDERER->GetDirectionalLight()->GetTargetPos(), Vector3::UnitZ);
 	m_lightSpace = m_lightView * m_lightProj;
 
+
 	// シャドウマップはレンダリング時の解像度とは異なり、シャドウマップのサイズに合わせてViewportパラメータを変更する必要がある
 	// そのためglViewportを呼び出す。
 	glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);

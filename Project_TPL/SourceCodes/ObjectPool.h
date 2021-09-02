@@ -57,15 +57,20 @@ inline void ObjectPool<T>::Delete()
 	while (!m_objPool.empty())
 	{
 		delete m_objPool.back();
-		m_objPool.pop_back();
 	}
 
 	// オブジェクトプール(unordered_map)解放処理
-	for (auto itr : m_keyObjPool)
+	if (!m_keyObjPool.empty())
 	{
-		printf("RELEASE::Object Key = %s\n", itr.first.c_str());
-		delete itr.second;
+		for (auto itr : m_keyObjPool)
+		{
+			printf("RELEASE::Object Key = %s\n", itr.first.c_str());
+			delete itr.second;
+		}
 	}
+
+
+	m_objPool.clear();
 	m_keyObjPool.clear();
 }
 

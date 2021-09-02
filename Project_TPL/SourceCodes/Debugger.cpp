@@ -37,7 +37,6 @@ Debugger::Debugger(DebugStyle _debugStyle)
 /// </summary>
 Debugger::~Debugger()
 {
-	Delete();
 }
 
 /// <summary>

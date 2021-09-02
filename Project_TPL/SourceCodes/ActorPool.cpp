@@ -15,7 +15,6 @@ ActorPool::ActorPool()
 
 ActorPool::~ActorPool()
 {
-	Delete();
 }
 
 void ActorPool::UpdateObjects(float _deltaTime)
