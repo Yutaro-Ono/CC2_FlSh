@@ -20,7 +20,7 @@ TitleCar::TitleCar()
 	m_body = new TitleCarBody(this);
 	m_door[0] = new TitleCarDoor(this, TitleCarDoor::DOOR_POS::LEFT);
 	m_door[1] = new TitleCarDoor(this, TitleCarDoor::DOOR_POS::RIGHT);
-	m_handle = new TitleCarHandle(this, "Data/Meshes/TND/Actors/Car/Player/Handle/SM_suv_steering_wheel_lod0_Internal.OBJ");
+	m_handle = new TitleCarHandle(this, "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Handle/SM_suv_steering_wheel_lod0_Internal.OBJ");
 	// É^ÉCÉÑ
 	m_wheel[0] = new TitleCarWheel(this, TitleCarWheel::WHEEL_POSITION::FRONT_LEFT);
 	m_wheel[1] = new TitleCarWheel(this, TitleCarWheel::WHEEL_POSITION::FRONT_RIGHT);

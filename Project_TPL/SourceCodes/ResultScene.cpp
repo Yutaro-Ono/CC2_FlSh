@@ -70,9 +70,9 @@ void ResultScene::Initialize()
 	}
 
 	// ‰¹Šy
-	m_sound["BGM"] = "Data/Music/BGM/TND/Result/cyrf_lu_metropolis.wav";
-	m_sound["Enter"] = "Data/Music/SE/TND/System/Enter/decide13.wav";
-	m_sound["Select"] = "Data/Music/SE/TND/System/Select/decide14.wav";
+	m_sound["BGM"] = "Data/Music/BGM/ResultScene/cyrf_lu_metropolis.wav";
+	m_sound["Enter"] = "Data/Music/SE/System/Enter/decide13.wav";
+	m_sound["Select"] = "Data/Music/SE/System/Select/decide14.wav";
 	AUDIO->GetMusic(m_sound["BGM"]);
 	AUDIO->GetSound(m_sound["Enter"]);
 	AUDIO->GetSound(m_sound["Select"]);

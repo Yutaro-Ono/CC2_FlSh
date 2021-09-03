@@ -17,7 +17,7 @@ PointLightComponent::PointLightComponent(PointLight* _light)
 	SetLightParam(m_light->GetLightVolume());
 
 	// メッシュのロード
-	m_mesh = RENDERER->GetMesh("Data/Meshes/TND/Light/PointLight/PointLight_Sphere.OBJ");
+	m_mesh = RENDERER->GetMesh("Data/Meshes/Objects/Environment/Lighting/PointLight/PointLight_Sphere.OBJ");
 	
 }
 

@@ -5,8 +5,8 @@
 // ‰ñ“]’l
 static float spin = 0.0f;
 
-const std::string CarWheel::CAR_WHEEL_RUBBER_MESH_PATH = "Data/Meshes/TND/Actors/Car/Player/Wheel/WheelRubber_Internal.OBJ";
-const std::string CarWheel::CAR_WHEEL_STEEL_MESH_PATH = "Data/Meshes/TND/Actors/Car/Player/Wheel/WheelSteel_Internal.OBJ";
+const std::string CarWheel::CAR_WHEEL_RUBBER_MESH_PATH = "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Wheel/WheelRubber_Internal.OBJ";
+const std::string CarWheel::CAR_WHEEL_STEEL_MESH_PATH = "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Wheel/WheelSteel_Internal.OBJ";
 
 
 CarWheel::CarWheel(PlayerCar* in_owner, WHEEL_POSITION in_enumPos)

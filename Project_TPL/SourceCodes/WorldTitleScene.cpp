@@ -38,7 +38,7 @@ bool WorldTitleScene::Load()
 	// 橋オブジェクトの生成
 	for (int i = 0; i < 8; i++)
 	{
-		BridgeObject* bridge = new BridgeObject(1, Vector3(i * 6515.0f, -2000.0f, 0.0f));
+		//BridgeObject* bridge = new BridgeObject(1, Vector3(i * 6515.0f, -2000.0f, 0.0f));
 
 		GAME_INSTANCE.GetLoadScreen()->AddGauge();
 	}

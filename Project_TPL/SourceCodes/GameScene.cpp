@@ -85,7 +85,7 @@ void GameScene::Initialize()
 	//---------------------------------------------------------------------------------------------+
     // ‰¹Šy
     //---------------------------------------------------------------------------------------------+
-	m_sound["BGM"] = "Data/Music/BGM/TND/Game/cyrf_cloudbase (mp3cut.net).wav";
+	m_sound["BGM"] = "Data/Music/BGM/TND/GameScene/cyrf_cloudbase (mp3cut.net).wav";
 	AUDIO->GetMusic(m_sound["BGM"]);
 
 	// ƒ[ƒh‰æ–Ê‚Ì–³Œø‰»

@@ -143,22 +143,22 @@ void CarSoundComponent::PlayCrushHard()
 void CarSoundComponent::LoadSound()
 {
 	// エンジン開始音
-	m_sound["ENGINE_START"] = "Data/Music/SE/TND/Car/SUV/start_SUV.WAV";
+	m_sound["ENGINE_START"] = "Data/Music/SE/Actors/Vehicles/Cars/SUV/start_SUV.WAV";
 	AUDIO->GetSound(m_sound["ENGINE_START"]);
 	// 走行エンジン音(SLOW)
-	m_sound["ENGINE_SLOW"] = "Data/Music/SE/TND/Car/SUV/SUVLowEngine.WAV";
+	m_sound["ENGINE_SLOW"] = "Data/Music/SE/Actors/Vehicles/Cars/SUV/SUVLowEngine.WAV";
 	AUDIO->GetSound(m_sound["ENGINE_SLOW"]);
 	// 走行エンジン音 (NORMAL)
-	m_sound["ENGINE_NORMAL"] = "Data/Music/SE/TND/Car/SUV/SUVNormalEngine1.WAV";
+	m_sound["ENGINE_NORMAL"] = "Data/Music/SE/Actors/Vehicles/Cars/SUV/SUVNormalEngine1.WAV";
 	AUDIO->GetSound(m_sound["ENGINE_NORMAL"]);
 	// 走行エンジン音 (FAST)
-	m_sound["ENGINE_FAST"] = "Data/Music/SE/TND/Car/SUV/SUVFastEngine1.WAV";
+	m_sound["ENGINE_FAST"] = "Data/Music/SE/Actors/Vehicles/Cars/SUV/SUVFastEngine1.WAV";
 	AUDIO->GetSound(m_sound["ENGINE_FAST"]);
 
 	// クラッシュ(衝突)時の効果音
-	m_sound["CRUSH_MEDIUM"] = "Data/Music/SE/TND/Car/crush/medium1.WAV";
+	m_sound["CRUSH_MEDIUM"] = "Data/Music/SE/Actors/Vehicles/Cars/crush/medium1.WAV";
 	AUDIO->GetSound(m_sound["CRUSH_MEDIUM"]);
-	m_sound["CRUSH_HARD"] = "Data/Music/SE/TND/Car/crush/high2.WAV";
+	m_sound["CRUSH_HARD"] = "Data/Music/SE/Actors/Vehicles/Cars/crush/high2.WAV";
 	AUDIO->GetSound(m_sound["CRUSH_HARD"]);
 
 }

@@ -8,11 +8,11 @@
 #include "CarMeshComponent.h"
 #include "LightGlassComponent.h"
 // メッシュパス
-const std::string TitleCarBody::CAR_BODY_MESH_PATH = "Data/Meshes/TND/Actors/Car/Player/Body/OnlyFrame/BodyOnlyFrameLessMirror_Internal.OBJ";
-const std::string TitleCarBody::CAR_GLASS_MESH_PATH = "Data/Meshes/TND/Actors/Car/Player/Body/Glass/Glass/BodyGlass.OBJ";
-const std::string TitleCarBody::CAR_FRONTLIGHT_MESH_PATH = "Data/Meshes/TND/Actors/Car/Player/Body/Glass/FrontLight/FrontLight_Internal.OBJ";
-const std::string TitleCarBody::CAR_BACKLIGHT_MESH_PATH = "Data/Meshes/TND/Actors/Car/Player/Body/Glass/BackLight/BackLight_Internal.OBJ";
-const std::string TitleCarBody::CAR_INTERIOR_MESH_PATH = "Data/Meshes/TND/Actors/Car/Player/Body/Interior/InteriorGlassLess_Internal.OBJ";
+const std::string TitleCarBody::CAR_BODY_MESH_PATH =       "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Body/OnlyFrame/BodyOnlyFrameLessMirror_Internal.OBJ";
+const std::string TitleCarBody::CAR_GLASS_MESH_PATH =      "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Body/Glass/Glass/BodyGlass.OBJ";
+const std::string TitleCarBody::CAR_FRONTLIGHT_MESH_PATH = "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Body/Glass/FrontLight/FrontLight_Internal.OBJ";
+const std::string TitleCarBody::CAR_BACKLIGHT_MESH_PATH =  "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Body/Glass/BackLight/BackLight_Internal.OBJ";
+const std::string TitleCarBody::CAR_INTERIOR_MESH_PATH =   "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Body/Interior/InteriorGlassLess_Internal.OBJ";
 
 // コンストラクタ
 TitleCarBody::TitleCarBody(Actor* in_owner)

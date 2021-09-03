@@ -34,10 +34,10 @@ PlayerHuman::PlayerHuman(class PlayerManager* in_manager)
 	m_moveComp = new MoveComponentHuman(this);
 	
 	// スケルタルメッシュのロード
-	Mesh* mesh = RENDERER->GetMesh("Data/Meshes/TND/Actors/Player/rp_nathan_rigged_003_ue4.gpmesh");
+	Mesh* mesh = RENDERER->GetMesh("Data/Meshes/Actors/HumanRace/Player/rp_nathan_rigged_003_ue4.gpmesh");
 	m_skelMeshComp = new SkeletalMeshComponent(this);
 	m_skelMeshComp->SetMesh(mesh);
-	m_skelMeshComp->SetSkeleton(RENDERER->GetSkeleton("Data/Meshes/TND/Actors/Player/rp_nathan_rigged_003_ue4.gpskel"));
+	m_skelMeshComp->SetSkeleton(RENDERER->GetSkeleton("Data/Meshes/Actors/HumanRace/Player/rp_nathan_rigged_003_ue4.gpskel"));
 
 	// フェイスライト
 	m_faceLight = new PointLight(PointLight::VL_SMALL);

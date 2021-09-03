@@ -58,6 +58,9 @@ uniform samplerCube u_skybox;     // サンプリング用キューブマップ
 
 uniform float u_specPower;
 
+uniform float u_luminance = 0.25f;
+
+
 // シャドウの計算
 float ShadowCalculation(vec4 fragPosLightSpace)
 {
@@ -124,7 +127,8 @@ void main()
 	out_gNormal = fs_in.fragNormal;
 	// シャドウの逆数を取り、0 = 影の時にディフューズとスペキュラの値がキャンセルされる(影となる)
 	//out_gAlbedoSpec = vec4((ambient + (0.8f - shadow)) * (Diffuse + Specular + envMap), Specular.r);
-	out_gAlbedoSpec = vec4((Diffuse + ((ambient + Specular) * (0.8f - shadow)) + envMap), Specular.r);
+	out_gAlbedoSpec = vec4(((ambient + envMap) * (Diffuse + Specular)) * u_luminance, Specular.r);
+	//out_gAlbedoSpec = vec4((Diffuse + ((ambient + Specular) * (0.8f - shadow)) + envMap), Specular.r);
 
 	if(u_enableBloom == 1)
 	{

@@ -17,7 +17,7 @@ SpotLightComponent::SpotLightComponent(SpotLight* in_light)
 	SetLightParam(m_light->GetLightVolume());
 
 	// メッシュのロード
-	m_cornMesh = RENDERER->GetMesh("Data/Meshes/TND/Light/SpotLight/SpotLight_Corn_Forward.OBJ");
+	m_cornMesh = RENDERER->GetMesh("Data/Meshes/Objects/Environment/Lighting/SpotLight/SpotLight_Corn_Forward.OBJ");
 }
 
 SpotLightComponent::~SpotLightComponent()

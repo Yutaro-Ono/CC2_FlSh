@@ -13,10 +13,10 @@
 #include "InputController.h"
 
 // 各種パーツのメッシュパス
-const std::string HELI_BODY_MESH_PATH = "Data/Meshes/TND/Actors/Police/Helicopter/Helicopter_Body_Internal.OBJ";
-const std::string HELI_ROTOR_MAIN_MESH_PATH = "Data/Meshes/TND/Actors/Police/Helicopter/Helicopter_Main_Rotor_Internal.OBJ";
-const std::string HELI_ROTOR_BACK_MESH_PATH = "Data/Meshes/TND/Actors/Police/Helicopter/Helicopter_Tail_Rotor_Internal.OBJ";
-const std::string HELI_SPOTLIGHT_MESH_PATH = "Data/Meshes/TND/Actors/Police/Helicopter/Helicopter_Spotlight_Internal.OBJ";
+const std::string HELI_BODY_MESH_PATH = "Data/Meshes/Actors/Vehicles/Helicopter/Body/Helicopter_Body_Internal.OBJ";
+const std::string HELI_ROTOR_MAIN_MESH_PATH = "Data/Meshes/Actors/Vehicles/Helicopter/Rotor_main/Helicopter_Main_Rotor_Internal.OBJ";
+const std::string HELI_ROTOR_BACK_MESH_PATH = "Data/Meshes/Actors/Vehicles/Helicopter/Rotor_tail/Helicopter_Tail_Rotor_Internal.OBJ";
+const std::string HELI_SPOTLIGHT_MESH_PATH = "Data/Meshes/Actors/Vehicles/Helicopter/SpotLight/Helicopter_Spotlight_Internal.OBJ";
 
 // コンストラクタ
 Helicopter::Helicopter(WorldGameScene* in_world, const Vector3& in_pos, int in_num)

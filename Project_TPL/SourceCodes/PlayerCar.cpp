@@ -11,7 +11,7 @@
 #include "PlayerManager.h"
 #include "CarSoundComponent.h"
 
-const std::string PlayerCar::CAR_HANDLE_MESH_PATH = "Data/Meshes/TND/Actors/Car/Player/Handle/SM_suv_steering_wheel_lod0_Internal.OBJ";
+const std::string PlayerCar::CAR_HANDLE_MESH_PATH = "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Handle/SM_suv_steering_wheel_lod0_Internal.OBJ";
 
 // コンストラクタ
 PlayerCar::PlayerCar()

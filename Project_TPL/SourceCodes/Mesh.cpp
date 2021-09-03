@@ -40,8 +40,16 @@ void Mesh::AddTexture(const std::string& in_meshName)
 {
 	std::string filePath = in_meshName;
 
+	// ファイルパス文字列内の拡張子を削除する（.pngで置き換えるため）
 	int extNum = filePath.find_last_of(".");          // ファイルパスの"."までの文字数を取得
 	filePath = filePath.substr(0, extNum);            // 拡張子を除いたファイル名を取得
+
+	// Data/Meshes →　Data/Textures に置き換え
+	std::string item = "Meshes";
+	const unsigned int pos = in_meshName.find_first_of(item);
+	const int len = item.length();
+	filePath.replace(pos, len, "Textures");
+
 
 	// 各種テクスチャの取得
 	m_textureStages.emplace(TEXTURE_TYPE::DIFFUSE_MAP, CreateTextureStage(TEXTURE_TYPE::DIFFUSE_MAP, filePath));

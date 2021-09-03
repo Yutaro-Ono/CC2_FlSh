@@ -13,12 +13,12 @@
 #include <random>
 
 // キャラごとのメッシュパス
-const std::string MESH_PATH_CARLA = "Data/Meshes/TND/Actors/Player/carla/rp_carla_rigged_001_ue4";
-const std::string MESH_PATH_CLAUDIA = "Data/Meshes/TND/Actors/Player/claudia/rp_claudia_rigged_002_ue4";
-const std::string MESH_PATH_ERIC = "Data/Meshes/TND/Actors/Player/eric/rp_eric_rigged_001_ue4";
-const std::string MESH_PATH_MANUEL = "Data/Meshes/TND/Actors/Player/manuel/rp_manuel_rigged_001_ue4";
-const std::string MESH_PATH_SOPHIA = "Data/Meshes/TND/Actors/Player/sophia/rp_sophia_rigged_003_ue4";
-const std::string MESH_PATH_NATHAN = "Data/Meshes/TND/Actors/Player/rp_nathan_rigged_003_ue4";
+const std::string MESH_PATH_CARLA =   "Data/Meshes/Actors/HumanRace/NPCs/carla/rp_carla_rigged_001_ue4";
+const std::string MESH_PATH_CLAUDIA = "Data/Meshes/Actors/HumanRace/NPCs/claudia/rp_claudia_rigged_002_ue4";
+const std::string MESH_PATH_ERIC =    "Data/Meshes/Actors/HumanRace/NPCs/eric/rp_eric_rigged_001_ue4";
+const std::string MESH_PATH_MANUEL =  "Data/Meshes/Actors/HumanRace/NPCs/manuel/rp_manuel_rigged_001_ue4";
+const std::string MESH_PATH_SOPHIA =  "Data/Meshes/Actors/HumanRace/NPCs/sophia/rp_sophia_rigged_003_ue4";
+const std::string MESH_PATH_NATHAN =  "Data/Meshes/Actors/HumanRace/NPCs/nathan/rp_nathan_rigged_003_ue4";
 
 const float AnimationSpeed = 0.5f;        // アニメーションの速度
 

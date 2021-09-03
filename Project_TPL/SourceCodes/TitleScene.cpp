@@ -48,12 +48,12 @@ void TitleScene::Initialize()
 	//--------------------------------------------------------------------------------------------+
 	// 音楽関連
 	// SE
-	m_sound["Enter"] = "Data/Music/SE/TND/System/Enter/decide13.wav";
+	m_sound["Enter"] = "Data/Music/SE/System/Enter/decide13.wav";
 	AUDIO->GetSound(m_sound["Enter"]);                                       // 決定音
-	m_sound["Select"] = "Data/Music/SE/TND/System/Select/decide14.wav";
+	m_sound["Select"] = "Data/Music/SE/System/Select/decide14.wav";
 	AUDIO->GetSound(m_sound["Select"]);                                      // 選択音
 	// BGM
-	m_sound["BGM"] = "Data/Music/BGM/TND/Title/cyrf_crashed_dimension (mp3cut.net).wav";
+	m_sound["BGM"] = "Data/Music/BGM/TitleScene/cyrf_crashed_dimension (mp3cut.net).wav";
 	AUDIO->GetMusic(m_sound["BGM"]);
 
 	// ロード演出(残り分)

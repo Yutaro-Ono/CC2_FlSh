@@ -19,13 +19,13 @@ BridgeObject::BridgeObject(int in_num, const Vector3& in_startPos, bool in_brigh
 	,m_bridgeNum(in_num)
 {
 	// 各種メッシュ情報の取得
-	Mesh* road = RENDERER->GetMesh("Data/Meshes/TND/Objects/Bridge/Bridge_Road/Bridge_Road.OBJ");
-	Mesh* frame = RENDERER->GetMesh("Data/Meshes/TND/Objects/Bridge/Bridge_Frame/Bridge_Frame.OBJ");
-	Mesh* handrail1 = RENDERER->GetMesh("Data/Meshes/TND/Objects/Bridge/Bridge_HandRail_1/Bridge_HandRail_1.OBJ");
-	Mesh* handrail2 = RENDERER->GetMesh("Data/Meshes/TND/Objects/Bridge/Bridge_HandRail_2/Bridge_HandRail_2.gpmesh");
-	Mesh* curb1 = RENDERER->GetMesh("Data/Meshes/TND/Objects/Bridge/Bridge_Curb_1/Bridge_Curb_1.OBJ");
-	Mesh* curb2 = RENDERER->GetMesh("Data/Meshes/TND/Objects/Bridge/Bridge_Curb_2/Bridge_Curb_2.OBJ");
-	Mesh* lamp = RENDERER->GetMesh("Data/Meshes/TND/Objects/Bridge/Bridge_Lamps/Bridge_Lamps.OBJ");
+	Mesh* road =      RENDERER->GetMesh("Data/Meshes/Objects/Buildings/Bridge/Bridge_Road/Bridge_Road.OBJ");
+	Mesh* frame =     RENDERER->GetMesh("Data/Meshes/Objects/Buildings/Bridge/Bridge_Frame/Bridge_Frame.OBJ");
+	Mesh* handrail1 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/Bridge/Bridge_HandRail_1/Bridge_HandRail_1.OBJ");
+	Mesh* handrail2 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/Bridge/Bridge_HandRail_2/Bridge_HandRail_2.gpmesh");
+	Mesh* curb1 =     RENDERER->GetMesh("Data/Meshes/Objects/Buildings/Bridge/Bridge_Curb_1/Bridge_Curb_1.OBJ");
+	Mesh* curb2 =     RENDERER->GetMesh("Data/Meshes/Objects/Buildings/Bridge/Bridge_Curb_2/Bridge_Curb_2.OBJ");
+	Mesh* lamp =      RENDERER->GetMesh("Data/Meshes/Objects/Buildings/Bridge/Bridge_Lamps/Bridge_Lamps.OBJ");
 
 	// 橋オブジェクト配列の確保
 	m_bridges.resize(m_bridgeNum);

@@ -36,10 +36,10 @@ LevelManager::LevelManager(WorldGameScene* in_world, int in_stageNum)
 	std::string mapPath = ssMap.str();
 
 	// ステージメッシュ読み込み
-	m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/TND/Objects/GroundBase/Ground.OBJ"));
-	m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/TND/Objects/Street/Street.OBJ"));
-	m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/TND/Objects/Building/0/Build11.OBJ"));
-	m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/TND/Objects/Lamp/SM_Lamp.OBJ"));
+	m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/Objects/Environment/GroundBase/Ground.OBJ"));
+	m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/Objects/Buildings/Street/Street.OBJ"));
+	m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/Objects/Buildings/Building/0/Build11.OBJ"));
+	m_blockMeshes.push_back(GAME_INSTANCE.GetRenderer()->GetMesh("Data/Meshes/Objects/Buildings/Lamp/SM_Lamp.OBJ"));
 	
 	//-----------------------------------------------------------------------------------------+
     // ステージデータ読み込み

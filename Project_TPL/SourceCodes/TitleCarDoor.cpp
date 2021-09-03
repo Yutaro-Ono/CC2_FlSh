@@ -3,10 +3,10 @@
 #include "CarMeshComponent.h"
 #include "Mesh.h"
 
-const std::string TitleCarDoor::CAR_DOOR_LEFT_FRAME_MESH_PATH = "Data/Meshes/TND/Actors/Car/Player/Door/DoorLeft/DoorFrameLeft_Internal.OBJ";
-const std::string TitleCarDoor::CAR_DOOR_LEFT_GLASS_MESH_PATH = "Data/Meshes/TND/Actors/Car/Player/Door/DoorLeft/DoorGlassLeftTransparency_Internal.OBJ";
-const std::string TitleCarDoor::CAR_DOOR_RIGHT_FRAME_MESH_PATH = "Data/Meshes/TND/Actors/Car/Player/Door/DoorRight/DoorFrameRight_Internal.OBJ";
-const std::string TitleCarDoor::CAR_DOOR_RIGHT_GLASS_MESH_PATH = "Data/Meshes/TND/Actors/Car/Player/Door/DoorRight/DoorGlassRightTransparency_Internal.OBJ";
+const std::string TitleCarDoor::CAR_DOOR_LEFT_FRAME_MESH_PATH = "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Door/DoorLeft/DoorFrameLeft_Internal.OBJ";
+const std::string TitleCarDoor::CAR_DOOR_LEFT_GLASS_MESH_PATH = "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Door/DoorLeft/DoorGlassLeftTransparency_Internal.OBJ";
+const std::string TitleCarDoor::CAR_DOOR_RIGHT_FRAME_MESH_PATH = "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/DoorRight/DoorFrameRight_Internal.OBJ";
+const std::string TitleCarDoor::CAR_DOOR_RIGHT_GLASS_MESH_PATH = "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Door/DoorRight/DoorGlassRightTransparency_Internal.OBJ";
 
 // in_leftRight = 右側のドアか左側のドアかで位置補正ベクトルを変える
 // in_leftRight = true → 左側     false → 右側
