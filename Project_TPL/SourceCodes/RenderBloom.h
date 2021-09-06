@@ -70,14 +70,6 @@ private:
 	std::vector<unsigned int> m_blurFBO;
 	std::vector<unsigned int> m_blurBufferTex;
 
-	class Shader* m_multiRenderTargetShader;           // HDR対応マルチターゲットシェーダ (Mesh)
-	class Shader* m_multiRenderSkinShader;             // HDR対応マルチターゲットシェーダ (SkinMesh)
-	class Shader* m_multiRenderCubeMapShader;          // HDR対応マルチターゲットシェーダ (CubeMap)
-	class Shader* m_multiRenderEnvironmentShader;      // HDR対応マルチターゲットシェーダ (EnvironmentMap)
-	class Shader* m_hdrBloomShader;                    // Bloomシェーダ
-	class Shader* m_downSamplingShader;                // 縮小バッファ用シェーダ
-	class Shader* m_gaussShader;                       // ガウスぼかし計算用シェーダ
-
 	float m_exposure;                                  // 露出量
 	float m_saveExposure;                              // フェードアウト処理時の露出保存用
 

@@ -44,14 +44,12 @@ void main()
 {
 	vec4 pos =  u_worldTransform * vec4(a_pos, 1.0);
 	gl_Position = u_projection * u_view * pos;
-	vs_out.fragWorldPos    = pos.xyz;
-	vs_out.fragNormal      = mat3(transpose(inverse(u_worldTransform))) * a_normal;
-	vs_out.fragNormal      = vec3(vs_out.fragNormal.y, -vs_out.fragNormal.z, vs_out.fragNormal.x);
+
 	vs_out.fragTexCoords   = a_texCoords;
 	vs_out.fragViewPos     = u_viewPos;
 	// ワールド座標の頂点をライトスペースに変換して保存
 	vs_out.fragPosLightSpace = u_lightSpaceMatrix * vec4(vs_out.fragWorldPos, 1.0);
 
-	//vs_out.fragNormal = vec3(vs_out.fragNormal.y, -vs_out.fragNormal.z, vs_out.fragNormal.x);
-	//vs_out.fragWorldPos = vec3(pos.y, -pos.z, pos.x);                                                 // ワールド上の位置ベクトルを出力
+	vs_out.fragNormal = vec3(vs_out.fragNormal.y, -vs_out.fragNormal.z, vs_out.fragNormal.x);
+	vs_out.fragWorldPos = vec3(pos.y, -pos.z, pos.x);                                                 // ワールド上の位置ベクトルを出力
 }

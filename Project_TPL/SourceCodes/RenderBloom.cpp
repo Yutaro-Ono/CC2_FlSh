@@ -23,14 +23,7 @@ const unsigned int maxLevelNum = 5;
 
 // コンストラクタ
 RenderBloom::RenderBloom()
-	:m_multiRenderTargetShader(nullptr)
-	, m_multiRenderSkinShader(nullptr)
-	, m_multiRenderCubeMapShader(nullptr)
-	, m_multiRenderEnvironmentShader(nullptr)
-	,m_hdrBloomShader(nullptr)
-	,m_downSamplingShader(nullptr)
-	,m_gaussShader(nullptr)
-	,m_exposure(1.0f)
+	:m_exposure(1.0f)
 	,m_gamma(0.085f)
 {
 
@@ -43,37 +36,11 @@ RenderBloom::RenderBloom()
 	}
 	CreateBlurFBO();
 
-
-	// シェーダのロード
-	m_multiRenderTargetShader = new Shader();
-	m_multiRenderTargetShader->Load("Data/Shaders/MultiRender/MultiRenderNormShadow.vert", "Data/Shaders/MultiRender/MultiRenderNormShadow.frag");
-	m_multiRenderSkinShader = new Shader();
-	m_multiRenderSkinShader->Load("Data/Shaders/MultiRender/MultiRenderNormShadowSkinned.vert", "Data/Shaders/MultiRender/MultiRenderNormShadowSkinned.frag");
-	m_multiRenderCubeMapShader = new Shader();
-	m_multiRenderCubeMapShader->Load("Data/Shaders/MultiRender/MultiRenderSkyBox.vert", "Data/Shaders/MultiRender/MultiRenderSkyBox.frag");
-	m_multiRenderEnvironmentShader = new Shader();
-	m_multiRenderEnvironmentShader->Load("Data/Shaders/MultiRender/MultiRenderEnvironmentMap.vert", "Data/Shaders/MultiRender/MultiRenderEnvironmentMap.frag");
-	// Bloomシェーダ
-	m_hdrBloomShader = new Shader();
-	m_hdrBloomShader->Load("Data/Shaders/FB/FrameBufferScreen.vert", "Data/Shaders/MultiRender/Bloom.frag");
-	// ダウンサンプリング用シェーダ
-	m_downSamplingShader = new Shader();
-	m_downSamplingShader->Load("Data/Shaders/FB/FrameBufferScreen.vert", "Data/Shaders/MultiRender/DownSampling.frag");
-	// ガウスぼかし用シェーダ
-	m_gaussShader = new Shader();
-	m_gaussShader->Load("Data/Shaders/FB/FrameBufferScreen.vert", "Data/Shaders/MultiRender/GaussBlur.frag");
 }
 
 // デストラクタ
 RenderBloom::~RenderBloom()
 {
-	delete m_multiRenderTargetShader;
-	delete m_multiRenderSkinShader;
-	delete m_multiRenderCubeMapShader;
-	delete m_multiRenderEnvironmentShader;
-	delete m_hdrBloomShader;
-	delete m_downSamplingShader;
-	delete m_gaussShader;
 
 	for (auto fbo : m_blurFBO)
 	{

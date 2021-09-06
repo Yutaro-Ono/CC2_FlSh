@@ -1,7 +1,7 @@
 #include "ForwardRenderer.h"
 #include "Renderer.h"
 #include "GameMain.h"
-#include "FrameBuffer.h"
+#include "PostEffect.h"
 #include "Shader.h"
 #include "GLSLprogram.h"
 #include "ShaderManager.h"

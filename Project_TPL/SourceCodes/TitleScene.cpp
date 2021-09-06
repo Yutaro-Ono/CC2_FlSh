@@ -53,7 +53,7 @@ void TitleScene::Initialize()
 	m_sound["Select"] = "Data/Music/SE/System/Select/decide14.wav";
 	AUDIO->GetSound(m_sound["Select"]);                                      // 選択音
 	// BGM
-	m_sound["BGM"] = "Data/Music/BGM/TitleScene/cyrf_crashed_dimension (mp3cut.net).wav";
+	m_sound["BGM"] = "Data/Music/BGM/Title/01_njol.wav";
 	AUDIO->GetMusic(m_sound["BGM"]);
 
 	// ロード演出(残り分)

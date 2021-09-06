@@ -180,6 +180,9 @@
     <Filter Include="Source\Interface\Canvas">
       <UniqueIdentifier>{0786f2e0-4013-45b7-a8f7-b96e78a3c1f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Actor\Vehicle\MotorBike">
+      <UniqueIdentifier>{1d17c0ce-b9fe-42f8-b96a-a10737c0eef4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -569,9 +572,6 @@
     <ClCompile Include="SourceCodes\ParticleManager.cpp">
       <Filter>Source\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\FrameBuffer.cpp">
-      <Filter>Source\Render</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCodes\MoveComponent.cpp">
       <Filter>Source\Component</Filter>
     </ClCompile>
@@ -622,6 +622,12 @@
     </ClCompile>
     <ClCompile Include="SourceCodes\CanvasTitleScene.cpp">
       <Filter>Source\Interface\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PostEffect.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\MotorBikeParent.cpp">
+      <Filter>Source\Actor\Vehicle\MotorBike</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1027,9 +1033,6 @@
     <ClInclude Include="SourceCodes\ParticleManager.h">
       <Filter>Source\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\FrameBuffer.h">
-      <Filter>Source\Render</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCodes\MoveComponent.h">
       <Filter>Source\Component</Filter>
     </ClInclude>
@@ -1083,6 +1086,12 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\CanvasTitleScene.h">
       <Filter>Source\Interface\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PostEffect.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\MotorBikeParent.h">
+      <Filter>Source\Actor\Vehicle\MotorBike</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

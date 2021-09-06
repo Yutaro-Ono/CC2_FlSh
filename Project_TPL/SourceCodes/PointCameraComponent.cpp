@@ -46,5 +46,5 @@ void PointCameraComponent::SetOffset(const Vector3& in_offset, const Vector3& in
 	m_offset = in_offset;
 	m_upVec = in_upVec;
 	m_view = Matrix4::CreateLookAt(m_owner->GetPosition() + m_offset, m_owner->GetPosition() + m_targetOffset, m_upVec);
-	SetViewMatrix(m_view);
+	//SetViewMatrix(m_view);
 }

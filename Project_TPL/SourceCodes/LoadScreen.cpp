@@ -34,7 +34,7 @@ LoadScreen::LoadScreen()
 	// m_tutorialMsg = RENDERER->GetTexture("Data/Interface/System/Load/LoadScreen_tuto_1.png");
 
 	// ロード時の効果音をロード
-	m_sound["Load"] = "Data/Music/SE/TND/System/Load/decision-6 (mp3cut.net).wav";
+	m_sound["Load"] = "Data/Music/SE/System/Load/decision-6 (mp3cut.net).wav";
 	AUDIO->GetSound(m_sound["Load"]);
 	AUDIO->SetSoundVolume(m_sound["Load"], 2);
 

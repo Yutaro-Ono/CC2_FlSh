@@ -21,7 +21,7 @@
 #include "WorldSpaceUI.h"
 #include "UIScreen.h"
 #include "RenderBloom.h"
-#include "FrameBuffer.h"
+#include "PostEffect.h"
 #include "ParticleManager.h"
 #include "CarMeshComponent.h"
 #include "CameraComponent.h"

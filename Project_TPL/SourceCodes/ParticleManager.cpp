@@ -15,7 +15,7 @@ ParticleManager::ParticleManager()
 {
 	m_shader = new Shader;
 
-	if (!m_shader->Load("Data/Shaders/Phong.vert", "Data/Shaders/Particle.frag"))
+	if (!m_shader->Load("Shaders/ForwardRendering/Phong.vert", "Shaders/Particle/Particle_Bloom.frag"))
 	{
 		printf("ParticleManager / Shader Load : Failed\n");
 	}

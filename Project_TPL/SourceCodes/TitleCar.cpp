@@ -40,10 +40,10 @@ void TitleCar::UpdateActor(float in_deltaTime)
 {
 
 	// ©“®‚Å‘Oi
-	Vector3 move = Vector3(m_position.x + m_accel * in_deltaTime, m_position.y, m_position.z);
+	//Vector3 move = Vector3(m_position.x + m_accel * in_deltaTime, m_position.y, m_position.z);
 
 
-	SetPosition(move);
+	//SetPosition(move);
 
 	// ƒJƒƒ‰Ø‚è‘Ö‚¦‚É‚©‚©‚éŠÔ(•b)
 	int changeSec = 6500;

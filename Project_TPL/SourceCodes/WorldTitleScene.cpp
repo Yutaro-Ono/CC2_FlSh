@@ -9,6 +9,9 @@
 #include "SkyBox.h"
 #include "CubeMapComponent.h"
 
+#include "MeshGpmesh.h"
+#include "LevelBlock.h"
+
 WorldTitleScene::WorldTitleScene()
 	:m_car(nullptr)
 	,m_client(nullptr)
@@ -29,7 +32,7 @@ bool WorldTitleScene::Load()
 
 	// タイトル用車の生成
 	m_car = new TitleCar();
-	m_car->SetPosition(Vector3(6500.0f, -65.0f, 0.0f));
+	//m_car->SetPosition(Vector3(6500.0f, -65.0f, 0.0f));
 	m_car->SetScale(0.4f);
 
 	// 環境情報の生成
@@ -43,6 +46,19 @@ bool WorldTitleScene::Load()
 		GAME_INSTANCE.GetLoadScreen()->AddGauge();
 	}
 
+	Mesh* mesh1 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Wall/SpaceShip_Wall.gpmesh");
+	Mesh* mesh2 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Floor/SpaceShip_Floor.gpmesh");
+
+
+	LevelBlock* space1 = new LevelBlock();
+	space1->SetMesh(mesh1);
+	//space1->SetPosition(Vector3(6500.0f, -65.0f, 0.0f));
+	space1->SetScale(1.0f);
+
+	LevelBlock* space2 = new LevelBlock();
+	space2->SetMesh(mesh2);
+	//space2->SetPosition(Vector3(6500.0f, -65.0f, 0.0f));
+	space2->SetScale(1.0f);
 
 	return true;
 }

@@ -15,7 +15,7 @@
 #include "Animation.h"
 #include "ParticleManager.h"
 #include "UIScreen.h"
-#include "FrameBuffer.h"
+#include "PostEffect.h"
 #include "BoxCollider.h"
 #include "Collision.h"
 #include "WorldSpaceUI.h"
@@ -40,7 +40,7 @@ Renderer::Renderer()
 	,m_SDLRenderer(nullptr)
 	,m_context(0)
 	,m_uboMatrices(0)
-	,m_frameBuffer(nullptr)
+	,m_postEffect(nullptr)
 	,m_bloom(nullptr)
 	,m_switchShader(0)
 	,m_cameraPos(Vector3::Zero)
@@ -214,8 +214,8 @@ bool Renderer::Load()
 	//------------------------------------------------------------------+
     // ポストエフェクト
     //------------------------------------------------------------------+
-	m_frameBuffer = new FrameBuffer();
-	m_frameBuffer->CreateFrameBuffer();
+	m_postEffect = new PostEffect();
+	m_postEffect->CreatePostEffect();
 
 	//--------------------------------------------+
 	// シャドウマップ
@@ -341,7 +341,7 @@ void Renderer::Delete()
 	delete m_cubeVerts;
 	delete m_fRenderer;
 	delete m_dRenderer;
-	delete m_frameBuffer;
+	delete m_postEffect;
 	delete m_shadowMap;
 	delete m_bloom;
 
