@@ -19,7 +19,7 @@ public:
 
 	void Initialize();
 
-	void Update(float _deltaTime) override;          // 更新処理
+	void Update(float _deltaTime) override;                  // 更新処理
 
 	void Draw(GLSLprogram* _shader) override;                // 描画処理
 

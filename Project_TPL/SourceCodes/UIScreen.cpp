@@ -6,7 +6,6 @@
 //-----------------------------------------------------------------------+
 #include "UIScreen.h"
 #include "Texture.h"
-#include "GLSLprogram.h"
 #include "GameMain.h"
 #include "GameConfig.h"
 #include "Renderer.h"
@@ -15,6 +14,7 @@
 // コンストラクタ
 UIScreen::UIScreen()
 	:m_state(ACTIVE)
+	,m_texture(nullptr)
 {
 
 	// ゲームクラスのUIスタックに自身を追加

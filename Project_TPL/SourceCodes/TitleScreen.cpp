@@ -33,8 +33,8 @@ TitleScreen::TitleScreen(class TitleScene* _target)
 
 	// タイトルロゴの読み込み
 	//m_logo = RENDERER->GetTexture("Data/Interface/Title/Title_LogoScreen.png");
-	m_logo = m_font->RenderText("The Night Driver", Vector3(1.0f, 1.0f, 1.0f), 72);
-	m_logoPos = Vector2((-GAME_CONFIG->GetScreenWidth() / 2) + (m_logo->GetWidth() / 2) + 80, RENDERER->GetScreenHeight() / 2 - m_logo->GetHeight() - 80);
+	m_logo = m_font->RenderText("TheParadiseLost", Vector3(1.0f, 1.0f, 1.0f), 72);
+	m_logoPos = Vector2((-GAME_CONFIG->GetScreenWidth() / 2) + (m_logo->GetWidth() / 2) + 120, RENDERER->GetScreenHeight() / 2 - m_logo->GetHeight() - 80);
 
 	m_cursol = RENDERER->GetTexture("Data/Interface/System/Cursol_UI.png");
 	m_cross = RENDERER->GetTexture("Data/Interface/TND/Control/Cursol_UI_2.png");
@@ -42,9 +42,9 @@ TitleScreen::TitleScreen(class TitleScene* _target)
 	// 選択項目関連のフォント
 	for (int i = 0; i < 2; i++)
 	{
-		m_anyKey[i] = m_font->RenderText("PRESS ANY KEY", Vector3(0.0f + i, 0.0f + i, 0.0f + i), 48);
-		m_startButton[i] = m_font->RenderText("GAME START", Vector3(0.0f + i, 0.0f + i, 0.0f + i), 32);
-		m_quitButton[i] = m_font->RenderText("QUIT TO DESKTOP", Vector3(0.0f + i, 0.0f + i, 0.0f + i), 32);
+		m_anyKey[i] = m_font->RenderText("PRESS ANY KEY", Vector3(0.0f + i, 0.0f + i, 0.0f + i), 72);
+		m_startButton[i] = m_font->RenderText("GAME START", Vector3(0.0f + i, 0.0f + i, 0.0f + i), 72);
+		m_quitButton[i] = m_font->RenderText("QUIT TO DESKTOP", Vector3(0.0f + i, 0.0f + i, 0.0f + i), 72);
 	}
 
 	// チュートリアル用画像の読み込み
@@ -102,7 +102,7 @@ void TitleScreen::Draw(GLSLprogram * _shader)
 	// タイトルロゴ
 	if (m_logo)
 	{
-		DrawTexture(_shader, m_logo, m_logoPos, 1.0f);
+		DrawTexture(_shader, m_logo, m_logoPos, 1.5f);
 	}
 	// チュートリアルUI(パッド接続時と未接続時で処理を分ける)
 	if (CONTROLLER_INSTANCE.IsAvailable() == true)

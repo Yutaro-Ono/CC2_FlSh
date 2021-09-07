@@ -304,6 +304,9 @@ void VertexArray::CreateSpriteVerts()
 	};
 
 	unsigned vertexSize = 8 * sizeof(float);
+	// 頂点配列の作成
+	glGenVertexArrays(1, &m_VAO);
+	glBindVertexArray(m_VAO);
 	// 頂点バッファの作成
 	glGenBuffers(1, &m_VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);

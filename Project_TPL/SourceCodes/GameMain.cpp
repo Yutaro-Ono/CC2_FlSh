@@ -9,12 +9,12 @@
 #include "ActorPool.h"
 #include "MeshPool.h"
 #include "TexturePool.h"
-#include "UIScreen.h"
 #include "Camera.h"
 #include "CameraComponent.h"
 #include "DebugBox.h"
 #include "ParticleManager.h"
 #include "Font.h"
+#include "UIScreen.h"
 #include "PauseScreen.h"
 #include "LoadScreen.h"
 #include <algorithm>
@@ -26,7 +26,7 @@
 #include <document.h>
 
 // 標準フォント
-const std::string GameMain::FONT_FILE_PATH = "Data/Fonts/gang_wolfik.ttf";
+const std::string GameMain::FONT_FILE_PATH = "Data/Fonts/neuropol.ttf";
 
 // コンストラクタ
 GameMain::GameMain()
