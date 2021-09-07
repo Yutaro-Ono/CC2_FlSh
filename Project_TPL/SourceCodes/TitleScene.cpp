@@ -16,6 +16,7 @@
 #include "RenderBloom.h"
 #include "TutorialScene.h"
 #include "ActorPool.h"
+
 const int TitleScene::STAGE_ALL_NUM = 1;
 
 // コンストラクタ

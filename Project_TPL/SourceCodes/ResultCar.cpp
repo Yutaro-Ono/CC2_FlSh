@@ -17,10 +17,10 @@ ResultCar::ResultCar()
 	,m_cameraPosType(NORMAL)
 {
 	// 各パーツごとのクラスを作成
-	m_body = new ResultCarBody(this);
-	m_door[0] = new ResultCarDoor(this, ResultCarDoor::DOOR_POS::LEFT);
-	m_door[1] = new ResultCarDoor(this, ResultCarDoor::DOOR_POS::RIGHT);
-	m_handle = new ResultCarHandle(this, "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Handle/SM_suv_steering_wheel_lod0_Internal.OBJ");
+	m_body =     new ResultCarBody(this);
+	m_door[0] =  new ResultCarDoor(this, ResultCarDoor::DOOR_POS::LEFT);
+	m_door[1] =  new ResultCarDoor(this, ResultCarDoor::DOOR_POS::RIGHT);
+	m_handle =   new ResultCarHandle(this, "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Handle/SM_suv_steering_wheel_lod0_Internal.OBJ");
 	// タイヤ
 	m_wheel[0] = new ResultCarWheel(this, ResultCarWheel::WHEEL_POSITION::FRONT_LEFT);
 	m_wheel[1] = new ResultCarWheel(this, ResultCarWheel::WHEEL_POSITION::FRONT_RIGHT);

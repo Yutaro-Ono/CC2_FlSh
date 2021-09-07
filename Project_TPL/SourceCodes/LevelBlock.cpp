@@ -31,9 +31,9 @@ void LevelBlock::SetMesh(Mesh * in_mesh)
 	m_meshComp->SetMapColor(Vector3(0.3f, 0.35f, 0.4f));
 
 
-	 // “–‚½‚è”»’èÝ’è
-	 m_box = new BoxCollider(this, PhysicsWorld::TYPE_BACK_GROUND);
-	 m_box->SetObjectBox(mesh->GetCollisionBox());
+	// “–‚½‚è”»’èÝ’è
+	m_box = new BoxCollider(this, PhysicsWorld::TYPE_BACK_GROUND);
+	m_box->SetObjectBox(mesh->GetCollisionBox());
 }
 
 void LevelBlock::UpdateActor(float in_deltaTime)

@@ -26,7 +26,7 @@
 #include <document.h>
 
 // 標準フォント
-const std::string GameMain::FONT_FILE_PATH = "Data/Fonts/SackersGothicLightAT.ttf";
+const std::string GameMain::FONT_FILE_PATH = "Data/Fonts/gang_wolfik.ttf";
 
 // コンストラクタ
 GameMain::GameMain()

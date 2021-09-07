@@ -13,25 +13,14 @@ public:
 
 	void ProcessInput(float in_deltaTime) override;     // 入力処理
 
-	// 当たり判定処理
-	void CollisionFix(class BoxCollider* in_hitCameraBox, class BoxCollider* in_hitBox);
-
-
 	//-----------------------------------------------------------+
 	// Getter/Setter
 	//-----------------------------------------------------------+
-	// ピッチのゲッター
-	float GetPitch() const { return m_pitch; }
-	// ヨーのゲッター
-	float GetYaw() const { return m_yaw; }
-
-
-	// カメラ距離のセッター
-	void SetDistance(float in_dist);
-
+	float GetPitch() const { return m_pitch; }          // ピッチのゲッター
+	float GetYaw() const { return m_yaw; }              // ヨーのゲッター
+	void SetDistance(float in_dist);                    // カメラ距離のセッター
 	// カメラ追従処理を行うかどうかのセッター
 	void SetChaseOwnerForward(bool in_chase) { m_chaseOwnerForward = in_chase; }
-
 	// カメラ前進ベクトルのゲッター・セッター
 	const Vector3& GetForward() { return m_forwardVec; }
 	void SetCameraForward(const Vector3& in_forward) { m_forwardVec = in_forward; }
@@ -41,35 +30,29 @@ private:
 	// オーナーの後方から一定距離にカメラ位置を調整し、その座標を返す
 	const Vector3& ComputeCameraPos() const;
 
-	Vector3 m_offset;        // 三人称視点時ターゲットからの距離オフセット
+	Vector3 m_offset;                              // 三人称視点時ターゲットからの距離オフセット
 
-	Vector3 m_forwardVec;      // カメラの前進ベクトル
-	Vector3 m_upVec;           // カメラの上方ベクトル
+	Vector3 m_forwardVec;                          // カメラの前進ベクトル
+	Vector3 m_upVec;                               // カメラの上方ベクトル
 
-	// カメラ加速度
-	Vector3 m_velocity;
+	Vector3 m_velocity;                            // カメラ加速度
 
-	// オーナーアクタの移動時に使用する前進ベクトル(カメラ基準)
-	Vector3 m_ownerForward;
+	Vector3 m_ownerForward;                        // オーナーアクタの移動時に使用する前進ベクトル(カメラ基準)
 
-	// ピッチ関連
-	float m_pitch;
+	float m_pitch;                                 // ピッチ関連
 
-	// ヨー速度(/秒)
-	float m_yaw;
+	float m_yaw;                                   // ヨー速度(/秒)
 
-	// ターゲットまでの距離
-	float m_distance;
+	float m_distance;                              // ターゲットまでの距離
 
 	// カメラの前進ベクトルをオーナーアクタの前進ベクトルへ追従させるか (デフォルト：OFF)
 	bool m_chaseOwnerForward;
 
-
-	class PlayerCar* m_playerCar;
+	class PlayerCar* m_playerCar;                  // ターゲットアクタ(乗り物)
 
 	// マウス入力
-	Vector2 m_mousePos;                    // マウスの座標
-	Vector2 m_frameMousePos;               // マウスの前フレームの座標
+	Vector2 m_mousePos;                            // マウスの座標
+	Vector2 m_frameMousePos;                       // マウスの前フレームの座標
 
 	static const float CAMERA_SENSITIVITY;
 	static const Vector3 DEFAULT_DISTANCE_OFFSET;

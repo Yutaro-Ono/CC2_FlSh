@@ -13,8 +13,8 @@ const float ThirdPersonCarCamera::MAX_TARGET_DISTANCE = 300.0f;
 ThirdPersonCarCamera::ThirdPersonCarCamera(PlayerCar* in_target)
 	:CameraComponent(in_target)
 	,m_playerCar(in_target)
-	, m_offset(Vector3(150.0f, -30.0f, 50.0f))
-	, m_upVec(Vector3::UnitZ)
+	,m_offset(Vector3(150.0f, -30.0f, 50.0f))
+	,m_upVec(Vector3::UnitZ)
 	,m_velocity(Vector3::Zero)
 	,m_pitch(0.0f)
 	,m_yaw(0.0f)
@@ -23,7 +23,6 @@ ThirdPersonCarCamera::ThirdPersonCarCamera(PlayerCar* in_target)
 	,m_frameMousePos(MOUSE_INSTANCE.GetPosition())
 	,m_chaseOwnerForward(false)
 {
-
 }
 
 ThirdPersonCarCamera::~ThirdPersonCarCamera()
@@ -43,13 +42,11 @@ void ThirdPersonCarCamera::Update(float in_deltaTime)
 
 	float height = -35.0f;      // カメラの高さ
 
-
 	// カメラが背後を追従するかしないか
 	if (CONTROLLER_INSTANCE.GetAxisValue(SDL_CONTROLLER_AXIS_TRIGGERRIGHT) != 0.0f)
 	{
 		m_chaseOwnerForward = true;
 	}
-
 
 	//----------------------------------------------------+
 	// カメラ追従あり
@@ -68,7 +65,6 @@ void ThirdPersonCarCamera::Update(float in_deltaTime)
 		// 現在地と理想の差を計算
 		Vector3 diff = m_position - idealPos;
 
-
 		// ばねによる加速度
 		Vector3 accel = -springConstant * diff - dampening * m_velocity;
 
@@ -81,7 +77,7 @@ void ThirdPersonCarCamera::Update(float in_deltaTime)
 		m_upVec = Vector3::UnitZ;
 		m_yaw = m_pitch = 0.0f;
 
-
+		// 更新したビュー行列をセット
 		view = Matrix4::CreateLookAt(m_position, targetPos, m_upVec);
 	}
 
@@ -107,7 +103,6 @@ void ThirdPersonCarCamera::Update(float in_deltaTime)
 		Vector3 rightVec = Vector3::Cross(m_upVec, m_forwardVec);
 		rightVec.Normalize();
 
-
 		// カメラの右方向ベクトルからピッチのクォータニオンを生成
 		Quaternion pitch(rightVec, m_pitch * in_deltaTime);
 
@@ -116,7 +111,6 @@ void ThirdPersonCarCamera::Update(float in_deltaTime)
 
 		// オフセットにピッチの値を入れて更新
 		m_offset = Vector3::Transform(m_offset, pitch);
-
 
 		// ワールド座標をターゲットの座標とオフセットから算出
 		//m_position = Vector3::Lerp(m_position, targetPos + m_offset, 2.0f * in_deltaTime);
@@ -132,7 +126,6 @@ void ThirdPersonCarCamera::Update(float in_deltaTime)
 		Vector3 dist = Vector3(0.0f, 0.0, m_distance);
 		// 距離分を加算
 		view = view * Matrix4::CreateTranslation(dist);
-
 	}
 
 	// レンダラーのビュー行列更新
@@ -154,7 +147,6 @@ void ThirdPersonCarCamera::ProcessInput(float in_deltaTime)
 		Vector2 axisR;
 		axisR = CONTROLLER_INSTANCE.GetRAxisVec();
 
-		
 		if (axisR.x >= 0.9f || axisR.x <= -0.9f || axisR.y >= 0.9f || axisR.y <= -0.9f)
 		{
 			m_chaseOwnerForward = false;
@@ -194,7 +186,6 @@ void ThirdPersonCarCamera::ProcessInput(float in_deltaTime)
 				m_distance = MAX_TARGET_DISTANCE / 2;
 			}
 
-
 			// ピッチ計算
 			pitchSpeed = axisR.y / CAMERA_SENSITIVITY;
 			pitchSpeed *= maxOrbitSpeed;
@@ -209,7 +200,6 @@ void ThirdPersonCarCamera::ProcessInput(float in_deltaTime)
 		// ヨー計算
 		m_yaw = Math::Lerp(m_yaw, (axisR.x / CAMERA_SENSITIVITY * maxOrbitSpeed), attenRate * in_deltaTime);
 
-
 		// ピッチの最大・最小角度を調整
 		if (axisR.y > 0.0f && m_offset.z + m_pitch > pitchMaxDegree)
 		{
@@ -220,9 +210,6 @@ void ThirdPersonCarCamera::ProcessInput(float in_deltaTime)
 			m_pitch = 0.0f;
 		}
 			//printf("distance = %f\n", m_offset.x);
-
-
-
 	}
 	else
 	{
@@ -246,7 +233,6 @@ void ThirdPersonCarCamera::ProcessInput(float in_deltaTime)
 			xoffset = 1.0f * in_deltaTime;
 			xoffset *= maxOrbitSpeed;
 		}
-
 
 		// ヨー速度、ピッチ速度
 		float yawSpeed, pitchSpeed;

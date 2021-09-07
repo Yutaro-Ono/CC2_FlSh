@@ -20,7 +20,6 @@ HumanCamera::HumanCamera(PlayerHuman* in_owner)
 	, m_mousePos(MOUSE_INSTANCE.GetPosition())
 	, m_frameMousePos(MOUSE_INSTANCE.GetPosition())
 {
-
 }
 
 HumanCamera::~HumanCamera()
@@ -92,7 +91,6 @@ void HumanCamera::Update(float in_deltaTime)
 		Vector3 rightVec = Vector3::Cross(m_upVec, forwardVec);
 		rightVec.Normalize();
 
-
 		// カメラの右方向ベクトルからピッチのクォータニオンを生成
 		Quaternion pitch(rightVec, m_pitch * in_deltaTime);
 
@@ -114,8 +112,6 @@ void HumanCamera::Update(float in_deltaTime)
 		Vector3 dist = Vector3(-15.0f, -35.0f, m_distance);
 		// 距離分を加算
 		view = view * Matrix4::CreateTranslation(dist);
-
-
 
 	}
 
@@ -170,7 +166,6 @@ void HumanCamera::ProcessInput(float in_deltaTime)
 				m_distance = MAX_TARGET_DISTANCE / 2;
 			}
 
-
 			// ピッチ計算
 			pitchSpeed = axisR.y / CAMERA_SENSITIVITY;
 			pitchSpeed *= maxOrbitSpeed;
@@ -186,7 +181,6 @@ void HumanCamera::ProcessInput(float in_deltaTime)
 		yawSpeed = axisR.x / CAMERA_SENSITIVITY;
 		yawSpeed *= maxOrbitSpeed;
 
-
 		// ピッチの最大・最小角度を調整
 		const float pitchMaxDegree = 40.0f; // カメラピッチ最高角度(degree)
 		const float pitchMinDegree = -20.0f; // カメラピッチ最低角度(degree)
@@ -199,15 +193,12 @@ void HumanCamera::ProcessInput(float in_deltaTime)
 			pitchSpeed = 0.0f;		
 		}
 
-
 		// ヨーをメンバにセット
 		SetYaw(yawSpeed);
 		// ピッチをメンバにセット
 		SetPitch(pitchSpeed);
 
 		//printf("distance = %f\n", m_offset.x);
-
-
 
 	}
 	else
@@ -233,7 +224,6 @@ void HumanCamera::ProcessInput(float in_deltaTime)
 			xoffset *= maxOrbitSpeed;
 		}
 
-
 		// ヨー速度、ピッチ速度
 		float yawSpeed, pitchSpeed;
 		yawSpeed = pitchSpeed = 0.0f;
@@ -248,11 +238,8 @@ void HumanCamera::ProcessInput(float in_deltaTime)
 		pitchSpeed -= yoffset;
 		//pitchSpeed *= maxOrbitSpeed;
 
-
 		// メンバにセット
 		SetPitch(pitchSpeed);
-
-
 
 		if (m_mousePos.x != 1919.0f && m_mousePos.x > 0.0f)
 		{
@@ -263,7 +250,6 @@ void HumanCamera::ProcessInput(float in_deltaTime)
 			m_frameMousePos.y = MOUSE_INSTANCE.GetPositionY();
 		}
 	}
-
 
 }
 

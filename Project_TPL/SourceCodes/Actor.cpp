@@ -7,6 +7,7 @@
 #include "Actor.h"
 #include "GameMain.h"
 #include "Component.h"
+#include "MeshComponent.h"
 #include <algorithm>
 #include <typeinfo>
 

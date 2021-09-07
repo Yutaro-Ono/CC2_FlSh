@@ -13,10 +13,6 @@ public:
 
 	void ProcessInput(float in_deltaTime) override;     // 入力処理
 
-	// 当たり判定処理
-	void CollisionFix(class BoxCollider* in_hitCameraBox, class BoxCollider* in_hitBox);
-
-
 	//-----------------------------------------------------------+
 	// Getter/Setter
 	//-----------------------------------------------------------+
@@ -73,10 +69,6 @@ private:
 	bool m_adjustForward;
 	// カメラの前進ベクトルをオーナーアクタの前進ベクトルへ追従させるか (デフォルト：OFF)
 	bool m_chaseOwnerForward;
-
-	// 当たり判定
-	class BoxCollider* m_hitBox;
-	class Actor* m_cameraActor;
 
 	// マウス入力
 	Vector2 m_mousePos;                    // マウスの座標

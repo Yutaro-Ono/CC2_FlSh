@@ -39,6 +39,12 @@ private:
 	// 各パーツをアクターで定義
 	class Actor* m_parts[static_cast<int>(MOTORBIKE_PARTS::ALL)];
 
+	// 各パーツの座標修正用ベクトル
+	Vector3 m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::ALL)];
 
+	// メッシュファイルパス
+	static const std::string STR_MOTORBIKE_BODY;
+	static const std::string STR_MOTORBIKE_HANDLE;
+	static const std::string STR_MOTORBIKE_WHEEL;
 
 };

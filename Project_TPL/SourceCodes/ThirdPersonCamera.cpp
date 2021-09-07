@@ -1,8 +1,5 @@
 #include "ThirdPersonCamera.h"
 #include "Actor.h"
-#include "PhysicsWorld.h"
-#include "BoxCollider.h"
-#include "Collision.h"
 #include "MeshComponent.h"
 
 const float ThirdPersonCamera::CAMERA_SENSITIVITY = 20.0f;    // カメラ速度(低いほど高感度)
@@ -25,25 +22,9 @@ ThirdPersonCamera::ThirdPersonCamera(Actor* in_owner)
 	, m_mousePos(MOUSE_INSTANCE.GetPosition())
 	, m_frameMousePos(MOUSE_INSTANCE.GetPosition())
 {
-	m_cameraActor = new Actor(OBJECT_TAG::CAMERA);
-	m_cameraActor->SetPosition(m_position);
-
 	// 向きベクトル初期化
 	m_forwardVec = -1.0f * m_offset;
 	m_forwardVec.Normalize();
-
-
-	// 当たり判定ボックスのセット
-	AABB hitBox;
-	hitBox.m_min.x = -5.0f;
-	hitBox.m_min.y = -5.0f;
-	hitBox.m_min.z = -5.0f;
-	hitBox.m_max.x = 5.0f;
-	hitBox.m_max.y = 5.0f;
-	hitBox.m_max.z = 5.0f;
-	m_hitBox = new BoxCollider(m_cameraActor, PhysicsWorld::TYPE_CAMERA);
-	m_hitBox->SetObjectBox(hitBox);
-
 }
 
 ThirdPersonCamera::~ThirdPersonCamera()
@@ -145,11 +126,6 @@ void ThirdPersonCamera::Update(float in_deltaTime)
 		Vector3 dist = Vector3(-15.0f, height, m_distance);
 		// 距離分を加算
 		view = view * Matrix4::CreateTranslation(dist);
-
-		
-		m_cameraActor->SetPosition(m_position);
-		m_cameraActor->ComputeWorldTransform();
-		m_hitBox->OnUpdateWorldTransform();
 	}
 
 	//printf("Camera : x : %f, y : %f, z : %f\n", m_position.x, m_position.y, m_position.z);
@@ -351,37 +327,6 @@ void ThirdPersonCamera::ProcessInput(float in_deltaTime)
 
 
 
-}
-
-// 当たり判定処理
-void ThirdPersonCamera::CollisionFix(BoxCollider* in_hitCameraBox, BoxCollider* in_hitBox)
-{
-	// 当たったメッシュを非表示
-	//in_hitBox->GetOwner()->GetMeshComponent()->SetVisible(false);
-
-	Vector3 fix;
-
-
-	//壁とぶつかったとき
-	AABB bgBox = in_hitBox->GetWorldBox();
-	AABB playerBox = m_hitBox->GetWorldBox();
-
-	// めり込みを修正
-	CalcCollisionFixVec(playerBox, bgBox, fix);
-
-	if (m_position.x != fix.x || m_position.y != fix.y || m_position.z != fix.z)
-	{
-		//printf("当たった！\n");
-	}
-
-	// 補正ベクトル分戻す
-	m_position += fix;
-	m_cameraActor->SetPosition(m_position);
-	m_cameraActor->ComputeWorldTransform();
-
-
-	// 位置が変わったのでボックス再計算
-	m_hitBox->OnUpdateWorldTransform();
 }
 
 // カメラ距離のセッター (最大・最小値を超えてしまった場合には調整を加える)
