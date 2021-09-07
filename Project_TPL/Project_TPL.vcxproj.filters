@@ -629,6 +629,9 @@
     <ClCompile Include="SourceCodes\MotorBikeParent.cpp">
       <Filter>Source\Actor\Vehicle\MotorBike</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCodes\Vehicle.cpp">
+      <Filter>Source\Actor\Vehicle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -1092,6 +1095,9 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\MotorBikeParent.h">
       <Filter>Source\Actor\Vehicle\MotorBike</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Vehicle.h">
+      <Filter>Source\Actor\Vehicle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

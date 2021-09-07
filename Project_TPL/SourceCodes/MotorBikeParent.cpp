@@ -16,8 +16,6 @@ MotorBikeParent::MotorBikeParent()
 	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::FRONT_WHEEL)] = Vector3(0.0f, 0.0f, 0.0f);
 	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::BACK_WHEEL)] = Vector3(0.0f, 0.0f, 0.0f);
 
-
-
 	// 各パーツの生成
 	for (int i = 0; i < static_cast<int>(MOTORBIKE_PARTS::ALL); i++)
 	{
@@ -26,7 +24,6 @@ MotorBikeParent::MotorBikeParent()
 		m_parts[i]->SetPosition(m_position + m_offsetPos[i]);
 		m_parts[i]->SetScale(m_scale);
 	}
-
 
 	// 各パーツメッシュの生成とパーツアクターとの紐付け
 	MeshComponent* bodyMesh = new MeshComponent(m_parts[static_cast<int>(MOTORBIKE_PARTS::BODY)]);
@@ -50,9 +47,5 @@ MotorBikeParent::~MotorBikeParent()
 
 void MotorBikeParent::UpdateActor(float _deltaTime)
 {
-	// 各パーツアクターの座標調整
-	for (int i = 0; i < static_cast<int>(MOTORBIKE_PARTS::ALL); i++)
-	{
-
-	}
+	
 }

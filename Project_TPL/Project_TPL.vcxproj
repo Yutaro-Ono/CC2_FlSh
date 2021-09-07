@@ -202,6 +202,7 @@
     <ClCompile Include="SourceCodes\GameConfig.cpp" />
     <ClCompile Include="SourceCodes\GameMain.cpp" />
     <ClCompile Include="SourceCodes\GameScene.cpp" />
+    <ClCompile Include="SourceCodes\Vehicle.cpp" />
     <ClCompile Include="SourceCodes\WorldGameScene.cpp" />
     <ClCompile Include="SourceCodes\GLSLprogram.cpp" />
     <ClCompile Include="SourceCodes\HeliBody.cpp" />
@@ -354,6 +355,7 @@
     <ClInclude Include="SourceCodes\GameConfig.h" />
     <ClInclude Include="SourceCodes\GameMain.h" />
     <ClInclude Include="SourceCodes\GameScene.h" />
+    <ClInclude Include="SourceCodes\Vehicle.h" />
     <ClInclude Include="SourceCodes\WorldGameScene.h" />
     <ClInclude Include="SourceCodes\GLSLprogram.h" />
     <ClInclude Include="SourceCodes\HeliBody.h" />

@@ -79,20 +79,20 @@ void UIScreen::DrawTexture(GLSLprogram * _shader, Texture * _texture, const Vect
 	Matrix4 transMat = Matrix4::CreateTranslation(
 		Vector3(_offset.x, _offset.y, 0.0f));
 	// スケールと変換行列をワールド行列へ変換
-	Matrix4 world = transMat * scaleMat;
-	
+	Matrix4 world = scaleMat * transMat;
+
 	// シェーダにワールド変換行列を送信
 	_shader->SetUniform("u_worldTransform", world);
 	_shader->SetUniform("u_texture", 0);
-	_texture->SetActive();
 
 	// テクスチャをアクティブ化
+	_texture->SetActive();
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, _texture->GetTextureID());
 
 	// 描画
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+	//glDrawArrays(GL_TRIANGLES, 0, 6);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 }
 
 void UIScreen::SetRelativeMouseMode(bool _relative)

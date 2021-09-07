@@ -23,11 +23,11 @@ void main()
 {
 
 	// テクスチャからカラーをサンプリング
-	out_color = texture(u_texture, FragTexCoords);
+	out_color = vec4(texture(u_texture, FragTexCoords).rgb, 1.0f);
 
 	vec3 result = out_color.rgb;
 
-	out_brightColor = vec4(0.0f, 0.0f, 0.0f, 0.0f);
+	//out_brightColor = vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
 	// 高輝度バッファへの出力値を抽出
 	//float brightness = dot(result, vec3(0.0231, 0.11, 0.65));

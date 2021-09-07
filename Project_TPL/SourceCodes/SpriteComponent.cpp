@@ -56,7 +56,7 @@ void SpriteComponent::Draw(GLSLprogram * _shader)
 		// テクスチャをアクティブ
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, m_texture->GetTextureID());
-		//RENDERER->SetActiveSpriteVAO();
+		RENDERER->SetActiveSpriteVAO();
 
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 	}

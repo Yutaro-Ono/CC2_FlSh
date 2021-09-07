@@ -78,7 +78,7 @@ protected:
 	Actor::State m_state;                           // ステート(状態)
 	OBJECT_TAG m_tag;                               // ベースクラス識別タグ
 
-	Vector3 m_scale;                                  // スケール(拡大・縮小率)
+	Vector3 m_scale;                                // スケール(拡大・縮小率)
 	Quaternion m_rotation;                          // 回転角
 	Vector3 m_position;                             // ポジション
 	Matrix4 m_worldTransform;                       // ワールド変換行列

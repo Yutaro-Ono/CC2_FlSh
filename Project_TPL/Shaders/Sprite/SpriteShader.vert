@@ -19,6 +19,7 @@ void main()
 	// 頂点座標をgl_Position用にvec4型へ変換
 	vec4 pos = vec4(a_Pos, 1.0);
 	// クリップ空間にワールド座標を変換
+	//gl_Position = u_viewProj * u_worldTransform * pos;
 	gl_Position = pos * u_worldTransform * u_viewProj;
 
 	// テクスチャ座標をフラグメントへ出力
