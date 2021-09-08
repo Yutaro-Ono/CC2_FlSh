@@ -102,7 +102,7 @@ void TitleScreen::Draw(GLSLprogram * _shader)
 	// タイトルロゴ
 	if (m_logo)
 	{
-		DrawTexture(_shader, m_logo, m_logoPos, 1.5f);
+		DrawTexture(_shader, m_logo, m_logoPos, 1.0f);
 	}
 	// チュートリアルUI(パッド接続時と未接続時で処理を分ける)
 	if (CONTROLLER_INSTANCE.IsAvailable() == true)

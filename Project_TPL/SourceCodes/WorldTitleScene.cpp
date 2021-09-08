@@ -38,6 +38,9 @@ bool WorldTitleScene::Load()
 
 	MotorBikeParent* motorBike = new MotorBikeParent();
 	motorBike->SetScale(0.4f);
+	motorBike->SetPosition(Vector3(0.0f, 0.0f, 10.0f));
+	motorBike->SetRotation(Quaternion(Vector3::UnitZ, Math::ToRadians(-90.0f)));
+
 	// ŠÂ‹«î•ñ‚Ì¶¬
 	m_environment = new Environment(motorBike, ENVIRONMENT_TYPE::NIGHT);
 
@@ -49,19 +52,15 @@ bool WorldTitleScene::Load()
 		GAME_INSTANCE.GetLoadScreen()->AddGauge();
 	}
 
-	Mesh* mesh1 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Wall/SpaceShip_Wall.gpmesh");
-	Mesh* mesh2 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Floor/SpaceShip_Floor.gpmesh");
+	//Mesh* mesh1 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Wall/SpaceShip_Wall.gpmesh");
+	//Mesh* mesh2 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Floor/SpaceShip_Floor.gpmesh");
+	//LevelBlock* space1 = new LevelBlock();
+	//space1->SetMesh(mesh1);
+	//space1->SetScale(1.0f);
 
-
-	LevelBlock* space1 = new LevelBlock();
-	space1->SetMesh(mesh1);
-	//space1->SetPosition(Vector3(6500.0f, -65.0f, 0.0f));
-	space1->SetScale(1.0f);
-
-	LevelBlock* space2 = new LevelBlock();
-	space2->SetMesh(mesh2);
-	//space2->SetPosition(Vector3(6500.0f, -65.0f, 0.0f));
-	space2->SetScale(1.0f);
+	//LevelBlock* space2 = new LevelBlock();
+	//space2->SetMesh(mesh2);
+	//space2->SetScale(1.0f);
 
 	return true;
 }

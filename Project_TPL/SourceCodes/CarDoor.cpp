@@ -59,8 +59,8 @@ void CarDoor::UpdateActor(float in_deltaTime)
 {
 	// オーナーの拡大率・座標・回転行列に合わせておく
 	m_scale = m_owner->GetScale();
-	m_position = m_owner->GetPosition() + m_adjustPos;
 	m_rotation = m_owner->GetRotation();
+	m_position = m_owner->GetPosition() + m_adjustPos;
 
 	// オーナーに合わせるためワールド座標を取得し続ける (補正ベクトルで位置を補正)
 	m_worldTransform = Matrix4::CreateTranslation(m_adjustPos) * m_owner->GetWorldTransform();

@@ -231,11 +231,6 @@ void GameMain::Delete()
 	// 入力関連の削除
 	CONTROLLER_INSTANCE.Delete();
 
-	// Imguiの削除
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplSDL2_Shutdown();
-	ImGui::DestroyContext();
-
 	SDL_Quit();
 
 }
@@ -264,13 +259,6 @@ void GameMain::RunLoop()
 
 		// 描画処理
 		Draw();
-
-#ifdef _DEBUG
-
-		// デバッグ用の描画処理(※デバッグビルドのみ)
-		//DebugRenderer();
-
-#endif
 
 	}
 }

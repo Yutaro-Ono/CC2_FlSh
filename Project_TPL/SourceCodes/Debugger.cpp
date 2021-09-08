@@ -134,7 +134,7 @@ void Debugger::Delete()
 	{
 		SDL_DestroyWindow(m_debugWindow);
 	}
-	
+
 }
 
 /// <summary>
@@ -172,7 +172,7 @@ void Debugger::UpdateImGui(float _deltaTime)
 		// タイトルバーのカラー設定(非選択時)
 		ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(0.4f, 0.0f, 0.4f, 1.0f));
 		// ウィンドウのカラー設定
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.3f, 0.0f, 0.3f, 0.3f));
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.3f, 0.0f, 0.3f, 0.6f));
 		// ウィンドウの座標設定 (最初の一回のみ)
 		ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiCond_Once);
 		// ウィンドウのサイズ設定
@@ -200,7 +200,7 @@ void Debugger::UpdateImGui(float _deltaTime)
 		// タイトルバーのカラー設定(非選択時)
 		ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(0.0f, 0.1f, 0.4f, 1.0f));
 		// ウィンドウのカラー設定
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.08f, 0.2f, 0.3f));
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.08f, 0.2f, 0.6f));
 		// ウィンドウの座標設定 (最初の一回のみ)
 		ImGui::SetNextWindowPos(ImVec2(20, 300), ImGuiCond_Once);
 		// ウィンドウのサイズ設定
@@ -226,7 +226,7 @@ void Debugger::UpdateImGui(float _deltaTime)
 		// タイトルバーのカラー設定(非選択時)
 		ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(0.0f, 0.4f, 0.1f, 1.0f));
 		// ウィンドウのカラー設定
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.2f, 0.08f, 0.3f));
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.2f, 0.08f, 0.6f));
 		// ウィンドウの座標設定 (最初の一回のみ)
 		ImGui::SetNextWindowPos(ImVec2(620, 20), ImGuiCond_Once);
 		// ウィンドウのサイズ設定
@@ -277,13 +277,10 @@ void Debugger::RenderImGui()
 	{
 		// コンテキスト関連付け (レンダラーと共通)
 		SDL_GL_MakeCurrent(m_debugWindow, GAME_INSTANCE.GetRenderer()->GetSDLGLContext());
-
 		// フレームバッファサイズの取得
 		SDL_GetWindowSize(m_debugWindow, &m_windowW, &m_windowH);
 		// ビューポートの設定
 		glViewport(0, 0, m_windowW, m_windowH);
-		// カラーバッファをクリア
-		glClear(GL_COLOR_BUFFER_BIT);
 
 		// ImGuiレンダリング開始
 		ImGui::Render();
@@ -291,8 +288,13 @@ void Debugger::RenderImGui()
 		// フレームバッファにImGuiの描画結果を書き出す
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
+		// 別ウィンドウに表示している時のみ
 		// 新しいカラーバッファを古いバッファと交換し、画面に表示
-		SDL_GL_SwapWindow(m_debugWindow);
+		if (m_debugStyle == ANOTHER_WINDOW)
+		{
+			SDL_GL_SwapWindow(m_debugWindow);
+
+		}
 	}
 
 }

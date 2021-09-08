@@ -373,23 +373,23 @@ void DefferedRenderer::Draw()
 	// 最終出力結果を描画
 	//----------------------------------------------------------------+
 	// GBufferに書き込まれた要素をスクリーンに描画
-	GLSLprogram* screenShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::OUT_SCREEN);
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glDisable(GL_DEPTH_TEST);
-	// スクリーンシェーダのuniformセット
-	screenShader->UseProgram();
-	screenShader->SetUniform("u_screenTexture", 0);
+	//GLSLprogram* screenShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::OUT_SCREEN);
+	//glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glDisable(GL_DEPTH_TEST);
+	//// スクリーンシェーダのuniformセット
+	//screenShader->UseProgram();
+	//screenShader->SetUniform("u_screenTexture", 0);
 
-	// GBufferテクスチャセット
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_lightHDR);
-	//glBindTexture(GL_TEXTURE_2D, m_gAlbedoSpec);
-	//glBindTexture(GL_TEXTURE_2D, m_gEmissive);
+	//// GBufferテクスチャセット
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, m_lightHDR);
+	////glBindTexture(GL_TEXTURE_2D, m_gAlbedoSpec);
+	////glBindTexture(GL_TEXTURE_2D, m_gEmissive);
 
-	// スクリーンに描画
-	m_renderer->m_screenVerts->SetActive();
-	glDrawArrays(GL_TRIANGLES, 0, 6);
+	//// スクリーンに描画
+	//m_renderer->m_screenVerts->SetActive();
+	//glDrawArrays(GL_TRIANGLES, 0, 6);
 
 }
 

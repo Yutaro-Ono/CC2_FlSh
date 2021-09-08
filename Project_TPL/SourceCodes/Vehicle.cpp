@@ -1,39 +1,38 @@
 #include "Vehicle.h"
-#include "Component.h"
 
 Vehicle::Vehicle(OBJECT_TAG _tag)
-	:m_tag(_tag)
+	:Actor(_tag)
+	,m_rideActor(nullptr)
+	,m_rideOffset(Vector3::Zero)
+	,m_accel(false)
+	,m_brake(false)
+	,m_velocity(1.0f)
+	,m_weight(1.0f)
+	,m_friction(1.0f)
+	,m_isRide(false)
 {
+
 }
 
 Vehicle::~Vehicle()
 {
 }
 
-void Vehicle::Update(float _deltaTime)
+/// <summary>
+/// 乗車モードのアクティベートと乗車したアクターとのリンク
+/// </summary>
+/// <param name="_rideActor"> この乗り物に乗車したアクター </param>
+void Vehicle::ActivateRideMode(Actor* _rideActor)
 {
+	m_isRide = true;
+	m_rideActor = _rideActor;
 }
 
-void Vehicle::UpdateComponents(float _deltaTime)
+/// <summary>
+/// 乗車モードの解除と乗車中アクターとのリンクを解除
+/// </summary>
+void Vehicle::DeactivateRideMode()
 {
-}
-
-void Vehicle::ProcessInput(float _deltaTime)
-{
-}
-
-void Vehicle::AddComponent(Component* _comp)
-{
-}
-
-void Vehicle::RemoveComponent(Component* _comp)
-{
-}
-
-void Vehicle::RotateToNewForward(const Vector3& _forward)
-{
-}
-
-void Vehicle::ComputeWorldTransform()
-{
+	m_isRide = false;
+	m_rideActor = nullptr;
 }

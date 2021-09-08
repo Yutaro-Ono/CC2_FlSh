@@ -33,6 +33,7 @@
 #include "DirectionalLight.h"
 #include "EffekseerEffect.h"
 #include "SkyBox.h"
+#include "Debugger.h"
 
 // コンストラクタ
 Renderer::Renderer()
@@ -384,7 +385,8 @@ void Renderer::Draw()
 
 #ifdef _DEBUG
 
-
+	// デバッグの描画
+	GAME_INSTANCE.DebugRenderer();
 
 #endif
 

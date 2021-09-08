@@ -8,11 +8,11 @@
 // 2021/ 9/ 6   êVãKçÏê¨
 //----------------------------------------------------------------------------------+
 #pragma once
-#include "Actor.h"
+#include "Vehicle.h"
 #include <vector>
 
 
-class MotorBikeParent : public Actor
+class MotorBikeParent : public Vehicle
 {
 
 public:
@@ -30,8 +30,6 @@ public:
 	~MotorBikeParent();
 
 	void UpdateActor(float _deltaTime) override;
-
-
 
 
 private:

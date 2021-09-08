@@ -62,8 +62,9 @@ public:
 
 	void   AddActor(class Actor* _actor);                                           // アクターの追加
 	void   RemoveActor(class Actor* _actor);                                        // アクターの削除
-	void   DeadAllActor();                                                            // アクター全削除
+	void   DeadAllActor();                                                          // アクター全削除
 
+	void DebugRenderer();                                                           // デバッグ(imgui)描画
 
     //--------------------------------------------------------------------//
 	// Getter/Setter
@@ -118,7 +119,6 @@ private:
 
 	// ゲームループ制御と描画用のヘルパー関数
 	void LoopHelper();
-	void DebugRenderer();
 
 	GameState    m_state;                                                    // ゲームの状態(プレイ中かポーズ中か終了か)
 	
