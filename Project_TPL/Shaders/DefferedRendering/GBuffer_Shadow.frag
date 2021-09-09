@@ -20,6 +20,17 @@ in VS_OUT
 
 }fs_in;
 
+// Directional Light
+layout(std140, binding = 3) uniform DirLight
+{
+	vec3 u_dLightDir;
+	vec3 u_dLightDiffuse;
+	vec3 u_dLightSpecular;
+	vec3 u_dLightAmbient;
+	float u_dLightIntensity;
+};
+
+
 // テクスチャサンプリング用構造体
 struct Material
 {
@@ -30,18 +41,9 @@ struct Material
 	sampler2D depthMap;
 };
 
-// ディレクショナルライト用構造体
-struct DirectionalLight
-{
-	vec3 direction;      // ライト方向
-	vec3 ambient;        // アンビエント
-	vec3 diffuse;        // ディフューズ色
-	vec3 specular;       // スペキュラー色
-};
 
 // uniform
 uniform Material u_mat;
-uniform DirectionalLight u_dirLight;
 
 // シャドウの計算
 float ShadowCalculation(vec4 fragPosLightSpace)
@@ -56,7 +58,7 @@ float ShadowCalculation(vec4 fragPosLightSpace)
     float currentDepth = projCoords.z;
     // シャドウ判定 (1.0:シャドウ 0.0:シャドウの外)
     // バイアスを法線とライトの向きから調整する
-    float bias = max(0.0001 * (1.0 - dot(normalize(fs_in.fragNormal), u_dirLight.direction)), 0.0001);
+    float bias = max(0.0001 * (1.0 - dot(normalize(fs_in.fragNormal), u_dLightDir)), 0.0001);
     // 現在の深度が最も近いフラグメントの深度より大きければ1.0、小さければ0.0(影になる)
     float shadow = currentDepth - bias > closestDepth  ? 1.0 : 0.0;
 
@@ -80,30 +82,30 @@ void main()
 	// ポリゴン表面の法線（フラグメントシェーダー上で補間されている）
 	vec3 N = normalize(fs_in.fragNormal);
 	// ポリゴン表面からライト方向へのベクトル
-	vec3 L = normalize(-u_dirLight.direction);
+	vec3 L = normalize(-u_dLightDir);
 	// ポリゴン表面からカメラ方向
 	vec3 V = normalize(fs_in.fragViewPos - fs_in.fragWorldPos);
 
 	// -L ベクトルを 法線 N に対して反射したベクトルRを求める
 	vec3 R = normalize(reflect(-L, N));
 	// フォン反射計算
-	vec3 Phong = u_dirLight.ambient;
+	vec3 Phong = u_dLightAmbient;
 	float NdotL = dot(N, L);
 
 	// アンビエント計算
-	vec3 ambient = u_dirLight.ambient * vec3(texture(u_mat.diffuseMap, fs_in.fragTexCoords));
+	vec3 ambient = u_dLightAmbient * vec3(texture(u_mat.diffuseMap, fs_in.fragTexCoords));
 	// ディフューズ計算
 	vec3 norm = normalize(fs_in.fragNormal);
-	float diff = max(dot(norm, -u_dirLight.direction), 0.0);
+	float diff = max(dot(norm, -u_dLightDir), 0.0);
 	//float diff = max(NdotL, 0.0);
-	vec3 diffuse = u_dirLight.diffuse * diff * vec3(texture(u_mat.diffuseMap, fs_in.fragTexCoords));
+	vec3 diffuse = u_dLightDiffuse * diff * vec3(texture(u_mat.diffuseMap, fs_in.fragTexCoords));
 
 	// スペキュラ計算
 	vec3 viewDir = normalize(fs_in.fragViewPos - fs_in.fragWorldPos);
-	vec3 reflectDir = reflect(u_dirLight.direction, norm);
+	vec3 reflectDir = reflect(u_dLightDir, norm);
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
 	//float spec = pow(max(0.0, dot(R, V)), uSpecPower);
-	vec3 specular = u_dirLight.specular * spec * vec3(texture(u_mat.specularMap, fs_in.fragTexCoords));
+	vec3 specular = u_dLightSpecular * spec * vec3(texture(u_mat.specularMap, fs_in.fragTexCoords));
 
 	// 影成分の算出
 	float shadow = ShadowCalculation(fs_in.fragPosLightSpace);

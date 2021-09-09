@@ -39,7 +39,8 @@ ClientActor::ClientActor(const Vector3& in_pos, int in_chara)
 	// 座標設定
 	m_position = in_pos;
 	// スケール設定
-	SetScale(0.265f);
+	//SetScale(0.265f);
+	SetScale(1.5f);
 
 	// ランドマーク生成
 	m_landMark = new WorldSpaceUI(m_position + Vector3(0.0f, 0.0f, -30.0f), "Data/Interface/TND/Control/landMark.png", 200.0f);

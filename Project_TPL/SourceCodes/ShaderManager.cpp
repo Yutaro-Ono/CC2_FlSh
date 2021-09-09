@@ -120,7 +120,7 @@ bool ShaderManager::CreateShaders()
 
 	// GBufferスキンメッシュ
 	m_shaders[GLSL_SHADER::GBUFFER_SKINMESH] = new GLSLprogram();
-	if (!m_shaders[GLSL_SHADER::GBUFFER_SKINMESH]->LoadShaders("Shaders/DefferedRendering/GBuffer_SkinNormShadow.vert", "Shaders/DefferedRendering/GBuffer_Shadow.frag", ""))
+	if (!m_shaders[GLSL_SHADER::GBUFFER_SKINMESH]->LoadShaders("Shaders/DefferedRendering/GBuffer_SkinNormShadow.vert", "Shaders/DefferedRendering/GBuffer_Normal_Shadow.frag", ""))
 	{
 		return false;
 	}

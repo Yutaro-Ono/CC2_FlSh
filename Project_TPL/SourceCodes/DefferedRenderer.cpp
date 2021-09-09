@@ -88,7 +88,7 @@ void DefferedRenderer::DrawGBuffer()
 	// ƒƒbƒVƒ…•`‰æ (‚±‚±‚ÅGBuffer‚ÌŠe—v‘f‚Éî•ñ‚ª‘‚«ž‚Ü‚ê‚é)
 	for (auto mesh : m_renderer->m_meshComponents)
 	{
-		mesh->Draw(meshShader);
+		//mesh->Draw(meshShader);
 	}
 
 	
@@ -102,7 +102,6 @@ void DefferedRenderer::DrawGBuffer()
 	skinShader->SetUniform("u_dirLight.ambient", m_renderer->GetDirectionalLight()->GetAmbient());
 	skinShader->SetUniform("u_dirLight.diffuse", m_renderer->GetDirectionalLight()->GetDiffuse());
 	skinShader->SetUniform("u_dirLight.specular", m_renderer->GetDirectionalLight()->GetSpecular());
-	skinShader->SetUniform("u_viewPos", m_renderer->m_viewMat.GetTranslation());
 	skinShader->SetUniform("u_lightSpaceMatrix", lightSpace);
 	skinShader->SetUniform("u_lightPos", m_renderer->GetDirectionalLight()->GetPosition());
 	skinShader->SetUniform("u_mat.diffuseMap", 0);
@@ -113,7 +112,7 @@ void DefferedRenderer::DrawGBuffer()
 	// ƒƒbƒVƒ…•`‰æ (‚±‚±‚ÅGBuffer‚ÌŠe—v‘f‚Éî•ñ‚ª‘‚«ž‚Ü‚ê‚é)
 	for (auto skel : m_renderer->m_skeletalMeshComponents)
 	{
-		//skel->Draw(skinShader);
+		skel->Draw(skinShader);
 	}
 
 	//------------------------------------------------------------+

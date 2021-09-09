@@ -20,6 +20,7 @@ public:
 
 	void SetMesh(class Mesh* in_mesh);       // メッシュのセット
 	void SetMeshVisible() { m_meshComp->SetVisible(false); }     // メッシュの透明化
+	void SetMeshIntensity(float _intensity) { m_meshComp->SetIntensityVal(_intensity); }
 
 	void UpdateActor(float in_deltaTime);
 
