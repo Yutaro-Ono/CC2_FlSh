@@ -18,20 +18,26 @@ layout(std140, binding = 0) uniform Matrices
 out VS_OUT
 {
 	vec3 fragNormal;                // ワールドスペース上の法線
-	vec3 fragWorldPos;          // ワールドスペース上の座標
+	vec3 fragWorldPos;              // ワールドスペース上の座標
+	// 環境マップ用
+	vec3 fragEnvNormal;
+	vec3 fragEnvWorldPos;
 }vs_out;
 
 // 入力
 uniform mat4 u_worldTransform;
+uniform mat4 u_offset;
 
 void main()
 {
-	vec4 pos = vec4(a_pos, 1.0) * u_worldTransform;
+	vec4 pos = u_worldTransform * vec4(a_pos, 1.0);
+	gl_Position = u_projection * u_view * pos;
 
-	vs_out.fragNormal = a_normal * mat3(transpose(u_worldTransform));
-	vs_out.fragNormal = vec3(vs_out.fragNormal.y, -vs_out.fragNormal.z, vs_out.fragNormal.x);
+	vs_out.fragNormal = mat3(transpose(u_worldTransform)) * a_normal;
+	vs_out.fragWorldPos = pos.xyz;                                                 // ワールド上の位置ベクトルを出力
 
-	vs_out.fragWorldPos = vec3(pos.y, -pos.z, pos.x);                                                 // ワールド上の位置ベクトルを出力
-
-	gl_Position = pos * u_view * u_projection;
+	// 環境マップ用ノーマル+ワールド座標
+	vs_out.fragEnvNormal = vs_out.fragNormal;
+	vs_out.fragEnvNormal = mat3(u_offset) * vs_out.fragEnvNormal;
+	vs_out.fragEnvWorldPos = pos.xyz;
 }

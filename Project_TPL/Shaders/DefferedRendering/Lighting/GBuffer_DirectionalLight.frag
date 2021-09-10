@@ -48,6 +48,8 @@ struct GBuffer
 };
 uniform GBuffer u_gBuffer;
 
+uniform sampler2D u_ssao;
+
 uniform float u_highBrightLine = 1.2f;
 
 void main()
@@ -58,9 +60,11 @@ void main()
 	vec4 gAlbedoSpec = texture(u_gBuffer.albedoSpec, fs_in.fragTexCoords);
 	vec3 gAlbedo = gAlbedoSpec.rgb;
 	float gSpec = gAlbedoSpec.a;
+	// オクルージョンのサンプリング
+	float AO = texture(u_ssao, fs_in.fragTexCoords).r;
 
 	// ambient
-	vec3 ambient = u_dLightAmbient * gAlbedo;
+	vec3 ambient = u_dLightAmbient * gAlbedo * AO;
 	vec3 lightDir = normalize(-u_dLightDir);
 	float diff = max(dot(gNormal, lightDir), 0.0f);
 

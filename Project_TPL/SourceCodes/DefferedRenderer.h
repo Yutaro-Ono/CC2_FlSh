@@ -4,6 +4,9 @@
 //
 //-------------------------------------------------------------------------------------------+
 #pragma once
+#include <random>
+#include <vector>
+#include "Math.h"
 
 class DefferedRenderer
 {
@@ -16,14 +19,16 @@ public:
 	bool Initialize();                // 初期化処理 (各種フレームバッファを作成する)
 
 	void DrawGBuffer();               // GBufferへの書き込み処理
-	void DrawLightPass();             // GBufferからライティング計算を行う
+	void DrawSSAOPath();
+	void DrawLightPath();             // GBufferからライティング計算を行う
 	void Draw();                      // GBufferに書き込まれた情報の描画
 
 
 private:
 
-	bool CreateGBuffer();             // GBufferの作成
-	bool CreateLightBuffer();         // ライトバッファの作成
+	bool GenerateGBuffer();             // GBufferの作成
+	bool GenerateSSAOBuffer();        // SSAOバッファの作成
+	bool GenerateLightBuffer();         // ライトバッファの作成
 
 	//-----------------------------+
 	// メンバ変数
@@ -40,6 +45,20 @@ private:
 	unsigned int m_gAttachments[4];       // GBufferアタッチメント (バッファ数分確保)
 	unsigned int m_gRBO;                  // G-Buffer用の描画バッファオブジェクト
 
+	// SSAO
+	unsigned int m_ssaoFBO;
+	unsigned int m_ssaoBlurFBO;
+	// SSAO出力先
+	unsigned int m_ssaoColor;
+	unsigned int m_ssaoBlurColor;
+	// ノイズテクスチャ
+	std::vector<Vector3> m_ssaoNoise;
+	unsigned int m_noiseTex;
+	// カーネルサンプリング用
+	std::default_random_engine m_generator;
+	std::vector<Vector3> m_ssaoKernel;
+
+
 	// ライトバッファ (光源処理用)
 	unsigned int m_lightFBO;              // ライトバッファ
 	// ライトバッファに関連付ける出力
@@ -47,6 +66,8 @@ private:
 	unsigned int m_lightHighBright;       // ライト用高輝度バッファ
 	unsigned int m_lightRBO;              // ライト用レンダーバッファ
 	unsigned int m_lightAttachments[2];
+
+
 
 	// uniformバッファ (GBuffer用)
 	unsigned int m_uboGBuffer;

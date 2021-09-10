@@ -37,12 +37,14 @@ bool WorldTitleScene::Load()
 	//m_car->SetScale(0.4f);
 
 	MotorBikeParent* motorBike = new MotorBikeParent();
-	motorBike->SetScale(0.1f);
-	motorBike->SetPosition(Vector3(0.0f, 0.0f, 10.0f));
-	motorBike->SetRotation(Quaternion(Vector3::UnitZ, Math::ToRadians(-90.0f)));
+	motorBike->SetScale(0.8f);
+	motorBike->SetPosition(Vector3(0.0f, 0.0f, 50.0f));
+	motorBike->SetRotation(Quaternion(Vector3::UnitZ, Math::ToRadians(-110.0f)));
 
 	// 環境情報の生成
 	m_environment = new Environment(motorBike, ENVIRONMENT_TYPE::NIGHT);
+	//m_environment = new Environment(m_car, ENVIRONMENT_TYPE::NIGHT);
+
 
 	// 橋オブジェクトの生成
 	for (int i = 0; i < 8; i++)

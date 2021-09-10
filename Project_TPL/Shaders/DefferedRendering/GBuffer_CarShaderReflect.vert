@@ -27,7 +27,7 @@ uniform mat4 u_lightSpaceMatrix;
 // 光源座標
 uniform vec3 u_lightPos;
 // 反射マップオフセット(映り込みの角度調整用)
-uniform vec3 u_offset;
+uniform mat4 u_offset;
 
 // フラグメントへの出力
 out VS_OUT
@@ -37,6 +37,9 @@ out VS_OUT
 	vec3 fragWorldPos;              // ワールドスペース上の座標
 	vec3 fragViewPos;               // カメラ座標
 	vec4 fragPosLightSpace;         // ライトスペース上の座標
+	// 環境マップ用
+	vec3 fragEnvNormal;
+	vec3 fragEnvWorldPos;
 }vs_out;
 
 
@@ -50,6 +53,13 @@ void main()
 	// ワールド座標の頂点をライトスペースに変換して保存
 	vs_out.fragPosLightSpace = u_lightSpaceMatrix * vec4(vs_out.fragWorldPos, 1.0);
 
-	vs_out.fragNormal = vec3(vs_out.fragNormal.y, -vs_out.fragNormal.z, vs_out.fragNormal.x);
-	vs_out.fragWorldPos = vec3(pos.y, -pos.z, pos.x);                                                 // ワールド上の位置ベクトルを出力
+	//vs_out.fragNormal = vs_out.fragNormal;
+	vs_out.fragNormal = mat3(transpose(inverse(u_worldTransform))) * a_normal;
+	vs_out.fragWorldPos = pos.xyz;                  // ワールド上の位置ベクトルを出力
+
+	// 環境マップ用ノーマル+ワールド座標
+	vs_out.fragEnvNormal = vs_out.fragNormal;
+	vs_out.fragEnvNormal = mat3(u_offset) * vs_out.fragEnvNormal;
+	vs_out.fragEnvWorldPos = pos.xyz;
+
 }

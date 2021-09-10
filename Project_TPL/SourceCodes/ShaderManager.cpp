@@ -140,6 +140,8 @@ bool ShaderManager::CreateShaders()
 	{
 		return false;
 	}
+	m_shaders[GLSL_SHADER::GBUFFER_ENVIRONMENT]->UseProgram();
+	m_shaders[GLSL_SHADER::GBUFFER_ENVIRONMENT]->SetUniform("u_cubeMap", 0);
 
 	// GBuffer+車ボディ用
 	m_shaders[GLSL_SHADER::GBUFFER_CAR_BODY] = new GLSLprogram();
@@ -191,6 +193,12 @@ bool ShaderManager::CreateShaders()
 	{
 		return false;
 	}
+	m_shaders[GLSL_SHADER::DIRECTIONAL_LIGHT]->UseProgram();
+	m_shaders[GLSL_SHADER::DIRECTIONAL_LIGHT]->SetUniform("u_gBuffer.position", 0);
+	m_shaders[GLSL_SHADER::DIRECTIONAL_LIGHT]->SetUniform("u_gBuffer.normal", 1);
+	m_shaders[GLSL_SHADER::DIRECTIONAL_LIGHT]->SetUniform("u_gBuffer.albedoSpec", 2);
+	m_shaders[GLSL_SHADER::DIRECTIONAL_LIGHT]->SetUniform("u_gBuffer.emissive", 3);
+	m_shaders[GLSL_SHADER::DIRECTIONAL_LIGHT]->SetUniform("u_ssao", 4);
 
 	// ポイントライト
 	m_shaders[GLSL_SHADER::POINT_LIGHT] = new GLSLprogram();
@@ -198,6 +206,12 @@ bool ShaderManager::CreateShaders()
 	{
 		return false;
 	}
+	m_shaders[GLSL_SHADER::POINT_LIGHT]->UseProgram();
+	m_shaders[GLSL_SHADER::POINT_LIGHT]->SetUniform("u_gBuffer.position", 0);
+	m_shaders[GLSL_SHADER::POINT_LIGHT]->SetUniform("u_gBuffer.normal", 1);
+	m_shaders[GLSL_SHADER::POINT_LIGHT]->SetUniform("u_gBuffer.albedoSpec", 2);
+	m_shaders[GLSL_SHADER::POINT_LIGHT]->SetUniform("u_gBuffer.emissive", 3);
+	m_shaders[GLSL_SHADER::POINT_LIGHT]->SetUniform("u_ssao", 4);
 
 
 	//-------------------------------------------------------------------------+
@@ -218,6 +232,31 @@ bool ShaderManager::CreateShaders()
 	{
 		return false;
 	}
+
+	//-------------------------------------------------------------------------+
+    // SSAO用シェーダー
+    //-------------------------------------------------------------------------+
+    // SSAO
+	m_shaders[GLSL_SHADER::SSAO] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::SSAO]->LoadShaders("Shaders/DefferedRendering/SSAO/SSAO.vert", "Shaders/DefferedRendering/SSAO/SSAO.frag", ""))
+	{
+		return false;
+	}
+	m_shaders[GLSL_SHADER::SSAO]->UseProgram();
+	m_shaders[GLSL_SHADER::SSAO]->SetUniform("u_gPosition", 0);
+	m_shaders[GLSL_SHADER::SSAO]->SetUniform("u_gNormal",   1);
+	m_shaders[GLSL_SHADER::SSAO]->SetUniform("u_texNoise",  2);
+	m_shaders[GLSL_SHADER::SSAO]->SetUniform("u_screenW", RENDERER->GetScreenWidth());
+	m_shaders[GLSL_SHADER::SSAO]->SetUniform("u_screenH", RENDERER->GetScreenHeight());
+
+	// SSAOブラー効果
+	m_shaders[GLSL_SHADER::SSAO_BLUR] = new GLSLprogram();
+	if (!m_shaders[GLSL_SHADER::SSAO_BLUR]->LoadShaders("Shaders/DefferedRendering/SSAO/SSAO.vert", "Shaders/DefferedRendering/SSAO/SSAO_Blur.frag", ""))
+	{
+		return false;
+	}
+	m_shaders[GLSL_SHADER::SSAO_BLUR]->UseProgram();
+	m_shaders[GLSL_SHADER::SSAO_BLUR]->SetUniform("u_ssaoInput", 0);
 
 
 	//-------------------------------------------------------------------------+

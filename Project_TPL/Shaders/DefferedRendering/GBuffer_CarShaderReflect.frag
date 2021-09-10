@@ -13,10 +13,13 @@ layout (location = 3) out vec4 out_gBrightColor;
 in VS_OUT
 {
 	vec2 fragTexCoords;              // テクスチャ座標
-	vec3 fragNormal;                // ワールドスペース上の法線
-	vec3 fragWorldPos;              // ワールドスペース上の座標
-	vec3 fragViewPos;               // カメラ座標
-	vec4 fragPosLightSpace;         // ライトスペース上の座標
+	vec3 fragNormal;                 // ワールドスペース上の法線
+	vec3 fragWorldPos;               // ワールドスペース上の座標
+	vec3 fragViewPos;                // カメラ座標
+	vec4 fragPosLightSpace;          // ライトスペース上の座標
+	// 環境マップ用
+	vec3 fragEnvNormal;
+	vec3 fragEnvWorldPos;
 }fs_in;
 
 //----------------------------------------------------+
@@ -47,7 +50,6 @@ struct Material
 	sampler2D diffuseMap;
 	sampler2D specularMap;
 	sampler2D depthMap;
-	sampler2D emissiveMap;
 };
 
 
@@ -104,8 +106,8 @@ void main()
 	float NdotL = dot(N, L);
 	// 環境マップサンプリング
 	float ratio = 1.00 / 1.00;                                        // 反射率
-	vec3 I = normalize(fs_in.fragWorldPos - fs_in.fragViewPos);        // カメラの向きベクトル
-	vec3 eR = refract(I, normalize(fs_in.fragNormal), ratio);                 // カメラの向きベクトルと法線から反射ベクトルを生成
+	vec3 I = normalize(fs_in.fragEnvWorldPos - fs_in.fragViewPos);        // カメラの向きベクトル
+	vec3 eR = refract(I, normalize(fs_in.fragEnvNormal), ratio);                 // カメラの向きベクトルと法線から反射ベクトルを生成
 	vec3 envMap = texture(u_skybox, eR).rgb;
 
 	// ディフューズ計算
@@ -113,7 +115,6 @@ void main()
 	vec3 Diffuse = u_dLightDiffuse;
 	// スペキュラ計算
 	vec3 Specular = u_dLightSpecular * pow(max(0.0, dot(R, V)), u_specPower) * texture(u_mat.specularMap, fs_in.fragTexCoords).rgb;
-	//vec3 Specular = u_dLightSpecular * texture(u_mat.specularMap, fs_in.fragTexCoords).rgb;
 
 	// アンビエント
 	vec3 ambient = u_dLightAmbient * color;
@@ -122,16 +123,9 @@ void main()
 	float shadow = ShadowCalculation(fs_in.fragPosLightSpace);
 
 	// GBuffer出力
-	//out_gPosition = vec3(fs_in.fragWorldPos.z, fs_in.fragWorldPos.x, -fs_in.fragWorldPos.y);
 	out_gPosition = fs_in.fragWorldPos;
 	out_gNormal = fs_in.fragNormal;
 	// シャドウの逆数を取り、0 = 影の時にディフューズとスペキュラの値がキャンセルされる(影となる)
-	//out_gAlbedoSpec = vec4((ambient + (0.8f - shadow)) * (Diffuse + Specular + envMap), Specular.r);
-	out_gAlbedoSpec = vec4(((ambient + envMap) * (Diffuse + Specular)) * u_luminance, Specular.r);
-	//out_gAlbedoSpec = vec4((Diffuse + ((ambient + Specular) * (0.8f - shadow)) + envMap), Specular.r);
+	out_gAlbedoSpec = vec4((ambient * 0.3f) * (Diffuse + Specular + envMap), Specular.r);
 
-	if(u_enableBloom == 1)
-	{
-	    out_gBrightColor = vec4(envMap, 1.0f) + texture(u_mat.emissiveMap, fs_in.fragTexCoords) * 0.095f;     // 0.03f
-	}
 }

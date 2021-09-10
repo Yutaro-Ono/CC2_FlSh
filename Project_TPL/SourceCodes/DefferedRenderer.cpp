@@ -76,7 +76,7 @@ void DefferedRenderer::DrawGBuffer()
 	// 通常メッシュ
 	//-----------------------------------------------------------+
 	// シェーダにuniformセット
-	GLSLprogram* meshShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_NORMAL_SHADOW);
+	GLSLprogram* meshShader = RENDERER->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_NORMAL_SHADOW);
 	meshShader->UseProgram();
 	meshShader->SetUniform("u_lightSpaceMatrix", lightSpace);
 	meshShader->SetUniform("u_lightPos", m_renderer->GetDirectionalLight()->GetPosition());
@@ -88,7 +88,7 @@ void DefferedRenderer::DrawGBuffer()
 	// メッシュ描画 (ここでGBufferの各要素に情報が書き込まれる)
 	for (auto mesh : m_renderer->m_meshComponents)
 	{
-		//mesh->Draw(meshShader);
+		mesh->Draw(meshShader);
 	}
 
 	
@@ -96,12 +96,8 @@ void DefferedRenderer::DrawGBuffer()
 	// スキンメッシュ
 	//------------------------------------------------------------+
 	// シェーダにuniformセット
-	GLSLprogram* skinShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_SKINMESH);
+	GLSLprogram* skinShader = RENDERER->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_SKINMESH);
 	skinShader->UseProgram();
-	skinShader->SetUniform("u_dirLight.direction", m_renderer->GetDirectionalLight()->GetDirection());
-	skinShader->SetUniform("u_dirLight.ambient", m_renderer->GetDirectionalLight()->GetAmbient());
-	skinShader->SetUniform("u_dirLight.diffuse", m_renderer->GetDirectionalLight()->GetDiffuse());
-	skinShader->SetUniform("u_dirLight.specular", m_renderer->GetDirectionalLight()->GetSpecular());
 	skinShader->SetUniform("u_lightSpaceMatrix", lightSpace);
 	skinShader->SetUniform("u_lightPos", m_renderer->GetDirectionalLight()->GetPosition());
 	skinShader->SetUniform("u_mat.diffuseMap", 0);
@@ -112,13 +108,13 @@ void DefferedRenderer::DrawGBuffer()
 	// メッシュ描画 (ここでGBufferの各要素に情報が書き込まれる)
 	for (auto skel : m_renderer->m_skeletalMeshComponents)
 	{
-		skel->Draw(skinShader);
+		//skel->Draw(skinShader);
 	}
 
 	//------------------------------------------------------------+
     // SkyBox
     //------------------------------------------------------------+
-	GLSLprogram* skyboxShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_SKYBOX);
+	GLSLprogram* skyboxShader = RENDERER->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_SKYBOX);
 	// 座標系の問題でスカイボックスが正常な向きに描画されないので、回転オフセットを設定
 	Matrix4 offset;
 	offset = Matrix4::CreateRotationX(Math::ToRadians(90.0f));
@@ -127,9 +123,6 @@ void DefferedRenderer::DrawGBuffer()
 	InvTransView.Invert();
 	InvTransView.Transpose();
 	skyboxShader->UseProgram();
-	skyboxShader->SetUniform("u_view", m_renderer->m_viewMat);
-	skyboxShader->SetUniform("u_projection", m_renderer->m_projMat);
-	skyboxShader->SetUniform("u_viewPos", m_renderer->m_viewMat.GetTranslation());
 	skyboxShader->SetUniform("u_offset", offset);
 	skyboxShader->SetUniform("u_invTransView", InvTransView);
 	skyboxShader->SetUniform("u_cubeMap", 0);
@@ -138,14 +131,11 @@ void DefferedRenderer::DrawGBuffer()
 	//------------------------------------------------------------+
 	// 車
 	//------------------------------------------------------------+
-	GLSLprogram* carShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_CAR_BODY);
+	GLSLprogram* carShader = RENDERER->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_CAR_BODY);
 	carShader->UseProgram();
-	carShader->SetUniform("u_dirLight.direction", m_renderer->GetDirectionalLight()->GetDirection());
-	carShader->SetUniform("u_dirLight.ambient", m_renderer->GetDirectionalLight()->GetAmbient());
-	carShader->SetUniform("u_dirLight.diffuse", m_renderer->GetDirectionalLight()->GetDiffuse());
-	carShader->SetUniform("u_dirLight.specular", m_renderer->GetDirectionalLight()->GetSpecular());
 	carShader->SetUniform("u_lightSpaceMatrix", lightSpace);
 	carShader->SetUniform("u_lightPos", m_renderer->GetDirectionalLight()->GetPosition());
+	carShader->SetUniform("u_offset", offset);
 	carShader->SetUniform("u_mat.diffuseMap", 0);
 	carShader->SetUniform("u_mat.specularMap", 1);
 	carShader->SetUniform("u_mat.depthMap", 2);
@@ -162,14 +152,14 @@ void DefferedRenderer::DrawGBuffer()
 	// メッシュ裏側のカリング
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	GLSLprogram* envShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_ENVIRONMENT);
+	GLSLprogram* envShader = RENDERER->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_ENVIRONMENT);
 	// uniformセット
 	envShader->UseProgram();
-	envShader->SetUniform("u_viewPos", m_renderer->m_viewMat.GetTranslation());
 	envShader->SetUniform("u_skybox", 0);
+	envShader->SetUniform("u_offset", offset);
 	for (auto env : m_renderer->m_envMeshComponents)
 	{
-		//env->DrawEnvironmentMap(envShader);
+		env->DrawEnvironmentMap(envShader);
 	}
 	// カリングのオフ
 	glDisable(GL_CULL_FACE);
@@ -177,7 +167,7 @@ void DefferedRenderer::DrawGBuffer()
 	//------------------------------------------------------------+
     // ライトグラス
     //------------------------------------------------------------+
-	GLSLprogram* glassShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_GLASS);
+	GLSLprogram* glassShader = RENDERER->GetShaderManager()->GetShader(GLSL_SHADER::GBUFFER_GLASS);
 	glassShader->UseProgram();
 	glassShader->SetUniform("u_skybox", 0);
 	for (auto light : m_renderer->m_lightGlassComponents)
@@ -192,8 +182,62 @@ void DefferedRenderer::DrawGBuffer()
 
 }
 
+/// <summary>
+/// SSAOパス
+/// </summary>
+void DefferedRenderer::DrawSSAOPath()
+{
+	GLSLprogram* ssaoShader = RENDERER->GetShaderManager()->GetShader(GLSL_SHADER::SSAO);
+	GLSLprogram* ssaoBlurShader = RENDERER->GetShaderManager()->GetShader(GLSL_SHADER::SSAO_BLUR);
+
+	//----------------------------------------------------------------------+
+	// 1.SSAO
+	//----------------------------------------------------------------------+
+	glBindFramebuffer(GL_FRAMEBUFFER, m_ssaoFBO);
+	glClear(GL_COLOR_BUFFER_BIT);
+	ssaoShader->UseProgram();
+
+	// カーネルをシェーダーへ送信
+	for (unsigned int i = 0; i < 64; ++i)
+	{
+		std::string kernelStr;
+		kernelStr = "u_samples[" + std::to_string(i) + "]";
+		ssaoShader->SetUniform(kernelStr.c_str(), m_ssaoKernel[i]);
+	}
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_gPos);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, m_gNormal);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, m_noiseTex);
+
+	// スクリーン全体に描画
+	m_renderer->GetScreenVAO()->SetActive();
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+
+	//----------------------------------------------------------------------+
+    // 2.SSAOブラー効果
+    //----------------------------------------------------------------------+
+	glBindFramebuffer(GL_FRAMEBUFFER, m_ssaoBlurFBO);
+	glClear(GL_COLOR_BUFFER_BIT);
+	ssaoBlurShader->UseProgram();
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_ssaoColor);
+
+	// スクリーン全体に描画
+	m_renderer->GetScreenVAO()->SetActive();
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+}
+
 // GBufferを元にライティング計算を行う
-void DefferedRenderer::DrawLightPass()
+void DefferedRenderer::DrawLightPath()
 {
 	// ライトバッファをバインド
 	glBindFramebuffer(GL_FRAMEBUFFER, m_lightFBO);
@@ -215,6 +259,9 @@ void DefferedRenderer::DrawLightPass()
 	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_2D, m_gEmissive);
 
+	// SSAOテクスチャをバインド
+	glActiveTexture(GL_TEXTURE4);
+	glBindTexture(GL_TEXTURE_2D, m_ssaoColor);
 
 	// カリング設定：ライトはメッシュの裏側のみ描画する
 	glFrontFace(GL_CCW);
@@ -231,6 +278,7 @@ void DefferedRenderer::DrawLightPass()
 	pointLightShader->SetUniform("u_gBuffer.normal",       1);
 	pointLightShader->SetUniform("u_gBuffer.albedoSpec",   2);
 	pointLightShader->SetUniform("u_gBuffer.emissive",     3);
+	pointLightShader->SetUniform("u_ssao",                 4);
 	// ポイントライトの描画
 	for (auto pl : m_renderer->m_pointLights)
 	{
@@ -273,6 +321,7 @@ void DefferedRenderer::DrawLightPass()
 	dirLightShader->SetUniform("u_gBuffer.normal", 1);
 	dirLightShader->SetUniform("u_gBuffer.albedoSpec", 2);
 	dirLightShader->SetUniform("u_gBuffer.emissive", 3);
+	dirLightShader->SetUniform("u_ssao",             4);
 	// スクリーン全体に描画
 	m_renderer->GetScreenVAO()->SetActive();
 	glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -359,8 +408,11 @@ void DefferedRenderer::Draw()
 	// GBufferへの書き込み
 	DrawGBuffer();
 
+	// SSAO処理
+	DrawSSAOPath();
+
 	// ライトバッファへの書き込み
-	DrawLightPass();
+	DrawLightPath();
 
 	// Bloom処理を施した描画
 	RenderBloom* bloom = m_renderer->GetBloom();
@@ -394,7 +446,7 @@ void DefferedRenderer::Draw()
 
 // GBufferを作成する
 // 座標用バッファ・法線用バッファ・アルベド＆スペキュラバッファ・レンダーバッファ
-bool DefferedRenderer::CreateGBuffer()
+bool DefferedRenderer::GenerateGBuffer()
 {
 	// GBufferの登録・バインド
 	glGenFramebuffers(1, &m_gBuffer);
@@ -406,28 +458,28 @@ bool DefferedRenderer::CreateGBuffer()
 	// 3D空間座標バッファ (浮動小数点バッファ/カラー0番目として登録)
 	glGenTextures(1, &m_gPos);
 	glBindTexture(GL_TEXTURE_2D, m_gPos);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, GAME_CONFIG->GetScreenWidth(), GAME_CONFIG->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_gPos, 0);
 	// 法線ベクトルバッファ (浮動小数点バッファ/カラー1番目として登録)
 	glGenTextures(1, &m_gNormal);
 	glBindTexture(GL_TEXTURE_2D, m_gNormal);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, GAME_CONFIG->GetScreenWidth(), GAME_CONFIG->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, m_gNormal, 0);
 	// アルベド(RGB)＆スペキュラ(A)用カラーバッファ (A成分含む8bitカラーバッファ/2番目として登録)
 	glGenTextures(1, &m_gAlbedoSpec);
 	glBindTexture(GL_TEXTURE_2D, m_gAlbedoSpec);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, GAME_CONFIG->GetScreenWidth(), GAME_CONFIG->GetScreenHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, m_gAlbedoSpec, 0);
 	// 高輝度バッファの作成 (エミッシブ出力用輝度バッファ/3番目として登録)
 	glGenTextures(1, &m_gEmissive);
 	glBindTexture(GL_TEXTURE_2D, m_gEmissive);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, GAME_CONFIG->GetScreenWidth(), GAME_CONFIG->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -445,13 +497,13 @@ bool DefferedRenderer::CreateGBuffer()
 	// レンダーバッファの作成 (ステンシルバッファとして定義)
 	glGenRenderbuffers(1, &m_gRBO);
 	glBindRenderbuffer(GL_RENDERBUFFER, m_gRBO);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, GAME_CONFIG->GetScreenWidth(), GAME_CONFIG->GetScreenHeight());
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight());
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_gRBO);
 
 	// フレームバッファの整合性をチェック
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 	{
-		std::cout << "ERROR::GBUFFER::Create False" << std::endl;
+		std::cout << "ERROR::DefferedRenderer::GBUFFER::Generate Failed" << std::endl;
 		return false;
 	}
 	// フレームバッファのバインド解除
@@ -460,9 +512,87 @@ bool DefferedRenderer::CreateGBuffer()
 	return true;
 }
 
+/// <summary>
+/// SSAO用のバッファ生成処理
+/// </summary>
+/// <returns></returns>
+bool DefferedRenderer::GenerateSSAOBuffer()
+{
+	// SSAO用各フレームバッファの登録
+	glGenFramebuffers(1, &m_ssaoFBO);
+	glGenFramebuffers(1, &m_ssaoBlurFBO);
+	// ssaoフレームバッファをバインド
+	glBindFramebuffer(GL_FRAMEBUFFER, m_ssaoFBO);
+	// SSAO用カラーバッファの登録
+	glGenTextures(1, &m_ssaoColor);
+	glBindTexture(GL_TEXTURE_2D, m_ssaoColor);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RED, GL_FLOAT, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_ssaoColor, 0);
+	// フレームバッファの不具合をチェック
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+	{
+		std::cout << "ERROR::DefferedRenderer::SSAO::Generate Failed" << std::endl;
+	}
+
+	// ssaoブラーバッファのバインド
+	glBindFramebuffer(GL_FRAMEBUFFER, m_ssaoBlurFBO);
+	// SSAO用カラーバッファの登録
+	glGenTextures(1, &m_ssaoBlurColor);
+	glBindTexture(GL_TEXTURE_2D, m_ssaoBlurColor);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RED, GL_FLOAT, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_ssaoBlurColor, 0);
+	// フレームバッファの不具合をチェック
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+	{
+		std::cout << "ERROR::DefferedRenderer::SSAO::Generate Failed" << std::endl;
+	}
+
+	// バインド解除
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+
+	// サンプリング用カーネルの生成
+	std::uniform_real_distribution<float> randomFloats(0.0f, 1.0f);   // ランダム生成用(0.0f ～ 1.0f)
+	for (unsigned int i = 0; i < 64; ++i)
+	{
+		Vector3 sample(randomFloats(m_generator) * 2.0f - 1.0f, randomFloats(m_generator) * 2.0f - 1.0f, randomFloats(m_generator));
+		sample.Normalize();
+		sample *= randomFloats(m_generator);
+		float scale = static_cast<float>(i) / 64.0f;
+
+		// sampleをS.T.にスケーリングすることで、カーネルの中心に一致させる
+		scale = 0.1f + (scale * scale) * (1.0f - 0.1f);
+		sample *= scale;
+		m_ssaoKernel.push_back(sample);
+	}
+
+	// ノイズテクスチャの生成
+	for (unsigned int i = 0; i < 16; i++)
+	{
+		Vector3 noise(randomFloats(m_generator) * 2.0f - 1.0f, randomFloats(m_generator) * 2.0f - 1.0f, 0.0f);
+		m_ssaoNoise.push_back(noise);
+	}
+	glGenTextures(1, &m_noiseTex);
+	glBindTexture(GL_TEXTURE_2D, m_noiseTex);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, 4, 4, 0, GL_RGB, GL_FLOAT, &m_ssaoNoise[0]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+
+
+
+	return true;
+}
+
 // ライトバッファを作成する
 // 光源処理用のHDRバッファ・レンダーバッファ
-bool DefferedRenderer::CreateLightBuffer()
+bool DefferedRenderer::GenerateLightBuffer()
 {
 	glGenFramebuffers(1, &m_lightFBO);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_lightFBO);
@@ -470,14 +600,14 @@ bool DefferedRenderer::CreateLightBuffer()
 	// HDRバッファの作成
 	glGenTextures(1, &m_lightHDR);
 	glBindTexture(GL_TEXTURE_2D, m_lightHDR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, GAME_CONFIG->GetScreenWidth(), GAME_CONFIG->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_lightHDR, 0);
 	// 高輝度バッファの作成
 	glGenTextures(1, &m_lightHighBright);
 	glBindTexture(GL_TEXTURE_2D, m_lightHighBright);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, GAME_CONFIG->GetScreenWidth(), GAME_CONFIG->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -491,13 +621,13 @@ bool DefferedRenderer::CreateLightBuffer()
 	// レンダーバッファを作成する
 	glGenRenderbuffers(1, &m_lightRBO);
 	glBindRenderbuffer(GL_RENDERBUFFER, m_lightRBO);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, GAME_CONFIG->GetScreenWidth(), GAME_CONFIG->GetScreenHeight());
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight());
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_lightRBO);
 
 	// フレームバッファの整合性をチェック
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 	{
-		std::cout << "ERROR::LIGHTBUFFER::Create False" << std::endl;
+		std::cout << "ERROR::DefferedRenderer::LIGHTBUFFER::Generate False" << std::endl;
 		return false;
 	}
 	// フレームバッファのバインド解除
@@ -514,9 +644,10 @@ bool DefferedRenderer::CreateLightBuffer()
 /// <returns></returns>
 bool DefferedRenderer::Initialize()
 {
-	// Gバッファとライトバッファの作成
-	CreateGBuffer();
-	CreateLightBuffer();
+	// Gバッファ・SSAOバッファ・ライトバッファの生成
+	GenerateGBuffer();
+	GenerateSSAOBuffer();
+	GenerateLightBuffer();
 
 	return true;
 }

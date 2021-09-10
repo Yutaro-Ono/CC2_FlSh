@@ -40,5 +40,4 @@ protected:
 
 	bool            m_isRide;                        // ƒvƒŒƒCƒ„[‚Éæ‚ç‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©
 
-
 };

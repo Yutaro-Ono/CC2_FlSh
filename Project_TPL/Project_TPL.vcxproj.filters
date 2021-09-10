@@ -183,6 +183,9 @@
     <Filter Include="Source\Actor\Vehicle\MotorBike">
       <UniqueIdentifier>{1d17c0ce-b9fe-42f8-b96a-a10737c0eef4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\GLSL\DefferedRendering\SSAO">
+      <UniqueIdentifier>{49d90996-9dfa-49c9-abd6-1e4c009b576c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -1310,6 +1313,15 @@
     </None>
     <None Include="Shaders\DefferedRendering\Lighting\GBuffer_PointLight.vert">
       <Filter>Source\GLSL\DefferedRendering\Lighting</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\SSAO\SSAO.frag">
+      <Filter>Source\GLSL\DefferedRendering\SSAO</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\SSAO\SSAO.vert">
+      <Filter>Source\GLSL\DefferedRendering\SSAO</Filter>
+    </None>
+    <None Include="Shaders\DefferedRendering\SSAO\SSAO_Blur.frag">
+      <Filter>Source\GLSL\DefferedRendering\SSAO</Filter>
     </None>
   </ItemGroup>
 </Project>

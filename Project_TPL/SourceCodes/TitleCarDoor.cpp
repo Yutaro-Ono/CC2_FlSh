@@ -4,8 +4,8 @@
 #include "Mesh.h"
 
 const std::string TitleCarDoor::CAR_DOOR_LEFT_FRAME_MESH_PATH = "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Door/DoorLeft/DoorFrameLeft_Internal.OBJ";
-const std::string TitleCarDoor::CAR_DOOR_LEFT_GLASS_MESH_PATH = "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Door/DoorLeft/DoorGlassLeftTransparency_Internal.OBJ";
-const std::string TitleCarDoor::CAR_DOOR_RIGHT_FRAME_MESH_PATH = "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/DoorRight/DoorFrameRight_Internal.OBJ";
+const std::string TitleCarDoor::CAR_DOOR_LEFT_GLASS_MESH_PATH =  "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Door/DoorLeft/DoorGlassLeftTransparency_Internal.OBJ";
+const std::string TitleCarDoor::CAR_DOOR_RIGHT_FRAME_MESH_PATH = "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Door/DoorRight/DoorFrameRight_Internal.OBJ";
 const std::string TitleCarDoor::CAR_DOOR_RIGHT_GLASS_MESH_PATH = "Data/Meshes/Actors/Vehicles/Cars/PlayerCar_SUV/Door/DoorRight/DoorGlassRightTransparency_Internal.OBJ";
 
 // in_leftRight = 右側のドアか左側のドアかで位置補正ベクトルを変える
@@ -24,7 +24,6 @@ TitleCarDoor::TitleCarDoor(Actor* in_owner, DOOR_POS in_pos)
 		CarMeshComponent* frameMeshComp = new CarMeshComponent(this);
 		frameMeshComp->SetMesh(frame);
 		Mesh* glass = RENDERER->GetMesh(CAR_DOOR_LEFT_GLASS_MESH_PATH);
-		//MeshComponent* glassMeshComp = new MeshComponent(this);
 		EnvironmentMapComponent* glassMeshComp = new EnvironmentMapComponent(this);
 		glassMeshComp->SetMesh(glass);
 		glassMeshComp->SetAlpha(0.5f);
@@ -38,7 +37,6 @@ TitleCarDoor::TitleCarDoor(Actor* in_owner, DOOR_POS in_pos)
 		CarMeshComponent* frameMeshComp = new CarMeshComponent(this);
 		frameMeshComp->SetMesh(frame);
 		Mesh* glass = RENDERER->GetMesh(CAR_DOOR_RIGHT_GLASS_MESH_PATH);
-		//MeshComponent* glassMeshComp = new MeshComponent(this);
 		EnvironmentMapComponent* glassMeshComp = new EnvironmentMapComponent(this);
 		glassMeshComp->SetMesh(glass);
 		glassMeshComp->SetAlpha(0.5f);

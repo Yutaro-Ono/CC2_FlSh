@@ -12,9 +12,9 @@ MotorBikeParent::MotorBikeParent()
 {
 	// 修正座標
 	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::BODY)] = Vector3::Zero;
-	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::HANDLE)] = Vector3(0.0f, 40.0f, 80.0f);
-	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::FRONT_WHEEL)] = Vector3(0.0f, 40.0f, 0.0f);
-	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::BACK_WHEEL)] = Vector3(0.0f, -40.0f, 0.0f);
+	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::HANDLE)] = Vector3(0.0f, 60.0f, 110.0f);
+	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::FRONT_WHEEL)] = Vector3(0.0f, 60.0f, 30.0f);
+	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::BACK_WHEEL)] = Vector3(0.0f, -90.0f, 30.0f);
 
 	// 各パーツの生成
 	for (int i = 0; i < static_cast<int>(MOTORBIKE_PARTS::ALL); i++)
@@ -57,23 +57,18 @@ void MotorBikeParent::UpdateActor(float _deltaTime)
 
 	// 各パーツ・乗車中アクターの座標修正
 	// ※必ず座標系を更新した後で行うこと
-	if (m_recomputeWorldTransform)
+	for (int i = 0; i < static_cast<int>(MOTORBIKE_PARTS::ALL); i++)
 	{
-		ComputeWorldTransform();
+		// 調整したワールド座標をそのまま置き換える
+		Matrix4 fixTrans = Matrix4::CreateTranslation(m_offsetPos[i]) * m_worldTransform;
+		m_parts[i]->SetWorldTransform(fixTrans);
+	}
 
-		for (int i = 0; i < static_cast<int>(MOTORBIKE_PARTS::ALL); i++)
-		{
-			// 調整したワールド座標をそのまま置き換える
-			Matrix4 fixTrans = Matrix4::CreateTranslation(m_offsetPos[i]) * m_worldTransform;
-			m_parts[i]->SetWorldTransform(fixTrans);
-		}
-
-		// アクターが乗車中のみ修正
-		if (m_isRide)
-		{
-			Matrix4 fixATrans = Matrix4::CreateTranslation(m_rideOffset)* m_worldTransform;
-			m_rideActor->SetWorldTransform(fixATrans);
-		}
+	// アクターが乗車中のみ修正
+	if (m_isRide)
+	{
+		Matrix4 fixATrans = Matrix4::CreateTranslation(m_rideOffset) * m_worldTransform;
+		m_rideActor->SetWorldTransform(fixATrans);
 	}
 
 }

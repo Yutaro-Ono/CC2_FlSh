@@ -488,6 +488,9 @@
     <None Include="Shaders\DefferedRendering\Lighting\GBuffer_PointLight.frag" />
     <None Include="Shaders\DefferedRendering\Lighting\GBuffer_PointLight.vert" />
     <None Include="Shaders\DefferedRendering\Lighting\GBuffer_SpotLight.frag" />
+    <None Include="Shaders\DefferedRendering\SSAO\SSAO.frag" />
+    <None Include="Shaders\DefferedRendering\SSAO\SSAO.vert" />
+    <None Include="Shaders\DefferedRendering\SSAO\SSAO_Blur.frag" />
     <None Include="Shaders\Depth\DepthMap.frag" />
     <None Include="Shaders\Depth\DepthMap.vert" />
     <None Include="Shaders\Depth\SkinnedDepth.vert" />

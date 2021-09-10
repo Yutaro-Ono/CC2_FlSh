@@ -57,6 +57,7 @@ struct GBuffer
 	sampler2D albedoSpec;
 	sampler2D emissive;
 };
+uniform sampler2D u_ssao;
 
 // uniform
 uniform PointLight u_pl;
@@ -71,6 +72,8 @@ void main()
 	vec4  albedoSpec = texture(u_gBuffer.albedoSpec, fs_in.fragTexCoords);
 	vec3  Albedo     = albedoSpec.rgb;
 	float Spec_p     = albedoSpec.a;
+	// オクルージョンのサンプリング
+	float AO = texture(u_ssao, fs_in.fragTexCoords).r;
 
 	// 距離
 	float l_distance = length(u_pl.position - Position);
@@ -90,7 +93,9 @@ void main()
 	vec3 specular = u_pl.specular * spec * Spec_p;
 
 	// アンビエント
-	vec3 ambient = u_pl.ambient * Albedo * u_pl.luminance;
+	//vec3 ambient = u_pl.ambient * Albedo * u_pl.luminance;
+	vec3 ambient = u_pl.ambient * Albedo * AO * u_pl.luminance;
+
 
 	ambient  *= attenuation;
 	diffuse  *= attenuation;
