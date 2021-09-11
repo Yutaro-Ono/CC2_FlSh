@@ -644,6 +644,18 @@
     <ClCompile Include="SourceCodes\PlayerState_Idle.cpp">
       <Filter>Source\Actor\Player\PlayerState</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_Jog.cpp">
+      <Filter>Source\Actor\Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_Run.cpp">
+      <Filter>Source\Actor\Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_Walk.cpp">
+      <Filter>Source\Actor\Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerStateBase.cpp">
+      <Filter>Source\Actor\Player\PlayerState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -1118,6 +1130,15 @@
       <Filter>Source\Actor\Player\PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\PlayerState_Idle.h">
+      <Filter>Source\Actor\Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_Walk.h">
+      <Filter>Source\Actor\Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_Jog.h">
+      <Filter>Source\Actor\Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_Run.h">
       <Filter>Source\Actor\Player\PlayerState</Filter>
     </ClInclude>
   </ItemGroup>

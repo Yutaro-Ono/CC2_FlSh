@@ -13,7 +13,8 @@
 #include <random>
 
 // キャラごとのメッシュパス
-const std::string MESH_PATH_CARLA =   "Data/Meshes/Actors/HumanRace/NPCs/carla/rp_carla_rigged_001_ue4";
+//const std::string MESH_PATH_CARLA =   "Data/Meshes/Actors/HumanRace/NPCs/carla/rp_carla_rigged_001_ue4";
+const std::string MESH_PATH_CARLA = "Data/Meshes/Actors/HumanRace/Player/Player_gonzales";
 const std::string MESH_PATH_CLAUDIA = "Data/Meshes/Actors/HumanRace/NPCs/claudia/rp_claudia_rigged_002_ue4";
 const std::string MESH_PATH_ERIC =    "Data/Meshes/Actors/HumanRace/NPCs/eric/rp_eric_rigged_001_ue4";
 const std::string MESH_PATH_MANUEL =  "Data/Meshes/Actors/HumanRace/NPCs/manuel/rp_manuel_rigged_001_ue4";
@@ -39,8 +40,8 @@ ClientActor::ClientActor(const Vector3& in_pos, int in_chara)
 	// 座標設定
 	m_position = in_pos;
 	// スケール設定
-	//SetScale(0.265f);
-	SetScale(1.5f);
+	SetScale(0.265f);
+	//SetScale(1.5f);
 
 	// ランドマーク生成
 	m_landMark = new WorldSpaceUI(m_position + Vector3(0.0f, 0.0f, -30.0f), "Data/Interface/TND/Control/landMark.png", 200.0f);
@@ -59,8 +60,10 @@ ClientActor::ClientActor(const Vector3& in_pos, int in_chara)
 	// アニメーションの生成・取得
 	m_anim.resize(CLIENT_ANIM::ANIM_ALL_NUM);
 	// 対応するアニメーション配列にセット
-	m_anim[ANIM_IDLE] = RENDERER->GetAnimation("Data/Animation/Player/ThirdPersonIdle.gpanim", true);
-	m_anim[ANIM_IDLE_LOOKAROUND] = RENDERER->GetAnimation("Data/Animation/Player/ThirdPersonIdle_Around.gpanim", true);
+	//m_anim[ANIM_IDLE] = RENDERER->GetAnimation("Data/Animation/Player/ThirdPersonIdle.gpanim", true);
+	m_anim[ANIM_IDLE] = RENDERER->GetAnimation("Data/Animation/Player/Player_Idle.gpanim", true);
+	m_anim[ANIM_IDLE_LOOKAROUND] = RENDERER->GetAnimation("Data/Animation/Player/Player_Idle.gpanim", true);
+	//m_anim[ANIM_IDLE_LOOKAROUND] = RENDERER->GetAnimation("Data/Animation/Player/ThirdPersonIdle_Around.gpanim", true);
 	m_anim[ANIM_WALKING_FWD] = RENDERER->GetAnimation("Data/Animation/Player/ThirdPersonWalk_Fwd.gpanim", true);
 	m_anim[ANIM_WALKING_BWD] = RENDERER->GetAnimation("Data/Animation/Player/ThirdPersonWalk_Bwd.gpanim", true);
 	m_anim[ANIM_WALKING_LEFT] = RENDERER->GetAnimation("Data/Animation/Player/ThirdPersonWalk_Left.gpanim", true);

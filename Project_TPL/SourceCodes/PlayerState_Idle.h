@@ -10,16 +10,18 @@
 #pragma once
 #include "PlayerStateBase.h"
 
-class PlayerStateIdle : public PlayerStateBase
+class PlayerState_Idle : public PlayerStateBase
 {
 
 public:
 
-	PlayerStateIdle();
-	~PlayerStateIdle();
+	PlayerState_Idle();
+	~PlayerState_Idle();
 
 	PLAYER_STATE Update(class Player* _player, float _deltaTime) override;
 	void EnterState(class Player* _player, float _deltaTime) override;
 
+
+private:
 
 };

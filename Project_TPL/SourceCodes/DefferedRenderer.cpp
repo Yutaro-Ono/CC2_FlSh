@@ -108,7 +108,7 @@ void DefferedRenderer::DrawGBuffer()
 	// ƒƒbƒVƒ…•`‰æ (‚±‚±‚ÅGBuffer‚ÌŠe—v‘f‚Éî•ñ‚ª‘‚«ž‚Ü‚ê‚é)
 	for (auto skel : m_renderer->m_skeletalMeshComponents)
 	{
-		//skel->Draw(skinShader);
+		skel->Draw(skinShader);
 	}
 
 	//------------------------------------------------------------+

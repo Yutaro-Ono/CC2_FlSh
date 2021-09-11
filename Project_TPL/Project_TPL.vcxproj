@@ -199,7 +199,11 @@
     <ClCompile Include="SourceCodes\ForwardRenderer.cpp" />
     <ClCompile Include="SourceCodes\MotorBikeParent.cpp" />
     <ClCompile Include="SourceCodes\Player.cpp" />
+    <ClCompile Include="SourceCodes\PlayerStateBase.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Idle.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_Jog.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_Run.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_Walk.cpp" />
     <ClCompile Include="SourceCodes\PostEffect.cpp" />
     <ClCompile Include="SourceCodes\GameConfig.cpp" />
     <ClCompile Include="SourceCodes\GameMain.cpp" />
@@ -356,6 +360,9 @@
     <ClInclude Include="SourceCodes\Player.h" />
     <ClInclude Include="SourceCodes\PlayerStateBase.h" />
     <ClInclude Include="SourceCodes\PlayerState_Idle.h" />
+    <ClInclude Include="SourceCodes\PlayerState_Jog.h" />
+    <ClInclude Include="SourceCodes\PlayerState_Run.h" />
+    <ClInclude Include="SourceCodes\PlayerState_Walk.h" />
     <ClInclude Include="SourceCodes\PostEffect.h" />
     <ClInclude Include="SourceCodes\GameConfig.h" />
     <ClInclude Include="SourceCodes\GameMain.h" />

@@ -1,16 +1,19 @@
 #include "PlayerState_Idle.h"
 #include "GameMain.h"
+#include "SkeletalMeshComponent.h"
+#include "Animation.h"
 
 
-PlayerStateIdle::PlayerStateIdle()
+PlayerState_Idle::PlayerState_Idle()
+{
+	m_animSpeed = 10.0f;
+}
+
+PlayerState_Idle::~PlayerState_Idle()
 {
 }
 
-PlayerStateIdle::~PlayerStateIdle()
-{
-}
-
-PLAYER_STATE PlayerStateIdle::Update(Player* _player, float _deltaTime)
+PLAYER_STATE PlayerState_Idle::Update(Player* _player, float _deltaTime)
 {
 	//---------------------------------------------------------------------+
 	// 待機ステートから、条件ごとに他のステートへ移行する
@@ -22,27 +25,40 @@ PLAYER_STATE PlayerStateIdle::Update(Player* _player, float _deltaTime)
 		// ジャンプ処理への移行
 		if (CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_A))
 		{
-			return PLAYER_STATE::STATE_JUMP_START;
+			//return PLAYER_STATE::STATE_JUMP_START;
 		}
 
 		// 待機状態か(移動ボタンが押されているか)
-		bool isIdle = CONTROLLER_INSTANCE.IsKeyOff(SDL_CONTROLLER) &
-			          CONTROLLER_INSTANCE.IsKeyOff(SDL_CONTROLLER_) &
-			          CONTROLLER_INSTANCE.IsKeyOff(SDL_CONTROLLER_) &
-			          CONTROLLER_INSTANCE.IsKeyOff(SDL_CONTROLLER_);
+		Vector2 move = CONTROLLER_INSTANCE.GetLAxisVec();
+		float inputVal = move.x + move.y;
+		// 走り状態か
+		bool isRun = CONTROLLER_INSTANCE.IsPressed(SDL_CONTROLLER_BUTTON_LEFTSTICK);
 
-		if (!isIdle && )
+		// 走りフラグがtrueかつ一定以上の入力値で走り状態へ移行
+		if (isRun && (inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE))
+		{
+			return PLAYER_STATE::STATE_RUN;
+		}
+		// 一定以上の入力値で小走り状態へ移行
+		else if (inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE)
+		{
+			return PLAYER_STATE::STATE_JOG;
+		}
+		// 小走りの基準を満たしていないものの、一定以上の入力値がある場合
+		else if (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE)
 		{
 			return PLAYER_STATE::STATE_WALK;
 		}
+
 	}
 
+	// コントローラ未接続時
 	else
 	{
 		// ジャンプ処理への移行
 		if (INPUT_INSTANCE.IsKeyPushDown(SDL_SCANCODE_SPACE))
 		{
-			return PLAYER_STATE::STATE_JUMP_START;
+			//return PLAYER_STATE::STATE_JUMP_START;
 		}
 
 		// 待機状態か(移動キーが押されているか)
@@ -50,6 +66,17 @@ PLAYER_STATE PlayerStateIdle::Update(Player* _player, float _deltaTime)
 			INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_DOWN) &
 			INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_RIGHT) &
 			INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_LEFT);
+
+		// いずれかの移動キーが入力+左シフトが押されていたら、走り状態へ移行
+		if (INPUT_INSTANCE.IsKeyPushDown(SDL_SCANCODE_LSHIFT) && !isIdle)
+		{
+			return PLAYER_STATE::STATE_RUN;
+		}
+		// いずれかの移動キーが押されていたら、歩き状態へ
+		else if(!isIdle)
+		{
+			return PLAYER_STATE::STATE_WALK;
+		}
 	}
 
 
@@ -58,6 +85,9 @@ PLAYER_STATE PlayerStateIdle::Update(Player* _player, float _deltaTime)
 	return PLAYER_STATE::STATE_IDLE;
 }
 
-void PlayerStateIdle::EnterState(Player* _player, float _deltaTime)
+void PlayerState_Idle::EnterState(Player* _player, float _deltaTime)
 {
+	SkeletalMeshComponent* skel = _player->GetSkelMesh();
+	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_IDLE), m_animSpeed * _deltaTime);
 }
+
