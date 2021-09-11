@@ -186,6 +186,9 @@
     <Filter Include="Source\GLSL\DefferedRendering\SSAO">
       <UniqueIdentifier>{49d90996-9dfa-49c9-abd6-1e4c009b576c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState">
+      <UniqueIdentifier>{1f8643f7-72ec-4c80-b174-8809b8981468}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -634,6 +637,12 @@
     </ClCompile>
     <ClCompile Include="SourceCodes\Vehicle.cpp">
       <Filter>Source\Actor\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\Player.cpp">
+      <Filter>Source\Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_Idle.cpp">
+      <Filter>Source\Actor\Player\PlayerState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1102,6 +1111,15 @@
     <ClInclude Include="SourceCodes\Vehicle.h">
       <Filter>Source\Actor\Vehicle</Filter>
     </ClInclude>
+    <ClInclude Include="SourceCodes\Player.h">
+      <Filter>Source\Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerStateBase.h">
+      <Filter>Source\Actor\Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_Idle.h">
+      <Filter>Source\Actor\Player\PlayerState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\ForwardRendering\BasicMesh.frag">
@@ -1203,10 +1221,10 @@
     <None Include="Shaders\PostEffect\CernelScreen.frag">
       <Filter>Source\GLSL\PostEffect</Filter>
     </None>
-    <None Include="Shaders\PostEffect\FrameBufferScreen.frag">
+    <None Include="Shaders\PostEffect\PostEffect.frag">
       <Filter>Source\GLSL\PostEffect</Filter>
     </None>
-    <None Include="Shaders\PostEffect\FrameBufferScreen.vert">
+    <None Include="Shaders\PostEffect\PostEffect.vert">
       <Filter>Source\GLSL\PostEffect</Filter>
     </None>
     <None Include="Shaders\PostEffect\GreyScaleScreen.frag">

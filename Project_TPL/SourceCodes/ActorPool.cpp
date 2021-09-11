@@ -69,7 +69,7 @@ void ActorPool::UpdateObjects(float _deltaTime)
 /// アクターステートの変更(主に一時停止時に使用)
 /// </summary>
 /// <param name="_state"> 適用したいアクターステート </param>
-void ActorPool::SetActorState(Actor::State _state)
+void ActorPool::SetActorState(Actor::ACTOR_STATE _state)
 {
 	for (auto iter : m_objPool)
 	{

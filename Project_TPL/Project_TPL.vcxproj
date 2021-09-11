@@ -198,6 +198,8 @@
     <ClCompile Include="SourceCodes\Font.cpp" />
     <ClCompile Include="SourceCodes\ForwardRenderer.cpp" />
     <ClCompile Include="SourceCodes\MotorBikeParent.cpp" />
+    <ClCompile Include="SourceCodes\Player.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_Idle.cpp" />
     <ClCompile Include="SourceCodes\PostEffect.cpp" />
     <ClCompile Include="SourceCodes\GameConfig.cpp" />
     <ClCompile Include="SourceCodes\GameMain.cpp" />
@@ -351,6 +353,9 @@
     <ClInclude Include="SourceCodes\Font.h" />
     <ClInclude Include="SourceCodes\ForwardRenderer.h" />
     <ClInclude Include="SourceCodes\MotorBikeParent.h" />
+    <ClInclude Include="SourceCodes\Player.h" />
+    <ClInclude Include="SourceCodes\PlayerStateBase.h" />
+    <ClInclude Include="SourceCodes\PlayerState_Idle.h" />
     <ClInclude Include="SourceCodes\PostEffect.h" />
     <ClInclude Include="SourceCodes\GameConfig.h" />
     <ClInclude Include="SourceCodes\GameMain.h" />
@@ -525,8 +530,8 @@
     <None Include="Shaders\PBR\PBR_Basic.vert" />
     <None Include="Shaders\PostEffect\BlurScreen.frag" />
     <None Include="Shaders\PostEffect\CernelScreen.frag" />
-    <None Include="Shaders\PostEffect\FrameBufferScreen.frag" />
-    <None Include="Shaders\PostEffect\FrameBufferScreen.vert" />
+    <None Include="Shaders\PostEffect\PostEffect.frag" />
+    <None Include="Shaders\PostEffect\PostEffect.vert" />
     <None Include="Shaders\PostEffect\GreyScaleScreen.frag" />
     <None Include="Shaders\PostEffect\InvertColorScreen.frag" />
     <None Include="Shaders\PostEffect\SharpEdgeScreen.frag" />

@@ -425,7 +425,7 @@ void GameMain::Input()
 	{
 		//ポーズモード切替
 		m_isPauseMode = !m_isPauseMode;
-		Actor::State changeState;
+		Actor::ACTOR_STATE changeState;
 		if (m_isPauseMode)
 		{
 			changeState = Actor::STATE_PAUSED;        // ポーズ

@@ -216,7 +216,7 @@ bool Renderer::Load()
     // ポストエフェクト
     //------------------------------------------------------------------+
 	m_postEffect = new PostEffect();
-	m_postEffect->CreatePostEffect();
+	//m_postEffect->Load();
 
 	//--------------------------------------------+
 	// シャドウマップ

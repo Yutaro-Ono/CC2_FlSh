@@ -43,8 +43,8 @@ Actor::~Actor()
 }
 
 // 更新処理 (Gameからコール)
-// 引数 : in_deltaTime => 1フレーム分の経過時間
-void Actor::Update(float in_deltaTime)
+// 引数 : _deltaTime => 1フレーム分の経過時間
+void Actor::Update(float _deltaTime)
 {
 	// アクターがアクティブなら
 	if (m_state == STATE_ACTIVE)
@@ -53,9 +53,9 @@ void Actor::Update(float in_deltaTime)
 		ComputeWorldTransform();
 
 		// コンポーネントの更新処理
-		UpdateComponents(in_deltaTime);
+		UpdateComponents(_deltaTime);
 		// アクター固有の更新処理
-		UpdateActor(in_deltaTime);
+		UpdateActor(_deltaTime);
 
 		// ワールド変換行列の再計算
 		ComputeWorldTransform();
@@ -63,30 +63,30 @@ void Actor::Update(float in_deltaTime)
 }
 
 // 更新処理 (コンポーネント)
-// 引数 : in_deltaTime => 1フレーム分の経過時間
-void Actor::UpdateComponents(float in_deltaTime)
+// 引数 : _deltaTime => 1フレーム分の経過時間
+void Actor::UpdateComponents(float _deltaTime)
 {
 	for (auto comp : m_components)
 	{
-		comp->Update(in_deltaTime);
+		comp->Update(_deltaTime);
 	}
 }
 
 // 更新処理 (アクター固有処理:オーバーライド可能)
-// 引数 : in_deltaTime => 1フレーム分の経過時間
-void Actor::UpdateActor(float in_deltaTime)
+// 引数 : _deltaTime => 1フレーム分の経過時間
+void Actor::UpdateActor(float _deltaTime)
 {
 }
 
 // 入力処理
-void Actor::ProcessInput(float in_deltaTime)
+void Actor::ProcessInput(float _deltaTime)
 {
 	if (m_state == STATE_ACTIVE)
 	{
 		// 入力処理を受け取るコンポーネントを優先して実行
 		for (auto comp : m_components)
 		{
-			comp->ProcessInput(in_deltaTime);
+			comp->ProcessInput(_deltaTime);
 		}
 	}
 }
@@ -115,11 +115,11 @@ void Actor::ComputeWorldTransform()
 
 
 // 前進ベクトルの更新
-// in_forward => 向かせたい前方方向ベクトル
-void Actor::RotateToNewForward(const Vector3 & in_forward)
+// _forward => 向かせたい前方方向ベクトル
+void Actor::RotateToNewForward(const Vector3 & _forward)
 {
 	// X軸ベクトル(1, 0, 0)とforward間の角度を求める
-	float dot = Vector3::Dot(Vector3::UnitX, in_forward);
+	float dot = Vector3::Dot(Vector3::UnitX, _forward);
 	float angle = Math::Acos(dot);
 
 	// 下向きだった場合
@@ -135,7 +135,7 @@ void Actor::RotateToNewForward(const Vector3 & in_forward)
 	else
 	{
 		// 軸ベクトルとforwardとの外積から回転軸を求めて回転させる
-		Vector3 axis = Vector3::Cross(Vector3::UnitX, in_forward);
+		Vector3 axis = Vector3::Cross(Vector3::UnitX, _forward);
 		axis.Normalize();
 		SetRotation(Quaternion(axis, angle));
 	}
@@ -143,11 +143,11 @@ void Actor::RotateToNewForward(const Vector3 & in_forward)
 
 
 // コンポーネントの追加
-void Actor::AddComponent(Component * in_comp)
+void Actor::AddComponent(Component * _comp)
 {
 	// コンポーネントをソートして追加
 	// 自分のオーダー番号よりも大きい挿入点を見つける
-	int myOrder = in_comp->GetUpdateOrder();
+	int myOrder = _comp->GetUpdateOrder();
 	auto iter = m_components.begin();
 
 	for (; iter != m_components.end(); ++iter)
@@ -159,14 +159,14 @@ void Actor::AddComponent(Component * in_comp)
 	}
 
 	// 要素を見つけたポイントの手前に挿入する
-	m_components.insert(iter, in_comp);
+	m_components.insert(iter, _comp);
 }
 
 // コンポーネントの削除
-void Actor::RemoveComponent(Component * in_comp)
+void Actor::RemoveComponent(Component * _comp)
 {
 	// 引数のコンポーネントをコンポーネント配列から検索し、そのイテレータを削除
-	auto iter = std::find(m_components.begin(), m_components.end(), in_comp);
+	auto iter = std::find(m_components.begin(), m_components.end(), _comp);
 	if (iter != m_components.end())
 	{
 		m_components.erase(iter);

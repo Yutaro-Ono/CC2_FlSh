@@ -7,7 +7,7 @@ class PostEffect
 public:
 
 
-	enum POST_EFFECT_TYPE
+	enum class POST_EFFECT_TYPE : unsigned int
 	{
 		NONE = 0,
 		INVERT_COLOR,
@@ -22,23 +22,22 @@ public:
 	PostEffect();
 	~PostEffect();
 
-	bool CreatePostEffect();     // フレームバッファオブジェクトの作成
+	bool Load();
 
-	void WritePostEffect();
-	void DrawPostEffect();
-
-	void DebugPostEffect();
+	void DrawPostEffect(unsigned int _screenTexture);
 
 private:
 
-	unsigned int m_FBO;             // フレームバッファオブジェクト
+	bool GeneratePostEffect();
+	bool LoadPostEffectShaders();
 
-	unsigned int m_RBO;             // レンダーバッファオブジェクト
+	POST_EFFECT_TYPE m_activeEffect;          // 現在アクティブなポストエフェクト
 
-	unsigned int m_colorBuffer;     // カラーバッファ
+	unsigned int m_postEffectFBO;             // フレームバッファオブジェクト
+	unsigned int m_rbo;                       // レンダーバッファオブジェクト
 
+	unsigned int m_colorBuffer;               // カラーバッファ
 
-	int m_shaderNum;
-	std::vector<class Shader*> m_postEffectShaders;      // ポストエフェクト用シェーダ
-	class Shader* m_activeShader;                        // 現在アクティブなシェーダ
+	std::vector<class GLSLprogram*> m_postEffectShaders;
+
 };

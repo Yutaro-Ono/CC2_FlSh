@@ -17,8 +17,8 @@ class Actor
 public:
 
 
-	// プレイヤーのステート(状態)
-	enum State
+	// アクターのステート(状態)
+	enum ACTOR_STATE
 	{
 		STATE_ACTIVE,            // アクティブである
 		STATE_PAUSED,            // 停止中である
@@ -29,44 +29,44 @@ public:
 	Actor(OBJECT_TAG _tag);
 	virtual ~Actor();     // 仮想デストラクタ
 
-	void Update(float in_deltaTime);                  // 更新処理(総合)
-	void UpdateComponents(float in_deltaTime);        // 更新処理 (コンポーネント)
-	virtual void UpdateActor(float in_deltaTime);     // 更新処理 (アクター固有処理:オーバーライド可能)
-	void ProcessInput(float in_deltaTime);            // 入力処理
+	void Update(float _deltaTime);                  // 更新処理(総合)
+	void UpdateComponents(float _deltaTime);        // 更新処理 (コンポーネント)
+	virtual void UpdateActor(float _deltaTime);     // 更新処理 (アクター固有処理:オーバーライド可能)
+	void ProcessInput(float _deltaTime);            // 入力処理
 
 	//-----------------------------------------------------------------------------------+
 	// Getter / Setter
 	//-----------------------------------------------------------------------------------+
 	// ポジション
 	const Vector3& GetPosition() const { return m_position; }
-	void SetPosition(const Vector3& in_pos) { m_position = in_pos; m_recomputeWorldTransform = true; }
+	void SetPosition(const Vector3& _pos) { m_position = _pos; m_recomputeWorldTransform = true; }
 	// スケール
 	const Vector3& GetScale() const { return m_scale; }
 	void SetScale(float _scale) { m_scale = Vector3(_scale, _scale, _scale); m_recomputeWorldTransform = true; }
 	void SetScale(const Vector3& _scalev3) { m_scale = _scalev3; m_recomputeWorldTransform = true; }
 	// ローテーション
 	const Quaternion& GetRotation() const { return m_rotation; }
-	void SetRotation(const Quaternion& in_rotation) { m_rotation = in_rotation; m_recomputeWorldTransform = true; }
+	void SetRotation(const Quaternion& _rotation) { m_rotation = _rotation; m_recomputeWorldTransform = true; }
 
 	// ワールド変換行列
 	void ComputeWorldTransform();
-	void SetWorldTransform(const Matrix4& in_mat) { m_worldTransform = in_mat; }
+	void SetWorldTransform(const Matrix4& _mat) { m_worldTransform = _mat; }
 	const Matrix4& GetWorldTransform() const { return m_worldTransform; }
 	// ベクトル
 	const Vector3& GetForward() const { return Vector3::Transform(Vector3::UnitX, m_rotation); }     // 前進
-	void RotateToNewForward(const Vector3& in_forward);                                              // 前進ベクトルのセット
+	void RotateToNewForward(const Vector3& _forward);                                              // 前進ベクトルのセット
 	const Vector3& GetRight() const { return Vector3::Transform(Vector3::UnitY, m_rotation); }       // 右方向
 	// スピード
 	float GetSpeed() const { return m_speed; }
-	void SetSpeed(float in_speed) { m_speed = in_speed; }
+	void SetSpeed(float _speed) { m_speed = _speed; }
 	// ステート
-	Actor::State GetState() const { return m_state; }
-	void SetState(Actor::State in_state) { m_state = in_state; }
+	Actor::ACTOR_STATE GetState() const { return m_state; }
+	void SetState(Actor::ACTOR_STATE _state) { m_state = _state; }
 	// 管理ID
 	int GetID() { return m_ID; }
 	// コンポーネント
-	void AddComponent(class Component* in_comp);
-	void RemoveComponent(class Component* in_comp);
+	void AddComponent(class Component* _comp);
+	void RemoveComponent(class Component* _comp);
 	// メッシュコンポーネント
 	class MeshComponent* GetMeshComponent() { return m_meshComp; }
 
@@ -75,7 +75,7 @@ public:
 protected:
 
 
-	Actor::State m_state;                           // ステート(状態)
+	Actor::ACTOR_STATE m_state;                           // ステート(状態)
 	OBJECT_TAG m_tag;                               // ベースクラス識別タグ
 
 	Vector3 m_scale;                                // スケール(拡大・縮小率)
