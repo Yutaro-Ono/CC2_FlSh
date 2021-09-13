@@ -14,7 +14,8 @@ public:
 
 	void SetActive() { GAME_INSTANCE.SetCamera(this); }
 
-	const Vector3 GetPosition() const { return m_position; }
+	const Vector3& GetPosition() const { return m_position; }
+	const Vector3& GetTargetPos() const;
 
 	const Matrix4& GetViewMatrix() const { return GAME_INSTANCE.GetViewMatrix(); }
 

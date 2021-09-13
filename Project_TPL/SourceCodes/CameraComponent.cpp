@@ -3,6 +3,7 @@
 #include "PhysicsWorld.h"
 #include "BoxCollider.h"
 #include "Collision.h"
+#include "Actor.h"
 
 CameraComponent::CameraComponent(Actor * in_target, int updateOrder)
 	:Component(in_target, updateOrder)
@@ -43,6 +44,11 @@ void CameraComponent::ChangeProjectionMat(float in_fov, float in_near, float in_
 		static_cast<float>(GAME_CONFIG->GetScreenHeight()),
 		in_near, in_far);
 	RENDERER->SetProjectionMatrix(projection);
+}
+
+const Vector3& CameraComponent::GetTargetPos() const
+{
+	return m_owner->GetPosition();
 }
 
 void CameraComponent::SetViewMatrix(const Matrix4 & in_view)

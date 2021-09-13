@@ -656,6 +656,9 @@
     <ClCompile Include="SourceCodes\PlayerStateBase.cpp">
       <Filter>Source\Actor\Player\PlayerState</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCodes\TPSCamera.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -1140,6 +1143,9 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\PlayerState_Run.h">
       <Filter>Source\Actor\Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TPSCamera.h">
+      <Filter>Source\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

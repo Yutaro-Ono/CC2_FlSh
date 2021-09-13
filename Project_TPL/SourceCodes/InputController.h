@@ -41,6 +41,8 @@ public:
 	Vector2& GetLAxisVec() { return m_axisL; }
 	Vector2& GetRAxisVec() { return m_axisR; }
 
+	bool GetIsInputAxisL() { return m_isInputAxisL; }
+	bool GetIsInputAxisR() { return m_isInputAxisR; }
 
 private:
 
@@ -59,7 +61,11 @@ private:
 	Vector2 m_axisL;               // 左スティック入力取得用
 	Vector2 m_axisR;               // 右スティック入力取得用
 
+	bool m_isInputAxisL;           // 左スティック入力がされているか
+	bool m_isInputAxisR;           // 右スティックが入力されているか
+
 	static const float PAD_MAX_VALUE;
+	static const float STICK_AXIS_THRESHOLD;     // スティック入力閾値(これ以上なら入力を有効とみなす)
 };
 
 #define CONTROLLER_INSTANCE InputController::ControllerInstance()

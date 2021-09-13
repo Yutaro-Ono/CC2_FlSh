@@ -27,7 +27,7 @@ void SkeletalMeshComponent::Draw(GLSLprogram* in_shader)                        
 		in_shader->SetUniform("u_matrixPalette", &m_palette.mEntry[0],
 			MAX_SKELETON_BONES);
 		// スペキュラー強度をセット
-		in_shader->SetUniform("u_specPower", 21);
+		in_shader->SetUniform("u_specPower", 32);
 
 		// 各種テクスチャをシェーダにセットする
 		// テクスチャが読み込まれていない場合は無効な数字 "0" が返される

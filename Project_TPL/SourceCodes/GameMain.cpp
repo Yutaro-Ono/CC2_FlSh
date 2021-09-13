@@ -604,6 +604,22 @@ void GameMain::SetCamera(CameraComponent* _camera)
 	m_activeCamera = _camera;
 }
 
+const Vector3& GameMain::GetViewTarget() const
+{
+	if (m_activeCamera == nullptr)
+	{
+		std::cout << "CAUTION::GameMain::Camera is inActive::return Illegal Value" << std::endl;
+	}
+
+	return m_activeCamera->GetTargetPos();
+}
+
+const Vector3& GameMain::GetViewPos() const
+{
+	return m_activeCamera->GetPosition();
+}
+
+
 // 引数のカメラをアクティブにする(レンダラーのカメラを登録)
 void GameMain::InActiveCamera(Camera * _activeCam)
 {

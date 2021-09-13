@@ -10,7 +10,7 @@ public:
 	CameraActor();
 	~CameraActor();
 
-
+	void UpdateActor(float _deltaTime) override;
 
 private:
 

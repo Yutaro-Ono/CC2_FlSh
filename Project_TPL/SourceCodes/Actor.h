@@ -98,6 +98,7 @@ protected:
 	static int m_globalActorNo;                     // ゲーム全体でのアクターの番号
 
 
+	class ActorDebugObject* m_debugObj;
 	// アクター用デバッグクラスのフレンド宣言
 	friend class ActorDebugObject;
 

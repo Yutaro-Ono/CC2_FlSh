@@ -25,6 +25,7 @@ public:
 
 protected:
 
+	bool m_toggleRun;      // 走り状態のトグル(走りボタン押下時にtrue、入力値が0になるとfalse)
 	float m_animSpeed;     // ステートアニメーションの再生速度
 	static const float JOG_SPEED_LINE;
 	static const float WALK_SPEED_LINE;

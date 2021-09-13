@@ -8,3 +8,7 @@ CameraActor::CameraActor()
 CameraActor::~CameraActor()
 {
 }
+
+void CameraActor::UpdateActor(float _deltaTime)
+{
+}

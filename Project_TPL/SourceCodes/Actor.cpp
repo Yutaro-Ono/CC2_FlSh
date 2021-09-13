@@ -6,8 +6,10 @@
 //-----------------------------------------------------------------------+
 #include "Actor.h"
 #include "GameMain.h"
+#include "Debugger.h"
 #include "Component.h"
 #include "MeshComponent.h"
+#include "ActorDebugObject.h"
 #include <algorithm>
 #include <typeinfo>
 
@@ -22,11 +24,20 @@ Actor::Actor(OBJECT_TAG _tag)
 	,m_speed(0.0f)
 	,m_recomputeWorldTransform(true)
 	,m_ID(m_globalActorNo)
+	,m_debugObj(nullptr)
 {
 	// ゲームメインにこのアクターを追加登録
 	GAME_INSTANCE.AddActor(this);
 	// ゲーム全体のアクター番号を更新
 	m_globalActorNo++;
+
+	// デバッグオブジェクトの生成
+#ifdef _DEBUG
+
+	m_debugObj = new ActorDebugObject(this);
+	DEBUGGER->AddDebugObject(m_debugObj, _tag);
+
+#endif
 }
 
 // デストラクタ

@@ -372,7 +372,7 @@ void Renderer::Draw()
 	UpdateUBO();
 
 	// シャドウ描画用の深度マップにライト視点から見た空間で書き込む
-	m_shadowMap->RenderDepthMapFromLightView(m_meshComponents, m_skeletalMeshComponents, m_carMeshComponents);
+	//m_shadowMap->RenderDepthMapFromLightView(m_meshComponents, m_skeletalMeshComponents, m_carMeshComponents);
 	// ここから分岐
 	if (m_renderMode == RENDER_MODE::FORWARD)
 	{

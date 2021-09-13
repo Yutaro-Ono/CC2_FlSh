@@ -47,6 +47,13 @@ private:
 	class SkeletalMeshComponent* m_skelComp;
 	std::vector<const class Animation*> m_anims;
 
+	// カメラ
+	class TPSCamera* m_tpsCamera;
+
+	// 追従するポイントライト
+	class PointLight* m_light;
+
+
 	// メッシュパス
 	static const std::string PLAYER_MESH_PATH;
 	static const std::string PLAYER_SKEL_PATH;

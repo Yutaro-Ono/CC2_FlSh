@@ -82,7 +82,8 @@ public:
 	void SetCamera(class Camera* _camera);                                         // カメラをシステムに登録
 	void SetCamera(class CameraComponent* _camera);                                // カメラをシステムに登録
 	class CameraComponent* GetCamera() { return m_activeCamera; }                    // アクティブなカメラポインタの取得
-
+	const Vector3& GetViewTarget() const;
+	const Vector3& GetViewPos() const;
 	void InActiveCamera(class Camera* _activeCam);                                 // カメラの登録を解除
 	void InActiveCamera(class CameraComponent* _activeCam);                        // カメラの登録を解除
 	// 行列取得

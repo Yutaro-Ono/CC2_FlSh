@@ -12,8 +12,8 @@ MotorBikeParent::MotorBikeParent()
 {
 	// 修正座標
 	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::BODY)] = Vector3::Zero;
-	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::HANDLE)] = Vector3(0.0f, 60.0f, 110.0f);
-	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::FRONT_WHEEL)] = Vector3(0.0f, 60.0f, 30.0f);
+	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::HANDLE)] = Vector3(0.0f, 42.0f, 85.0f);
+	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::FRONT_WHEEL)] = Vector3(0.0f, 75.0f, 27.5f);
 	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::BACK_WHEEL)] = Vector3(0.0f, -90.0f, 30.0f);
 
 	// 各パーツの生成
@@ -59,9 +59,24 @@ void MotorBikeParent::UpdateActor(float _deltaTime)
 	// ※必ず座標系を更新した後で行うこと
 	for (int i = 0; i < static_cast<int>(MOTORBIKE_PARTS::ALL); i++)
 	{
-		// 調整したワールド座標をそのまま置き換える
-		Matrix4 fixTrans = Matrix4::CreateTranslation(m_offsetPos[i]) * m_worldTransform;
-		m_parts[i]->SetWorldTransform(fixTrans);
+
+		// ハンドルは角度も変える
+		if (i == static_cast<int>(MOTORBIKE_PARTS::HANDLE))
+		{
+			Quaternion quat = Quaternion::Quaternion(Vector3::UnitX, Math::ToRadians(28.0f));
+			// 調整したワールド座標をそのまま置き換える
+			Matrix4 fixTrans = Matrix4::CreateFromQuaternion(quat) * Matrix4::CreateTranslation(m_offsetPos[i]) * m_worldTransform;
+			m_parts[i]->SetWorldTransform(fixTrans);
+		}
+		else
+		{
+			// 調整したワールド座標をそのまま置き換える
+			Matrix4 fixTrans = Matrix4::CreateTranslation(m_offsetPos[i]) * m_worldTransform;
+			m_parts[i]->SetWorldTransform(fixTrans);
+		}
+
+
+
 	}
 
 	// アクターが乗車中のみ修正

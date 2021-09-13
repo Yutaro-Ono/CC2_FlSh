@@ -27,7 +27,7 @@ void runLauncher(const char* path)
 	STARTUPINFO si = { 0 };
 	si.cb = sizeof(STARTUPINFO);
 
-	CreateProcess((LPCSTR)fullPathexe, (LPSTR)"", NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, (LPCSTR)path, &si, &pi);
+	CreateProcess((LPCWSTR)fullPathexe, (LPWSTR)"", NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, (LPCWSTR)path, &si, &pi);
 
 	#endif
 }

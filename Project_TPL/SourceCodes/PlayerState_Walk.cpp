@@ -32,22 +32,36 @@ PLAYER_STATE PlayerState_Walk::Update(Player* _player, float _deltaTime)
 
 		// 待機状態か(移動ボタンが押されているか)
 		Vector2 move = CONTROLLER_INSTANCE.GetLAxisVec();
-		float inputVal = move.x + move.y;
-		// 走り状態か
-		bool isRun = CONTROLLER_INSTANCE.IsPressed(SDL_CONTROLLER_BUTTON_LEFTSTICK);
+		float inputVal = move.LengthSq();
+		// 走り状態出ない場合のみ、「走る」ボタンの状態を取得
+		if (!m_toggleRun)
+		{
+			m_toggleRun = CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_LEFTSHOULDER);
+		}
 
-		// 走りフラグがtrueかつ一定以上の入力値で走り状態へ移行
-		if (isRun && (inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE))
+		// 走り状態の時のみ、パッドの入力値が閾値を下回ったら走りを解除
+		if (m_toggleRun && inputVal < WALK_SPEED_LINE && inputVal > -WALK_SPEED_LINE)
+		{
+			m_toggleRun = false;
+		}
+
+		std::cout << "ToggleRun = " << (int)m_toggleRun << std::endl;
+
+
+		// 走りフラグがtrueかつ「WALK」以上の入力値で走り状態へ移行
+		if (m_toggleRun && (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE))
 		{
 			return PLAYER_STATE::STATE_RUN;
 		}
+
 		// 一定以上の入力値で小走り状態へ移行
-		else if (inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE)
+		if (inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE)
 		{
 			return PLAYER_STATE::STATE_JOG;
 		}
+
 		// 小走りの基準を満たしていないものの、一定以上の入力値がある場合
-		else if (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE)
+		if (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE)
 		{
 			return PLAYER_STATE::STATE_WALK;
 		}
@@ -81,12 +95,13 @@ PLAYER_STATE PlayerState_Walk::Update(Player* _player, float _deltaTime)
 		}
 	}
 
-
+	m_toggleRun = false;
 	return PLAYER_STATE::STATE_IDLE;
 }
 
 void PlayerState_Walk::EnterState(Player* _player, float _deltaTime)
 {
+	m_toggleRun = false;
 	SkeletalMeshComponent* skel = _player->GetSkelMesh();
 	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_WALK), m_animSpeed * _deltaTime);
 }

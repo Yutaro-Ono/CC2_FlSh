@@ -8,11 +8,14 @@
 #define XINPUT_GAMEPAD_TRIGGER_THRESHOLD 30
 // 入力の最大値
 const float InputController::PAD_MAX_VALUE = 32767.0f;
+const float InputController::STICK_AXIS_THRESHOLD = 0.01f;
 
 // コンストラクタ
 InputController::InputController()
 	:m_gameController(nullptr)
-	,m_whichController(-1)
+	, m_whichController(-1)
+	, m_isInputAxisL(false)
+	, m_isInputAxisR(false)
 {
 	// ボタンと軸を0で初期化
 	// memset -> 配列を0で初期化できる(わざわざfor文で初期化する必要がない)
@@ -92,6 +95,14 @@ void InputController::Update()
 	m_axisL.y = (fabs(m_axisL.y) < (float)XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) ? 0.0f : m_axisL.y / PAD_MAX_VALUE;
 	m_axisR.x = (fabs(m_axisR.x) < (float)XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE) ? 0.0f : m_axisR.x / PAD_MAX_VALUE;
 	m_axisR.y = (fabs(m_axisR.y) < (float)XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE) ? 0.0f : m_axisR.y / PAD_MAX_VALUE;
+
+
+	// コントローラの左右スティックの入力が有効かどうかを求める
+	float stickMoveLen2;
+	stickMoveLen2 = Vector2::Dot(m_axisL, m_axisL);
+	m_isInputAxisL = STICK_AXIS_THRESHOLD < stickMoveLen2;
+	stickMoveLen2 = Vector2::Dot(m_axisR, m_axisR);
+	m_isInputAxisR = STICK_AXIS_THRESHOLD < stickMoveLen2;
 }
 
 // 解放処理

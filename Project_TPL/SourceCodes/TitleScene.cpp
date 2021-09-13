@@ -67,7 +67,7 @@ void TitleScene::Initialize()
 	GAME_INSTANCE.GetLoadScreen()->DisableScreen();
 
 	// タイトル用UI
-	UIScreen* hud = new TitleScreen(this);
+	//UIScreen* hud = new TitleScreen(this);
 
 	// BGM再生開始
 	AUDIO->PlayMusic(m_sound["BGM"]);
@@ -80,6 +80,8 @@ SceneBase * TitleScene::Update(float _deltaTime)
 	// ワールドの更新
 	m_world->UpdateWorld(_deltaTime);
 
+	return this;
+
 
 	// タイトルメニュー
 	switch (m_state)
@@ -90,14 +92,12 @@ SceneBase * TitleScene::Update(float _deltaTime)
     //----------------------------------------------------------------------+
 	case FADE_IN:
 
-
 		if (RENDERER->GetBloom()->FadeIn(0.15f, _deltaTime))
 		{
 			m_state = PRESS_ANY_KEY;
 		}
 
 		break;
-
 
 	//----------------------------------------------------------------------+
     // "FADE OUT"
@@ -106,7 +106,6 @@ SceneBase * TitleScene::Update(float _deltaTime)
 
 		if (RENDERER->GetBloom()->FadeOut(0.7f, _deltaTime))
 		{
-
 
             // 全てのUIをCloseに設定
 			for (auto iter : GAME_INSTANCE.GetUIStack())
@@ -205,7 +204,6 @@ SceneBase * TitleScene::Update(float _deltaTime)
 
 			// "GAME_START"へ
 			m_state = GAME_START;
-
 
 			break;
 		}

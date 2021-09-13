@@ -6,7 +6,7 @@ class MoveComponentHuman : public MoveComponent
 
 public:
 
-	MoveComponentHuman(class PlayerHuman* in_owner);     // コンストラクタ
+	MoveComponentHuman(class Actor* in_owner);     // コンストラクタ
 	~MoveComponentHuman();                               // デストラクタ
 
 
@@ -24,8 +24,13 @@ public:
 
 protected:
 
-	class PlayerHuman* m_playerHuman;       // プレイヤー(人間型)へのポインタ
+	bool m_toggleRun;                     // 走りボタンが押されたか
+
+	float m_velocity;                     // 移動時の加速度
 
 	static const float PLAYER_SPEED;
+	static const float SPEED_WALK;
+	static const float SPEED_JOG;
+	static const float SPEED_RUN;
 
 };
