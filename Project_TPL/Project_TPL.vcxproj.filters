@@ -189,6 +189,24 @@
     <Filter Include="Source\Actor\Player\PlayerState">
       <UniqueIdentifier>{1f8643f7-72ec-4c80-b174-8809b8981468}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Idle">
+      <UniqueIdentifier>{d6b5707d-31e0-4829-a9ce-360590eda0d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Walk">
+      <UniqueIdentifier>{bf01c002-7cf5-455f-bc14-17b1eaf15789}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Jog">
+      <UniqueIdentifier>{944cda25-c6eb-48d3-b2af-26b45dab75ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Sprint">
+      <UniqueIdentifier>{b9df6b04-580c-4538-9788-799c456b37a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Crouch">
+      <UniqueIdentifier>{d3829565-8865-490d-ab13-16d9a7daf080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\CrouchMove">
+      <UniqueIdentifier>{c26056b5-7287-47dd-9fef-25a0de80ceb0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -641,23 +659,29 @@
     <ClCompile Include="SourceCodes\Player.cpp">
       <Filter>Source\Actor\Player</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\PlayerState_Idle.cpp">
-      <Filter>Source\Actor\Player\PlayerState</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PlayerState_Jog.cpp">
-      <Filter>Source\Actor\Player\PlayerState</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PlayerState_Sprint.cpp">
-      <Filter>Source\Actor\Player\PlayerState</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PlayerState_Walk.cpp">
-      <Filter>Source\Actor\Player\PlayerState</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCodes\PlayerStateBase.cpp">
       <Filter>Source\Actor\Player\PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\TPSCamera.cpp">
       <Filter>Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_Idle.cpp">
+      <Filter>Source\Actor\Player\PlayerState\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_Jog.cpp">
+      <Filter>Source\Actor\Player\PlayerState\Jog</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_Sprint.cpp">
+      <Filter>Source\Actor\Player\PlayerState\Sprint</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_Walk.cpp">
+      <Filter>Source\Actor\Player\PlayerState\Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_Crouch.cpp">
+      <Filter>Source\Actor\Player\PlayerState\Crouch</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_CrouchMove.cpp">
+      <Filter>Source\Actor\Player\PlayerState\CrouchMove</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1132,20 +1156,26 @@
     <ClInclude Include="SourceCodes\PlayerStateBase.h">
       <Filter>Source\Actor\Player\PlayerState</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\PlayerState_Idle.h">
-      <Filter>Source\Actor\Player\PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PlayerState_Walk.h">
-      <Filter>Source\Actor\Player\PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PlayerState_Jog.h">
-      <Filter>Source\Actor\Player\PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PlayerState_Sprint.h">
-      <Filter>Source\Actor\Player\PlayerState</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCodes\TPSCamera.h">
       <Filter>Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_Idle.h">
+      <Filter>Source\Actor\Player\PlayerState\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_Jog.h">
+      <Filter>Source\Actor\Player\PlayerState\Jog</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_Sprint.h">
+      <Filter>Source\Actor\Player\PlayerState\Sprint</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_Walk.h">
+      <Filter>Source\Actor\Player\PlayerState\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_Crouch.h">
+      <Filter>Source\Actor\Player\PlayerState\Crouch</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_CrouchMove.h">
+      <Filter>Source\Actor\Player\PlayerState\CrouchMove</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -55,9 +55,9 @@ PLAYER_STATE PlayerState_Sprint::Update(Player* _player, float _deltaTime)
 
 		// 待機状態か(移動キーが押されているか)
 		bool isIdle = INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_W) &
-			INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_A) &
-			INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_S) &
-			INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_D);
+			          INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_A) &
+			          INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_S) &
+			          INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_D);
 
 		// いずれかの移動キーが入力+走り状態で、走り継続
 		if (toggleSprint && !isIdle)
@@ -74,7 +74,6 @@ PLAYER_STATE PlayerState_Sprint::Update(Player* _player, float _deltaTime)
 		{
 			return PLAYER_STATE::STATE_JOG;
 		}
-
 		// 何も押されていなかったら待機状態
 		if (isIdle)
 		{

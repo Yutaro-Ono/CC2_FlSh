@@ -1,22 +1,21 @@
-#include "PlayerState_Idle.h"
+#include "PlayerState_CrouchMove.h"
 #include "GameMain.h"
 #include "SkeletalMeshComponent.h"
 #include "Animation.h"
 #include "PlayerMovement.h"
 
-PlayerState_Idle::PlayerState_Idle()
-{
-	m_animSpeed = 10.0f;
-}
-
-PlayerState_Idle::~PlayerState_Idle()
+PlayerState_CrouchMove::PlayerState_CrouchMove()
 {
 }
 
-PLAYER_STATE PlayerState_Idle::Update(Player* _player, float _deltaTime)
+PlayerState_CrouchMove::~PlayerState_CrouchMove()
+{
+}
+
+PLAYER_STATE PlayerState_CrouchMove::Update(Player* _player, float _deltaTime)
 {
 	//---------------------------------------------------------------------+
-	// 待機ステートから、条件ごとに他のステートへ移行する
+	// かがみステートから、条件ごとに他のステートへ移行する
 	//---------------------------------------------------------------------+
 
 	// バインドしたプレイヤーから走り/歩き状態の取得
@@ -41,19 +40,11 @@ PLAYER_STATE PlayerState_Idle::Update(Player* _player, float _deltaTime)
 		{
 			return PLAYER_STATE::STATE_SPRINT;
 		}
-		// 歩き状態
-		if (toggleWalk && (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE))
+		// 入力値が歩き入力値以上でかがみ歩き状態
+		if (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE)
 		{
 			return PLAYER_STATE::STATE_WALK;
 		}
-
-		// 一定以上の入力値で小走り状態へ移行
-		if (inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE)
-		{
-			return PLAYER_STATE::STATE_JOG;
-		}
-
-
 	}
 
 	// コントローラ未接続時
@@ -67,35 +58,28 @@ PLAYER_STATE PlayerState_Idle::Update(Player* _player, float _deltaTime)
 
 		// 待機状態か(移動キーが押されているか)
 		bool isIdle = INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_W) &
-			          INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_A) &
-			          INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_S) &
-			          INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_D);
+			INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_A) &
+			INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_S) &
+			INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_D);
 
 		// いずれかの移動キーが入力+左シフトが押されていたら、走り状態へ移行
 		if (toggleSprint && !isIdle)
 		{
 			return PLAYER_STATE::STATE_SPRINT;
 		}
-		// 歩きトグル有効かついずれかの入力キーが押されていたら歩き状態へ
-		if (toggleWalk && !isIdle)
-		{
-			return PLAYER_STATE::STATE_WALK;
-		}
-		// 移動している場合、小走り
+		// いずれかの入力キーが押されていたら歩き状態へ
 		if (!isIdle)
 		{
-			return PLAYER_STATE::STATE_JOG;
+			return PLAYER_STATE::STATE_CROUCH_MOVE;
 		}
+
 	}
 
-
-
-	return PLAYER_STATE::STATE_IDLE;
+	return PLAYER_STATE::STATE_CROUCH;
 }
 
-void PlayerState_Idle::EnterState(Player* _player, float _deltaTime)
+void PlayerState_CrouchMove::EnterState(Player* _player, float _deltaTime)
 {
 	SkeletalMeshComponent* skel = _player->GetSkelMesh();
-	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_IDLE), m_animSpeed * _deltaTime);
+	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_CROUCH_MOVE), m_animSpeed * _deltaTime);
 }
-

@@ -17,6 +17,9 @@ enum class PLAYER_STATE
 	STATE_JOG,
 	STATE_SPRINT,
 
+	STATE_CROUCH,
+	STATE_CROUCH_MOVE,
+
 	STATE_ALL_NUM
 };
 
@@ -36,8 +39,10 @@ public:
 
 	bool GetToggleSprint() { return m_toggleSprint; }
 	bool GetToggleWalk() { return m_toggleWalk; }
+	bool GetToggleCrouch() { return m_toggleCrouch; }
 	void SetToggleSprint(bool _toggle) { m_toggleSprint = _toggle; }
 	void SetToggleWalk(bool _toggle) { m_toggleWalk   = _toggle; }
+	void SetToggleCrouch(bool _toggle) { m_toggleCrouch = _toggle; }
 
 private:
 
@@ -49,9 +54,10 @@ private:
 	PLAYER_STATE m_nextState;
 	std::vector<class PlayerStateBase*> m_statePool;
 
-	// 移動のトグル
+	// 移動状態のトグル関連
 	bool m_toggleSprint;
 	bool m_toggleWalk;
+	bool m_toggleCrouch;
 
 	class SkeletalMeshComponent* m_skelComp;
 	std::vector<const class Animation*> m_anims;
@@ -71,6 +77,7 @@ private:
 	static const std::string ANIM_WALK_PATH;
 	static const std::string ANIM_JOG_PATH;
 	static const std::string ANIM_RUN_PATH;
-
+	static const std::string ANIM_CROUCH_PATH;
+	static const std::string ANIM_CROUCH_MOVE_PATH;
 
 };

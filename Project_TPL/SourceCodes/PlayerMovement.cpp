@@ -56,6 +56,9 @@ void PlayerMovement::MovementByController(float in_deltaTime)
 	// 入力閾値
 	float axisThreshold = 0.01f;
 
+	//-------------------------------------------------------------------------------+
+	// 「Sprint」トグル制御
+	//-------------------------------------------------------------------------------+
 	// 「走る」ボタンが押されているかを取得
 	// 通常はLBボタン
 	bool toggleSprint = m_player->GetToggleSprint();
@@ -71,8 +74,27 @@ void PlayerMovement::MovementByController(float in_deltaTime)
 		m_player->SetToggleSprint(toggleSprint);
 	}
 
+	//--------------------------------------------------------------------------------------+
+    // 「Crouch」トグル制御
+    //--------------------------------------------------------------------------------------+
+	bool toggleCrouch = m_player->GetToggleCrouch();
+	// 非走り状態かつ右スティック押し込みでcrouch状態へ
+	if (!toggleCrouch && !toggleSprint)
+	{
+		toggleCrouch = CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_RIGHTSTICK);
+		m_player->SetToggleCrouch(toggleCrouch);
+	}
+	if (toggleCrouch)
+	{
+		if (CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_RIGHTSTICK))
+		{
+			m_player->SetToggleCrouch(false);
+		}
+	}
 
-	
+	//-------------------------------------------------------------------------------+
+    // 移動速度更新
+    //-------------------------------------------------------------------------------+
 	// 「走る」ボタンが押されていた時、同時に左スティック入力もされていた場合
 	if (toggleSprint && CONTROLLER_INSTANCE.GetIsInputAxisL())
 	{
@@ -145,6 +167,9 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 	bool pressS = INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_S);
 	bool pressD = INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_D);
 
+	//-------------------------------------------------------------------------------+
+    // 「Sprint」トグル制御
+    //-------------------------------------------------------------------------------+
 	// 走り状態時、入力されていなかったら走りトグル解除
 	bool toggleSprint = m_player->GetToggleSprint();
 	if (toggleSprint && !(pressW || pressA || pressS || pressD))
@@ -160,6 +185,9 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 		m_player->SetToggleSprint(toggleSprint);
 	}
 
+	//-------------------------------------------------------------------------------+
+    // 「Walk」トグル制御
+    //-------------------------------------------------------------------------------+
 	// 歩き状態のトグル更新
 	// LeftAltで更新
 	bool toggleWalk = m_player->GetToggleWalk();
@@ -179,6 +207,27 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 		
 	}
 
+	//--------------------------------------------------------------------------------------+
+    // 「Crouch」トグル制御
+    //--------------------------------------------------------------------------------------+
+	bool toggleCrouch = m_player->GetToggleCrouch();
+	// 非走り状態かつ左Ctrlでcrouch状態へ
+	if (!toggleCrouch && !toggleSprint)
+	{
+		toggleCrouch = INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_LCTRL);
+		m_player->SetToggleCrouch(toggleCrouch);
+	}
+	if (toggleCrouch)
+	{
+		if (INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_LCTRL))
+		{
+			m_player->SetToggleCrouch(false);
+		}
+	}
+
+	//-------------------------------------------------------------------------------+
+    // 移動速度更新
+    //-------------------------------------------------------------------------------+
 	// 「走る」ボタンが押されていた時、同時に左スティック入力もされていた場合
 	if (toggleSprint)
 	{

@@ -21,6 +21,7 @@ Actor::Actor(OBJECT_TAG _tag)
 	,m_position(Vector3::Zero)
 	,m_rotation(Quaternion::Identity)
 	,m_scale(Vector3(1.0f, 1.0f, 1.0f))
+	,m_health(10)
 	,m_speed(0.0f)
 	,m_recomputeWorldTransform(true)
 	,m_ID(m_globalActorNo)
@@ -181,5 +182,51 @@ void Actor::RemoveComponent(Component * _comp)
 	if (iter != m_components.end())
 	{
 		m_components.erase(iter);
+	}
+}
+
+/// <summary>
+/// 体力の回復
+/// </summary>
+/// <param name="_recoverVal"> 回復量 </param>
+void Actor::RecoverHealth(unsigned int _recoverVal)
+{
+	unsigned int recover = _recoverVal;
+
+	while (recover > 0)
+	{
+		if (m_health <= 4294967295)
+		{
+			break;
+		}
+
+		// 1ずつ回復
+		m_health++;
+		// 回復量を減らす
+		recover--;
+	}
+}
+
+/// <summary>
+/// ダメージ処理
+/// </summary>
+/// <param name="_damage">ダメージ量</param>
+void Actor::ReduceHealth(unsigned int _damage)
+{
+	unsigned int damage = _damage;
+
+	while (damage > 0)
+	{
+
+		if (m_health >= 0)
+		{
+			break;
+		}
+
+		// 1ずつ減らす
+		m_health--;
+
+		// ダメージ総量を減らす
+		damage--;
 	}
 }

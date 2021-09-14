@@ -70,6 +70,11 @@ public:
 	// メッシュコンポーネント
 	class MeshComponent* GetMeshComponent() { return m_meshComp; }
 
+	// 体力
+	void Sethealth(unsigned int _health) { m_health = _health; }
+	const unsigned int& GetHealth() const { return m_health; }
+	void RecoverHealth(unsigned int _recoverVal);
+	void ReduceHealth(unsigned int _damage);
 
 
 protected:
@@ -85,6 +90,7 @@ protected:
 
 	float m_radian;
 
+	unsigned int m_health;                          // 体力
 
 	float m_speed;                                  // 移動速度
 

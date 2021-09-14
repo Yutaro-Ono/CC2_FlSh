@@ -6,6 +6,6 @@ const float PlayerStateBase::JOG_SPEED_LINE = 0.55f;
 const float PlayerStateBase::WALK_SPEED_LINE = 0.05f;
 
 PlayerStateBase::PlayerStateBase()
-	:m_animSpeed(1.0f)
+	:m_animSpeed(10.0f)
 {
 }

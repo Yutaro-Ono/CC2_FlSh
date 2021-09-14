@@ -50,10 +50,6 @@ MotorBikeParent::~MotorBikeParent()
 
 void MotorBikeParent::UpdateActor(float _deltaTime)
 {
-	
-
-
-
 
 	// 各パーツ・乗車中アクターの座標修正
 	// ※必ず座標系を更新した後で行うこと
@@ -74,9 +70,6 @@ void MotorBikeParent::UpdateActor(float _deltaTime)
 			Matrix4 fixTrans = Matrix4::CreateTranslation(m_offsetPos[i]) * m_worldTransform;
 			m_parts[i]->SetWorldTransform(fixTrans);
 		}
-
-
-
 	}
 
 	// アクターが乗車中のみ修正

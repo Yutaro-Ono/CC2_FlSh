@@ -200,6 +200,8 @@
     <ClCompile Include="SourceCodes\MotorBikeParent.cpp" />
     <ClCompile Include="SourceCodes\Player.cpp" />
     <ClCompile Include="SourceCodes\PlayerStateBase.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_Crouch.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_CrouchMove.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Idle.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Jog.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Sprint.cpp" />
@@ -360,6 +362,8 @@
     <ClInclude Include="SourceCodes\MotorBikeParent.h" />
     <ClInclude Include="SourceCodes\Player.h" />
     <ClInclude Include="SourceCodes\PlayerStateBase.h" />
+    <ClInclude Include="SourceCodes\PlayerState_Crouch.h" />
+    <ClInclude Include="SourceCodes\PlayerState_CrouchMove.h" />
     <ClInclude Include="SourceCodes\PlayerState_Idle.h" />
     <ClInclude Include="SourceCodes\PlayerState_Jog.h" />
     <ClInclude Include="SourceCodes\PlayerState_Sprint.h" />

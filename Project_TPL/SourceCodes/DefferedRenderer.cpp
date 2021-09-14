@@ -317,11 +317,11 @@ void DefferedRenderer::DrawLightPath()
 	GLSLprogram* dirLightShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::DIRECTIONAL_LIGHT);
 	// シェーダのセット
 	dirLightShader->UseProgram();
-	dirLightShader->SetUniform("u_gBuffer.position", 0);
-	dirLightShader->SetUniform("u_gBuffer.normal", 1);
+	dirLightShader->SetUniform("u_gBuffer.position",   0);
+	dirLightShader->SetUniform("u_gBuffer.normal",     1);
 	dirLightShader->SetUniform("u_gBuffer.albedoSpec", 2);
-	dirLightShader->SetUniform("u_gBuffer.emissive", 3);
-	dirLightShader->SetUniform("u_ssao",             4);
+	dirLightShader->SetUniform("u_gBuffer.emissive",   3);
+	dirLightShader->SetUniform("u_ssao",               4);
 	// スクリーン全体に描画
 	m_renderer->GetScreenVAO()->SetActive();
 	glDrawArrays(GL_TRIANGLES, 0, 6);

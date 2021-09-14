@@ -6,16 +6,20 @@
 #include "PlayerState_Walk.h"
 #include "PlayerState_Jog.h"
 #include "PlayerState_Sprint.h"
+#include "PlayerState_Crouch.h"
+#include "PlayerState_CrouchMove.h"
 #include "TPSCamera.h"
 #include "PlayerMovement.h"
 #include "PointLight.h"
 
-const std::string Player::PLAYER_MESH_PATH = "Data/Meshes/Actors/HumanRace/Player/Player_gonzales.gpmesh";
-const std::string Player::PLAYER_SKEL_PATH = "Data/Meshes/Actors/HumanRace/Player/Player_gonzales.gpskel";
-const std::string Player::ANIM_IDLE_PATH = "Data/Animation/Player/Player_Idle.gpanim";
-const std::string Player::ANIM_WALK_PATH = "Data/Animation/Player/Player_Walk.gpanim";
-const std::string Player::ANIM_JOG_PATH = "Data/Animation/Player/Player_Jog.gpanim";
-const std::string Player::ANIM_RUN_PATH = "Data/Animation/Player/Player_Run.gpanim";
+const std::string Player::PLAYER_MESH_PATH      = "Data/Meshes/Actors/HumanRace/Player/Player_gonzales.gpmesh";
+const std::string Player::PLAYER_SKEL_PATH      = "Data/Meshes/Actors/HumanRace/Player/Player_gonzales.gpskel";
+const std::string Player::ANIM_IDLE_PATH        = "Data/Animation/Player/Player_Idle.gpanim";
+const std::string Player::ANIM_WALK_PATH        = "Data/Animation/Player/Player_Walk.gpanim";
+const std::string Player::ANIM_JOG_PATH         = "Data/Animation/Player/Player_Jog.gpanim";
+const std::string Player::ANIM_RUN_PATH         = "Data/Animation/Player/Player_Run.gpanim";
+const std::string Player::ANIM_CROUCH_PATH      = "Data/Animation/Player/Player_Crouch.gpanim";
+const std::string Player::ANIM_CROUCH_MOVE_PATH = "Data/Animation/Player/Player_CrouchMove.gpanim";
 
 
 Player::Player()
@@ -26,6 +30,7 @@ Player::Player()
 	,m_light(nullptr)
 	,m_toggleSprint(false)
 	,m_toggleWalk(false)
+	,m_toggleCrouch(false)
 {
 
 	// カメラの生成(三人称カメラ)
@@ -35,7 +40,6 @@ Player::Player()
 
 	// 移動コンポーネントの追加
 	PlayerMovement* moveComp = new PlayerMovement(this);
-
 
 	// ライトの生成
 	m_light = new PointLight(PointLight::VL_BIG);
@@ -51,17 +55,21 @@ Player::Player()
 
 	// アニメーションのロード
 	m_anims.resize(static_cast<unsigned int>(PLAYER_STATE::STATE_ALL_NUM));
-	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_IDLE)] = RENDERER->GetAnimation(ANIM_IDLE_PATH.c_str(), true);
-	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WALK)] = RENDERER->GetAnimation(ANIM_WALK_PATH.c_str(), true);
-	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_JOG)] = RENDERER->GetAnimation(ANIM_JOG_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_IDLE)]   = RENDERER->GetAnimation(ANIM_IDLE_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WALK)]   = RENDERER->GetAnimation(ANIM_WALK_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_JOG)]    = RENDERER->GetAnimation(ANIM_JOG_PATH.c_str(), true);
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_SPRINT)] = RENDERER->GetAnimation(ANIM_RUN_PATH.c_str(), true);
-
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_CROUCH)] = RENDERER->GetAnimation(ANIM_CROUCH_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_CROUCH_MOVE)] = RENDERER->GetAnimation(ANIM_CROUCH_MOVE_PATH.c_str(), true);
 
 	// プレイヤーステートプールの生成
 	m_statePool.push_back(new PlayerState_Idle);
 	m_statePool.push_back(new PlayerState_Walk);
 	m_statePool.push_back(new PlayerState_Jog);
 	m_statePool.push_back(new PlayerState_Sprint);
+	m_statePool.push_back(new PlayerState_Crouch);
+	m_statePool.push_back(new PlayerState_CrouchMove);
+
 	// 待機状態を開始
 	m_statePool[static_cast<unsigned int>(m_nowState)]->EnterState(this, GAME_INSTANCE.GetDeltaTime());
 
@@ -80,7 +88,10 @@ void Player::UpdateActor(float _deltaTime)
 	UpdatePlayerState(_deltaTime);
 }
 
-
+/// <summary>
+/// プレイヤーステートの更新
+/// </summary>
+/// <param name="_deltaTime"> デルタタイム </param>
 void Player::UpdatePlayerState(float _deltaTime)
 {
 	// 外部からのステート変更があったかをチェック
@@ -93,7 +104,6 @@ void Player::UpdatePlayerState(float _deltaTime)
 
 	// ステート更新
 	m_nextState = m_statePool[static_cast<unsigned int>(m_nowState)]->Update(this, _deltaTime);
-
 
 	// 現在ステートの更新によって、ステート変更があったかをチェック
 	if (m_nowState != m_nextState)
