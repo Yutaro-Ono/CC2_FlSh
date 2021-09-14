@@ -7,7 +7,6 @@
 #include "SkeletalMeshComponent.h"
 #include "HumanCamera.h"
 #include "ThirdPersonCamera.h"
-#include "MoveComponentHuman.h"
 #include "PhysicsWorld.h"
 #include "BoxCollider.h"
 #include "Collision.h"
@@ -31,7 +30,7 @@ PlayerHuman::PlayerHuman(class PlayerManager* in_manager)
 	m_cameraComp->SetChaseOwnerForward(false);
 
 	// MoveComponentの生成
-	m_moveComp = new MoveComponentHuman(this);
+	//m_moveComp = new MoveComponentHuman(this);
 	
 	// スケルタルメッシュのロード
 	Mesh* mesh = RENDERER->GetMesh("Data/Meshes/Actors/HumanRace/Player/rp_nathan_rigged_003_ue4.gpmesh");
@@ -105,7 +104,7 @@ void PlayerHuman::UpdateActor(float in_deltaTime)
 	{
 		// カメラをアクティブにする
 		GAME_INSTANCE.SetCamera(m_cameraComp);
-		m_moveComp->SetActive(true);
+		//m_moveComp->SetActive(true);
 		m_skelMeshComp->SetVisible(true);
 
 		// 重力処理
@@ -132,7 +131,7 @@ void PlayerHuman::UpdateActor(float in_deltaTime)
 
 	else
 	{
-		m_moveComp->SetActive(false);
+		//m_moveComp->SetActive(false);
 		m_skelMeshComp->SetVisible(false);
 		// アイドル時のアニメーションをセット
 		m_skelMeshComp->PlayAnimation(m_animTypes[ANIM_IDLE], cAnimationSpeed * in_deltaTime);

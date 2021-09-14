@@ -202,7 +202,7 @@
     <ClCompile Include="SourceCodes\PlayerStateBase.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Idle.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Jog.cpp" />
-    <ClCompile Include="SourceCodes\PlayerState_Run.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_Sprint.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Walk.cpp" />
     <ClCompile Include="SourceCodes\PostEffect.cpp" />
     <ClCompile Include="SourceCodes\GameConfig.cpp" />
@@ -244,7 +244,7 @@
     <ClCompile Include="SourceCodes\Mouse.cpp" />
     <ClCompile Include="SourceCodes\MoveComponent.cpp" />
     <ClCompile Include="SourceCodes\MoveComponentCar.cpp" />
-    <ClCompile Include="SourceCodes\MoveComponentHuman.cpp" />
+    <ClCompile Include="SourceCodes\PlayerMovement.cpp" />
     <ClCompile Include="SourceCodes\Music.cpp" />
     <ClCompile Include="SourceCodes\OrbitCamera.cpp" />
     <ClCompile Include="SourceCodes\Particle.cpp" />
@@ -362,7 +362,7 @@
     <ClInclude Include="SourceCodes\PlayerStateBase.h" />
     <ClInclude Include="SourceCodes\PlayerState_Idle.h" />
     <ClInclude Include="SourceCodes\PlayerState_Jog.h" />
-    <ClInclude Include="SourceCodes\PlayerState_Run.h" />
+    <ClInclude Include="SourceCodes\PlayerState_Sprint.h" />
     <ClInclude Include="SourceCodes\PlayerState_Walk.h" />
     <ClInclude Include="SourceCodes\PostEffect.h" />
     <ClInclude Include="SourceCodes\GameConfig.h" />
@@ -405,7 +405,7 @@
     <ClInclude Include="SourceCodes\Mouse.h" />
     <ClInclude Include="SourceCodes\MoveComponent.h" />
     <ClInclude Include="SourceCodes\MoveComponentCar.h" />
-    <ClInclude Include="SourceCodes\MoveComponentHuman.h" />
+    <ClInclude Include="SourceCodes\PlayerMovement.h" />
     <ClInclude Include="SourceCodes\Music.h" />
     <ClInclude Include="SourceCodes\ObjectPool.h" />
     <ClInclude Include="SourceCodes\OrbitCamera.h" />

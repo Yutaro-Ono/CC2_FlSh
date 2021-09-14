@@ -7,6 +7,5 @@ const float PlayerStateBase::WALK_SPEED_LINE = 0.05f;
 
 PlayerStateBase::PlayerStateBase()
 	:m_animSpeed(1.0f)
-	,m_toggleRun(false)
 {
 }

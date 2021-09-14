@@ -1,40 +1,36 @@
-#include "MoveComponentHuman.h"
+#include "PlayerMovement.h"
 #include "Math.h"
 #include "InputController.h"
 #include "Input.h"
 #include "Mouse.h"
-#include "PlayerHuman.h"
-#include "PlayerManager.h"
+#include "Player.h"
 #include "ThirdPersonCamera.h"
 
-const float MoveComponentHuman::PLAYER_SPEED = 45.0f;
-const float MoveComponentHuman::SPEED_WALK = 45.0f;
-const float MoveComponentHuman::SPEED_JOG = 80.0f;
-const float MoveComponentHuman::SPEED_RUN = 120.0f;
+const float PlayerMovement::PLAYER_SPEED = 45.0f;
+const float PlayerMovement::SPEED_WALK = 45.0f;
+const float PlayerMovement::SPEED_JOG = 80.0f;
+const float PlayerMovement::SPEED_SPRINT = 120.0f;
 
 
 // コンストラクタ
-MoveComponentHuman::MoveComponentHuman(Actor* in_owner)
-	:MoveComponent(in_owner)
-	,m_toggleRun(false)
+PlayerMovement::PlayerMovement(Player* _player)
+	:MoveComponent(_player)
+	,m_player(_player)
 	,m_velocity(SPEED_WALK)
 {
 	
 }
 
 // デストラクタ
-MoveComponentHuman::~MoveComponentHuman()
+PlayerMovement::~PlayerMovement()
 {
 }
 
 // 更新処理
-void MoveComponentHuman::Update(float in_deltaTime)
+void PlayerMovement::Update(float in_deltaTime)
 {
 	if (m_isActive)
 	{
-		
-
-
 		if (m_padIsActive)
 		{
 			MovementByController(in_deltaTime);
@@ -51,7 +47,7 @@ void MoveComponentHuman::Update(float in_deltaTime)
 
 
 // プレイヤーの移動処理(コントローラ)
-void MoveComponentHuman::MovementByController(float in_deltaTime)
+void PlayerMovement::MovementByController(float in_deltaTime)
 {
 	// 左スティック入力値の取得
 	Vector2 axisL = CONTROLLER_INSTANCE.GetLAxisVec();
@@ -60,24 +56,27 @@ void MoveComponentHuman::MovementByController(float in_deltaTime)
 	// 入力閾値
 	float axisThreshold = 0.01f;
 
-	// 走り状態時、入力閾値が一定以下になったら走りトグル解除
-	if (m_toggleRun && axisLength < axisThreshold && axisLength > -axisThreshold)
-	{
-		m_toggleRun = false;
-	}
 	// 「走る」ボタンが押されているかを取得
 	// 通常はLBボタン
-	if (!m_toggleRun)
+	bool toggleSprint = m_player->GetToggleSprint();
+	if (!toggleSprint)
 	{
-		m_toggleRun = CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_LEFTSHOULDER);
+		toggleSprint = CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_LEFTSHOULDER);
+		m_player->SetToggleSprint(toggleSprint);
+	}
+	// 走り状態時、入力閾値が一定以下になったら走りトグル解除
+	if (toggleSprint && axisLength < axisThreshold && axisLength > -axisThreshold)
+	{
+		toggleSprint = false;
+		m_player->SetToggleSprint(toggleSprint);
 	}
 
 
 	
 	// 「走る」ボタンが押されていた時、同時に左スティック入力もされていた場合
-	if (m_toggleRun && CONTROLLER_INSTANCE.GetIsInputAxisL())
+	if (toggleSprint && CONTROLLER_INSTANCE.GetIsInputAxisL())
 	{
-		m_velocity = SPEED_RUN;
+		m_velocity = SPEED_SPRINT;
 	}
 	else if(axisLength >= 0.55f || axisLength <= -0.55f)
 	{
@@ -136,27 +135,81 @@ void MoveComponentHuman::MovementByController(float in_deltaTime)
 }
 
 // プレイヤーの移動処理(キーボード)
-void MoveComponentHuman::MovementByKeyboard(float in_deltaTime)
+void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 {
 	// キー入力値
 	Vector2 inputAxis = Vector2::Zero;
+	// 移動キーの入力状態を取得
+	bool pressW = INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_W);
+	bool pressA = INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_A);
+	bool pressS = INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_S);
+	bool pressD = INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_D);
+
+	// 走り状態時、入力されていなかったら走りトグル解除
+	bool toggleSprint = m_player->GetToggleSprint();
+	if (toggleSprint && !(pressW || pressA || pressS || pressD))
+	{
+		toggleSprint = false;
+		m_player->SetToggleSprint(toggleSprint);
+	}
+	// 「走る」ボタンが押されているかを取得
+	// 左シフト
+	if (!toggleSprint)
+	{
+		toggleSprint = INPUT_INSTANCE.IsKeyPushDown(SDL_SCANCODE_LSHIFT);
+		m_player->SetToggleSprint(toggleSprint);
+	}
+
+	// 歩き状態のトグル更新
+	// LeftAltで更新
+	bool toggleWalk = m_player->GetToggleWalk();
+	bool key = INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_LALT);
+	if (key)
+	{
+		if (!toggleWalk)
+		{
+			toggleWalk = true;
+			m_player->SetToggleWalk(toggleWalk);
+		}
+		else
+		{
+			toggleWalk = false;
+			m_player->SetToggleWalk(toggleWalk);
+		}
+		
+	}
+
+	// 「走る」ボタンが押されていた時、同時に左スティック入力もされていた場合
+	if (toggleSprint)
+	{
+		m_velocity = SPEED_SPRINT;
+	}
+	else if (!toggleWalk)
+	{
+		m_velocity = SPEED_JOG;
+	}
+	else
+	{
+		m_velocity = SPEED_WALK;
+	}
+
 
 	// キー入力WASDによる移動処理
-	if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_W))
-	{
-		inputAxis.x += 1.0f;
-	}
-	if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_S))
-	{
-		inputAxis.x += -1.0f;
-	}
-	if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_A))
+	if (pressW)
 	{
 		inputAxis.y += -1.0f;
 	}
-	if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_D))
+	if (pressS)
 	{
 		inputAxis.y += 1.0f;
+	}
+	if (pressA)
+	{
+		inputAxis.x += -1.0f;
+	}
+	if (pressD)
+	{
+		inputAxis.x += 1.0f;
 	}
 
 
@@ -199,7 +252,7 @@ void MoveComponentHuman::MovementByKeyboard(float in_deltaTime)
 
 	// プレイヤーの現在位置から、定義した方向へ速度分を加算
 	Vector3 resultPos = m_owner->GetPosition();
-	resultPos += moveVec * PLAYER_SPEED * in_deltaTime;
+	resultPos += moveVec * m_velocity * in_deltaTime;
 
 	// 最終的なプレイヤーの座標をセット
 	m_owner->SetPosition(resultPos);

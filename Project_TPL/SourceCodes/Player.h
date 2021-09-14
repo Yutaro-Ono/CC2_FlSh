@@ -15,7 +15,7 @@ enum class PLAYER_STATE
 	STATE_IDLE,
 	STATE_WALK,
 	STATE_JOG,
-	STATE_RUN,
+	STATE_SPRINT,
 
 	STATE_ALL_NUM
 };
@@ -34,6 +34,11 @@ public:
 	class SkeletalMeshComponent* GetSkelMesh() { return m_skelComp; }
 	const class Animation* GetAnim(PLAYER_STATE _state) { return m_anims[static_cast<unsigned int>(_state)]; }
 
+	bool GetToggleSprint() { return m_toggleSprint; }
+	bool GetToggleWalk() { return m_toggleWalk; }
+	void SetToggleSprint(bool _toggle) { m_toggleSprint = _toggle; }
+	void SetToggleWalk(bool _toggle) { m_toggleWalk   = _toggle; }
+
 private:
 
 	void UpdatePlayerState(float _deltaTime);
@@ -43,6 +48,10 @@ private:
 	PLAYER_STATE m_nowState;
 	PLAYER_STATE m_nextState;
 	std::vector<class PlayerStateBase*> m_statePool;
+
+	// ˆÚ“®‚ÌƒgƒOƒ‹
+	bool m_toggleSprint;
+	bool m_toggleWalk;
 
 	class SkeletalMeshComponent* m_skelComp;
 	std::vector<const class Animation*> m_anims;

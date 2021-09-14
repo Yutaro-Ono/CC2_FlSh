@@ -1,28 +1,28 @@
-#include "PlayerState_Walk.h"
+#include "PlayerState_Sprint.h"
 #include "GameMain.h"
 #include "SkeletalMeshComponent.h"
 #include "Animation.h"
 
 
-PlayerState_Walk::PlayerState_Walk()
+PlayerState_Sprint::PlayerState_Sprint()
 {
-	m_animSpeed = 10.0f;
+	m_animSpeed = 15.0f;
 }
 
-PlayerState_Walk::~PlayerState_Walk()
+PlayerState_Sprint::~PlayerState_Sprint()
 {
 }
 
-PLAYER_STATE PlayerState_Walk::Update(Player* _player, float _deltaTime)
+PLAYER_STATE PlayerState_Sprint::Update(Player* _player, float _deltaTime)
 {
+	//---------------------------------------------------------------------+
+	// 走りステートから、条件ごとに他のステートへ移行する
+	//---------------------------------------------------------------------+
 
 	// バインドしたプレイヤーから走り/歩き状態の取得
 	bool toggleSprint = _player->GetToggleSprint();
 	bool toggleWalk = _player->GetToggleWalk();
 
-	//---------------------------------------------------------------------+
-	// 歩きステートから、条件ごとに他のステートへ移行する
-	//---------------------------------------------------------------------+
 	// コントローラ接続時
 	if (CONTROLLER_INSTANCE.IsAvailable())
 	{
@@ -36,23 +36,11 @@ PLAYER_STATE PlayerState_Walk::Update(Player* _player, float _deltaTime)
 		Vector2 move = CONTROLLER_INSTANCE.GetLAxisVec();
 		float inputVal = move.LengthSq();
 
-		// 走り状態
-		if (toggleSprint)
+		// 走り状態の時のみ、パッドの入力値が閾値を下回ったら走りを解除
+		if (toggleSprint && inputVal < WALK_SPEED_LINE && inputVal > -WALK_SPEED_LINE)
 		{
-			return PLAYER_STATE::STATE_SPRINT;
+			return PLAYER_STATE::STATE_IDLE;
 		}
-		// 歩き状態
-		if (toggleWalk && (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE))
-		{
-			return PLAYER_STATE::STATE_WALK;
-		}
-
-		// 一定以上の入力値で小走り状態へ移行
-		if (inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE)
-		{
-			return PLAYER_STATE::STATE_JOG;
-		}
-
 
 	}
 
@@ -71,29 +59,35 @@ PLAYER_STATE PlayerState_Walk::Update(Player* _player, float _deltaTime)
 			INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_S) &
 			INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_D);
 
-		// いずれかの移動キーが入力+左シフトが押されていたら、走り状態へ移行
+		// いずれかの移動キーが入力+走り状態で、走り継続
 		if (toggleSprint && !isIdle)
 		{
 			return PLAYER_STATE::STATE_SPRINT;
 		}
-		// 歩きトグル有効かついずれかの入力キーが押されていたら歩き状態へ
-		if (toggleWalk && !isIdle)
+		// いずれかの移動キーが押されていた、歩きトグルが入っていたら、歩き状態へ
+		if (!isIdle && toggleWalk)
 		{
 			return PLAYER_STATE::STATE_WALK;
 		}
-
-		// 移動している場合、小走り
+		// 移動キーが押されているが歩きトグルが入っていない場合は、小走り状態へ
 		if (!isIdle)
 		{
 			return PLAYER_STATE::STATE_JOG;
 		}
+
+		// 何も押されていなかったら待機状態
+		if (isIdle)
+		{
+			return PLAYER_STATE::STATE_IDLE;
+		}
+
 	}
 
-	return PLAYER_STATE::STATE_IDLE;
+	return PLAYER_STATE::STATE_SPRINT;
 }
 
-void PlayerState_Walk::EnterState(Player* _player, float _deltaTime)
+void PlayerState_Sprint::EnterState(Player* _player, float _deltaTime)
 {
 	SkeletalMeshComponent* skel = _player->GetSkelMesh();
-	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_WALK), m_animSpeed * _deltaTime);
+	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_SPRINT), m_animSpeed * _deltaTime);
 }

@@ -1,9 +1,11 @@
 #include "TPSCamera.h"
+#include "GameMain.h"
 #include "Input.h"
+#include "Mouse.h"
 #include "InputController.h"
 #include "Actor.h"
 
-const float maxLookDownAngle = Math::ToRadians(45.0f); // 最大仰角
+const float maxLookDownAngle = Math::ToRadians(45.0f);  // 最大仰角
 const float minLookDownAngle = Math::ToRadians(-10.0f); // 最小仰角
 
 TPSCamera::TPSCamera(Actor* _target)
@@ -15,7 +17,7 @@ TPSCamera::TPSCamera(Actor* _target)
     ,m_adjustTargetPos(Vector2(0.0f, -50.0f))
 {
     m_position = Vector3(100.0f, 100.0f, 100.0f);
-
+    m_isActivePad = CONTROLLER_INSTANCE.IsAvailable();
 }
 
 TPSCamera::~TPSCamera()
@@ -37,39 +39,18 @@ void TPSCamera::Update(float _deltaTime)
     diff = playerPos - m_viewTarget;
     diff = dumper * _deltaTime * diff;
 
-    // キー入力
+    // カメラ回転値
     const float rotate = 0.5f * _deltaTime;
-    if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_LEFT))
-    {
-        m_rotateZAngle += rotate;
-    }
-    if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_RIGHT))
-    {
-        m_rotateZAngle -= rotate;
-    }
-    if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_UP))
-    {
-        m_lookDownAngle += rotate;
-    }
-    if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_DOWN))
-    {
-        m_lookDownAngle -= rotate;
-    }
 
     // パッド入力
-    Vector2 axisR;
-    axisR = CONTROLLER_INSTANCE.GetRAxisVec();
-    m_rotateZAngle += axisR.x * rotate;
-    m_lookDownAngle += axisR.y * rotate;
-
-    // 見降ろし角度の角度制限
-    if (m_lookDownAngle < minLookDownAngle)
+    if (m_isActivePad)
     {
-        m_lookDownAngle = minLookDownAngle;
+        UpdateGamePad(rotate, _deltaTime);
     }
-    if (m_lookDownAngle > maxLookDownAngle)
+    // キーボード入力
+    else
     {
-        m_lookDownAngle = maxLookDownAngle;
+        UpdateGamePad(rotate, _deltaTime);
     }
 
     // ヨー回転・ピッチ回転
@@ -89,3 +70,51 @@ void TPSCamera::Update(float _deltaTime)
     view = view * Matrix4::CreateTranslation(dist);
     SetViewMatrix(view);
 }
+
+void TPSCamera::UpdateMouse(const float _rotate, float _deltaTime)
+{
+    // マウスのスクリーン座標を取得
+    Vector2 mousePos = MOUSE_INSTANCE.GetPosition();
+
+    //mousePos.x
+
+}
+
+void TPSCamera::UpdateKeyBoard(const float _rotate, float _deltaTime)
+{
+    if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_LEFT))
+    {
+        m_rotateZAngle += _rotate;
+    }
+    if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_RIGHT))
+    {
+        m_rotateZAngle -= _rotate;
+    }
+    if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_UP))
+    {
+        m_lookDownAngle += _rotate;
+    }
+    if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_DOWN))
+    {
+        m_lookDownAngle -= _rotate;
+    }
+}
+
+void TPSCamera::UpdateGamePad(const float _rotate, float _deltaTime)
+{
+    Vector2 axisR;
+    axisR = CONTROLLER_INSTANCE.GetRAxisVec();
+    m_rotateZAngle += axisR.x * _rotate;
+    m_lookDownAngle += axisR.y * _rotate;
+
+    // 見降ろし角度の角度制限
+    if (m_lookDownAngle < minLookDownAngle)
+    {
+        m_lookDownAngle = minLookDownAngle;
+    }
+    if (m_lookDownAngle > maxLookDownAngle)
+    {
+        m_lookDownAngle = maxLookDownAngle;
+    }
+}
+

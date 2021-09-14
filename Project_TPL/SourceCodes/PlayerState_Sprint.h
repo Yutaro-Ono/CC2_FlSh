@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------------+
-// @file        PlayerStateRun.h
+// @file        PlayerStateSprint.h
 // @brief       プレイヤーステート(走り)クラス
 // @note        ステートパターン
 // @author      小野 湧太郎 (Yutaro Ono, @2021)
@@ -11,13 +11,13 @@
 #include "PlayerStateBase.h"
 
 
-class PlayerState_Run : public PlayerStateBase
+class PlayerState_Sprint : public PlayerStateBase
 {
 
 public:
 
-	PlayerState_Run();
-	~PlayerState_Run();
+	PlayerState_Sprint();
+	~PlayerState_Sprint();
 
 	PLAYER_STATE Update(class Player* _player, float _deltaTime) override;
 	void EnterState(class Player* _player, float _deltaTime) override;

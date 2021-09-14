@@ -584,7 +584,7 @@
     <ClCompile Include="SourceCodes\MoveComponentCar.cpp">
       <Filter>Source\Component</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\MoveComponentHuman.cpp">
+    <ClCompile Include="SourceCodes\PlayerMovement.cpp">
       <Filter>Source\Component</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\PatrolComponent.cpp">
@@ -647,7 +647,7 @@
     <ClCompile Include="SourceCodes\PlayerState_Jog.cpp">
       <Filter>Source\Actor\Player\PlayerState</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\PlayerState_Run.cpp">
+    <ClCompile Include="SourceCodes\PlayerState_Sprint.cpp">
       <Filter>Source\Actor\Player\PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\PlayerState_Walk.cpp">
@@ -1069,7 +1069,7 @@
     <ClInclude Include="SourceCodes\MoveComponentCar.h">
       <Filter>Source\Component</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\MoveComponentHuman.h">
+    <ClInclude Include="SourceCodes\PlayerMovement.h">
       <Filter>Source\Component</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\PatrolComponent.h">
@@ -1141,7 +1141,7 @@
     <ClInclude Include="SourceCodes\PlayerState_Jog.h">
       <Filter>Source\Actor\Player\PlayerState</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\PlayerState_Run.h">
+    <ClInclude Include="SourceCodes\PlayerState_Sprint.h">
       <Filter>Source\Actor\Player\PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\TPSCamera.h">

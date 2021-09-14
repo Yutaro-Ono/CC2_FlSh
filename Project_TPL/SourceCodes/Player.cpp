@@ -5,9 +5,9 @@
 #include "PlayerState_Idle.h"
 #include "PlayerState_Walk.h"
 #include "PlayerState_Jog.h"
-#include "PlayerState_Run.h"
+#include "PlayerState_Sprint.h"
 #include "TPSCamera.h"
-#include "MoveComponentHuman.h"
+#include "PlayerMovement.h"
 #include "PointLight.h"
 
 const std::string Player::PLAYER_MESH_PATH = "Data/Meshes/Actors/HumanRace/Player/Player_gonzales.gpmesh";
@@ -24,6 +24,8 @@ Player::Player()
 	,m_nextState(PLAYER_STATE::STATE_IDLE)
 	,m_tpsCamera(nullptr)
 	,m_light(nullptr)
+	,m_toggleSprint(false)
+	,m_toggleWalk(false)
 {
 
 	// カメラの生成(三人称カメラ)
@@ -32,7 +34,8 @@ Player::Player()
 	m_tpsCamera->SetAdjustTargetPos(Vector2(-40.0f, -85.0f));
 
 	// 移動コンポーネントの追加
-	m_components.push_back(new MoveComponentHuman(this));
+	PlayerMovement* moveComp = new PlayerMovement(this);
+
 
 	// ライトの生成
 	m_light = new PointLight(PointLight::VL_BIG);
@@ -51,14 +54,14 @@ Player::Player()
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_IDLE)] = RENDERER->GetAnimation(ANIM_IDLE_PATH.c_str(), true);
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WALK)] = RENDERER->GetAnimation(ANIM_WALK_PATH.c_str(), true);
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_JOG)] = RENDERER->GetAnimation(ANIM_JOG_PATH.c_str(), true);
-	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_RUN)] = RENDERER->GetAnimation(ANIM_RUN_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_SPRINT)] = RENDERER->GetAnimation(ANIM_RUN_PATH.c_str(), true);
 
 
 	// プレイヤーステートプールの生成
 	m_statePool.push_back(new PlayerState_Idle);
 	m_statePool.push_back(new PlayerState_Walk);
 	m_statePool.push_back(new PlayerState_Jog);
-	m_statePool.push_back(new PlayerState_Run);
+	m_statePool.push_back(new PlayerState_Sprint);
 	// 待機状態を開始
 	m_statePool[static_cast<unsigned int>(m_nowState)]->EnterState(this, GAME_INSTANCE.GetDeltaTime());
 
