@@ -22,6 +22,7 @@ PLAYER_STATE PlayerState_Crouch::Update(Player* _player, float _deltaTime)
 	// バインドしたプレイヤーから走り/歩き状態の取得
 	bool toggleSprint = _player->GetToggleSprint();
 	bool toggleWalk = _player->GetToggleWalk();
+	bool toggleCrouch = _player->GetToggleCrouch();
 
 	// コントローラ接続時
 	if (CONTROLLER_INSTANCE.IsAvailable())
@@ -36,15 +37,17 @@ PLAYER_STATE PlayerState_Crouch::Update(Player* _player, float _deltaTime)
 		Vector2 move = CONTROLLER_INSTANCE.GetLAxisVec();
 		float inputVal = move.LengthSq();
 
-		// 走り状態
-		if (toggleSprint)
-		{
-			return PLAYER_STATE::STATE_SPRINT;
-		}
+
 		// 入力値が歩き入力値以上でかがみ歩き状態
 		if (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE)
 		{
-			return PLAYER_STATE::STATE_WALK;
+			return PLAYER_STATE::STATE_CROUCH_MOVE;
+		}
+
+		// しゃがみ状態解除
+		if (!toggleCrouch)
+		{
+			return PLAYER_STATE::STATE_IDLE;
 		}
 	}
 
@@ -72,6 +75,11 @@ PLAYER_STATE PlayerState_Crouch::Update(Player* _player, float _deltaTime)
 		if (!isIdle)
 		{
 			return PLAYER_STATE::STATE_CROUCH_MOVE;
+		}
+		// しゃがみ状態解除
+		if (!toggleCrouch)
+		{
+			return PLAYER_STATE::STATE_IDLE;
 		}
 
 	}

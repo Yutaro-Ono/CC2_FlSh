@@ -22,6 +22,7 @@ PLAYER_STATE PlayerState_Sprint::Update(Player* _player, float _deltaTime)
 	// バインドしたプレイヤーから走り/歩き状態の取得
 	bool toggleSprint = _player->GetToggleSprint();
 	bool toggleWalk = _player->GetToggleWalk();
+	bool toggleCrouch = _player->GetToggleCrouch();
 
 	// コントローラ接続時
 	if (CONTROLLER_INSTANCE.IsAvailable())
@@ -35,6 +36,12 @@ PLAYER_STATE PlayerState_Sprint::Update(Player* _player, float _deltaTime)
 		// 待機状態か(移動ボタンが押されているか)
 		Vector2 move = CONTROLLER_INSTANCE.GetLAxisVec();
 		float inputVal = move.LengthSq();
+
+		// しゃがみ状態
+		if (toggleCrouch)
+		{
+			return PLAYER_STATE::STATE_CROUCH;
+		}
 
 		// 走り状態の時のみ、パッドの入力値が閾値を下回ったら走りを解除
 		if (toggleSprint && inputVal < WALK_SPEED_LINE && inputVal > -WALK_SPEED_LINE)
@@ -58,6 +65,12 @@ PLAYER_STATE PlayerState_Sprint::Update(Player* _player, float _deltaTime)
 			          INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_A) &
 			          INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_S) &
 			          INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_D);
+
+		// しゃがみ状態
+		if (toggleCrouch)
+		{
+			return PLAYER_STATE::STATE_CROUCH;
+		}
 
 		// いずれかの移動キーが入力+走り状態で、走り継続
 		if (toggleSprint && !isIdle)

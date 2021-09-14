@@ -21,6 +21,7 @@ PLAYER_STATE PlayerState_CrouchMove::Update(Player* _player, float _deltaTime)
 	// バインドしたプレイヤーから走り/歩き状態の取得
 	bool toggleSprint = _player->GetToggleSprint();
 	bool toggleWalk = _player->GetToggleWalk();
+	bool toggleCrouch = _player->GetToggleCrouch();
 
 	// コントローラ接続時
 	if (CONTROLLER_INSTANCE.IsAvailable())
@@ -35,15 +36,21 @@ PLAYER_STATE PlayerState_CrouchMove::Update(Player* _player, float _deltaTime)
 		Vector2 move = CONTROLLER_INSTANCE.GetLAxisVec();
 		float inputVal = move.LengthSq();
 
-		// 走り状態
-		if (toggleSprint)
+		// しゃがみトグル解除かつ小走り以上のスピード
+		if (!toggleCrouch && (inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE))
 		{
-			return PLAYER_STATE::STATE_SPRINT;
+			return PLAYER_STATE::STATE_JOG;
 		}
+		// しゃがみトグル解除かつ歩き以上のスピード
+		if (!toggleCrouch && (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE))
+		{
+			return PLAYER_STATE::STATE_WALK;
+		}
+
 		// 入力値が歩き入力値以上でかがみ歩き状態
 		if (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE)
 		{
-			return PLAYER_STATE::STATE_WALK;
+			return PLAYER_STATE::STATE_CROUCH_MOVE;
 		}
 	}
 
@@ -62,11 +69,17 @@ PLAYER_STATE PlayerState_CrouchMove::Update(Player* _player, float _deltaTime)
 			INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_S) &
 			INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_D);
 
-		// いずれかの移動キーが入力+左シフトが押されていたら、走り状態へ移行
-		if (toggleSprint && !isIdle)
+		// しゃがみトグル無効・待機状態でない・歩きトグルON
+		if (!toggleCrouch && !isIdle && toggleWalk)
 		{
-			return PLAYER_STATE::STATE_SPRINT;
+			return PLAYER_STATE::STATE_WALK;
 		}
+		// しゃがみトグル無効・待機状態でない
+		if (!toggleCrouch && !isIdle)
+		{
+			return PLAYER_STATE::STATE_JOG;
+		}
+
 		// いずれかの入力キーが押されていたら歩き状態へ
 		if (!isIdle)
 		{

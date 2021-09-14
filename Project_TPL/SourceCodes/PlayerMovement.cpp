@@ -65,7 +65,14 @@ void PlayerMovement::MovementByController(float in_deltaTime)
 	if (!toggleSprint)
 	{
 		toggleSprint = CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_LEFTSHOULDER);
-		m_player->SetToggleSprint(toggleSprint);
+
+		// trueなら走り状態へ/しゃがみ状態を解除
+		if (toggleSprint)
+		{
+			m_player->SetToggleCrouch(false);
+			m_player->SetToggleSprint(true);
+		}
+		
 	}
 	// 走り状態時、入力閾値が一定以下になったら走りトグル解除
 	if (toggleSprint && axisLength < axisThreshold && axisLength > -axisThreshold)
@@ -78,18 +85,25 @@ void PlayerMovement::MovementByController(float in_deltaTime)
     // 「Crouch」トグル制御
     //--------------------------------------------------------------------------------------+
 	bool toggleCrouch = m_player->GetToggleCrouch();
-	// 非走り状態かつ右スティック押し込みでcrouch状態へ
-	if (!toggleCrouch && !toggleSprint)
-	{
-		toggleCrouch = CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_RIGHTSTICK);
-		m_player->SetToggleCrouch(toggleCrouch);
-	}
+	// しゃがみ状態の時左Ctrlで解除
 	if (toggleCrouch)
 	{
 		if (CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_RIGHTSTICK))
 		{
 			m_player->SetToggleCrouch(false);
 		}
+	}
+	// 右スティック押し込みでcrouch状態へ/走り状態解除
+	if (!toggleCrouch)
+	{
+		toggleCrouch = CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_RIGHTSTICK);
+
+		if (toggleCrouch)
+		{
+			m_player->SetToggleSprint(false);
+			m_player->SetToggleCrouch(true);
+		}
+		
 	}
 
 	//-------------------------------------------------------------------------------+

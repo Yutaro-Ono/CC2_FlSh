@@ -23,6 +23,7 @@ PLAYER_STATE PlayerState_Jog::Update(Player* _player, float _deltaTime)
 	// バインドしたプレイヤーから走り/歩き状態の取得
 	bool toggleSprint = _player->GetToggleSprint();
 	bool toggleWalk = _player->GetToggleWalk();
+	bool toggleCrouch = _player->GetToggleCrouch();
 
 	// コントローラ接続時
 	if (CONTROLLER_INSTANCE.IsAvailable())
@@ -42,10 +43,11 @@ PLAYER_STATE PlayerState_Jog::Update(Player* _player, float _deltaTime)
 		{
 			return PLAYER_STATE::STATE_SPRINT;
 		}
-		// 歩き状態
-		if (toggleWalk && (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE))
+
+		// しゃがみ状態
+		if (toggleCrouch)
 		{
-			return PLAYER_STATE::STATE_WALK;
+			return PLAYER_STATE::STATE_CROUCH;
 		}
 
 		// 一定以上の入力値で小走り状態へ移行
@@ -53,6 +55,12 @@ PLAYER_STATE PlayerState_Jog::Update(Player* _player, float _deltaTime)
 		{
 			return PLAYER_STATE::STATE_JOG;
 		}
+		// 歩き状態
+		if (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE)
+		{
+			return PLAYER_STATE::STATE_WALK;
+		}
+
 
 
 	}
@@ -77,6 +85,13 @@ PLAYER_STATE PlayerState_Jog::Update(Player* _player, float _deltaTime)
 		{
 			return PLAYER_STATE::STATE_SPRINT;
 		}
+
+		// しゃがみ状態
+		if (toggleCrouch)
+		{
+			return PLAYER_STATE::STATE_CROUCH;
+		}
+
 		// 歩きトグル有効かついずれかの入力キーが押されていたら歩き状態へ
 		if (toggleWalk && !isIdle)
 		{
