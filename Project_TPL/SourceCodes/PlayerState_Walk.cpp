@@ -49,17 +49,17 @@ PLAYER_STATE PlayerState_Walk::Update(Player* _player, float _deltaTime)
 			return PLAYER_STATE::STATE_CROUCH_MOVE;
 		}
 
+		// •à‚«ó‘Ô
+		if (toggleWalk && (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE))
+		{
+			return PLAYER_STATE::STATE_WALK;
+		}
 		// ˆê’èˆÈã‚Ì“ü—Í’l‚Å¬‘–‚èó‘Ô‚ÖˆÚs
 		if (inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE)
 		{
 			return PLAYER_STATE::STATE_JOG;
 		}
 
-		// •à‚«ó‘Ô
-		if (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE)
-		{
-			return PLAYER_STATE::STATE_WALK;
-		}
 
 
 
@@ -93,7 +93,7 @@ PLAYER_STATE PlayerState_Walk::Update(Player* _player, float _deltaTime)
 		}
 
 		// ˆÚ“®‚µ‚Ä‚¢‚éê‡A¬‘–‚è
-		if (!isIdle)
+		if (!isIdle && !toggleWalk)
 		{
 			return PLAYER_STATE::STATE_JOG;
 		}

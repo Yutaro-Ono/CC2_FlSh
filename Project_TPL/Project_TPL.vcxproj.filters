@@ -207,6 +207,15 @@
     <Filter Include="Source\Actor\Player\PlayerState\CrouchMove">
       <UniqueIdentifier>{c26056b5-7287-47dd-9fef-25a0de80ceb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\JumpStart">
+      <UniqueIdentifier>{b9367c50-c3dd-49af-8385-f77d9b21ce4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\JumpFall">
+      <UniqueIdentifier>{e1afc6d1-e296-4252-97b3-364f3b40203f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\JumpLand">
+      <UniqueIdentifier>{03b2dd88-d7d8-4a56-81ee-a7726f0875a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -682,6 +691,15 @@
     </ClCompile>
     <ClCompile Include="SourceCodes\PlayerState_CrouchMove.cpp">
       <Filter>Source\Actor\Player\PlayerState\CrouchMove</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_JumpStart.cpp">
+      <Filter>Source\Actor\Player\PlayerState\JumpStart</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_JumpFall.cpp">
+      <Filter>Source\Actor\Player\PlayerState\JumpFall</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_JumpLand.cpp">
+      <Filter>Source\Actor\Player\PlayerState\JumpLand</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1176,6 +1194,15 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\PlayerState_CrouchMove.h">
       <Filter>Source\Actor\Player\PlayerState\CrouchMove</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_JumpStart.h">
+      <Filter>Source\Actor\Player\PlayerState\JumpStart</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_JumpFall.h">
+      <Filter>Source\Actor\Player\PlayerState\JumpFall</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_JumpLand.h">
+      <Filter>Source\Actor\Player\PlayerState\JumpLand</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

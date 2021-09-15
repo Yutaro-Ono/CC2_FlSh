@@ -27,9 +27,9 @@ PLAYER_STATE PlayerState_Idle::Update(Player* _player, float _deltaTime)
 	if (CONTROLLER_INSTANCE.IsAvailable())
 	{
 		// ジャンプ処理への移行
-		if (CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_A))
+		if (CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_Y))
 		{
-			//return PLAYER_STATE::STATE_JUMP_START;
+			return PLAYER_STATE::STATE_JUMP_START;
 		}
 
 		// 待機状態か(移動ボタンが押されているか)
@@ -63,7 +63,7 @@ PLAYER_STATE PlayerState_Idle::Update(Player* _player, float _deltaTime)
 		// ジャンプ処理への移行
 		if (INPUT_INSTANCE.IsKeyPushDown(SDL_SCANCODE_SPACE))
 		{
-			//return PLAYER_STATE::STATE_JUMP_START;
+			return PLAYER_STATE::STATE_JUMP_START;
 		}
 
 		// 待機状態か(移動キーが押されているか)
@@ -71,6 +71,12 @@ PLAYER_STATE PlayerState_Idle::Update(Player* _player, float _deltaTime)
 			          INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_A) &
 			          INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_S) &
 			          INPUT_INSTANCE.IsKeyOff(SDL_SCANCODE_D);
+
+		// しゃがみ状態
+		if (toggleCrouch)
+		{
+			return PLAYER_STATE::STATE_CROUCH;
+		}
 
 		// 歩きトグル有効かついずれかの入力キーが押されていたら歩き状態へ
 		if (toggleWalk && !isIdle)

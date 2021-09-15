@@ -188,8 +188,14 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 	bool toggleSprint = m_player->GetToggleSprint();
 	if (toggleSprint && !(pressW || pressA || pressS || pressD))
 	{
-		toggleSprint = false;
-		m_player->SetToggleSprint(toggleSprint);
+		toggleSprint = INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_LSHIFT);
+
+		// trueなら走り状態へ/しゃがみ状態を解除
+		if (toggleSprint)
+		{
+			m_player->SetToggleCrouch(false);
+			m_player->SetToggleSprint(true);
+		}
 	}
 	// 「走る」ボタンが押されているかを取得
 	// 左シフト
@@ -225,18 +231,25 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
     // 「Crouch」トグル制御
     //--------------------------------------------------------------------------------------+
 	bool toggleCrouch = m_player->GetToggleCrouch();
-	// 非走り状態かつ左Ctrlでcrouch状態へ
-	if (!toggleCrouch && !toggleSprint)
-	{
-		toggleCrouch = INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_LCTRL);
-		m_player->SetToggleCrouch(toggleCrouch);
-	}
+	// しゃがみ状態の時左Ctrlで解除
 	if (toggleCrouch)
 	{
 		if (INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_LCTRL))
 		{
 			m_player->SetToggleCrouch(false);
 		}
+	}
+	// 右スティック押し込みでcrouch状態へ/走り状態解除
+	if (!toggleCrouch)
+	{
+		toggleCrouch = INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_LCTRL);
+
+		if (toggleCrouch)
+		{
+			m_player->SetToggleSprint(false);
+			m_player->SetToggleCrouch(true);
+		}
+
 	}
 
 	//-------------------------------------------------------------------------------+

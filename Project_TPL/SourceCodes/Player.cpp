@@ -8,6 +8,9 @@
 #include "PlayerState_Sprint.h"
 #include "PlayerState_Crouch.h"
 #include "PlayerState_CrouchMove.h"
+#include "PlayerState_JumpStart.h"
+#include "PlayerState_JumpFall.h"
+#include "PlayerState_JumpLand.h"
 #include "TPSCamera.h"
 #include "PlayerMovement.h"
 #include "PointLight.h"
@@ -20,7 +23,9 @@ const std::string Player::ANIM_JOG_PATH         = "Data/Animation/Player/Player_
 const std::string Player::ANIM_RUN_PATH         = "Data/Animation/Player/Player_Run.gpanim";
 const std::string Player::ANIM_CROUCH_PATH      = "Data/Animation/Player/Player_Crouch.gpanim";
 const std::string Player::ANIM_CROUCH_MOVE_PATH = "Data/Animation/Player/Player_CrouchMove.gpanim";
-
+const std::string Player::ANIM_JUMP_START_PATH  = "Data/Animation/Player/Player_JumpStart.gpanim";
+const std::string Player::ANIM_JUMP_FALL_PATH   = "Data/Animation/Player/Player_JumpFall.gpanim";
+const std::string Player::ANIM_JUMP_LAND_PATH   = "Data/Animation/Player/Player_JumpLanding.gpanim";
 
 Player::Player()
 	:Actor(OBJECT_TAG::PLAYER)
@@ -61,6 +66,11 @@ Player::Player()
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_SPRINT)] = RENDERER->GetAnimation(ANIM_RUN_PATH.c_str(), true);
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_CROUCH)] = RENDERER->GetAnimation(ANIM_CROUCH_PATH.c_str(), true);
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_CROUCH_MOVE)] = RENDERER->GetAnimation(ANIM_CROUCH_MOVE_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_JUMP_START)] = RENDERER->GetAnimation(ANIM_JUMP_START_PATH.c_str(), false);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_JUMP_FALL)] = RENDERER->GetAnimation(ANIM_JUMP_FALL_PATH.c_str(), false);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_JUMP_LAND)] = RENDERER->GetAnimation(ANIM_JUMP_LAND_PATH.c_str(), false);
+
+
 
 	// プレイヤーステートプールの生成
 	m_statePool.push_back(new PlayerState_Idle);
@@ -69,6 +79,9 @@ Player::Player()
 	m_statePool.push_back(new PlayerState_Sprint);
 	m_statePool.push_back(new PlayerState_Crouch);
 	m_statePool.push_back(new PlayerState_CrouchMove);
+	m_statePool.push_back(new PlayerState_JumpStart);
+	m_statePool.push_back(new PlayerState_JumpFall);
+	m_statePool.push_back(new PlayerState_JumpLand);
 
 	// 待機状態を開始
 	m_statePool[static_cast<unsigned int>(m_nowState)]->EnterState(this, GAME_INSTANCE.GetDeltaTime());

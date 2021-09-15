@@ -20,6 +20,10 @@ enum class PLAYER_STATE
 	STATE_CROUCH,
 	STATE_CROUCH_MOVE,
 
+	STATE_JUMP_START,
+	STATE_JUMP_FALL,
+	STATE_JUMP_LAND,
+
 	STATE_ALL_NUM
 };
 
@@ -79,5 +83,9 @@ private:
 	static const std::string ANIM_RUN_PATH;
 	static const std::string ANIM_CROUCH_PATH;
 	static const std::string ANIM_CROUCH_MOVE_PATH;
+	static const std::string ANIM_JUMP_START_PATH;
+	static const std::string ANIM_JUMP_FALL_PATH;
+	static const std::string ANIM_JUMP_LAND_PATH;
+
 
 };

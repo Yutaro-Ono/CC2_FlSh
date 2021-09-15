@@ -37,7 +37,7 @@ PLAYER_STATE PlayerState_CrouchMove::Update(Player* _player, float _deltaTime)
 		float inputVal = move.LengthSq();
 
 		// しゃがみトグル解除かつ小走り以上のスピード
-		if (!toggleCrouch && (inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE))
+		if (!toggleCrouch && !toggleWalk && (inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE))
 		{
 			return PLAYER_STATE::STATE_JOG;
 		}

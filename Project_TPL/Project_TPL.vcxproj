@@ -204,6 +204,9 @@
     <ClCompile Include="SourceCodes\PlayerState_CrouchMove.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Idle.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Jog.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_JumpFall.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_JumpLand.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_JumpStart.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Sprint.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Walk.cpp" />
     <ClCompile Include="SourceCodes\PostEffect.cpp" />
@@ -366,6 +369,9 @@
     <ClInclude Include="SourceCodes\PlayerState_CrouchMove.h" />
     <ClInclude Include="SourceCodes\PlayerState_Idle.h" />
     <ClInclude Include="SourceCodes\PlayerState_Jog.h" />
+    <ClInclude Include="SourceCodes\PlayerState_JumpFall.h" />
+    <ClInclude Include="SourceCodes\PlayerState_JumpLand.h" />
+    <ClInclude Include="SourceCodes\PlayerState_JumpStart.h" />
     <ClInclude Include="SourceCodes\PlayerState_Sprint.h" />
     <ClInclude Include="SourceCodes\PlayerState_Walk.h" />
     <ClInclude Include="SourceCodes\PostEffect.h" />
