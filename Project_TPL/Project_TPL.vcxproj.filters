@@ -701,6 +701,9 @@
     <ClCompile Include="SourceCodes\PlayerState_JumpLand.cpp">
       <Filter>Source\Actor\Player\PlayerState\JumpLand</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCodes\PBRRenderer.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -1203,6 +1206,9 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\PlayerState_JumpLand.h">
       <Filter>Source\Actor\Player\PlayerState\JumpLand</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PBRRenderer.h">
+      <Filter>Source\Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

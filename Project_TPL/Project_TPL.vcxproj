@@ -198,6 +198,7 @@
     <ClCompile Include="SourceCodes\Font.cpp" />
     <ClCompile Include="SourceCodes\ForwardRenderer.cpp" />
     <ClCompile Include="SourceCodes\MotorBikeParent.cpp" />
+    <ClCompile Include="SourceCodes\PBRRenderer.cpp" />
     <ClCompile Include="SourceCodes\Player.cpp" />
     <ClCompile Include="SourceCodes\PlayerStateBase.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Crouch.cpp" />
@@ -363,6 +364,7 @@
     <ClInclude Include="SourceCodes\Font.h" />
     <ClInclude Include="SourceCodes\ForwardRenderer.h" />
     <ClInclude Include="SourceCodes\MotorBikeParent.h" />
+    <ClInclude Include="SourceCodes\PBRRenderer.h" />
     <ClInclude Include="SourceCodes\Player.h" />
     <ClInclude Include="SourceCodes\PlayerStateBase.h" />
     <ClInclude Include="SourceCodes\PlayerState_Crouch.h" />
