@@ -10,6 +10,7 @@
 #include "CubeMapComponent.h"
 #include "MotorBikeParent.h"
 #include "Player.h"
+#include "EnemyZombie.h"
 
 #include "MeshGpmesh.h"
 #include "LevelBlock.h"
@@ -109,6 +110,10 @@ bool WorldTitleScene::Load()
 	Player* player = new Player();
 	player->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
 	player->SetScale(1.0f);
+
+	EnemyZombie* zombie = new EnemyZombie();
+	zombie->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
+	zombie->SetScale(1.0f);
 
 	return true;
 }

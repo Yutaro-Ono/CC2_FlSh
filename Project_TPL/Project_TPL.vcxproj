@@ -193,6 +193,13 @@
     <ClCompile Include="SourceCodes\DirectionalLight.cpp" />
     <ClCompile Include="SourceCodes\DirectionalLightDebug.cpp" />
     <ClCompile Include="SourceCodes\EffekseerEffect.cpp" />
+    <ClCompile Include="SourceCodes\EnemyZombie.cpp" />
+    <ClCompile Include="SourceCodes\EnemyZombieStateBase.cpp" />
+    <ClCompile Include="SourceCodes\EnemyZombieState_Attack.cpp" />
+    <ClCompile Include="SourceCodes\EnemyZombieState_Death.cpp" />
+    <ClCompile Include="SourceCodes\EnemyZombieState_Idle.cpp" />
+    <ClCompile Include="SourceCodes\EnemyZombieState_Run.cpp" />
+    <ClCompile Include="SourceCodes\EnemyZombieState_Walk.cpp" />
     <ClCompile Include="SourceCodes\Environment.cpp" />
     <ClCompile Include="SourceCodes\EnvironmentMapComponent.cpp" />
     <ClCompile Include="SourceCodes\Font.cpp" />
@@ -359,6 +366,13 @@
     <ClInclude Include="SourceCodes\DirectionalLight.h" />
     <ClInclude Include="SourceCodes\DirectionalLightDebug.h" />
     <ClInclude Include="SourceCodes\EffekseerEffect.h" />
+    <ClInclude Include="SourceCodes\EnemyZombie.h" />
+    <ClInclude Include="SourceCodes\EnemyZombieStateBase.h" />
+    <ClInclude Include="SourceCodes\EnemyZombieState_Attack.h" />
+    <ClInclude Include="SourceCodes\EnemyZombieState_Death.h" />
+    <ClInclude Include="SourceCodes\EnemyZombieState_Idle.h" />
+    <ClInclude Include="SourceCodes\EnemyZombieState_Run.h" />
+    <ClInclude Include="SourceCodes\EnemyZombieState_Walk.h" />
     <ClInclude Include="SourceCodes\Environment.h" />
     <ClInclude Include="SourceCodes\EnvironmentMapComponent.h" />
     <ClInclude Include="SourceCodes\Font.h" />

@@ -216,6 +216,27 @@
     <Filter Include="Source\Actor\Player\PlayerState\JumpLand">
       <UniqueIdentifier>{03b2dd88-d7d8-4a56-81ee-a7726f0875a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Actor\Enemy">
+      <UniqueIdentifier>{6e7ca60e-966f-4e89-aad9-933105353c26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Enemy\EnemyZombieState">
+      <UniqueIdentifier>{7989a5ac-cded-4e02-84a3-3ceca7e51db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Enemy\EnemyZombieState\Idle">
+      <UniqueIdentifier>{d67faea7-cec1-417d-a613-9ec844b195ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Enemy\EnemyZombieState\Walk">
+      <UniqueIdentifier>{1ab26aa2-d131-44e1-9cb2-177d43773345}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Enemy\EnemyZombieState\Death">
+      <UniqueIdentifier>{524863f2-5693-4aad-81cb-f22ea5afa217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Enemy\EnemyZombieState\Attack">
+      <UniqueIdentifier>{b7165a87-55de-4938-b07b-0c045d5d7fbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Enemy\EnemyZombieState\Run">
+      <UniqueIdentifier>{16b66edd-8182-42ab-bf56-39460956903f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -703,6 +724,27 @@
     </ClCompile>
     <ClCompile Include="SourceCodes\PBRRenderer.cpp">
       <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\EnemyZombie.cpp">
+      <Filter>Source\Actor\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\EnemyZombieStateBase.cpp">
+      <Filter>Source\Actor\Enemy\EnemyZombieState</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\EnemyZombieState_Idle.cpp">
+      <Filter>Source\Actor\Enemy\EnemyZombieState\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\EnemyZombieState_Death.cpp">
+      <Filter>Source\Actor\Enemy\EnemyZombieState\Death</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\EnemyZombieState_Attack.cpp">
+      <Filter>Source\Actor\Enemy\EnemyZombieState\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\EnemyZombieState_Run.cpp">
+      <Filter>Source\Actor\Enemy\EnemyZombieState\Run</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\EnemyZombieState_Walk.cpp">
+      <Filter>Source\Actor\Enemy\EnemyZombieState\Walk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1209,6 +1251,27 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\PBRRenderer.h">
       <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\EnemyZombie.h">
+      <Filter>Source\Actor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\EnemyZombieStateBase.h">
+      <Filter>Source\Actor\Enemy\EnemyZombieState</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\EnemyZombieState_Idle.h">
+      <Filter>Source\Actor\Enemy\EnemyZombieState\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\EnemyZombieState_Walk.h">
+      <Filter>Source\Actor\Enemy\EnemyZombieState\Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\EnemyZombieState_Death.h">
+      <Filter>Source\Actor\Enemy\EnemyZombieState\Death</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\EnemyZombieState_Attack.h">
+      <Filter>Source\Actor\Enemy\EnemyZombieState\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\EnemyZombieState_Run.h">
+      <Filter>Source\Actor\Enemy\EnemyZombieState\Run</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

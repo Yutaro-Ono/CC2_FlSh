@@ -70,8 +70,6 @@ Player::Player()
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_JUMP_FALL)] = RENDERER->GetAnimation(ANIM_JUMP_FALL_PATH.c_str(), false);
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_JUMP_LAND)] = RENDERER->GetAnimation(ANIM_JUMP_LAND_PATH.c_str(), false);
 
-
-
 	// プレイヤーステートプールの生成
 	m_statePool.push_back(new PlayerState_Idle);
 	m_statePool.push_back(new PlayerState_Walk);
