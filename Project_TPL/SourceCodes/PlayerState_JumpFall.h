@@ -18,5 +18,5 @@ public:
 	~PlayerState_JumpFall();
 
 	PLAYER_STATE Update(class Player* _player, float _deltaTime) override;
-	void EnterState(class Player* _player, float _deltaTime) override;
+	void EnterState(class Player* _player) override;
 };

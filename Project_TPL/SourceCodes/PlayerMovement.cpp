@@ -9,8 +9,7 @@
 const float PlayerMovement::PLAYER_SPEED = 45.0f;
 const float PlayerMovement::SPEED_WALK = 45.0f;
 const float PlayerMovement::SPEED_JOG = 80.0f;
-const float PlayerMovement::SPEED_SPRINT = 120.0f;
-
+const float PlayerMovement::SPEED_SPRINT = 160.0f;
 
 // コンストラクタ
 PlayerMovement::PlayerMovement(Player* _player)
@@ -56,20 +55,22 @@ void PlayerMovement::MovementByController(float in_deltaTime)
 	// 入力閾値
 	float axisThreshold = 0.01f;
 
+	// プレイヤー状態の取得
+	bool toggleSprint = m_player->GetToggleSprint();
+	bool toggleCrouch = m_player->GetToggleCrouch();
 	//-------------------------------------------------------------------------------+
 	// 「Sprint」トグル制御
 	//-------------------------------------------------------------------------------+
-	// 「走る」ボタンが押されているかを取得
-	// 通常はLBボタン
-	bool toggleSprint = m_player->GetToggleSprint();
-	if (!toggleSprint)
+	// 通常はLBボタンで走りへ移行/しゃがみ状態の時は無効
+	if (!toggleSprint && !toggleCrouch)
 	{
 		toggleSprint = CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_LEFTSHOULDER);
 
-		// trueなら走り状態へ/しゃがみ状態を解除
+		// trueなら走り状態へ
+		// 移動速度を走りに設定
 		if (toggleSprint)
 		{
-			m_player->SetToggleCrouch(false);
+			m_velocity = SPEED_SPRINT;
 			m_player->SetToggleSprint(true);
 		}
 		
@@ -84,7 +85,6 @@ void PlayerMovement::MovementByController(float in_deltaTime)
 	//--------------------------------------------------------------------------------------+
     // 「Crouch」トグル制御
     //--------------------------------------------------------------------------------------+
-	bool toggleCrouch = m_player->GetToggleCrouch();
 	// しゃがみ状態の時左Ctrlで解除
 	if (toggleCrouch)
 	{
@@ -98,8 +98,10 @@ void PlayerMovement::MovementByController(float in_deltaTime)
 	{
 		toggleCrouch = CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_RIGHTSTICK);
 
+		// 移動速度を歩きに設定
 		if (toggleCrouch)
 		{
+			m_velocity = SPEED_WALK;
 			m_player->SetToggleSprint(false);
 			m_player->SetToggleCrouch(true);
 		}
@@ -109,19 +111,12 @@ void PlayerMovement::MovementByController(float in_deltaTime)
 	//-------------------------------------------------------------------------------+
     // 移動速度更新
     //-------------------------------------------------------------------------------+
-	// 「走る」ボタンが押されていた時、同時に左スティック入力もされていた場合
-	if (toggleSprint && CONTROLLER_INSTANCE.GetIsInputAxisL())
-	{
-		m_velocity = SPEED_SPRINT;
-	}
-	else if(axisLength >= 0.55f || axisLength <= -0.55f)
+	// 通常移動速度にセット
+	if(!toggleSprint && !toggleCrouch && (axisLength >= 0.55f || axisLength <= -0.55f))
 	{
 		m_velocity = SPEED_JOG;
 	}
-	else
-	{
-		m_velocity = SPEED_WALK;
-	}
+
 
 
 	// プレイヤーの前進・右方向ベクトル定義 (カメラ基準)
@@ -151,14 +146,31 @@ void PlayerMovement::MovementByController(float in_deltaTime)
 	Vector3 moveVec = Vector3::Zero;
 	moveVec += Vector3(axisL.x, axisL.y, 0.0f);
 
+
 	// 入力キーの総和
 	if (moveVec.LengthSq() > axisThreshold)
 	{
 		// 方向キー入力
-		charaForwardVec = moveVec;
-		// 進行方向に向けて回転
-		charaForwardVec.Normalize();
-		m_owner->RotateToNewForward(charaForwardVec);
+		//charaForwardVec = moveVec;
+		moveVec.Normalize();
+
+		// 進行方向に向けて回転(ラープ処理)
+		if (charaForwardVec.y - moveVec.y >= 1.01f)
+		{
+			moveVec.x = 1.0f;
+			moveVec.y = 0.0f;
+		}
+		if (charaForwardVec.y - moveVec.y <= -1.01f)
+		{
+			moveVec.x = 1.0f;
+			moveVec.y = 0.0f;
+		}
+		moveVec = Vector3::Lerp(charaForwardVec, moveVec, 0.35f);
+
+		printf("chara = x:%f | y:%f | z:%f\n", charaForwardVec.x, charaForwardVec.y, charaForwardVec.z);
+		printf("moveV = x:%f | y:%f | z:%f\n", moveVec.x, moveVec.y, moveVec.z);
+
+		m_owner->RotateToNewForward(moveVec);
 	}
 
 
@@ -181,37 +193,38 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 	bool pressS = INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_S);
 	bool pressD = INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_D);
 
+
+	bool toggleWalk = m_player->GetToggleWalk();
+	bool toggleSprint = m_player->GetToggleSprint();
+	bool toggleCrouch = m_player->GetToggleCrouch();
 	//-------------------------------------------------------------------------------+
     // 「Sprint」トグル制御
     //-------------------------------------------------------------------------------+
 	// 走り状態時、入力されていなかったら走りトグル解除
-	bool toggleSprint = m_player->GetToggleSprint();
 	if (toggleSprint && !(pressW || pressA || pressS || pressD))
 	{
-		toggleSprint = INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_LSHIFT);
-
-		// trueなら走り状態へ/しゃがみ状態を解除
-		if (toggleSprint)
-		{
-			m_player->SetToggleCrouch(false);
-			m_player->SetToggleSprint(true);
-		}
+		m_player->SetToggleSprint(false);
 	}
-	// 「走る」ボタンが押されているかを取得
-	// 左シフト
-	if (!toggleSprint)
+	// 「走る」ボタン=左SHIFTが押されているかを取得
+	// しゃがみ状態時は走りへ移行しない
+	// 移動速度を走りに設定
+	if (!toggleSprint && !toggleCrouch)
 	{
 		toggleSprint = INPUT_INSTANCE.IsKeyPushDown(SDL_SCANCODE_LSHIFT);
-		m_player->SetToggleSprint(toggleSprint);
+
+		if (toggleSprint)
+		{
+			m_velocity = SPEED_SPRINT;
+			m_player->SetToggleSprint(toggleSprint);
+		}
 	}
 
 	//-------------------------------------------------------------------------------+
     // 「Walk」トグル制御
     //-------------------------------------------------------------------------------+
 	// 歩き状態のトグル更新
-	// LeftAltで更新
-	bool toggleWalk = m_player->GetToggleWalk();
-	bool key = INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_LALT);
+	// Xキーで切り替え
+	bool key = INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_X);
 	if (key)
 	{
 		if (!toggleWalk)
@@ -230,7 +243,6 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 	//--------------------------------------------------------------------------------------+
     // 「Crouch」トグル制御
     //--------------------------------------------------------------------------------------+
-	bool toggleCrouch = m_player->GetToggleCrouch();
 	// しゃがみ状態の時左Ctrlで解除
 	if (toggleCrouch)
 	{
@@ -239,13 +251,16 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 			m_player->SetToggleCrouch(false);
 		}
 	}
-	// 右スティック押し込みでcrouch状態へ/走り状態解除
+	// 左Ctrl押下でしゃがみ状態へ移行
 	if (!toggleCrouch)
 	{
 		toggleCrouch = INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_LCTRL);
 
+		// 走り状態を解除
+		// 移動速度を歩きに設定
 		if (toggleCrouch)
 		{
+			m_velocity = SPEED_WALK;
 			m_player->SetToggleSprint(false);
 			m_player->SetToggleCrouch(true);
 		}
@@ -255,25 +270,18 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 	//-------------------------------------------------------------------------------+
     // 移動速度更新
     //-------------------------------------------------------------------------------+
-	// 「走る」ボタンが押されていた時、同時に左スティック入力もされていた場合
-	if (toggleSprint)
-	{
-		m_velocity = SPEED_SPRINT;
-	}
-	else if (!toggleWalk)
+	// 歩き状態でない、しゃがみ状態でない、いずれかに移動している場合
+	// 移動速度をジョグ(小走り)に設定
+	if(!toggleSprint && !toggleCrouch && !(pressW || pressA || pressS || pressD))
 	{
 		m_velocity = SPEED_JOG;
-	}
-	else
-	{
-		m_velocity = SPEED_WALK;
 	}
 
 
 	// キー入力WASDによる移動処理
 	if (pressW)
 	{
-		inputAxis.y += -1.0f;
+		inputAxis.y -= 1.0f;
 	}
 	if (pressS)
 	{
@@ -281,13 +289,12 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 	}
 	if (pressA)
 	{
-		inputAxis.x += -1.0f;
+		inputAxis.x -= 1.0f;
 	}
 	if (pressD)
 	{
 		inputAxis.x += 1.0f;
 	}
-
 
 	// プレイヤーの前進・右方向ベクトル定義 (カメラ基準)
 	Vector3 forwardVec = GAME_INSTANCE.GetViewTarget() - GAME_INSTANCE.GetViewPos();
@@ -303,28 +310,47 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 
 	// 右回転か左回転か？
 	tmpVec = Vector3::Cross(Vector3::UnitX, charaRightVec);
-	angleSign = (tmpVec.z > 0.0) ? 1.0f : -1.0f;
+	angleSign = (tmpVec.z > 0.0f) ? 1.0f : -1.0f;
 	forwardAngle *= angleSign;
-	Vector3 charaForwardVec = m_owner->GetForward(); // キャラの前進ベクトル
 
 	Matrix3 rot = Matrix3::CreateRotation(forwardAngle);
 	inputAxis = Vector2::Transform(inputAxis, rot);
 
-
 	// 前進ベクトルと右方向ベクトルから移動量を算出
 	Vector3 moveVec = Vector3::Zero;
-	moveVec += Vector3(inputAxis.x, inputAxis.y, 0.0f);
+	moveVec = Vector3(inputAxis.x, inputAxis.y, 0.0f);
 
 	// 入力キーの総和
-	if (moveVec.LengthSq() > 0.5f)
+	if (moveVec.LengthSq() >= 0.5f)
 	{
+		// キャラの前進ベクトル
+	    Vector3 charaForwardVec = m_owner->GetForward();
+		//charaForwardVec.Normalize();
+
 		// 方向キー入力
-		charaForwardVec = moveVec;
-		// 進行方向に向けて回転
-		charaForwardVec.Normalize();
+		//charaForwardVec = moveVec;
+	    moveVec.Normalize();
+
+		// 進行方向に向けて回転(Lerp処理)
+		if (charaForwardVec.y - moveVec.y >= 1.01f)
+		{
+			moveVec.x = 1.0f;
+			moveVec.y = 0.0f;
+		}
+		if (charaForwardVec.y - moveVec.y <= -1.01f)
+		{
+			moveVec.x = 1.0f;
+			moveVec.y = 0.0f;
+		}
+		charaForwardVec = Vector3::Lerp(charaForwardVec, moveVec, 0.51f);
+
+		printf("chara = x:%f | y:%f | z:%f\n", charaForwardVec.x, charaForwardVec.y, charaForwardVec.z);
+		printf("moveV = x:%f | y:%f | z:%f\n", moveVec.x, moveVec.y, moveVec.z);
+
+		// rotationを更新
 		m_owner->RotateToNewForward(charaForwardVec);
 	}
-
+	
 
 	// プレイヤーの現在位置から、定義した方向へ速度分を加算
 	Vector3 resultPos = m_owner->GetPosition();

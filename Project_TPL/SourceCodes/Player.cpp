@@ -27,6 +27,12 @@ const std::string Player::ANIM_JUMP_START_PATH  = "Data/Animation/Player/Player_
 const std::string Player::ANIM_JUMP_FALL_PATH   = "Data/Animation/Player/Player_JumpFall.gpanim";
 const std::string Player::ANIM_JUMP_LAND_PATH   = "Data/Animation/Player/Player_JumpLanding.gpanim";
 
+const std::string Player::ANIM_WEAPOUT_IDLE_PATH       = "Data/Animation/Player/Player_WeapOut_Idle.gpanim";
+const std::string Player::ANIM_WEAPOUT_MOVE_FWD_PATH   = "Data/Animation/Player/Player_WeapOut_Forward.gpanim";;
+const std::string Player::ANIM_WEAPOUT_MOVE_BWD_PATH   = "Data/Animation/Player/Player_WeapOut_Backward.gpanim";;
+const std::string Player::ANIM_WEAPOUT_MOVE_RIGHT_PATH = "Data/Animation/Player/Player_WeapOut_RightStrafe.gpanim";;
+const std::string Player::ANIM_WEAPOUT_MOVE_LEFT_PATH  = "Data/Animation/Player/Player_WeapOut_LeftStrafe.gpanim";;
+
 Player::Player()
 	:Actor(OBJECT_TAG::PLAYER)
 	,m_nowState(PLAYER_STATE::STATE_IDLE)
@@ -36,6 +42,9 @@ Player::Player()
 	,m_toggleSprint(false)
 	,m_toggleWalk(false)
 	,m_toggleCrouch(false)
+	,m_toggleWeaponOut(false)
+	,m_weaponOutPressStart(0)
+	,m_weaponOutPressCount(0)
 {
 
 	// カメラの生成(三人称カメラ)
@@ -69,6 +78,13 @@ Player::Player()
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_JUMP_START)] = RENDERER->GetAnimation(ANIM_JUMP_START_PATH.c_str(), false);
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_JUMP_FALL)] = RENDERER->GetAnimation(ANIM_JUMP_FALL_PATH.c_str(), false);
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_JUMP_LAND)] = RENDERER->GetAnimation(ANIM_JUMP_LAND_PATH.c_str(), false);
+	
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_IDLE)]      = RENDERER->GetAnimation(ANIM_WEAPOUT_IDLE_PATH.c_str(), false);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_MOVEFWD)] = RENDERER->GetAnimation(ANIM_WEAPOUT_MOVE_FWD_PATH.c_str(), false);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_MOVEBWD)] = RENDERER->GetAnimation(ANIM_WEAPOUT_MOVE_BWD_PATH.c_str(), false);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_MOVERIGHT)] = RENDERER->GetAnimation(ANIM_WEAPOUT_MOVE_RIGHT_PATH.c_str(), false);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_MOVELEFT)] = RENDERER->GetAnimation(ANIM_WEAPOUT_MOVE_LEFT_PATH.c_str(), false);
+
 
 	// プレイヤーステートプールの生成
 	m_statePool.push_back(new PlayerState_Idle);
@@ -82,7 +98,7 @@ Player::Player()
 	m_statePool.push_back(new PlayerState_JumpLand);
 
 	// 待機状態を開始
-	m_statePool[static_cast<unsigned int>(m_nowState)]->EnterState(this, GAME_INSTANCE.GetDeltaTime());
+	m_statePool[static_cast<unsigned int>(m_nowState)]->EnterState(this);
 
 }
 
@@ -100,15 +116,63 @@ void Player::UpdateActor(float _deltaTime)
 }
 
 /// <summary>
+/// 武器の取り出し状態の更新
+/// </summary>
+void Player::UpdateWeaponOut()
+{
+	// 武器出し状態でない時の更新
+	if (!m_toggleWeaponOut)
+	{
+		// RキーかXボタンで武器出しトグルON
+		if (INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_R) || CONTROLLER_INSTANCE.IsReleased(SDL_CONTROLLER_BUTTON_X))
+		{
+			m_toggleWeaponOut = true;
+			printf("武器を出した\n");
+			return;
+		}
+	}
+
+	// 武器出し状態の時の更新
+	if (m_toggleWeaponOut)
+	{
+		// RキーかXボタン押し込んだ時に長押しカウント開始
+		if (INPUT_INSTANCE.IsKeyPushDown(SDL_SCANCODE_R) || CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_X))
+		{
+			m_weaponOutPressStart = SDL_GetTicks() / 1000;
+			printf("武器収めカウント開始\n");
+		}
+
+		// RキーかXボタン押してる間カウント更新
+		if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_R) || CONTROLLER_INSTANCE.IsPressed(SDL_CONTROLLER_BUTTON_X))
+		{
+			m_weaponOutPressCount = SDL_GetTicks() / 1000;
+		}
+
+		// 0.5秒長押しで武器出しトグルOFF
+		if (m_weaponOutPressCount - m_weaponOutPressStart > 500)
+		{
+			m_toggleWeaponOut = false;
+			m_weaponOutPressStart = 0;
+			m_weaponOutPressCount = 0;
+
+			printf("武器出しOFF\n");
+		}
+	}
+}
+
+/// <summary>
 /// プレイヤーステートの更新
 /// </summary>
 /// <param name="_deltaTime"> デルタタイム </param>
 void Player::UpdatePlayerState(float _deltaTime)
 {
+	// 武器出し状態のトグル更新
+	UpdateWeaponOut();
+
 	// 外部からのステート変更があったかをチェック
 	if (m_nowState != m_nextState)
 	{
-		m_statePool[static_cast<unsigned int>(m_nextState)]->EnterState(this, _deltaTime);
+		m_statePool[static_cast<unsigned int>(m_nextState)]->EnterState(this);
 		m_nowState = m_nextState;
 		return;
 	}
@@ -119,7 +183,7 @@ void Player::UpdatePlayerState(float _deltaTime)
 	// 現在ステートの更新によって、ステート変更があったかをチェック
 	if (m_nowState != m_nextState)
 	{
-		m_statePool[static_cast<unsigned int>(m_nextState)]->EnterState(this, _deltaTime);
+		m_statePool[static_cast<unsigned int>(m_nextState)]->EnterState(this);
 		m_nowState = m_nextState;
 	}
 }

@@ -91,8 +91,8 @@ PLAYER_STATE PlayerState_Crouch::Update(Player* _player, float _deltaTime)
 	return PLAYER_STATE::STATE_CROUCH;
 }
 
-void PlayerState_Crouch::EnterState(Player* _player, float _deltaTime)
+void PlayerState_Crouch::EnterState(Player* _player)
 {
 	SkeletalMeshComponent* skel = _player->GetSkelMesh();
-	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_CROUCH), m_animSpeed * _deltaTime);
+	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_CROUCH), m_animSpeed);
 }

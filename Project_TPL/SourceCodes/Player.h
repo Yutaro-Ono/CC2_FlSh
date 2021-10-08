@@ -24,6 +24,12 @@ enum class PLAYER_STATE
 	STATE_JUMP_FALL,
 	STATE_JUMP_LAND,
 
+	STATE_WEAPONOUT_IDLE,
+	STATE_WEAPONOUT_MOVEFWD,
+	STATE_WEAPONOUT_MOVEBWD,
+	STATE_WEAPONOUT_MOVERIGHT,
+	STATE_WEAPONOUT_MOVELEFT,
+
 	STATE_ALL_NUM
 };
 
@@ -40,13 +46,18 @@ public:
 
 	class SkeletalMeshComponent* GetSkelMesh() { return m_skelComp; }
 	const class Animation* GetAnim(PLAYER_STATE _state) { return m_anims[static_cast<unsigned int>(_state)]; }
+	void UpdateWeaponOut();
+
 
 	bool GetToggleSprint() { return m_toggleSprint; }
 	bool GetToggleWalk() { return m_toggleWalk; }
 	bool GetToggleCrouch() { return m_toggleCrouch; }
+	bool GetToggleWeaponOut() { return m_toggleWeaponOut; }
+
 	void SetToggleSprint(bool _toggle) { m_toggleSprint = _toggle; }
 	void SetToggleWalk(bool _toggle) { m_toggleWalk   = _toggle; }
 	void SetToggleCrouch(bool _toggle) { m_toggleCrouch = _toggle; }
+	void SetToggleWeaponOut(bool _toggle) { m_toggleWeaponOut = _toggle; }
 
 private:
 
@@ -62,6 +73,9 @@ private:
 	bool m_toggleSprint;
 	bool m_toggleWalk;
 	bool m_toggleCrouch;
+	bool m_toggleWeaponOut;
+	unsigned int m_weaponOutPressStart;
+	unsigned int m_weaponOutPressCount;
 
 	class SkeletalMeshComponent* m_skelComp;
 	std::vector<const class Animation*> m_anims;
@@ -87,5 +101,9 @@ private:
 	static const std::string ANIM_JUMP_FALL_PATH;
 	static const std::string ANIM_JUMP_LAND_PATH;
 
-
+	static const std::string ANIM_WEAPOUT_IDLE_PATH;
+	static const std::string ANIM_WEAPOUT_MOVE_FWD_PATH;
+	static const std::string ANIM_WEAPOUT_MOVE_BWD_PATH;
+	static const std::string ANIM_WEAPOUT_MOVE_RIGHT_PATH;
+	static const std::string ANIM_WEAPOUT_MOVE_LEFT_PATH;
 };

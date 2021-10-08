@@ -26,8 +26,8 @@ PLAYER_STATE PlayerState_JumpLand::Update(Player* _player, float _deltaTime)
 	return PLAYER_STATE::STATE_JUMP_LAND;
 }
 
-void PlayerState_JumpLand::EnterState(Player* _player, float _deltaTime)
+void PlayerState_JumpLand::EnterState(Player* _player)
 {
 	SkeletalMeshComponent* skel = _player->GetSkelMesh();
-	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_JUMP_LAND), m_animSpeed * _deltaTime);
+	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_JUMP_LAND), m_animSpeed);
 }

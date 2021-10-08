@@ -15,8 +15,8 @@ ZOMBIE_STATE EnemyZombieState_Idle::Update(EnemyZombie* _player, float _deltaTim
 	return ZOMBIE_STATE::STATE_IDLE;
 }
 
-void EnemyZombieState_Idle::EnterState(EnemyZombie* _zombie, float _deltaTime)
+void EnemyZombieState_Idle::EnterState(EnemyZombie* _zombie)
 {
 	SkeletalMeshComponent* skel = _zombie->GetSkelMesh();
-	skel->PlayAnimation(_zombie->GetAnim(ZOMBIE_STATE::STATE_IDLE), m_animSpeed * _deltaTime);
+	skel->PlayAnimation(_zombie->GetAnim(ZOMBIE_STATE::STATE_IDLE), m_animSpeed);
 }

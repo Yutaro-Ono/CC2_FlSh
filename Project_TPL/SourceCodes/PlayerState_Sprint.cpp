@@ -6,7 +6,7 @@
 
 PlayerState_Sprint::PlayerState_Sprint()
 {
-	m_animSpeed = 15.0f;
+	m_animSpeed = 0.5f;
 }
 
 PlayerState_Sprint::~PlayerState_Sprint()
@@ -98,8 +98,8 @@ PLAYER_STATE PlayerState_Sprint::Update(Player* _player, float _deltaTime)
 	return PLAYER_STATE::STATE_SPRINT;
 }
 
-void PlayerState_Sprint::EnterState(Player* _player, float _deltaTime)
+void PlayerState_Sprint::EnterState(Player* _player)
 {
 	SkeletalMeshComponent* skel = _player->GetSkelMesh();
-	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_SPRINT), m_animSpeed * _deltaTime);
+	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_SPRINT), m_animSpeed);
 }

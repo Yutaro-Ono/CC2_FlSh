@@ -38,23 +38,27 @@ bool WorldTitleScene::Load()
 	//m_car->SetPosition(Vector3(6500.0f, -65.0f, 0.0f));
 	//m_car->SetScale(0.4f);
 
-	MotorBikeParent* motorBike = new MotorBikeParent();
-	motorBike->SetScale(1.0f);
-	motorBike->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
-	motorBike->SetRotation(Quaternion(Vector3::UnitZ, Math::ToRadians(-110.0f)));
+	//MotorBikeParent* motorBike = new MotorBikeParent();
+	//motorBike->SetScale(1.0f);
+	//motorBike->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
+	//motorBike->SetRotation(Quaternion(Vector3::UnitZ, Math::ToRadians(-110.0f)));
+
+	Player* player = new Player();
+	player->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
+	player->SetScale(1.0f);
 
 	// 環境情報の生成
-	m_environment = new Environment(motorBike, ENVIRONMENT_TYPE::NIGHT);
+	m_environment = new Environment(player, ENVIRONMENT_TYPE::NIGHT);
 	//m_environment = new Environment(m_car, ENVIRONMENT_TYPE::NIGHT);
 
 
-	// 橋オブジェクトの生成
-	for (int i = 0; i < 8; i++)
-	{
-		//BridgeObject* bridge = new BridgeObject(1, Vector3(i * 6515.0f, -2000.0f, 0.0f));
+	//// 橋オブジェクトの生成
+	//for (int i = 0; i < 8; i++)
+	//{
+	//	//BridgeObject* bridge = new BridgeObject(1, Vector3(i * 6515.0f, -2000.0f, 0.0f));
 
-		GAME_INSTANCE.GetLoadScreen()->AddGauge();
-	}
+	//	GAME_INSTANCE.GetLoadScreen()->AddGauge();
+	//}
 
 	Mesh* meshw1 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Wall_White_A/SpaceShip_Wall_White_A.gpmesh");
 	Mesh* meshw2 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Wall_White_B/SpaceShip_Wall_White_B.gpmesh");
@@ -106,10 +110,7 @@ bool WorldTitleScene::Load()
 	space4->SetScale(1.0f);
 	space4->SetMeshIntensity(5.0f);
 
-	ClientActor* client = new ClientActor(Vector3(0.0f, 0.0f, -50.0f));
-	Player* player = new Player();
-	player->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
-	player->SetScale(1.0f);
+
 
 	EnemyZombie* zombie = new EnemyZombie();
 	zombie->SetPosition(Vector3(0.0f, 0.0f, 20.0f));

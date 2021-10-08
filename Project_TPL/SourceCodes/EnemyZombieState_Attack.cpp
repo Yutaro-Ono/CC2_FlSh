@@ -13,6 +13,6 @@ ZOMBIE_STATE EnemyZombieState_Attack::Update(EnemyZombie* _player, float _deltaT
 	return ZOMBIE_STATE::STATE_ATTACK;
 }
 
-void EnemyZombieState_Attack::EnterState(EnemyZombie* _player, float _deltaTime)
+void EnemyZombieState_Attack::EnterState(EnemyZombie* _player)
 {
 }

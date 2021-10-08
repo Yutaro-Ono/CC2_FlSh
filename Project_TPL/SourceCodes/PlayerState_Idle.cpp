@@ -6,7 +6,7 @@
 
 PlayerState_Idle::PlayerState_Idle()
 {
-	m_animSpeed = 10.0f;
+	m_animSpeed = 0.5f;
 }
 
 PlayerState_Idle::~PlayerState_Idle()
@@ -29,7 +29,7 @@ PLAYER_STATE PlayerState_Idle::Update(Player* _player, float _deltaTime)
 		// ジャンプ処理への移行
 		if (CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_Y))
 		{
-			return PLAYER_STATE::STATE_JUMP_START;
+			//return PLAYER_STATE::STATE_JUMP_START;
 		}
 
 		// 待機状態か(移動ボタンが押されているか)
@@ -95,9 +95,9 @@ PLAYER_STATE PlayerState_Idle::Update(Player* _player, float _deltaTime)
 	return PLAYER_STATE::STATE_IDLE;
 }
 
-void PlayerState_Idle::EnterState(Player* _player, float _deltaTime)
+void PlayerState_Idle::EnterState(Player* _player)
 {
 	SkeletalMeshComponent* skel = _player->GetSkelMesh();
-	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_IDLE), m_animSpeed * _deltaTime);
+	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_IDLE), m_animSpeed);
 }
 

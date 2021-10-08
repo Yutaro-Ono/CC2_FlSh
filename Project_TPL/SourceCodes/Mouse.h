@@ -29,10 +29,13 @@ public:
 	~Mouse() {};
 
 	void             SetRelativeMouseMode(bool value);
+	void             SetMousePos(const Vector3& _mousePos);
+
 	const Vector2&   GetPosition() const { return m_mousePos; }
 	float            GetPositionX() const { return m_mousePos.x; }
 	float            GetPositionY() const { return m_mousePos.y; }
 
+	bool GetIsRelative() { return m_isRelative; }
 	const Vector2& GetWheel() const { return m_mouseWheel; }
 	bool             GetButtonValue(int button) const;
 	MouseButtonState GetButtonState(int button) const;

@@ -6,7 +6,7 @@
 
 PlayerState_Walk::PlayerState_Walk()
 {
-	m_animSpeed = 10.0f;
+	m_animSpeed = 0.5f;
 }
 
 PlayerState_Walk::~PlayerState_Walk()
@@ -49,15 +49,15 @@ PLAYER_STATE PlayerState_Walk::Update(Player* _player, float _deltaTime)
 			return PLAYER_STATE::STATE_CROUCH_MOVE;
 		}
 
-		// •à‚«ó‘Ô
-		if (toggleWalk && (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE))
-		{
-			return PLAYER_STATE::STATE_WALK;
-		}
 		// ˆê’èˆÈã‚Ì“ü—Í’l‚Å¬‘–‚èó‘Ô‚ÖˆÚs
 		if (inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE)
 		{
 			return PLAYER_STATE::STATE_JOG;
+		}
+		// •à‚«ó‘Ô
+		if (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE)
+		{
+			return PLAYER_STATE::STATE_WALK;
 		}
 
 
@@ -108,8 +108,8 @@ PLAYER_STATE PlayerState_Walk::Update(Player* _player, float _deltaTime)
 	return PLAYER_STATE::STATE_IDLE;
 }
 
-void PlayerState_Walk::EnterState(Player* _player, float _deltaTime)
+void PlayerState_Walk::EnterState(Player* _player)
 {
 	SkeletalMeshComponent* skel = _player->GetSkelMesh();
-	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_WALK), m_animSpeed * _deltaTime);
+	skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_WALK), m_animSpeed);
 }

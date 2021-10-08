@@ -21,7 +21,7 @@ public:
 	// ステート固有の更新関数
 	virtual PLAYER_STATE Update(class Player* _player, float _deltaTime) = 0;
 	// このステートに入った時に必ず呼び出される関数(主にアニメーションの再生をする)
-	virtual void EnterState(class Player* _player, float _deltaTime) {};
+	virtual void EnterState(class Player* _player) {};
 
 protected:
 

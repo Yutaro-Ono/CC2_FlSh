@@ -21,7 +21,7 @@ public:
 	// ステート固有の更新関数
 	virtual ZOMBIE_STATE Update(class EnemyZombie* _zombie, float _deltaTime) = 0;
 	// このステートに入った時に必ず呼び出される関数(主にアニメーションの再生をする)
-	virtual void EnterState(class EnemyZombie* _zombie, float _deltaTime) {};
+	virtual void EnterState(class EnemyZombie* _zombie) {};
 
 protected:
 

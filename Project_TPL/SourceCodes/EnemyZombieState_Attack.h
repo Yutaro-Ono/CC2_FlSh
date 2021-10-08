@@ -19,7 +19,7 @@ public:
 	~EnemyZombieState_Attack();
 
 	ZOMBIE_STATE Update(class EnemyZombie* _player, float _deltaTime) override;
-	void EnterState(class EnemyZombie* _player, float _deltaTime) override;
+	void EnterState(class EnemyZombie* _player) override;
 
 protected:
 

@@ -189,33 +189,6 @@
     <Filter Include="Source\Actor\Player\PlayerState">
       <UniqueIdentifier>{1f8643f7-72ec-4c80-b174-8809b8981468}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Actor\Player\PlayerState\Idle">
-      <UniqueIdentifier>{d6b5707d-31e0-4829-a9ce-360590eda0d1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Actor\Player\PlayerState\Walk">
-      <UniqueIdentifier>{bf01c002-7cf5-455f-bc14-17b1eaf15789}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Actor\Player\PlayerState\Jog">
-      <UniqueIdentifier>{944cda25-c6eb-48d3-b2af-26b45dab75ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Actor\Player\PlayerState\Sprint">
-      <UniqueIdentifier>{b9df6b04-580c-4538-9788-799c456b37a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Actor\Player\PlayerState\Crouch">
-      <UniqueIdentifier>{d3829565-8865-490d-ab13-16d9a7daf080}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Actor\Player\PlayerState\CrouchMove">
-      <UniqueIdentifier>{c26056b5-7287-47dd-9fef-25a0de80ceb0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Actor\Player\PlayerState\JumpStart">
-      <UniqueIdentifier>{b9367c50-c3dd-49af-8385-f77d9b21ce4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Actor\Player\PlayerState\JumpFall">
-      <UniqueIdentifier>{e1afc6d1-e296-4252-97b3-364f3b40203f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Actor\Player\PlayerState\JumpLand">
-      <UniqueIdentifier>{03b2dd88-d7d8-4a56-81ee-a7726f0875a9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Actor\Enemy">
       <UniqueIdentifier>{6e7ca60e-966f-4e89-aad9-933105353c26}</UniqueIdentifier>
     </Filter>
@@ -236,6 +209,54 @@
     </Filter>
     <Filter Include="Source\Actor\Enemy\EnemyZombieState\Run">
       <UniqueIdentifier>{16b66edd-8182-42ab-bf56-39460956903f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Standard">
+      <UniqueIdentifier>{3313d378-c68f-4fae-9ff2-11f6a798fdbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Standard\Crouch">
+      <UniqueIdentifier>{d3829565-8865-490d-ab13-16d9a7daf080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Standard\CrouchMove">
+      <UniqueIdentifier>{c26056b5-7287-47dd-9fef-25a0de80ceb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Standard\Idle">
+      <UniqueIdentifier>{d6b5707d-31e0-4829-a9ce-360590eda0d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Standard\Jog">
+      <UniqueIdentifier>{944cda25-c6eb-48d3-b2af-26b45dab75ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Standard\JumpFall">
+      <UniqueIdentifier>{e1afc6d1-e296-4252-97b3-364f3b40203f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Standard\JumpLand">
+      <UniqueIdentifier>{03b2dd88-d7d8-4a56-81ee-a7726f0875a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Standard\JumpStart">
+      <UniqueIdentifier>{b9367c50-c3dd-49af-8385-f77d9b21ce4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Standard\Sprint">
+      <UniqueIdentifier>{b9df6b04-580c-4538-9788-799c456b37a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Standard\Walk">
+      <UniqueIdentifier>{bf01c002-7cf5-455f-bc14-17b1eaf15789}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\WeaponOut">
+      <UniqueIdentifier>{3fd31b91-c3cb-4f2e-aef0-9acb378d5934}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\WeaponOut\Idle">
+      <UniqueIdentifier>{eef1bf03-c5d6-4bc6-b776-de765eb3fd90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\WeaponOut\MoveForward">
+      <UniqueIdentifier>{20ecaed9-65ee-41dd-9b62-322036debe84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\WeaponOut\MoveBackward">
+      <UniqueIdentifier>{974589ef-4c99-422b-bdf6-4570e48cedcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\WeaponOut\MoveRight">
+      <UniqueIdentifier>{ecee251c-3632-4263-8058-d60661bb5843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\WeaponOut\MoveLeft">
+      <UniqueIdentifier>{8456cb6d-c02c-4280-926d-2380b09491cb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -695,32 +716,14 @@
     <ClCompile Include="SourceCodes\TPSCamera.cpp">
       <Filter>Source\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\PlayerState_Idle.cpp">
-      <Filter>Source\Actor\Player\PlayerState\Idle</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PlayerState_Jog.cpp">
-      <Filter>Source\Actor\Player\PlayerState\Jog</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCodes\PlayerState_Sprint.cpp">
-      <Filter>Source\Actor\Player\PlayerState\Sprint</Filter>
+      <Filter>Source\Actor\Player\PlayerState\Standard\Sprint</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\PlayerState_Walk.cpp">
-      <Filter>Source\Actor\Player\PlayerState\Walk</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PlayerState_Crouch.cpp">
-      <Filter>Source\Actor\Player\PlayerState\Crouch</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PlayerState_CrouchMove.cpp">
-      <Filter>Source\Actor\Player\PlayerState\CrouchMove</Filter>
+      <Filter>Source\Actor\Player\PlayerState\Standard\Walk</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\PlayerState_JumpStart.cpp">
-      <Filter>Source\Actor\Player\PlayerState\JumpStart</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PlayerState_JumpFall.cpp">
-      <Filter>Source\Actor\Player\PlayerState\JumpFall</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\PlayerState_JumpLand.cpp">
-      <Filter>Source\Actor\Player\PlayerState\JumpLand</Filter>
+      <Filter>Source\Actor\Player\PlayerState\Standard\JumpStart</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\PBRRenderer.cpp">
       <Filter>Source\Render</Filter>
@@ -745,6 +748,24 @@
     </ClCompile>
     <ClCompile Include="SourceCodes\EnemyZombieState_Walk.cpp">
       <Filter>Source\Actor\Enemy\EnemyZombieState\Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_Crouch.cpp">
+      <Filter>Source\Actor\Player\PlayerState\Standard\Crouch</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_CrouchMove.cpp">
+      <Filter>Source\Actor\Player\PlayerState\Standard\CrouchMove</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_Idle.cpp">
+      <Filter>Source\Actor\Player\PlayerState\Standard\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_Jog.cpp">
+      <Filter>Source\Actor\Player\PlayerState\Standard\Jog</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_JumpFall.cpp">
+      <Filter>Source\Actor\Player\PlayerState\Standard\JumpFall</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_JumpLand.cpp">
+      <Filter>Source\Actor\Player\PlayerState\Standard\JumpLand</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1222,32 +1243,14 @@
     <ClInclude Include="SourceCodes\TPSCamera.h">
       <Filter>Source\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\PlayerState_Idle.h">
-      <Filter>Source\Actor\Player\PlayerState\Idle</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PlayerState_Jog.h">
-      <Filter>Source\Actor\Player\PlayerState\Jog</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCodes\PlayerState_Sprint.h">
-      <Filter>Source\Actor\Player\PlayerState\Sprint</Filter>
+      <Filter>Source\Actor\Player\PlayerState\Standard\Sprint</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\PlayerState_Walk.h">
-      <Filter>Source\Actor\Player\PlayerState\Walk</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PlayerState_Crouch.h">
-      <Filter>Source\Actor\Player\PlayerState\Crouch</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PlayerState_CrouchMove.h">
-      <Filter>Source\Actor\Player\PlayerState\CrouchMove</Filter>
+      <Filter>Source\Actor\Player\PlayerState\Standard\Walk</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\PlayerState_JumpStart.h">
-      <Filter>Source\Actor\Player\PlayerState\JumpStart</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PlayerState_JumpFall.h">
-      <Filter>Source\Actor\Player\PlayerState\JumpFall</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\PlayerState_JumpLand.h">
-      <Filter>Source\Actor\Player\PlayerState\JumpLand</Filter>
+      <Filter>Source\Actor\Player\PlayerState\Standard\JumpStart</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\PBRRenderer.h">
       <Filter>Source\Render</Filter>
@@ -1272,6 +1275,24 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\EnemyZombieState_Run.h">
       <Filter>Source\Actor\Enemy\EnemyZombieState\Run</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_Crouch.h">
+      <Filter>Source\Actor\Player\PlayerState\Standard\Crouch</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_CrouchMove.h">
+      <Filter>Source\Actor\Player\PlayerState\Standard\CrouchMove</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_Idle.h">
+      <Filter>Source\Actor\Player\PlayerState\Standard\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_Jog.h">
+      <Filter>Source\Actor\Player\PlayerState\Standard\Jog</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_JumpFall.h">
+      <Filter>Source\Actor\Player\PlayerState\Standard\JumpFall</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_JumpLand.h">
+      <Filter>Source\Actor\Player\PlayerState\Standard\JumpLand</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

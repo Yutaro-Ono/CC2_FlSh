@@ -19,7 +19,7 @@ public:
 	~PlayerState_JumpStart();
 
 	PLAYER_STATE Update(class Player* _player, float _deltaTime) override;
-	void EnterState(class Player* _player, float _deltaTime) override;
+	void EnterState(class Player* _player) override;
 
 
 };

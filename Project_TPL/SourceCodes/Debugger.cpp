@@ -144,8 +144,8 @@ void Debugger::Delete()
 void Debugger::UpdateImGui(float _deltaTime)
 {
 
-	// "Dキー"でデバッグ表示のオンオフ切り替え
-	if (INPUT_INSTANCE.IsKeyPushDown(SDL_SCANCODE_D))
+	// "LALT"押下中+"Dキー"でデバッグ表示のオンオフ切り替え
+	if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_LALT) && INPUT_INSTANCE.IsKeyPushDown(SDL_SCANCODE_D))
 	{
 		if (m_isShow == true)
 		{

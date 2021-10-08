@@ -16,7 +16,7 @@ const std::string EnemyZombie::ZOMBIE_SKEL_PATH = "Data/Meshes/Actors/Zombie/zom
 const std::string EnemyZombie::ANIM_IDLE_PATH = "Data/Animation/zombieA/zombieA_Idle_1.gpanim";
 const std::string EnemyZombie::ANIM_WALK_PATH = "Data/Animation/zombieA/zombieA_Walking.gpanim";
 const std::string EnemyZombie::ANIM_RUN_PATH = "Data/Animation/zombieA/zombieA_Biting.gpanim";
-const std::string EnemyZombie::ANIM_ATTACK_PATH = "Data/Animation/zombieA/zombieA_Attack_1_1.gpanim";
+const std::string EnemyZombie::ANIM_ATTACK_PATH = "Data/Animation/zombieA/zombieA_Attack_1.gpanim";
 const std::string EnemyZombie::ANIM_DEATH_PATH = "Data/Animation/zombieA/zombieA_Dying_1.gpanim";
 
 EnemyZombie::EnemyZombie()
@@ -44,7 +44,7 @@ EnemyZombie::EnemyZombie()
 	m_statePool.push_back(new EnemyZombieState_Death);
 
 	// 待機状態を開始
-	m_statePool[static_cast<unsigned int>(m_nowState)]->EnterState(this, GAME_INSTANCE.GetDeltaTime());
+	m_statePool[static_cast<unsigned int>(m_nowState)]->EnterState(this);
 
 }
 
@@ -66,7 +66,7 @@ void EnemyZombie::UpdateZombieState(float _deltaTime)
 	// 外部からのステート変更があったかをチェック
 	if (m_nowState != m_nextState)
 	{
-		m_statePool[static_cast<unsigned int>(m_nextState)]->EnterState(this, _deltaTime);
+		m_statePool[static_cast<unsigned int>(m_nextState)]->EnterState(this);
 		m_nowState = m_nextState;
 		return;
 	}
@@ -77,7 +77,7 @@ void EnemyZombie::UpdateZombieState(float _deltaTime)
 	// 現在ステートの更新によって、ステート変更があったかをチェック
 	if (m_nowState != m_nextState)
 	{
-		m_statePool[static_cast<unsigned int>(m_nextState)]->EnterState(this, _deltaTime);
+		m_statePool[static_cast<unsigned int>(m_nextState)]->EnterState(this);
 		m_nowState = m_nextState;
 	}
 }

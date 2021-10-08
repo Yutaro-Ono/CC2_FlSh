@@ -109,6 +109,7 @@ namespace Math
 	{
 		return fmod(numer, denom);
 	}
+
 }
 
 // 2D Vector

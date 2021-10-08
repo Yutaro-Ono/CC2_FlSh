@@ -6,7 +6,10 @@ Mouse::Mouse()
 	m_mousePos = Vector2(0, 0);
 	m_currentButtons = 0;
 	m_prevButtons = 0;
-	m_isRelative = false;
+	m_isRelative = true;
+
+	// マウスの相対モードON
+	SetRelativeMouseMode(m_isRelative);
 }
 
 void Mouse::SetRelativeMouseMode(bool value)
@@ -14,6 +17,11 @@ void Mouse::SetRelativeMouseMode(bool value)
 	SDL_bool set = value ? SDL_TRUE : SDL_FALSE;
 	SDL_SetRelativeMouseMode(set);
 	m_isRelative = value;
+}
+
+void Mouse::SetMousePos(const Vector3& _mousePos)
+{
+	
 }
 
 bool Mouse::GetButtonValue(int button) const
@@ -65,6 +73,17 @@ void Mouse::Update()
 	m_mousePos.x = static_cast<float>(x);
 	m_mousePos.y = static_cast<float>(y);
 
+	// ALTキーを押している時はレラティブモードをOFF
+	if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_LALT))
+	{
+		m_isRelative = false;
+		SetRelativeMouseMode(m_isRelative);
+	}
+	if(INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_LALT))
+	{
+		m_isRelative = true;
+		SetRelativeMouseMode(m_isRelative);
+	}
 
 	m_mouseWheel = Vector2::Zero;
 }
