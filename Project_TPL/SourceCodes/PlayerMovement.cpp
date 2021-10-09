@@ -320,9 +320,14 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 	Vector3 moveVec = Vector3::Zero;
 	moveVec = Vector3(inputAxis.x, inputAxis.y, 0.0f);
 
-	// 入力キーの総和
-	if (moveVec.LengthSq() >= 0.5f)
+	// プレイヤーの武器出し状態の取得
+	bool toggleWeaponOut = m_player->GetToggleWeaponOut();
+
+	// 入力キーの総和が一定以上であれば、キャラを入力方向に回転させる
+	// 武器出し状態のときはキャラの向きをカメラに固定させるため処理を分岐
+	if (!toggleWeaponOut && (moveVec.LengthSq() >= 0.5f))
 	{
+
 		// キャラの前進ベクトル
 	    Vector3 charaForwardVec = m_owner->GetForward();
 		//charaForwardVec.Normalize();
@@ -346,6 +351,17 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 
 		printf("chara = x:%f | y:%f | z:%f\n", charaForwardVec.x, charaForwardVec.y, charaForwardVec.z);
 		printf("moveV = x:%f | y:%f | z:%f\n", moveVec.x, moveVec.y, moveVec.z);
+
+		// rotationを更新
+		m_owner->RotateToNewForward(charaForwardVec);
+	}
+	else if (toggleWeaponOut)
+	{
+
+		// キャラの前進ベクトルをカメラと同期
+		Vector3 charaForwardVec = m_owner->GetForward();
+		
+		charaForwardVec = Vector3::Lerp(charaForwardVec, forwardVec, 0.51f);
 
 		// rotationを更新
 		m_owner->RotateToNewForward(charaForwardVec);

@@ -11,6 +11,11 @@
 #include "PlayerState_JumpStart.h"
 #include "PlayerState_JumpFall.h"
 #include "PlayerState_JumpLand.h"
+#include "PlayerState_WeaponOut_Idle.h"
+#include "PlayerState_WeaponOut_MoveForward.h"
+#include "PlayerState_WeaponOut_MoveBack.h"
+#include "PlayerState_WeaponOut_MoveLeft.h"
+#include "PlayerState_WeaponOut_MoveRight.h"
 #include "TPSCamera.h"
 #include "PlayerMovement.h"
 #include "PointLight.h"
@@ -27,11 +32,16 @@ const std::string Player::ANIM_JUMP_START_PATH  = "Data/Animation/Player/Player_
 const std::string Player::ANIM_JUMP_FALL_PATH   = "Data/Animation/Player/Player_JumpFall.gpanim";
 const std::string Player::ANIM_JUMP_LAND_PATH   = "Data/Animation/Player/Player_JumpLanding.gpanim";
 
-const std::string Player::ANIM_WEAPOUT_IDLE_PATH       = "Data/Animation/Player/Player_WeapOut_Idle.gpanim";
-const std::string Player::ANIM_WEAPOUT_MOVE_FWD_PATH   = "Data/Animation/Player/Player_WeapOut_Forward.gpanim";;
-const std::string Player::ANIM_WEAPOUT_MOVE_BWD_PATH   = "Data/Animation/Player/Player_WeapOut_Backward.gpanim";;
-const std::string Player::ANIM_WEAPOUT_MOVE_RIGHT_PATH = "Data/Animation/Player/Player_WeapOut_RightStrafe.gpanim";;
-const std::string Player::ANIM_WEAPOUT_MOVE_LEFT_PATH  = "Data/Animation/Player/Player_WeapOut_LeftStrafe.gpanim";;
+const std::string Player::ANIM_WEAPOUT_IDLE_PATH       = "Data/Animation/Player/Player_WeapOut_Idle_1.gpanim";
+const std::string Player::ANIM_WEAPOUT_MOVE_FWD_PATH   = "Data/Animation/Player/Player_WeapOut_Move_Forward.gpanim";
+const std::string Player::ANIM_WEAPOUT_MOVE_BWD_PATH   = "Data/Animation/Player/Player_WeapOut_Move_Back.gpanim";
+const std::string Player::ANIM_WEAPOUT_MOVE_RIGHT_PATH = "Data/Animation/Player/Player_WeapOut_Move_Right.gpanim";
+const std::string Player::ANIM_WEAPOUT_MOVE_LEFT_PATH  = "Data/Animation/Player/Player_WeapOut_Move_Left.gpanim";
+
+const std::string Player::ANIM_WEAPOUT_WALK_FWD_PATH = "Data/Animation/Player/Player_WeapOut_Walk_Forward.gpanim";
+const std::string Player::ANIM_WEAPOUT_WALK_BWD_PATH = "Data/Animation/Player/Player_WeapOut_Walk_Back.gpanim";
+const std::string Player::ANIM_WEAPOUT_WALK_RIGHT_PATH = "Data/Animation/Player/Player_WeapOut_Walk_Right.gpanim";
+const std::string Player::ANIM_WEAPOUT_WALK_LEFT_PATH = "Data/Animation/Player/Player_WeapOut_Walk_Left.gpanim";
 
 Player::Player()
 	:Actor(OBJECT_TAG::PLAYER)
@@ -43,6 +53,7 @@ Player::Player()
 	,m_toggleWalk(false)
 	,m_toggleCrouch(false)
 	,m_toggleWeaponOut(false)
+	,m_isWeaponOutChange(false)
 	,m_weaponOutPressStart(0)
 	,m_weaponOutPressCount(0)
 {
@@ -50,7 +61,7 @@ Player::Player()
 	// カメラの生成(三人称カメラ)
 	m_tpsCamera = new TPSCamera(this);
 	m_tpsCamera->SetCameraLength(Vector3(120.0f, 120.0f, 120.0f));
-	m_tpsCamera->SetAdjustTargetPos(Vector2(-40.0f, -85.0f));
+	m_tpsCamera->SetAdjustTargetPos(Vector2(-40.0f, -105.0f));
 
 	// 移動コンポーネントの追加
 	PlayerMovement* moveComp = new PlayerMovement(this);
@@ -79,12 +90,15 @@ Player::Player()
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_JUMP_FALL)] = RENDERER->GetAnimation(ANIM_JUMP_FALL_PATH.c_str(), false);
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_JUMP_LAND)] = RENDERER->GetAnimation(ANIM_JUMP_LAND_PATH.c_str(), false);
 	
-	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_IDLE)]      = RENDERER->GetAnimation(ANIM_WEAPOUT_IDLE_PATH.c_str(), false);
-	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_MOVEFWD)] = RENDERER->GetAnimation(ANIM_WEAPOUT_MOVE_FWD_PATH.c_str(), false);
-	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_MOVEBWD)] = RENDERER->GetAnimation(ANIM_WEAPOUT_MOVE_BWD_PATH.c_str(), false);
-	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_MOVERIGHT)] = RENDERER->GetAnimation(ANIM_WEAPOUT_MOVE_RIGHT_PATH.c_str(), false);
-	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_MOVELEFT)] = RENDERER->GetAnimation(ANIM_WEAPOUT_MOVE_LEFT_PATH.c_str(), false);
-
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_IDLE)]      = RENDERER->GetAnimation(ANIM_WEAPOUT_IDLE_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_MOVEFWD)] = RENDERER->GetAnimation(ANIM_WEAPOUT_MOVE_FWD_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_MOVEBWD)] = RENDERER->GetAnimation(ANIM_WEAPOUT_MOVE_BWD_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_MOVERIGHT)] = RENDERER->GetAnimation(ANIM_WEAPOUT_MOVE_RIGHT_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_MOVELEFT)] = RENDERER->GetAnimation(ANIM_WEAPOUT_MOVE_LEFT_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_WALKFWD)] = RENDERER->GetAnimation(ANIM_WEAPOUT_WALK_FWD_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_WALKBWD)] = RENDERER->GetAnimation(ANIM_WEAPOUT_WALK_BWD_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_WALKRIGHT)] = RENDERER->GetAnimation(ANIM_WEAPOUT_WALK_RIGHT_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_WALKLEFT)] = RENDERER->GetAnimation(ANIM_WEAPOUT_WALK_LEFT_PATH.c_str(), true);
 
 	// プレイヤーステートプールの生成
 	m_statePool.push_back(new PlayerState_Idle);
@@ -96,6 +110,12 @@ Player::Player()
 	m_statePool.push_back(new PlayerState_JumpStart);
 	m_statePool.push_back(new PlayerState_JumpFall);
 	m_statePool.push_back(new PlayerState_JumpLand);
+
+	m_statePool.push_back(new PlayerState_WeaponOut_Idle);
+	m_statePool.push_back(new PlayerState_WeaponOut_MoveForward);
+	m_statePool.push_back(new PlayerState_WeaponOut_MoveBack);
+	m_statePool.push_back(new PlayerState_WeaponOut_MoveLeft);
+	m_statePool.push_back(new PlayerState_WeaponOut_MoveRight);
 
 	// 待機状態を開始
 	m_statePool[static_cast<unsigned int>(m_nowState)]->EnterState(this);
@@ -121,19 +141,23 @@ void Player::UpdateActor(float _deltaTime)
 void Player::UpdateWeaponOut()
 {
 	// 武器出し状態でない時の更新
-	if (!m_toggleWeaponOut)
+	if (!m_toggleWeaponOut && !m_isWeaponOutChange)
 	{
 		// RキーかXボタンで武器出しトグルON
-		if (INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_R) || CONTROLLER_INSTANCE.IsReleased(SDL_CONTROLLER_BUTTON_X))
+		if (INPUT_INSTANCE.IsKeyPushDown(SDL_SCANCODE_R) || CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_X))
 		{
 			m_toggleWeaponOut = true;
+			m_isWeaponOutChange = true;
+
+			// カメラ距離を接近
+			//m_tpsCamera->SetCameraLength(Vector3(50.0f, 50.0f, 50.0f));
+
 			printf("武器を出した\n");
-			return;
 		}
 	}
 
 	// 武器出し状態の時の更新
-	if (m_toggleWeaponOut)
+	if (m_toggleWeaponOut && !m_isWeaponOutChange)
 	{
 		// RキーかXボタン押し込んだ時に長押しカウント開始
 		if (INPUT_INSTANCE.IsKeyPushDown(SDL_SCANCODE_R) || CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_X))
@@ -148,16 +172,35 @@ void Player::UpdateWeaponOut()
 			m_weaponOutPressCount = SDL_GetTicks() / 1000;
 		}
 
+		// ボタンが離されたらカウントをリセット
+		if(INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_R) || CONTROLLER_INSTANCE.IsReleased(SDL_CONTROLLER_BUTTON_X))
+		{
+			m_weaponOutPressStart = 0;
+			m_weaponOutPressCount = 0;
+		}
+
 		// 0.5秒長押しで武器出しトグルOFF
-		if (m_weaponOutPressCount - m_weaponOutPressStart > 500)
+		if (m_weaponOutPressStart - m_weaponOutPressCount > 500)
 		{
 			m_toggleWeaponOut = false;
+			m_isWeaponOutChange = true;
 			m_weaponOutPressStart = 0;
 			m_weaponOutPressCount = 0;
 
 			printf("武器出しOFF\n");
 		}
 	}
+
+	// 武器出しの切り替えフラグ更新
+	// ボタンを離したら
+	if (m_isWeaponOutChange)
+	{
+		if (INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_R) || CONTROLLER_INSTANCE.IsReleased(SDL_CONTROLLER_BUTTON_X))
+		{
+			m_isWeaponOutChange = false;
+		}
+	}
+
 }
 
 /// <summary>

@@ -135,12 +135,12 @@ void Actor::RotateToNewForward(const Vector3 & _forward)
 	float angle = Math::Acos(dot);
 
 	// ‰ºŒü‚«‚¾‚Á‚½ê‡
-	if (dot > 0.9f)
+	if (dot > 0.99f)
 	{
 		SetRotation(Quaternion::Identity);
 	}
 	// ãŒü‚«‚¾‚Á‚½ê‡
-	else if (dot < -0.9f)
+	else if (dot < -0.99f)
 	{
 		SetRotation(Quaternion(Vector3::UnitZ, Math::Pi));
 	}

@@ -217,6 +217,11 @@
     <ClCompile Include="SourceCodes\PlayerState_JumpStart.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Sprint.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Walk.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_WeaponOut_Idle.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_WeaponOut_MoveBack.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_WeaponOut_MoveForward.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_WeaponOut_MoveLeft.cpp" />
+    <ClCompile Include="SourceCodes\PlayerState_WeaponOut_MoveRight.cpp" />
     <ClCompile Include="SourceCodes\PostEffect.cpp" />
     <ClCompile Include="SourceCodes\GameConfig.cpp" />
     <ClCompile Include="SourceCodes\GameMain.cpp" />
@@ -390,6 +395,11 @@
     <ClInclude Include="SourceCodes\PlayerState_JumpStart.h" />
     <ClInclude Include="SourceCodes\PlayerState_Sprint.h" />
     <ClInclude Include="SourceCodes\PlayerState_Walk.h" />
+    <ClInclude Include="SourceCodes\PlayerState_WeaponOut_Idle.h" />
+    <ClInclude Include="SourceCodes\PlayerState_WeaponOut_MoveBack.h" />
+    <ClInclude Include="SourceCodes\PlayerState_WeaponOut_MoveForward.h" />
+    <ClInclude Include="SourceCodes\PlayerState_WeaponOut_MoveLeft.h" />
+    <ClInclude Include="SourceCodes\PlayerState_WeaponOut_MoveRight.h" />
     <ClInclude Include="SourceCodes\PostEffect.h" />
     <ClInclude Include="SourceCodes\GameConfig.h" />
     <ClInclude Include="SourceCodes\GameMain.h" />

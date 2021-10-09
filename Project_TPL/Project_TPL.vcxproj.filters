@@ -767,6 +767,21 @@
     <ClCompile Include="SourceCodes\PlayerState_JumpLand.cpp">
       <Filter>Source\Actor\Player\PlayerState\Standard\JumpLand</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_WeaponOut_Idle.cpp">
+      <Filter>Source\Actor\Player\PlayerState\WeaponOut\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_WeaponOut_MoveBack.cpp">
+      <Filter>Source\Actor\Player\PlayerState\WeaponOut\MoveBackward</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_WeaponOut_MoveForward.cpp">
+      <Filter>Source\Actor\Player\PlayerState\WeaponOut\MoveForward</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_WeaponOut_MoveLeft.cpp">
+      <Filter>Source\Actor\Player\PlayerState\WeaponOut\MoveLeft</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_WeaponOut_MoveRight.cpp">
+      <Filter>Source\Actor\Player\PlayerState\WeaponOut\MoveRight</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -1293,6 +1308,21 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\PlayerState_JumpLand.h">
       <Filter>Source\Actor\Player\PlayerState\Standard\JumpLand</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_WeaponOut_Idle.h">
+      <Filter>Source\Actor\Player\PlayerState\WeaponOut\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_WeaponOut_MoveBack.h">
+      <Filter>Source\Actor\Player\PlayerState\WeaponOut\MoveBackward</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_WeaponOut_MoveForward.h">
+      <Filter>Source\Actor\Player\PlayerState\WeaponOut\MoveForward</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_WeaponOut_MoveLeft.h">
+      <Filter>Source\Actor\Player\PlayerState\WeaponOut\MoveLeft</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_WeaponOut_MoveRight.h">
+      <Filter>Source\Actor\Player\PlayerState\WeaponOut\MoveRight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

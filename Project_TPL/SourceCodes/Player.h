@@ -29,6 +29,11 @@ enum class PLAYER_STATE
 	STATE_WEAPONOUT_MOVEBWD,
 	STATE_WEAPONOUT_MOVERIGHT,
 	STATE_WEAPONOUT_MOVELEFT,
+	STATE_WEAPONOUT_WALKFWD,
+	STATE_WEAPONOUT_WALKBWD,
+	STATE_WEAPONOUT_WALKRIGHT,
+	STATE_WEAPONOUT_WALKLEFT,
+	STATE_WEAPONOUT_SPRINT,
 
 	STATE_ALL_NUM
 };
@@ -74,6 +79,7 @@ private:
 	bool m_toggleWalk;
 	bool m_toggleCrouch;
 	bool m_toggleWeaponOut;
+	bool m_isWeaponOutChange;
 	unsigned int m_weaponOutPressStart;
 	unsigned int m_weaponOutPressCount;
 
@@ -106,4 +112,8 @@ private:
 	static const std::string ANIM_WEAPOUT_MOVE_BWD_PATH;
 	static const std::string ANIM_WEAPOUT_MOVE_RIGHT_PATH;
 	static const std::string ANIM_WEAPOUT_MOVE_LEFT_PATH;
+	static const std::string ANIM_WEAPOUT_WALK_FWD_PATH;
+	static const std::string ANIM_WEAPOUT_WALK_BWD_PATH;
+	static const std::string ANIM_WEAPOUT_WALK_RIGHT_PATH;
+	static const std::string ANIM_WEAPOUT_WALK_LEFT_PATH;
 };

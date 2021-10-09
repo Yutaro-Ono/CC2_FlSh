@@ -90,7 +90,11 @@ PLAYER_STATE PlayerState_Idle::Update(Player* _player, float _deltaTime)
 		}
 	}
 
-
+	// •Šío‚µ‘Ò‹@ó‘Ô
+	if (_player->GetToggleWeaponOut())
+	{
+		return PLAYER_STATE::STATE_WEAPONOUT_IDLE;
+	}
 
 	return PLAYER_STATE::STATE_IDLE;
 }

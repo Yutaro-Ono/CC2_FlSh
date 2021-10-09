@@ -117,8 +117,8 @@ void TPSCamera::UpdateKeyBoard(const float _rotate, float _deltaTime)
         m_lookDownAngle = maxLookDownAngle;
     }
 
-    printf("Mouse Position X : %f\n", m_rotateAngleZ);
-    printf("Mouse Position Y : %f\n", m_lookDownAngle);
+    //printf("Mouse Position X : %f\n", m_rotateAngleZ);
+    //printf("Mouse Position Y : %f\n", m_lookDownAngle);
 }
 
 void TPSCamera::UpdateGamePad(const float _rotate, float _deltaTime)
