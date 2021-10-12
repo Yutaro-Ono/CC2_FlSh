@@ -17,7 +17,7 @@
 const float cAnimationSpeed = 14.0f;          // アニメーションの速度
 
 PlayerHuman::PlayerHuman(class PlayerManager* in_manager)
-	:Actor(OBJECT_TAG::PLAYER)
+	:Actor(OBJECT_TAG::ACTOR_PLAYER)
 	,m_manager(in_manager)
 	,m_pov(POV_THIRD_PERSON)
 	,m_jumpVec(Vector3(0.0f, 0.0f, 0.0f))
@@ -34,9 +34,9 @@ PlayerHuman::PlayerHuman(class PlayerManager* in_manager)
 	
 	// スケルタルメッシュのロード
 	Mesh* mesh = RENDERER->GetMesh("Data/Meshes/Actors/HumanRace/Player/rp_nathan_rigged_003_ue4.gpmesh");
-	m_skelMeshComp = new SkeletalMeshComponent(this);
-	m_skelMeshComp->SetMesh(mesh);
-	m_skelMeshComp->SetSkeleton(RENDERER->GetSkeleton("Data/Meshes/Actors/HumanRace/Player/rp_nathan_rigged_003_ue4.gpskel"));
+	m_skelComp = new SkeletalMeshComponent(this);
+	m_skelComp->SetMesh(mesh);
+	m_skelComp->SetSkeleton(RENDERER->GetSkeleton("Data/Meshes/Actors/HumanRace/Player/rp_nathan_rigged_003_ue4.gpskel"));
 
 	// フェイスライト
 	m_faceLight = new PointLight(PointLight::VL_SMALL);
@@ -58,7 +58,7 @@ PlayerHuman::PlayerHuman(class PlayerManager* in_manager)
 	m_animTypes[ANIM_LANDING] = RENDERER->GetAnimation("Data/Animation/Player/ThirdPersonJump_End.gpanim", false);
 
 	// アイドル時のアニメーションをセットしておく
-	m_skelMeshComp->PlayAnimation(m_animTypes[ANIM_IDLE], cAnimationSpeed * GAME_INSTANCE.GetDeltaTime());
+	m_skelComp->PlayAnimation(m_animTypes[ANIM_IDLE], cAnimationSpeed * GAME_INSTANCE.GetDeltaTime());
 
 	// 当たり判定ボックスのセット
 	AABB playerBox = mesh->GetCollisionBox();
@@ -105,7 +105,7 @@ void PlayerHuman::UpdateActor(float in_deltaTime)
 		// カメラをアクティブにする
 		GAME_INSTANCE.SetCamera(m_cameraComp);
 		//m_moveComp->SetActive(true);
-		m_skelMeshComp->SetVisible(true);
+		m_skelComp->SetVisible(true);
 
 		// 重力処理
 		//m_position.z -= 1.0f;
@@ -132,9 +132,9 @@ void PlayerHuman::UpdateActor(float in_deltaTime)
 	else
 	{
 		//m_moveComp->SetActive(false);
-		m_skelMeshComp->SetVisible(false);
+		m_skelComp->SetVisible(false);
 		// アイドル時のアニメーションをセット
-		m_skelMeshComp->PlayAnimation(m_animTypes[ANIM_IDLE], cAnimationSpeed * in_deltaTime);
+		m_skelComp->PlayAnimation(m_animTypes[ANIM_IDLE], cAnimationSpeed * in_deltaTime);
 	}
 
 	// ライトの追従
@@ -151,7 +151,7 @@ void PlayerHuman::ChangeState(float in_deltaTime)
 		m_isJump = true;
 		if (m_animState != ANIM_JUMPLOOP)
 		{
-			m_skelMeshComp->PlayAnimation(m_animTypes[ANIM_JUMPLOOP], cAnimationSpeed * in_deltaTime);
+			m_skelComp->PlayAnimation(m_animTypes[ANIM_JUMPLOOP], cAnimationSpeed * in_deltaTime);
 			m_animState = ANIM_JUMPLOOP;
 		}
 		return;
@@ -161,9 +161,9 @@ void PlayerHuman::ChangeState(float in_deltaTime)
 		// JUMP開始からJumpLoopへ
 		if (m_animState == ANIM_JUMPSTART)
 		{
-			if (!(m_skelMeshComp->IsPlaying()))
+			if (!(m_skelComp->IsPlaying()))
 			{
-				m_skelMeshComp->PlayAnimation(m_animTypes[ANIM_JUMPLOOP], cAnimationSpeed * in_deltaTime);
+				m_skelComp->PlayAnimation(m_animTypes[ANIM_JUMPLOOP], cAnimationSpeed * in_deltaTime);
 				m_animState = ANIM_JUMPLOOP;
 			}
 		}
@@ -212,15 +212,15 @@ void PlayerHuman::ChangeState(float in_deltaTime)
 	{
 		if (m_animState == ANIM_LANDING)
 		{
-			if (!m_skelMeshComp->IsPlaying())
+			if (!m_skelComp->IsPlaying())
 			{
-				m_skelMeshComp->PlayAnimation(m_animTypes[ANIM_IDLE], cAnimationSpeed * in_deltaTime);
+				m_skelComp->PlayAnimation(m_animTypes[ANIM_IDLE], cAnimationSpeed * in_deltaTime);
 				m_animState = ANIM_IDLE;
 			}
 		}
 		else if ((m_animState != ANIM_IDLE))
 		{
-			m_skelMeshComp->PlayAnimation(m_animTypes[ANIM_IDLE], cAnimationSpeed * in_deltaTime);
+			m_skelComp->PlayAnimation(m_animTypes[ANIM_IDLE], cAnimationSpeed * in_deltaTime);
 			m_animState = ANIM_IDLE;
 		}
 	}
@@ -229,9 +229,9 @@ void PlayerHuman::ChangeState(float in_deltaTime)
 		// ジャンプ終了アニメからのRUN開始
 		if (m_animState == ANIM_LANDING)
 		{
-			if (!m_skelMeshComp->IsPlaying())
+			if (!m_skelComp->IsPlaying())
 			{
-				m_skelMeshComp->PlayAnimation(m_animTypes[ANIM_RUNNING], cAnimationSpeed * in_deltaTime);
+				m_skelComp->PlayAnimation(m_animTypes[ANIM_RUNNING], cAnimationSpeed * in_deltaTime);
 				m_animState = ANIM_RUNNING;
 			}
 		}
@@ -244,13 +244,13 @@ void PlayerHuman::ChangeState(float in_deltaTime)
 			// 正面
 			if (m_animState != ANIM_WALKING_FWD && axisL.y < -0.1f && axisL.y > -0.65f)
 			{
-				m_skelMeshComp->PlayAnimation(m_animTypes[ANIM_WALKING_FWD], cAnimationSpeed * in_deltaTime);
+				m_skelComp->PlayAnimation(m_animTypes[ANIM_WALKING_FWD], cAnimationSpeed * in_deltaTime);
 				m_animState = ANIM_WALKING_FWD;
 			}
 			// RUNアニメ開始
 			if (m_animState != ANIM_RUNNING && axisL.y <= -0.65f)
 			{
-				m_skelMeshComp->PlayAnimation(m_animTypes[ANIM_RUNNING], cAnimationSpeed * in_deltaTime);
+				m_skelComp->PlayAnimation(m_animTypes[ANIM_RUNNING], cAnimationSpeed * in_deltaTime);
 				m_animState = ANIM_RUNNING;
 			}
 		}
@@ -258,7 +258,7 @@ void PlayerHuman::ChangeState(float in_deltaTime)
 		// 後方
 		if (m_animState != ANIM_WALKING_BWD && axisL.y > 0.1f)
 		{
-			m_skelMeshComp->PlayAnimation(m_animTypes[ANIM_WALKING_BWD], cAnimationSpeed * in_deltaTime);
+			m_skelComp->PlayAnimation(m_animTypes[ANIM_WALKING_BWD], cAnimationSpeed * in_deltaTime);
 			m_animState = ANIM_WALKING_BWD;
 		}
 
@@ -267,13 +267,13 @@ void PlayerHuman::ChangeState(float in_deltaTime)
 			// 左側
 			if (m_animState != ANIM_WALKING_LEFT && axisL.x < -0.1f)
 			{
-				m_skelMeshComp->PlayAnimation(m_animTypes[ANIM_WALKING_LEFT], cAnimationSpeed * in_deltaTime);
+				m_skelComp->PlayAnimation(m_animTypes[ANIM_WALKING_LEFT], cAnimationSpeed * in_deltaTime);
 				m_animState = ANIM_WALKING_LEFT;
 			}
 			// 右側
 			if (m_animState != ANIM_WALKING_RIGHT && axisL.x > 0.1f)
 			{
-				m_skelMeshComp->PlayAnimation(m_animTypes[ANIM_WALKING_RIGHT], cAnimationSpeed * in_deltaTime);
+				m_skelComp->PlayAnimation(m_animTypes[ANIM_WALKING_RIGHT], cAnimationSpeed * in_deltaTime);
 				m_animState = ANIM_WALKING_RIGHT;
 			}
 		}
@@ -299,7 +299,7 @@ void PlayerHuman::CollisionFix(BoxCollider* in_hitPlayerBox, BoxCollider* in_hit
 			m_position += m_jumpVec;
 			if (m_animState == ANIM_JUMPLOOP)
 			{
-				m_skelMeshComp->PlayAnimation(m_animTypes[ANIM_LANDING], cAnimationSpeed);
+				m_skelComp->PlayAnimation(m_animTypes[ANIM_LANDING], cAnimationSpeed);
 				m_animState = ANIM_LANDING;
 			}
 			return;

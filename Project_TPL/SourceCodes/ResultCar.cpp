@@ -11,7 +11,7 @@
 
 
 ResultCar::ResultCar()
-	:Actor(OBJECT_TAG::VEHICLE)
+	:Actor(OBJECT_TAG::ACTOR_VEHICLE)
 	,m_accel(450.0f)
 	,m_nextScene(false)
 	,m_cameraPosType(NORMAL)

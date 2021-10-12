@@ -8,7 +8,7 @@
 static float radian = 0.0f;
 
 HeliRotorMain::HeliRotorMain(Helicopter* in_heli, const std::string& in_filePath)
-	:Actor(OBJECT_TAG::VEHICLE)
+	:Actor(OBJECT_TAG::ACTOR_VEHICLE)
 	,m_owner(in_heli)
 {
 

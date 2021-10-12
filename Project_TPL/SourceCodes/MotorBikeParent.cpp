@@ -8,7 +8,7 @@ const std::string MotorBikeParent::STR_MOTORBIKE_HANDLE = "Data/Meshes/Actors/Ve
 const std::string MotorBikeParent::STR_MOTORBIKE_WHEEL  = "Data/Meshes/Actors/Vehicles/MotorBike/Wheel/SM_ClassicMotorBike_Wheel_Internal.OBJ";
 
 MotorBikeParent::MotorBikeParent()
-	:Vehicle(OBJECT_TAG::VEHICLE)
+	:Vehicle(OBJECT_TAG::ACTOR_VEHICLE)
 {
 	// 修正座標
 	m_offsetPos[static_cast<int>(MOTORBIKE_PARTS::BODY)] = Vector3::Zero;
@@ -19,7 +19,7 @@ MotorBikeParent::MotorBikeParent()
 	// 各パーツの生成
 	for (int i = 0; i < static_cast<int>(MOTORBIKE_PARTS::ALL); i++)
 	{
-		m_parts[i] = new Actor(OBJECT_TAG::VEHICLE);
+		m_parts[i] = new Actor(OBJECT_TAG::ACTOR_VEHICLE);
 		// ワールド行列の調整
 		m_parts[i]->SetPosition(m_position + m_offsetPos[i]);
 		m_parts[i]->SetScale(m_scale);

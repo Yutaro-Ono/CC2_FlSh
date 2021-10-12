@@ -20,7 +20,7 @@ const std::string EnemyZombie::ANIM_ATTACK_PATH = "Data/Animation/zombieA/zombie
 const std::string EnemyZombie::ANIM_DEATH_PATH = "Data/Animation/zombieA/zombieA_Dying_1.gpanim";
 
 EnemyZombie::EnemyZombie()
-	:Actor(OBJECT_TAG::NPC)
+	:Actor(OBJECT_TAG::ACTOR_ENEMY)
 {
 	// スケルタルメッシュの読み込み
 	Mesh* mesh = RENDERER->GetMesh(ZOMBIE_MESH_PATH);

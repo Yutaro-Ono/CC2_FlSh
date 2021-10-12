@@ -64,8 +64,6 @@ private:
 
 
 	class PlayerManager* m_manager;                      // ステート制御のマネージメントクラス
-
-	class SkeletalMeshComponent* m_skelMeshComp;         // スケルタルメッシュ
 	
 	std::vector<const class Animation*> m_animTypes;     // アニメーションのタイプ
 	PLAYER_ANIM m_animState;                             // アニメーションごとの状態

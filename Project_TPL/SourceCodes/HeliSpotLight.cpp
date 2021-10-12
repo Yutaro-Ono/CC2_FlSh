@@ -6,7 +6,7 @@
 #include "Helicopter.h"
 
 HeliSpotLight::HeliSpotLight(Helicopter* in_heli, const std::string& in_filePath)
-	:Actor(OBJECT_TAG::VEHICLE)
+	:Actor(OBJECT_TAG::ACTOR_VEHICLE)
 {
 	// オーナークラスをセット
 	m_owner = in_heli;

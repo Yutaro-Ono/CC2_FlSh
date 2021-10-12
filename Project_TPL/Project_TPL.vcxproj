@@ -228,6 +228,8 @@
     <ClCompile Include="SourceCodes\GameScene.cpp" />
     <ClCompile Include="SourceCodes\TPSCamera.cpp" />
     <ClCompile Include="SourceCodes\Vehicle.cpp" />
+    <ClCompile Include="SourceCodes\WeaponAR4.cpp" />
+    <ClCompile Include="SourceCodes\WeaponBase.cpp" />
     <ClCompile Include="SourceCodes\WorldGameScene.cpp" />
     <ClCompile Include="SourceCodes\GLSLprogram.cpp" />
     <ClCompile Include="SourceCodes\HeliBody.cpp" />
@@ -406,6 +408,8 @@
     <ClInclude Include="SourceCodes\GameScene.h" />
     <ClInclude Include="SourceCodes\TPSCamera.h" />
     <ClInclude Include="SourceCodes\Vehicle.h" />
+    <ClInclude Include="SourceCodes\WeaponAR4.h" />
+    <ClInclude Include="SourceCodes\WeaponBase.h" />
     <ClInclude Include="SourceCodes\WorldGameScene.h" />
     <ClInclude Include="SourceCodes\GLSLprogram.h" />
     <ClInclude Include="SourceCodes\HeliBody.h" />

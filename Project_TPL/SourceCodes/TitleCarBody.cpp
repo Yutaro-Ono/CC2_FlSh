@@ -16,7 +16,7 @@ const std::string TitleCarBody::CAR_INTERIOR_MESH_PATH =   "Data/Meshes/Actors/V
 
 // コンストラクタ
 TitleCarBody::TitleCarBody(Actor* in_owner)
-	:Actor(OBJECT_TAG::VEHICLE)
+	:Actor(OBJECT_TAG::ACTOR_VEHICLE)
 	,m_owner(in_owner)
 {
 	// オーナーの拡大率・座標・回転行列に合わせておく

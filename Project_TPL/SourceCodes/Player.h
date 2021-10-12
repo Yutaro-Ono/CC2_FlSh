@@ -83,7 +83,6 @@ private:
 	unsigned int m_weaponOutPressStart;
 	unsigned int m_weaponOutPressCount;
 
-	class SkeletalMeshComponent* m_skelComp;
 	std::vector<const class Animation*> m_anims;
 
 	// ƒJƒƒ‰

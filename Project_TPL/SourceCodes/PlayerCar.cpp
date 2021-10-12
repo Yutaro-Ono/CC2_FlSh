@@ -15,7 +15,7 @@ const std::string PlayerCar::CAR_HANDLE_MESH_PATH = "Data/Meshes/Actors/Vehicles
 
 // コンストラクタ
 PlayerCar::PlayerCar()
-	:Actor(OBJECT_TAG::VEHICLE)
+	:Actor(OBJECT_TAG::ACTOR_VEHICLE)
 	,m_isActive(true)
 	,m_driveState(DRIVE_IDLE)
 	,m_turnState(TURN_IDLE)

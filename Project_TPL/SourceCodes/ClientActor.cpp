@@ -25,7 +25,7 @@ const float AnimationSpeed = 0.5f;        // アニメーションの速度
 
 // コンストラクタ
 ClientActor::ClientActor(const Vector3& in_pos, int in_chara)
-	:Actor(OBJECT_TAG::NPC)
+	:Actor(OBJECT_TAG::ACTOR_NPC)
 	,m_isSelected(false)
 	,m_isAccepted(false)
 	,m_distancePlayer(0.0f)

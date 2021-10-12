@@ -44,7 +44,7 @@ const std::string Player::ANIM_WEAPOUT_WALK_RIGHT_PATH = "Data/Animation/Player/
 const std::string Player::ANIM_WEAPOUT_WALK_LEFT_PATH = "Data/Animation/Player/Player_WeapOut_Walk_Left.gpanim";
 
 Player::Player()
-	:Actor(OBJECT_TAG::PLAYER)
+	:Actor(OBJECT_TAG::ACTOR_PLAYER)
 	,m_nowState(PLAYER_STATE::STATE_IDLE)
 	,m_nextState(PLAYER_STATE::STATE_IDLE)
 	,m_tpsCamera(nullptr)
@@ -60,7 +60,8 @@ Player::Player()
 
 	// カメラの生成(三人称カメラ)
 	m_tpsCamera = new TPSCamera(this);
-	m_tpsCamera->SetCameraLength(Vector3(120.0f, 120.0f, 120.0f));
+	//m_tpsCamera->SetCameraLength(Vector3(120.0f, 120.0f, 120.0f));
+	m_tpsCamera->SetCameraLength(Vector3(160.0f, 160.0f, 160.0f));
 	m_tpsCamera->SetAdjustTargetPos(Vector2(-40.0f, -105.0f));
 
 	// 移動コンポーネントの追加
@@ -162,14 +163,14 @@ void Player::UpdateWeaponOut()
 		// RキーかXボタン押し込んだ時に長押しカウント開始
 		if (INPUT_INSTANCE.IsKeyPushDown(SDL_SCANCODE_R) || CONTROLLER_INSTANCE.IsTriggered(SDL_CONTROLLER_BUTTON_X))
 		{
-			m_weaponOutPressStart = SDL_GetTicks() / 1000;
+			m_weaponOutPressStart = SDL_GetTicks();
 			printf("武器収めカウント開始\n");
 		}
 
 		// RキーかXボタン押してる間カウント更新
 		if (INPUT_INSTANCE.IsKeyPressed(SDL_SCANCODE_R) || CONTROLLER_INSTANCE.IsPressed(SDL_CONTROLLER_BUTTON_X))
 		{
-			m_weaponOutPressCount = SDL_GetTicks() / 1000;
+			m_weaponOutPressCount = SDL_GetTicks();
 		}
 
 		// ボタンが離されたらカウントをリセット
@@ -179,8 +180,8 @@ void Player::UpdateWeaponOut()
 			m_weaponOutPressCount = 0;
 		}
 
-		// 0.5秒長押しで武器出しトグルOFF
-		if (m_weaponOutPressStart - m_weaponOutPressCount > 500)
+		// 1秒長押しで武器出しトグルOFF
+		if (m_weaponOutPressCount > m_weaponOutPressStart + 1000)
 		{
 			m_toggleWeaponOut = false;
 			m_isWeaponOutChange = true;

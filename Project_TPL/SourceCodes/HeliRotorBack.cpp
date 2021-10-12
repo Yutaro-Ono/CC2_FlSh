@@ -9,7 +9,7 @@ static float radian = 0.0f;
 //const Vector3 ADJUST_POS = Vector3(-320.0f, -10.0f, 95.0f);
 
 HeliRotorBack::HeliRotorBack(Helicopter* in_heli, const std::string& in_filePath)
-	:Actor(OBJECT_TAG::VEHICLE)
+	:Actor(OBJECT_TAG::ACTOR_VEHICLE)
 {
 	// オーナークラスをセット
 	m_owner = in_heli;

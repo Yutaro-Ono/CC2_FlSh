@@ -11,6 +11,7 @@
 #include "MotorBikeParent.h"
 #include "Player.h"
 #include "EnemyZombie.h"
+#include "WeaponAR4.h"
 
 #include "MeshGpmesh.h"
 #include "LevelBlock.h"
@@ -43,9 +44,13 @@ bool WorldTitleScene::Load()
 	//motorBike->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
 	//motorBike->SetRotation(Quaternion(Vector3::UnitZ, Math::ToRadians(-110.0f)));
 
+	// ƒvƒŒƒCƒ„[
 	Player* player = new Player();
 	player->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
 	player->SetScale(1.0f);
+
+	// •Ší(AR4)
+	WeaponAR4* ar4 = new WeaponAR4(player);
 
 	// ŠÂ‹«î•ñ‚Ì¶¬
 	m_environment = new Environment(player, ENVIRONMENT_TYPE::NIGHT);
@@ -112,9 +117,9 @@ bool WorldTitleScene::Load()
 
 
 
-	EnemyZombie* zombie = new EnemyZombie();
-	zombie->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
-	zombie->SetScale(1.0f);
+	//EnemyZombie* zombie = new EnemyZombie();
+	//zombie->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
+	//zombie->SetScale(1.0f);
 
 	return true;
 }

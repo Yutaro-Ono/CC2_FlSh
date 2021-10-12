@@ -10,7 +10,7 @@ const std::string TitleCarWheel::CAR_WHEEL_STEEL_MESH_PATH = "Data/Meshes/Actors
 
 
 TitleCarWheel::TitleCarWheel(Actor* in_owner, WHEEL_POSITION in_enumPos)
-	:Actor(OBJECT_TAG::VEHICLE)
+	:Actor(OBJECT_TAG::ACTOR_VEHICLE)
 	,m_owner(in_owner)
 	,m_wheelPosition(in_enumPos)
 	,m_spin(false)

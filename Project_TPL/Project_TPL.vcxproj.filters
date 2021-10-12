@@ -258,6 +258,12 @@
     <Filter Include="Source\Actor\Player\PlayerState\WeaponOut\MoveLeft">
       <UniqueIdentifier>{8456cb6d-c02c-4280-926d-2380b09491cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Actor\Weapon">
+      <UniqueIdentifier>{b8e33e54-b02c-4e72-b19a-46f868a44efe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\Weapon\AR4">
+      <UniqueIdentifier>{9d110106-7c77-4637-b8eb-8ff2534f73c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -781,6 +787,12 @@
     </ClCompile>
     <ClCompile Include="SourceCodes\PlayerState_WeaponOut_MoveRight.cpp">
       <Filter>Source\Actor\Player\PlayerState\WeaponOut\MoveRight</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\WeaponBase.cpp">
+      <Filter>Source\Actor\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\WeaponAR4.cpp">
+      <Filter>Source\Actor\Weapon\AR4</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1323,6 +1335,12 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\PlayerState_WeaponOut_MoveRight.h">
       <Filter>Source\Actor\Player\PlayerState\WeaponOut\MoveRight</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\WeaponBase.h">
+      <Filter>Source\Actor\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\WeaponAR4.h">
+      <Filter>Source\Actor\Weapon\AR4</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

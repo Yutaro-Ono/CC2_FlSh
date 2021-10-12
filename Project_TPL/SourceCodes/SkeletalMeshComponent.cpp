@@ -121,6 +121,23 @@ bool SkeletalMeshComponent::IsPlaying()
 	return true;
 }
 
+/// <summary>
+/// 指定した番号のボーン行列を取得
+/// </summary>
+/// <param name="_boneNum">行列を取得するボーンの番号</param>
+/// <returns> 指定したボーンのワールド行列 </returns>
+Matrix4 SkeletalMeshComponent::GetBoneMat(size_t _boneNum)
+{
+	// 取得したいボーン番号が最大値を超えていたらエラー
+	if (_boneNum > MAX_SKELETON_BONES)
+	{
+		return Matrix4::Identity;
+	}
+
+
+	return m_palette.mEntry[_boneNum];
+}
+
 // 行列パレットの計算
 void SkeletalMeshComponent::ComputeMatrixPalette()
 {

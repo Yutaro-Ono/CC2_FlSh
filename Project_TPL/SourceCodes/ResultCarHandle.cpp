@@ -3,7 +3,7 @@
 #include "MeshComponent.h"
 
 ResultCarHandle::ResultCarHandle(Actor* in_owner, const std::string& in_meshPath)
-	:Actor(OBJECT_TAG::VEHICLE)
+	:Actor(OBJECT_TAG::ACTOR_VEHICLE)
 	,m_owner(in_owner)
 {
 	// オーナーの座標をセット

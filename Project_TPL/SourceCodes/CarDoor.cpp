@@ -10,7 +10,7 @@ const std::string CarDoor::CAR_DOOR_RIGHT_GLASS_MESH_PATH = "Data/Meshes/Actors/
 // in_leftRight = 右側のドアか左側のドアかで位置補正ベクトルを変える
 // in_leftRight = true → 左側     false → 右側
 CarDoor::CarDoor(PlayerCar* in_owner, DOOR_POS in_pos)
-	:Actor(OBJECT_TAG::VEHICLE)
+	:Actor(OBJECT_TAG::ACTOR_VEHICLE)
 	,m_owner(in_owner)
 {
 

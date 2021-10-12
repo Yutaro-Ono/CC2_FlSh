@@ -11,7 +11,7 @@
 
 
 TitleCar::TitleCar()
-	:Actor(OBJECT_TAG::VEHICLE)
+	:Actor(OBJECT_TAG::ACTOR_VEHICLE)
 	,m_accel(550.0f)
 	,m_nowTime(SDL_GetTicks())
 	,m_cameraPosType(NONE)

@@ -69,9 +69,10 @@ public:
 	void RemoveComponent(class Component* _comp);
 	// メッシュコンポーネント
 	class MeshComponent* GetMeshComponent() { return m_meshComp; }
+	class SkeletalMeshComponent* GetSkelComp();
 
 	// 体力
-	void Sethealth(unsigned int _health) { m_health = _health; }
+	void SetHealth(unsigned int _health) { m_health = _health; }
 	const unsigned int& GetHealth() const { return m_health; }
 	void RecoverHealth(unsigned int _recoverVal);
 	void ReduceHealth(unsigned int _damage);
@@ -80,7 +81,7 @@ public:
 protected:
 
 
-	Actor::ACTOR_STATE m_state;                           // ステート(状態)
+	Actor::ACTOR_STATE m_state;                     // ステート(状態)
 	OBJECT_TAG m_tag;                               // ベースクラス識別タグ
 
 	Vector3 m_scale;                                // スケール(拡大・縮小率)
@@ -96,7 +97,8 @@ protected:
 
 	bool m_recomputeWorldTransform;                 // ワールド座標変換を行うか
 
-	class MeshComponent* m_meshComp;                // メッシュコンポーネントのポインタ
+	class MeshComponent* m_meshComp;                // メッシュコンポーネントのポインタ(アクセス用)
+	class SkeletalMeshComponent* m_skelComp;        // スケルタルメッシュのポインタ(アクセス用)
 
 	std::vector<class Component*> m_components;     // コンポーネント配列(アクターの持つコンポーネントを格納)
 

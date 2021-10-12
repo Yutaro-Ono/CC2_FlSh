@@ -23,8 +23,12 @@ public:
 	bool IsPlaying();
 	float GetPlayTime() { return m_animTime; }
 
+	Matrix4 GetBoneMat(size_t _boneNum);
+
+
 protected:
-	void ComputeMatrixPalette();                                           // 行列パレットの計算
+
+	void ComputeMatrixPalette();                                            // 行列パレットの計算
 
 	MatrixPalette m_palette;                                                // 行列パレット
 	const class Skeleton* m_skeleton;                                       // スケルトン

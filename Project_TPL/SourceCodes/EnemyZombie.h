@@ -44,8 +44,6 @@ private:
 
 	std::vector<const class Animation*> m_anims;
 
-	class SkeletalMeshComponent* m_skelComp;
-
 	// ステート制御用
 	ZOMBIE_STATE m_nowState;
 	ZOMBIE_STATE m_nextState;

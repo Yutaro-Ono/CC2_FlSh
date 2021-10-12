@@ -9,6 +9,7 @@
 #include "Debugger.h"
 #include "Component.h"
 #include "MeshComponent.h"
+#include "SkeletalMeshComponent.h"
 #include "ActorDebugObject.h"
 #include <algorithm>
 #include <typeinfo>
@@ -17,7 +18,8 @@ int Actor::m_globalActorNo = 0;
 
 // コンストラクタ
 Actor::Actor(OBJECT_TAG _tag)
-	:m_state(STATE_ACTIVE)
+	:m_tag(_tag)
+	,m_state(STATE_ACTIVE)
 	,m_position(Vector3::Zero)
 	,m_rotation(Quaternion::Identity)
 	,m_scale(Vector3(1.0f, 1.0f, 1.0f))
@@ -26,6 +28,8 @@ Actor::Actor(OBJECT_TAG _tag)
 	,m_recomputeWorldTransform(true)
 	,m_ID(m_globalActorNo)
 	,m_debugObj(nullptr)
+	,m_meshComp(nullptr)
+	,m_skelComp(nullptr)
 {
 	// ゲームメインにこのアクターを追加登録
 	GAME_INSTANCE.AddActor(this);
@@ -183,6 +187,21 @@ void Actor::RemoveComponent(Component * _comp)
 	{
 		m_components.erase(iter);
 	}
+}
+
+/// <summary>
+/// スケルタルメッシュコンポーネントのゲッター
+/// </summary>
+/// <returns> スケルタルメッシュが生成されていたらポインタを返す </returns>
+SkeletalMeshComponent* Actor::GetSkelComp()
+{
+	if (m_skelComp == nullptr)
+	{
+		std::cout << "WARNING::Not Create::SkeletalMeshComponent" << std::endl;
+		return nullptr;
+	}
+
+	return m_skelComp;
 }
 
 /// <summary>
