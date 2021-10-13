@@ -22,10 +22,14 @@ public:
 
 	void SetSocketNum(size_t _socketNum) { m_socketNum = _socketNum; }
 
-protected:
-
 	void SetOwnerActor(class Actor* _owner);
 	void RemoveOwnerActor();
+	void SetPlayer(class Player* _player);
+	void RemovePlayer();
+
+protected:
+
+	virtual void UpdateSocketMat(float _deltaTime) = 0;
 
 	void SetSocketMat(Matrix4 _socketMat);
 
@@ -33,6 +37,8 @@ protected:
 
 	class Actor* m_owner;              // このクラスを所有するアクターポインタ
 	bool m_existsOwner;                // この武器クラスを所有するオーナーアクタ―は存在するか
+
+	class Player* m_ownerPlayer;            // このクラスを所有するプレイヤーポインタ
 
 	Matrix4 m_socketMat;               // この武器オブジェクトをスナップするオーナーのソケット行列
 	size_t m_socketNum;                 // ボーンのソケット番号

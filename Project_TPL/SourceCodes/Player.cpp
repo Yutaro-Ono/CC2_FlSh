@@ -181,7 +181,7 @@ void Player::UpdateWeaponOut()
 		}
 
 		// 1•b’·‰Ÿ‚µ‚Å•Šío‚µƒgƒOƒ‹OFF
-		if (m_weaponOutPressCount > m_weaponOutPressStart + 1000)
+		if (m_weaponOutPressCount > m_weaponOutPressStart + 600)
 		{
 			m_toggleWeaponOut = false;
 			m_isWeaponOutChange = true;

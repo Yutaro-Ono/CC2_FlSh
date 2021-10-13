@@ -1,10 +1,12 @@
 #include "WeaponBase.h"
+#include "Player.h"
 #include "SkeletalMeshComponent.h"
 
 WeaponBase::WeaponBase()
 	:Actor(OBJECT_TAG::ACTOR_WEAPON)
 	,m_owner(nullptr)
 	,m_existsOwner(false)
+	,m_ownerPlayer(nullptr)
 	,m_socketMat(Matrix4::Identity)
 	,m_socketNum(33)
 	,m_attackInterval(300)
@@ -15,7 +17,6 @@ WeaponBase::WeaponBase()
 	,m_ammoMax(300)
 	,m_isMelee(false)
 {
-	m_position = Vector3(-105.0f, 52.0f, -5.0f);
 }
 
 WeaponBase::~WeaponBase()
@@ -28,14 +29,7 @@ void WeaponBase::UpdateActor(float _deltaTime)
 	// ソケット行列を更新
 	if (m_existsOwner)
 	{
-		SetSocketMat(m_owner->GetSkelComp()->GetBoneMat(m_socketNum));
-		//m_scale = m_worldTransform.GetScale();
-		//m_position = m_worldTransform.GetTranslation();
-		//m_rotation = m_owner->GetRotation();
-		m_recomputeWorldTransform = false;
-		//ComputeWorldTransform();
-		m_worldTransform = Matrix4::CreateTranslation(m_position) * 
-			/*Matrix4::CreateTranslation(Vector3(-8.0f, 60.0f, 110.0f))*/Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitZ, Math::ToRadians(90.0f))) * Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitX, Math::ToRadians(-85.0f))) * m_socketMat * m_owner->GetWorldTransform();
+		UpdateSocketMat(_deltaTime);
 	}
 }
 
@@ -52,8 +46,34 @@ void WeaponBase::SetOwnerActor(Actor* _owner)
 	m_socketMat = m_owner->GetSkelComp()->GetBoneMat(m_socketNum);
 }
 
+/// <summary>
+/// オーナーアクターの解除
+/// </summary>
 void WeaponBase::RemoveOwnerActor()
 {
+	m_owner = nullptr;
+	m_existsOwner = false;
+	m_socketMat = Matrix4::Identity;
+}
+
+/// <summary>
+/// この武器を所有するプレイヤーポインタのセット
+/// </summary>
+/// <param name="_player">所有させるプレイヤークラスポインタ</param>
+void WeaponBase::SetPlayer(Player* _player)
+{
+	m_ownerPlayer = _player;
+	m_existsOwner = true;
+}
+
+/// <summary>
+/// プレイヤーポインタの解除
+/// </summary>
+void WeaponBase::RemovePlayer()
+{
+	m_ownerPlayer = nullptr;
+	m_existsOwner = false;
+	m_socketMat = Matrix4::Identity;
 }
 
 /// <summary>

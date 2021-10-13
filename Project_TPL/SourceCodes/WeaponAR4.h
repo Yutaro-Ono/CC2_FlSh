@@ -28,8 +28,17 @@ private:
 
 protected:
 
+	void UpdateSocketMat(float _deltaTime) override;
 
 
+	static const unsigned int SOCKET_NUM_SPINE;
+	static const unsigned int SOCKET_NUM_RIGHTHAND;
+	static const unsigned int SOCKET_NUM_LEFTHAND;
+
+
+	static const Vector3 ADJUST_POS_BASIC;
+	static const Vector3 ADJUST_POS_IDLE_WEAPONOUT;
+	static const Vector3 ADJUST_POS_MOVE_WEAPONOUT;
 
 	static const std::string AR4_MESH_PATH;
 

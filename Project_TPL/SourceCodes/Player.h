@@ -58,6 +58,7 @@ public:
 	bool GetToggleWalk() { return m_toggleWalk; }
 	bool GetToggleCrouch() { return m_toggleCrouch; }
 	bool GetToggleWeaponOut() { return m_toggleWeaponOut; }
+	PLAYER_STATE GetPlayerState() { return m_nowState; }
 
 	void SetToggleSprint(bool _toggle) { m_toggleSprint = _toggle; }
 	void SetToggleWalk(bool _toggle) { m_toggleWalk   = _toggle; }

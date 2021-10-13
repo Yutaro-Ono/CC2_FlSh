@@ -51,6 +51,7 @@ bool WorldTitleScene::Load()
 
 	// •Ší(AR4)
 	WeaponAR4* ar4 = new WeaponAR4(player);
+	ar4->SetPlayer(player);
 
 	// ŠÂ‹«î•ñ‚Ì¶¬
 	m_environment = new Environment(player, ENVIRONMENT_TYPE::NIGHT);
@@ -65,61 +66,61 @@ bool WorldTitleScene::Load()
 	//	GAME_INSTANCE.GetLoadScreen()->AddGauge();
 	//}
 
-	//Mesh* meshw1 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Wall_White_A/SpaceShip_Wall_White_A.gpmesh");
-	//Mesh* meshw2 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Wall_White_B/SpaceShip_Wall_White_B.gpmesh");
+	Mesh* meshw1 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Wall_White_A/SpaceShip_Wall_White_A.gpmesh");
+	Mesh* meshw2 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Wall_White_B/SpaceShip_Wall_White_B.gpmesh");
 
-	//Mesh* meshF1 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Floor_Black/SpaceShip_Floor_Black.gpmesh");
-	//Mesh* meshF2 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Floor_Red/SpaceShip_Floor_Red.gpmesh");
-	//Mesh* meshF3 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Floor_Steel/SpaceShip_Floor_Steel.gpmesh");
-	//Mesh* meshG = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Gray/SpaceShip_Gray.gpmesh");
-	//Mesh* meshSt = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Steel/SpaceShip_Steel.gpmesh");
-	//Mesh* mesh3 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Light_A/SpaceShip_LightA.gpmesh");
-	//Mesh* mesh4 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Light_B/SpaceShip_LightB.gpmesh");
-
-
-	//LevelBlock* spacew1 = new LevelBlock();
-	//spacew1->SetMesh(meshw1);
-	//spacew1->SetScale(1.0f);
-
-	//LevelBlock* spacew2 = new LevelBlock();
-	//spacew2->SetMesh(meshw2);
-	//spacew2->SetScale(1.0f);
-
-	//LevelBlock* spaceF1 = new LevelBlock();
-	//spaceF1->SetMesh(meshF1);
-	//spaceF1->SetScale(1.0f);
-
-	//LevelBlock* spaceF2 = new LevelBlock();
-	//spaceF2->SetMesh(meshF2);
-	//spaceF2->SetScale(1.0f);
-
-	//LevelBlock* spaceF3 = new LevelBlock();
-	//spaceF3->SetMesh(meshF3);
-	//spaceF3->SetScale(1.0f);
-
-	//LevelBlock* spaceG = new LevelBlock();
-	//spaceG->SetMesh(meshG);
-	//spaceG->SetScale(1.0f);
-
-	//LevelBlock* spaceSt = new LevelBlock();
-	//spaceSt->SetMesh(meshSt);
-	//spaceSt->SetScale(1.0f);
-
-	//LevelBlock* space3 = new LevelBlock();
-	//space3->SetMesh(mesh3);
-	//space3->SetScale(1.0f);
-	//space3->SetMeshIntensity(5.0f);
-
-	//LevelBlock* space4 = new LevelBlock();
-	//space4->SetMesh(mesh4);
-	//space4->SetScale(1.0f);
-	//space4->SetMeshIntensity(5.0f);
+	Mesh* meshF1 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Floor_Black/SpaceShip_Floor_Black.gpmesh");
+	Mesh* meshF2 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Floor_Red/SpaceShip_Floor_Red.gpmesh");
+	Mesh* meshF3 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Floor_Steel/SpaceShip_Floor_Steel.gpmesh");
+	Mesh* meshG = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Gray/SpaceShip_Gray.gpmesh");
+	Mesh* meshSt = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Steel/SpaceShip_Steel.gpmesh");
+	Mesh* mesh3 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Light_A/SpaceShip_LightA.gpmesh");
+	Mesh* mesh4 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Light_B/SpaceShip_LightB.gpmesh");
 
 
+	LevelBlock* spacew1 = new LevelBlock();
+	spacew1->SetMesh(meshw1);
+	spacew1->SetScale(1.0f);
 
-	//EnemyZombie* zombie = new EnemyZombie();
-	//zombie->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
-	//zombie->SetScale(1.0f);
+	LevelBlock* spacew2 = new LevelBlock();
+	spacew2->SetMesh(meshw2);
+	spacew2->SetScale(1.0f);
+
+	LevelBlock* spaceF1 = new LevelBlock();
+	spaceF1->SetMesh(meshF1);
+	spaceF1->SetScale(1.0f);
+
+	LevelBlock* spaceF2 = new LevelBlock();
+	spaceF2->SetMesh(meshF2);
+	spaceF2->SetScale(1.0f);
+
+	LevelBlock* spaceF3 = new LevelBlock();
+	spaceF3->SetMesh(meshF3);
+	spaceF3->SetScale(1.0f);
+
+	LevelBlock* spaceG = new LevelBlock();
+	spaceG->SetMesh(meshG);
+	spaceG->SetScale(1.0f);
+
+	LevelBlock* spaceSt = new LevelBlock();
+	spaceSt->SetMesh(meshSt);
+	spaceSt->SetScale(1.0f);
+
+	LevelBlock* space3 = new LevelBlock();
+	space3->SetMesh(mesh3);
+	space3->SetScale(1.0f);
+	space3->SetMeshIntensity(5.0f);
+
+	LevelBlock* space4 = new LevelBlock();
+	space4->SetMesh(mesh4);
+	space4->SetScale(1.0f);
+	space4->SetMeshIntensity(5.0f);
+
+
+
+	EnemyZombie* zombie = new EnemyZombie();
+	zombie->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
+	zombie->SetScale(1.0f);
 
 	return true;
 }
