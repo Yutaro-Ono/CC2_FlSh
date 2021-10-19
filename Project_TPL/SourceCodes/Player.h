@@ -19,6 +19,7 @@ enum class PLAYER_STATE
 
 	STATE_CROUCH,
 	STATE_CROUCH_MOVE,
+	STATE_AIM,
 
 	STATE_JUMP_START,
 	STATE_JUMP_FALL,
@@ -34,6 +35,11 @@ enum class PLAYER_STATE
 	STATE_WEAPONOUT_WALKRIGHT,
 	STATE_WEAPONOUT_WALKLEFT,
 	STATE_WEAPONOUT_SPRINT,
+
+	STATE_AIM_STAND,
+	STATE_AIM_CROUCH,
+	STATE_AIM_DOWN_STAND,
+	STATE_AIM_DOWN_CROUCH,
 
 	STATE_ALL_NUM
 };
@@ -65,6 +71,9 @@ public:
 	void SetToggleCrouch(bool _toggle) { m_toggleCrouch = _toggle; }
 	void SetToggleWeaponOut(bool _toggle) { m_toggleWeaponOut = _toggle; }
 
+	void SetActiveAimCamera(bool _isAim);
+	class FirstPersonCameraComponent* GetFPSCamera() { return m_fpsCamera; }
+
 private:
 
 	void UpdatePlayerState(float _deltaTime);
@@ -87,7 +96,8 @@ private:
 	std::vector<const class Animation*> m_anims;
 
 	// カメラ
-	class TPSCamera* m_tpsCamera;
+	class TPSCamera* m_tpsCamera;                       // 三人称視点カメラ
+	class FirstPersonCameraComponent* m_fpsCamera;      // 一人称視点カメラ
 
 	// 追従するポイントライト
 	class PointLight* m_light;
@@ -116,4 +126,7 @@ private:
 	static const std::string ANIM_WEAPOUT_WALK_BWD_PATH;
 	static const std::string ANIM_WEAPOUT_WALK_RIGHT_PATH;
 	static const std::string ANIM_WEAPOUT_WALK_LEFT_PATH;
+
+	static const std::string ANIM_AIM_STAND;
+	static const std::string ANIM_AIM_CROUCH;
 };

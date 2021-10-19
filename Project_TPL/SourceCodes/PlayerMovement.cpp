@@ -8,8 +8,8 @@
 
 const float PlayerMovement::PLAYER_SPEED = 45.0f;
 const float PlayerMovement::SPEED_WALK = 45.0f;
-const float PlayerMovement::SPEED_JOG = 80.0f;
-const float PlayerMovement::SPEED_SPRINT = 160.0f;
+const float PlayerMovement::SPEED_JOG = 100.0f;
+const float PlayerMovement::SPEED_SPRINT = 240.0f;
 
 // コンストラクタ
 PlayerMovement::PlayerMovement(Player* _player)
@@ -146,9 +146,12 @@ void PlayerMovement::MovementByController(float in_deltaTime)
 	Vector3 moveVec = Vector3::Zero;
 	moveVec += Vector3(axisL.x, axisL.y, 0.0f);
 
+	// プレイヤーの武器出し状態の取得
+	bool toggleWeaponOut = m_player->GetToggleWeaponOut();
 
-	// 入力キーの総和
-	if (moveVec.LengthSq() > axisThreshold)
+	// 入力キーの総和が一定以上ならであれば、移動推進力の加算+カメラの向きに応じた進行方向にキャラを回転させる
+	// 武器出し状態でない場合はカメラに応じてキャラクターを回転させる
+	if (!toggleWeaponOut && moveVec.LengthSq() > axisThreshold)
 	{
 		// 方向キー入力
 		//charaForwardVec = moveVec;
@@ -165,12 +168,29 @@ void PlayerMovement::MovementByController(float in_deltaTime)
 			moveVec.x = 1.0f;
 			moveVec.y = 0.0f;
 		}
-		moveVec = Vector3::Lerp(charaForwardVec, moveVec, 0.35f);
+
+		charaForwardVec = moveVec;
+
+		//moveVec = Vector3::Lerp(charaForwardVec, moveVec, 0.35f);
 
 		printf("chara = x:%f | y:%f | z:%f\n", charaForwardVec.x, charaForwardVec.y, charaForwardVec.z);
 		printf("moveV = x:%f | y:%f | z:%f\n", moveVec.x, moveVec.y, moveVec.z);
 
 		m_owner->RotateToNewForward(moveVec);
+	}
+	// 武器出し状態の場合はカメラ方向にキャラの向きをスナップさせる
+	else if (toggleWeaponOut)
+	{
+		// 方向キー入力
+        charaForwardVec = moveVec;
+
+		charaForwardVec = forwardVec;
+		//moveVec = Vector3::Lerp(charaForwardVec, forwardVec, 0.51f);
+
+		printf("chara = x:%f | y:%f | z:%f\n", charaForwardVec.x, charaForwardVec.y, charaForwardVec.z);
+		printf("moveV = x:%f | y:%f | z:%f\n", moveVec.x, moveVec.y, moveVec.z);
+
+		m_owner->RotateToNewForward(charaForwardVec);
 	}
 
 

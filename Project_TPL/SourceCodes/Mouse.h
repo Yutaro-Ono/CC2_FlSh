@@ -28,7 +28,7 @@ public:
 
 	~Mouse() {};
 
-	void             SetRelativeMouseMode(bool value);
+	void             SetRelativeMouseMode(bool _value);
 	void             SetMousePos(const Vector3& _mousePos);
 
 	const Vector2&   GetPosition() const { return m_mousePos; }
@@ -38,8 +38,9 @@ public:
 	bool GetIsRelative() { return m_isRelative; }
 	const Vector2& GetWheel() const { return m_mouseWheel; }
 	bool             GetButtonValue(int button) const;
-	MouseButtonState GetButtonState(int button) const;
-	void             OnMouseWheelEvent(SDL_Event& event);
+	MouseButtonState GetButtonState(MouseButtonState button) const;
+	void             OnMouseWheelEvent(SDL_Event& _event);
+	void             OnMouseClickEvent(SDL_Event& _event);
 	void             Update();
 
 	void             RenderDebugImGui();
@@ -51,8 +52,8 @@ private:
 	Vector2 m_mouseWheel;
 
 	//ボタンのデータ
-	Uint32 m_currentButtons;
-	Uint32 m_prevButtons;
+	MouseButtonState m_currentButtons;
+	MouseButtonState m_prevButtons;
 
 	// 相対モード
 	bool   m_isRelative;

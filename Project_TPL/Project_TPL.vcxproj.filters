@@ -264,6 +264,9 @@
     <Filter Include="Source\Actor\Weapon\AR4">
       <UniqueIdentifier>{9d110106-7c77-4637-b8eb-8ff2534f73c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Actor\Player\PlayerState\Standard\Aim">
+      <UniqueIdentifier>{aa1e2375-0de1-4ef5-b8bf-81a1d68acdbc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -793,6 +796,12 @@
     </ClCompile>
     <ClCompile Include="SourceCodes\WeaponAR4.cpp">
       <Filter>Source\Actor\Weapon\AR4</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerState_Aim.cpp">
+      <Filter>Source\Actor\Player\PlayerState\Standard\Aim</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\FirstPersonCameraComponent.cpp">
+      <Filter>Source\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1341,6 +1350,12 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\WeaponAR4.h">
       <Filter>Source\Actor\Weapon\AR4</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerState_Aim.h">
+      <Filter>Source\Actor\Player\PlayerState\Standard\Aim</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\FirstPersonCameraComponent.h">
+      <Filter>Source\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

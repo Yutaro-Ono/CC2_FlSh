@@ -3,6 +3,12 @@
 #include "SkeletalMeshComponent.h"
 #include "Animation.h"
 #include "PlayerMovement.h"
+
+// 各種移動アニメーションの速度(注意：同じ値にすると走りアニメーション速度の更新に問題が生じる)
+const float PlayerState_WeaponOut_MoveForward::MOVE_ANIM_SPEED = 0.35f;
+const float PlayerState_WeaponOut_MoveForward::SPRINT_ANIM_SPEED = 0.48f;
+const float PlayerState_WeaponOut_MoveForward::WALK_ANIM_SPEED = 0.65f;
+
 PlayerState_WeaponOut_MoveForward::PlayerState_WeaponOut_MoveForward()
 {
 	m_animSpeed = 0.35f;
@@ -14,6 +20,9 @@ PlayerState_WeaponOut_MoveForward::~PlayerState_WeaponOut_MoveForward()
 
 PLAYER_STATE PlayerState_WeaponOut_MoveForward::Update(Player* _player, float _deltaTime)
 {
+	// プレイヤーの走り状態に応じたアニメーションの速度を更新
+	UpdateSprintAnimSpeed(_player);
+
 	// バインドしたプレイヤーから状態の取得
 	bool toggleWalk = _player->GetToggleWalk();              // 歩行状態
 	bool toggleCrouch = _player->GetToggleCrouch();          // しゃがみ状態
@@ -36,21 +45,54 @@ PLAYER_STATE PlayerState_WeaponOut_MoveForward::Update(Player* _player, float _d
 			}
 
 			// 一定以上の入力値+前方入力時に、前方移動状態へ移行
-			if ((inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE) && move.y > 0.0f)
+			if (move.y >= JOG_SPEED_LINE)
 			{
 				return PLAYER_STATE::STATE_WEAPONOUT_MOVEFWD;
 			}
 
 			// 一定以上の入力値+後方入力時に、後方移動状態へ移行
-			if ((inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE) && move.y < 0.0f)
+			if (move.y <= -JOG_SPEED_LINE)
 			{
 				return PLAYER_STATE::STATE_WEAPONOUT_MOVEBWD;
 			}
 
-			// 歩き状態
-			if (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE)
+			// 一定以上の入力値+左入力時に、左方向移動状態へ移行
+			if (move.x <= -JOG_SPEED_LINE)
 			{
-				return PLAYER_STATE::STATE_WEAPONOUT_MOVEFWD;
+				return PLAYER_STATE::STATE_WEAPONOUT_MOVELEFT;
+			}
+
+			// 一定以上の入力値+右入力時に、右方向移動状態へ移行
+			if (move.x >= JOG_SPEED_LINE)
+			{
+				return PLAYER_STATE::STATE_WEAPONOUT_MOVERIGHT;
+			}
+
+			//-----------------------------------------------------------+
+			// 歩きステート
+			//-----------------------------------------------------------+
+			// 一定以上の入力値+前方入力時に、前方移動状態へ移行
+			if (move.y >= WALK_SPEED_LINE)
+			{
+				return PLAYER_STATE::STATE_WEAPONOUT_WALKFWD;
+			}
+
+			// 一定以上の入力値+後方入力時に、後方移動状態へ移行
+			if (move.y <= -WALK_SPEED_LINE)
+			{
+				return PLAYER_STATE::STATE_WEAPONOUT_WALKBWD;
+			}
+
+			// 一定以上の入力値+左入力時に、左方向移動状態へ移行
+			if (move.x <= -WALK_SPEED_LINE)
+			{
+				return PLAYER_STATE::STATE_WEAPONOUT_WALKLEFT;
+			}
+
+			// 一定以上の入力値+右入力時に、右方向移動状態へ移行
+			if (move.x >= WALK_SPEED_LINE)
+			{
+				return PLAYER_STATE::STATE_WEAPONOUT_WALKRIGHT;
 			}
 
 			// 入力がない場合は待機状態へ
@@ -190,16 +232,37 @@ void PlayerState_WeaponOut_MoveForward::EnterState(Player* _player)
 	// 歩行状態かどうかでモーションを変更
 	if (_player->GetToggleWalk())
 	{
-		m_animSpeed = 0.65f;
+		m_animSpeed = WALK_ANIM_SPEED;
 
 		// 歩行状態の時
 		skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_WEAPONOUT_WALKFWD), m_animSpeed);
 	}
 	else
 	{
-		m_animSpeed = 0.35f;
+		m_animSpeed = MOVE_ANIM_SPEED;
 
-		// 通常走り状態
+		// プレイヤーが走り状態の時アニメーション速度を早める
+		if (_player->GetToggleSprint())
+		{
+			m_animSpeed = SPRINT_ANIM_SPEED;
+		}
+
+		skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_WEAPONOUT_MOVEFWD), m_animSpeed);
+	}
+}
+
+/// <summary>
+/// プレイヤーの走り状態を取得し、走り状態だったらアニメーションの速度を早めて再生し直す
+/// </summary>
+void PlayerState_WeaponOut_MoveForward::UpdateSprintAnimSpeed(Player* _player)
+{
+	// プレイヤーが走り状態かつアニメーション速度が走り速度に設定されていない時
+	// アニメーション速度を早める
+	if (_player->GetToggleSprint() && m_animSpeed != SPRINT_ANIM_SPEED)
+	{
+		m_animSpeed = SPRINT_ANIM_SPEED;
+
+		SkeletalMeshComponent* skel = _player->GetSkelMesh();
 		skel->PlayAnimation(_player->GetAnim(PLAYER_STATE::STATE_WEAPONOUT_MOVEFWD), m_animSpeed);
 	}
 }

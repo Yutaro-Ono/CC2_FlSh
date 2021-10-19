@@ -14,6 +14,13 @@ PlayerState_WeaponOut_Idle::~PlayerState_WeaponOut_Idle()
 
 PLAYER_STATE PlayerState_WeaponOut_Idle::Update(Player* _player, float _deltaTime)
 {
+	
+	// 右クリック時、エイム状態へ遷移
+	if (MOUSE_INSTANCE.GetButtonValue(Mouse::MouseButtonState::MOUSE_BUTTON_PRESSED))
+	{
+		return PLAYER_STATE::STATE_AIM;
+	}
+
 	// バインドしたプレイヤーから状態の取得
 	bool toggleWalk = _player->GetToggleWalk();              // 歩行状態
 	bool toggleCrouch = _player->GetToggleCrouch();          // しゃがみ状態
@@ -36,21 +43,54 @@ PLAYER_STATE PlayerState_WeaponOut_Idle::Update(Player* _player, float _deltaTim
 			}
 
 			// 一定以上の入力値+前方入力時に、前方移動状態へ移行
-			if ((inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE) && move.y > 0.0f)
+			if (move.y >= JOG_SPEED_LINE)
 			{
 				return PLAYER_STATE::STATE_WEAPONOUT_MOVEFWD;
 			}
 
 			// 一定以上の入力値+後方入力時に、後方移動状態へ移行
-			if ((inputVal >= JOG_SPEED_LINE || inputVal <= -JOG_SPEED_LINE) && move.y < 0.0f)
+			if (move.y <= -JOG_SPEED_LINE)
 			{
 				return PLAYER_STATE::STATE_WEAPONOUT_MOVEBWD;
 			}
 
-			// 歩き状態
-			if (inputVal >= WALK_SPEED_LINE || inputVal <= -WALK_SPEED_LINE)
+			// 一定以上の入力値+左入力時に、左方向移動状態へ移行
+			if (move.x <= -JOG_SPEED_LINE)
 			{
-				return PLAYER_STATE::STATE_WEAPONOUT_MOVEFWD;
+				return PLAYER_STATE::STATE_WEAPONOUT_MOVELEFT;
+			}
+
+			// 一定以上の入力値+右入力時に、右方向移動状態へ移行
+			if (move.x >= JOG_SPEED_LINE)
+			{
+				return PLAYER_STATE::STATE_WEAPONOUT_MOVERIGHT;
+			}
+
+			//-----------------------------------------------------------+
+			// 歩きステート
+			//-----------------------------------------------------------+
+			// 一定以上の入力値+前方入力時に、前方移動状態へ移行
+			if (move.y >= WALK_SPEED_LINE)
+			{
+				return PLAYER_STATE::STATE_WEAPONOUT_WALKFWD;
+			}
+
+			// 一定以上の入力値+後方入力時に、後方移動状態へ移行
+			if (move.y <= -WALK_SPEED_LINE)
+			{
+				return PLAYER_STATE::STATE_WEAPONOUT_WALKBWD;
+			}
+
+			// 一定以上の入力値+左入力時に、左方向移動状態へ移行
+			if (move.x <= -WALK_SPEED_LINE)
+			{
+				return PLAYER_STATE::STATE_WEAPONOUT_WALKLEFT;
+			}
+
+			// 一定以上の入力値+右入力時に、右方向移動状態へ移行
+			if (move.x >= WALK_SPEED_LINE)
+			{
+				return PLAYER_STATE::STATE_WEAPONOUT_WALKRIGHT;
 			}
 
 			// 入力がない場合は待機状態へ

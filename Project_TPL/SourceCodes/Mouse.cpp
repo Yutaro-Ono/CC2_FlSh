@@ -4,19 +4,19 @@
 Mouse::Mouse()
 {
 	m_mousePos = Vector2(0, 0);
-	m_currentButtons = 0;
-	m_prevButtons = 0;
+	m_currentButtons = MouseButtonState::MOUSE_BUTTON_OFF;
+	m_prevButtons = MouseButtonState::MOUSE_BUTTON_OFF;
 	m_isRelative = true;
 
 	// マウスの相対モードON
 	SetRelativeMouseMode(m_isRelative);
 }
 
-void Mouse::SetRelativeMouseMode(bool value)
+void Mouse::SetRelativeMouseMode(bool _value)
 {
-	SDL_bool set = value ? SDL_TRUE : SDL_FALSE;
+	SDL_bool set = _value ? SDL_TRUE : SDL_FALSE;
 	SDL_SetRelativeMouseMode(set);
-	m_isRelative = value;
+	m_isRelative = _value;
 }
 
 void Mouse::SetMousePos(const Vector3& _mousePos)
@@ -24,31 +24,59 @@ void Mouse::SetMousePos(const Vector3& _mousePos)
 	
 }
 
-bool Mouse::GetButtonValue(int button) const
+bool Mouse::GetButtonValue(int _button) const
 {
-	return button & m_currentButtons;
+	return _button & m_currentButtons;
 }
 
-Mouse::MouseButtonState Mouse::GetButtonState(int button) const
+Mouse::MouseButtonState Mouse::GetButtonState(MouseButtonState _button) const
 {
 
-	if (button & m_currentButtons)
+	if (_button & m_currentButtons)
 	{
-		return (button & m_prevButtons) ? MOUSE_BUTTON_PRESSED : MOUSE_BUTTON_PUSHDOWN;
+		return (_button & m_prevButtons) ? MOUSE_BUTTON_PRESSED : MOUSE_BUTTON_PUSHDOWN;
 	}
 
-	return (button & m_prevButtons) ? MOUSE_BUTTON_PULLUP : MOUSE_BUTTON_OFF;
+	return (_button & m_prevButtons) ? MOUSE_BUTTON_PULLUP : MOUSE_BUTTON_OFF;
 }
 
-void Mouse::OnMouseWheelEvent(SDL_Event& event)
+void Mouse::OnMouseWheelEvent(SDL_Event& _event)
 {
-	switch (event.type)
+	switch (_event.type)
 	{
 	case SDL_MOUSEWHEEL:
 		m_mouseWheel = Vector2(
-			static_cast<float>(event.wheel.x),
-			static_cast<float>(event.wheel.y)
+			static_cast<float>(_event.wheel.x),
+			static_cast<float>(_event.wheel.y)
 		);
+		break;
+
+	default:
+		break;
+	}
+}
+
+void Mouse::OnMouseClickEvent(SDL_Event& _event)
+{
+	switch (_event.type)
+	{
+
+	case SDL_MOUSEBUTTONDOWN:
+
+		if (_event.button.button == SDL_BUTTON_RIGHT)
+		{
+			m_currentButtons = MouseButtonState::MOUSE_BUTTON_PRESSED;
+		}
+
+		break;
+
+	case SDL_MOUSEBUTTONUP:
+
+		if (_event.button.button == SDL_BUTTON_RIGHT)
+		{
+			m_currentButtons = MouseButtonState::MOUSE_BUTTON_OFF;
+		}
+
 		break;
 
 	default:
@@ -64,11 +92,11 @@ void Mouse::Update()
 	int x = 0, y = 0;
 	if (m_isRelative)
 	{
-		m_currentButtons = SDL_GetRelativeMouseState(&x, &y);
+		SDL_GetRelativeMouseState(&x, &y);
 	}
 	else
 	{
-		m_currentButtons = SDL_GetMouseState(&x, &y);
+		SDL_GetMouseState(&x, &y);
 	}
 	m_mousePos.x = static_cast<float>(x);
 	m_mousePos.y = static_cast<float>(y);

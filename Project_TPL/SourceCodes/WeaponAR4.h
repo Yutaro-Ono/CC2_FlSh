@@ -17,8 +17,8 @@ public:
 
 	WeaponAR4();
 	WeaponAR4(class Actor* _owner);
+	WeaponAR4(class Player* _owner);
 	~WeaponAR4();
-
 
 
 private:
@@ -35,6 +35,7 @@ protected:
 	static const unsigned int SOCKET_NUM_RIGHTHAND;
 	static const unsigned int SOCKET_NUM_LEFTHAND;
 
+	class FirstPersonCameraComponent* m_fpsCamera;
 
 	static const Vector3 ADJUST_POS_BASIC;
 	static const Vector3 ADJUST_POS_IDLE_WEAPONOUT;

@@ -22,12 +22,14 @@ void ActorPool::UpdateObjects(float _deltaTime)
 	// 全アクターの更新
 	for (auto iter : m_objPool)
 	{
+		iter->ProcessInput(_deltaTime);
 		iter->UpdateActor(_deltaTime);
 		iter->Update(_deltaTime);
 	}
 	// 全アクター更新(連想配列)
 	for (auto iter : m_keyObjPool)
 	{
+		iter.second->ProcessInput(_deltaTime);
 		iter.second->UpdateActor(_deltaTime);
 		iter.second->Update(_deltaTime);
 	}

@@ -16,7 +16,9 @@
 #include "PlayerState_WeaponOut_MoveBack.h"
 #include "PlayerState_WeaponOut_MoveLeft.h"
 #include "PlayerState_WeaponOut_MoveRight.h"
+#include "PlayerState_Aim.h"
 #include "TPSCamera.h"
+#include "FirstPersonCameraComponent.h"
 #include "PlayerMovement.h"
 #include "PointLight.h"
 
@@ -43,6 +45,9 @@ const std::string Player::ANIM_WEAPOUT_WALK_BWD_PATH = "Data/Animation/Player/Pl
 const std::string Player::ANIM_WEAPOUT_WALK_RIGHT_PATH = "Data/Animation/Player/Player_WeapOut_Walk_Right.gpanim";
 const std::string Player::ANIM_WEAPOUT_WALK_LEFT_PATH = "Data/Animation/Player/Player_WeapOut_Walk_Left.gpanim";
 
+const std::string Player::ANIM_AIM_STAND = "Data/Animation/Player/Player_ToAim_Stand_NoLoop.gpanim";
+const std::string Player::ANIM_AIM_CROUCH = "Data/Animation/Player/Player_ToAim_Crouch_NoLoop.gpanim";
+
 Player::Player()
 	:Actor(OBJECT_TAG::ACTOR_PLAYER)
 	,m_nowState(PLAYER_STATE::STATE_IDLE)
@@ -58,14 +63,6 @@ Player::Player()
 	,m_weaponOutPressCount(0)
 {
 
-	// カメラの生成(三人称カメラ)
-	m_tpsCamera = new TPSCamera(this);
-	//m_tpsCamera->SetCameraLength(Vector3(120.0f, 120.0f, 120.0f));
-	m_tpsCamera->SetCameraLength(Vector3(160.0f, 160.0f, 160.0f));
-	m_tpsCamera->SetAdjustTargetPos(Vector2(-40.0f, -105.0f));
-
-	// 移動コンポーネントの追加
-	PlayerMovement* moveComp = new PlayerMovement(this);
 
 	// ライトの生成
 	m_light = new PointLight(PointLight::VL_BIG);
@@ -81,6 +78,7 @@ Player::Player()
 
 	// アニメーションのロード
 	m_anims.resize(static_cast<unsigned int>(PLAYER_STATE::STATE_ALL_NUM));
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_IDLE)] = RENDERER->GetAnimation(ANIM_IDLE_PATH.c_str(), true);
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_IDLE)]   = RENDERER->GetAnimation(ANIM_IDLE_PATH.c_str(), true);
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WALK)]   = RENDERER->GetAnimation(ANIM_WALK_PATH.c_str(), true);
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_JOG)]    = RENDERER->GetAnimation(ANIM_JOG_PATH.c_str(), true);
@@ -101,6 +99,10 @@ Player::Player()
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_WALKRIGHT)] = RENDERER->GetAnimation(ANIM_WEAPOUT_WALK_RIGHT_PATH.c_str(), true);
 	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_WEAPONOUT_WALKLEFT)] = RENDERER->GetAnimation(ANIM_WEAPOUT_WALK_LEFT_PATH.c_str(), true);
 
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_AIM_STAND)] = RENDERER->GetAnimation(ANIM_AIM_STAND.c_str(), false);
+	m_anims[static_cast<unsigned int>(PLAYER_STATE::STATE_AIM_CROUCH)] = RENDERER->GetAnimation(ANIM_AIM_CROUCH.c_str(), false);
+
+
 	// プレイヤーステートプールの生成
 	m_statePool.push_back(new PlayerState_Idle);
 	m_statePool.push_back(new PlayerState_Walk);
@@ -108,6 +110,8 @@ Player::Player()
 	m_statePool.push_back(new PlayerState_Sprint);
 	m_statePool.push_back(new PlayerState_Crouch);
 	m_statePool.push_back(new PlayerState_CrouchMove);
+	m_statePool.push_back(new PlayerState_Aim);
+
 	m_statePool.push_back(new PlayerState_JumpStart);
 	m_statePool.push_back(new PlayerState_JumpFall);
 	m_statePool.push_back(new PlayerState_JumpLand);
@@ -118,9 +122,22 @@ Player::Player()
 	m_statePool.push_back(new PlayerState_WeaponOut_MoveLeft);
 	m_statePool.push_back(new PlayerState_WeaponOut_MoveRight);
 
+
 	// 待機状態を開始
 	m_statePool[static_cast<unsigned int>(m_nowState)]->EnterState(this);
 
+	// カメラの生成(一人称カメラ)
+	m_fpsCamera = new FirstPersonCameraComponent(this);
+	// カメラの生成(三人称カメラ)
+	m_tpsCamera = new TPSCamera(this);
+	m_tpsCamera->SetCameraLength(Vector3(160.0f, 160.0f, 160.0f));
+	//m_tpsCamera->SetCameraLength(Vector3(260.0f, 260.0f, 260.0f));
+	m_tpsCamera->SetAdjustTargetPos(Vector2(-50.0f, -105.0f));
+	m_tpsCamera->SetActive();
+
+
+	// 移動コンポーネントの追加
+	PlayerMovement* moveComp = new PlayerMovement(this);
 }
 
 Player::~Player()
@@ -200,6 +217,34 @@ void Player::UpdateWeaponOut()
 		{
 			m_isWeaponOutChange = false;
 		}
+	}
+
+}
+
+/// <summary>
+/// エイム操作時:三人称視点カメラを一人称視点カメラに切り替え、プレイヤーを非表示にする
+/// エイム解除時:一人称視点カメラを三人称視点カメラに切り替え、プレイヤーを再表示する
+/// </summary>
+/// <param name="_isAim"> エイム状態かどうか </param>
+void Player::SetActiveAimCamera(bool _isAim)
+{
+	if (_isAim)
+	{
+		m_fpsCamera->SetActive();
+		m_skelComp->SetVisible(false);
+
+		return;
+	}
+
+	if (!_isAim)
+	{
+		m_tpsCamera->SetActive();
+		m_tpsCamera->SetCameraLength(Vector3(160.0f, 160.0f, 160.0f));
+		//m_tpsCamera->SetCameraLength(Vector3(260.0f, 260.0f, 260.0f));
+		m_tpsCamera->SetAdjustTargetPos(Vector2(-50.0f, -105.0f));
+		m_skelComp->SetVisible(true);
+
+		return;
 	}
 
 }

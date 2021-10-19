@@ -386,7 +386,9 @@ void GameMain::SetFirstScene(SceneBase * in_scene)
 	m_nowScene->Initialize();
 }
 
-
+/// <summary>
+/// 入力システムの更新
+/// </summary>
 void GameMain::Input()
 {
 	// 終了イベントのキャッチ
@@ -400,6 +402,9 @@ void GameMain::Input()
 			break;
 
 		default:
+
+			MOUSE_INSTANCE.OnMouseWheelEvent(event);
+			MOUSE_INSTANCE.OnMouseClickEvent(event);
 			CONTROLLER_INSTANCE.ReceiveEvent(event);
 			break;
 		}
@@ -599,8 +604,18 @@ void GameMain::SetCamera(Camera * _camera)
 
 }
 
+/// <summary>
+/// 描画に用いるカメラクラスのセッター
+/// </summary>
+/// <param name="_camera"> カメラコンポーネントクラスポインタ </param>
 void GameMain::SetCamera(CameraComponent* _camera)
 {
+	// 別のカメラをセットしていた場合は、非アクティブ状態に切り替えて更新する
+	if (m_activeCamera != nullptr)
+	{
+		m_activeCamera->SetDeactive();
+	}
+
 	m_activeCamera = _camera;
 }
 

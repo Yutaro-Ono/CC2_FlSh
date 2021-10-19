@@ -27,49 +27,54 @@ TPSCamera::~TPSCamera()
 
 void TPSCamera::Update(float _deltaTime)
 {
-    // ばね定数
-    const float springConstant = 128.0f;
-
-    // 接近係数
-    // ばね定数から減衰を計算
-    const float dumper = 9.0f * Math::Sqrt(springConstant);
-    Vector3 diff;
-    Vector3 playerPos = m_owner->GetPosition();
-
-    // 差分ベクトルからプレーヤー位置まで近づける
-    diff = playerPos - m_viewTarget;
-    diff = dumper * _deltaTime * diff;
-
-    // カメラ回転値
-    const float rotate = 0.5f * _deltaTime;
-
-    // パッド入力
-    if (m_isActivePad)
+    // カメラがアクティブ状態時のみ更新を行う
+    if (m_cameraStatus == CAMERA_STATUS::ACTIVE)
     {
-        UpdateGamePad(rotate, _deltaTime);
+        // ばね定数
+        const float springConstant = 128.0f;
+
+        // 接近係数
+        // ばね定数から減衰を計算
+        const float dumper = 9.0f * Math::Sqrt(springConstant);
+        Vector3 diff;
+        Vector3 playerPos = m_owner->GetPosition();
+
+        // 差分ベクトルからプレーヤー位置まで近づける
+        diff = playerPos - m_viewTarget;
+        diff = dumper * _deltaTime * diff;
+
+        // カメラ回転値
+        const float rotate = 0.5f * _deltaTime;
+
+        // パッド入力
+        if (m_isActivePad)
+        {
+            UpdateGamePad(rotate, _deltaTime);
+        }
+        // キーボード入力
+        else
+        {
+            UpdateKeyBoard(rotate, _deltaTime);
+        }
+
+        // ヨー回転・ピッチ回転
+        Vector3 rotatePos;
+        rotatePos.x = m_cameraLength.x * cosf(m_lookDownAngle) * cosf(m_rotateAngleZ);
+        rotatePos.y = m_cameraLength.y * cosf(m_lookDownAngle) * sinf(m_rotateAngleZ);
+        rotatePos.z = m_cameraLength.z * sinf(m_lookDownAngle);
+
+        // 注視点・カメラ位置をセット
+        m_position = rotatePos + playerPos;
+        m_viewTarget = playerPos;
+
+        // ビュー行列を更新
+        Matrix4 view = Matrix4::CreateLookAt(m_position, m_viewTarget, Vector3(0.0f, 0.0f, 1.0f));
+        // 調整ベクトル
+        Vector3 dist = Vector3(m_adjustTargetPos.x, m_adjustTargetPos.y, 1.0f);
+        view = view * Matrix4::CreateTranslation(dist);
+        SetViewMatrix(view);
     }
-    // キーボード入力
-    else
-    {
-        UpdateKeyBoard(rotate, _deltaTime);
-    }
 
-    // ヨー回転・ピッチ回転
-    Vector3 rotatePos;
-    rotatePos.x = m_cameraLength.x * cosf(m_lookDownAngle) * cosf(m_rotateAngleZ);
-    rotatePos.y = m_cameraLength.y * cosf(m_lookDownAngle) * sinf(m_rotateAngleZ);
-    rotatePos.z = m_cameraLength.z * sinf(m_lookDownAngle);
-
-    // 注視点・カメラ位置をセット
-    m_position = rotatePos + playerPos;
-    m_viewTarget = playerPos;
-
-    // ビュー行列を更新
-    Matrix4 view = Matrix4::CreateLookAt(m_position, m_viewTarget, Vector3(0.0f, 0.0f, 1.0f));
-    // 調整ベクトル
-    Vector3 dist = Vector3(m_adjustTargetPos.x, m_adjustTargetPos.y, 1.0f);
-    view = view * Matrix4::CreateTranslation(dist);
-    SetViewMatrix(view);
 }
 
 void TPSCamera::UpdateMouse(const float _rotate, float _deltaTime)

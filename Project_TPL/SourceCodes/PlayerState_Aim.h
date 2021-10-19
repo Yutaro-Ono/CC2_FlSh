@@ -1,32 +1,27 @@
 //----------------------------------------------------------------------------------+
-// @file        PlayerState_WeaponOut_MoveForward.h
-// @brief       プレイヤーステート(武器出し+前方移動)クラス
+// @file        PlayerState_Aim.h
+// @brief       プレイヤーステート(エイム)クラス
 // @note        ステートパターン
 // @author      小野 湧太郎 (Yutaro Ono, @2021)
 //
 // @changelog
-// 2021/ 10/08   新規作成
+// 2021/ 10/15   新規作成
 //----------------------------------------------------------------------------------+
 #pragma once
 #include "PlayerStateBase.h"
 
-class PlayerState_WeaponOut_MoveForward : public PlayerStateBase
+class PlayerState_Aim : public PlayerStateBase
 {
 
 public:
 
-	PlayerState_WeaponOut_MoveForward();
-	~PlayerState_WeaponOut_MoveForward();
+	PlayerState_Aim();
+	~PlayerState_Aim();
 
 	PLAYER_STATE Update(class Player* _player, float _deltaTime) override;
-	
 	void EnterState(class Player* _player) override;
 
-	void UpdateSprintAnimSpeed(class Player* _player);
 
 private:
 
-	static const float MOVE_ANIM_SPEED;
-	static const float SPRINT_ANIM_SPEED;
-	static const float WALK_ANIM_SPEED;
 };
