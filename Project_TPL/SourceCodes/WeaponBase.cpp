@@ -1,12 +1,14 @@
 #include "WeaponBase.h"
 #include "Player.h"
 #include "SkeletalMeshComponent.h"
+#include "AttachWeaponToBoneComponent.h"
 
 WeaponBase::WeaponBase()
 	:Actor(OBJECT_TAG::ACTOR_WEAPON)
 	,m_owner(nullptr)
 	,m_existsOwner(false)
 	,m_ownerPlayer(nullptr)
+	,m_attachComp(nullptr)
 	,m_socketMat(Matrix4::Identity)
 	,m_socketNum(33)
 	,m_attackInterval(300)
@@ -74,6 +76,10 @@ void WeaponBase::RemovePlayer()
 	m_ownerPlayer = nullptr;
 	m_existsOwner = false;
 	m_socketMat = Matrix4::Identity;
+}
+
+void WeaponBase::UpdateSocketMat(float _deltaTime)
+{
 }
 
 /// <summary>

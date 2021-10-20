@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include "MeshComponent.h"
 #include "SkeletalMeshComponent.h"
+#include "AttachWeaponToBoneComponent.h"
 #include "Player.h"
 #include "FirstPersonCameraComponent.h"
 
@@ -39,6 +40,7 @@ WeaponAR4::WeaponAR4(Player* _owner)
 	// オーナーアクターをセット
 	m_existsOwner = true;
 	m_owner = _owner;
+	m_ownerPlayer = _owner;
 
 	Initialize();
 }
@@ -55,6 +57,9 @@ void WeaponAR4::Initialize()
 	
 	m_meshComp = new MeshComponent(this);
 	m_meshComp->SetMesh(mesh);
+
+	// アタッチコンポーネント
+	m_attachComp = new AttachWeaponToBoneComponent(this, m_ownerPlayer->GetSkelComp(), SOCKET_NUM_SPINE);
 
 	//m_position = ADJUST_POS_MOVE_WEAPONOUT;
 	m_position = Vector3(0.0f, 10.0f, 103.0f);
@@ -74,7 +79,11 @@ void WeaponAR4::UpdateSocketMat(float _deltaTime)
 		// エイム状態
 		if (m_ownerPlayer->GetPlayerState() == PLAYER_STATE::STATE_AIM)
 		{
-			m_socketNum = 10;
+			// アタッチするボーンの指定と微調整用座標の更新
+			m_attachComp->ChangeAttachBoneNum(10, Vector3::Zero);
+			//m_socketNum = 10;
+			//m_attachPos = Vector3::Zero;
+
 			SetSocketMat(m_owner->GetSkelComp()->GetBoneMat(m_socketNum));
 
 			if (m_fpsCamera != nullptr)
@@ -108,12 +117,12 @@ void WeaponAR4::UpdateSocketMat(float _deltaTime)
 
 
 			m_worldTransform =
-				//Matrix4::CreateTranslation(m_position)
-				//Matrix4::CreateRotationZ(Math::ToRadians(-90.0f))
-				Matrix4::CreateFromQuaternion(target);
+				Matrix4::CreateTranslation(m_position)
+				* Matrix4::CreateRotationZ(Math::ToRadians(-90.0f))
+				//Matrix4::CreateFromQuaternion(target);
 				//Matrix4::CreateRotationZ(yaw)
 				//* Matrix4::CreateRotationY(pitch)
-				//* Matrix4::CreateTranslation(m_owner->GetPosition());
+				* Matrix4::CreateTranslation(m_owner->GetPosition());
 				//* Matrix4::CreateRotationY(rotatePos.y)
 				//* Matrix4::CreateRotationZ(Math::ToRadians(rotatePos.z));
 
@@ -126,6 +135,9 @@ void WeaponAR4::UpdateSocketMat(float _deltaTime)
 		if (m_ownerPlayer->GetPlayerState() >= PLAYER_STATE::STATE_WEAPONOUT_MOVEFWD &&
 			m_ownerPlayer->GetPlayerState() <= PLAYER_STATE::STATE_WEAPONOUT_SPRINT)
 		{
+			// アタッチするボーンの指定と微調整用座標の更新
+			m_attachComp->ChangeAttachBoneNum(10, ADJUST_POS_MOVE_WEAPONOUT);
+			m_attachComp->SetAdjustAngles(Vector3(-80.0f, -180.0f, 15.0f));
 			m_socketNum = 10;
 
 			SetSocketMat(m_owner->GetSkelComp()->GetBoneMat(m_socketNum));
@@ -142,6 +154,9 @@ void WeaponAR4::UpdateSocketMat(float _deltaTime)
 		// 待機状態
 		else if(m_ownerPlayer->GetPlayerState() == PLAYER_STATE::STATE_WEAPONOUT_IDLE)
 		{
+			// アタッチするボーンの指定と微調整用座標の更新
+			m_attachComp->ChangeAttachBoneNum(33, ADJUST_POS_IDLE_WEAPONOUT);
+			m_attachComp->SetAdjustAngles(Vector3(-80.0f, -20.0f, 80.0f));
 			m_socketNum = 33;
 
             SetSocketMat(m_owner->GetSkelComp()->GetBoneMat(m_socketNum));
@@ -158,6 +173,9 @@ void WeaponAR4::UpdateSocketMat(float _deltaTime)
 
 	}
 
+	// アタッチするボーンの指定と微調整用座標の更新
+	m_attachComp->ChangeAttachBoneNum(1, ADJUST_POS_BASIC);
+	m_attachComp->SetAdjustAngles(Vector3(-90.0f, 20.0f, 90.0f));
 	m_socketNum = 1;
 
 	SetSocketMat(m_owner->GetSkelComp()->GetBoneMat(m_socketNum));

@@ -10,6 +10,7 @@
 #pragma once
 #include "Component.h"
 #include <string>
+#include "Math.h"
 
 class AttachWeaponToBoneComponent : public Component
 {
@@ -21,14 +22,20 @@ public:
 
 	~AttachWeaponToBoneComponent();
 
-	void Update(float in_deltaTime) override;
+	void Update(float _deltaTime) override;
 
-	void SetBoneNum(unsigned int _boneNum);
+	void ChangeAttachBoneNum(unsigned int _boneNum, const Vector3& _adjustPos);
+
+	void SetAdjustAngles(const Vector3& _angles);
 
 private:
 
-	unsigned int m_socketNum;
+	class WeaponBase* m_weapon;
+	class SkeletalMeshComponent* m_skelMesh;
 
+	unsigned int m_boneNum;       // アタッチするボーン番号
 
+	Vector3 m_adjustPos;          // 位置微調整用ベクトル
+	Vector3 m_adjustAngles;             // 各軸ごとの回転角度
 
 };

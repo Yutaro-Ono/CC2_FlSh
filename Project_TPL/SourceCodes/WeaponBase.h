@@ -20,6 +20,7 @@ public:
 
 	void UpdateActor(float _deltaTime) override;
 
+	virtual void UpdateSocketMat(float _deltaTime);
 	void SetSocketNum(size_t _socketNum) { m_socketNum = _socketNum; }
 
 	void SetOwnerActor(class Actor* _owner);
@@ -27,21 +28,23 @@ public:
 	void SetPlayer(class Player* _player);
 	void RemovePlayer();
 
+	class Player* GetOwnerPlayer() { return m_ownerPlayer; }
+
 protected:
 
-	virtual void UpdateSocketMat(float _deltaTime) = 0;
 
 	void SetSocketMat(Matrix4 _socketMat);
 
 
 
-	class Actor* m_owner;              // このクラスを所有するアクターポインタ
-	bool m_existsOwner;                // この武器クラスを所有するオーナーアクタ―は存在するか
+	class Actor* m_owner;                                // このクラスを所有するアクターポインタ
+	bool m_existsOwner;                                  // この武器クラスを所有するオーナーアクタ―は存在するか
 
-	class Player* m_ownerPlayer;            // このクラスを所有するプレイヤーポインタ
+	class Player* m_ownerPlayer;                         // このクラスを所有するプレイヤーポインタ
+	class AttachWeaponToBoneComponent* m_attachComp;     // 武器のボーンアタッチ用コンポーネント
 
-	Matrix4 m_socketMat;               // この武器オブジェクトをスナップするオーナーのソケット行列
-	size_t m_socketNum;                 // ボーンのソケット番号
+	Matrix4 m_socketMat;                                 // この武器オブジェクトをスナップするオーナーのソケット行列
+	size_t m_socketNum;                                  // ボーンのソケット番号
 
 	unsigned int m_attackInterval;     // 攻撃の間隔(ミリ秒単位)
 	unsigned int m_attackStartCount;   // 攻撃開始時のカウント
@@ -52,6 +55,5 @@ protected:
 	unsigned int m_ammoBullet;         // 1マガジンに入る弾薬量
 	unsigned int m_ammoMax;            // 所持できる最大弾薬量
 	bool m_isMelee;                    // 近接武器かどうか
-
 
 };

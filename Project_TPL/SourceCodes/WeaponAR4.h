@@ -25,7 +25,6 @@ private:
 
 	void Initialize();
 
-
 protected:
 
 	void UpdateSocketMat(float _deltaTime) override;
