@@ -163,6 +163,7 @@
     <ClCompile Include="SourceCodes\ActorDebugObject.cpp" />
     <ClCompile Include="SourceCodes\ActorPool.cpp" />
     <ClCompile Include="SourceCodes\Animation.cpp" />
+    <ClCompile Include="SourceCodes\AttachWeaponToBoneComponent.cpp" />
     <ClCompile Include="SourceCodes\AudioManager.cpp" />
     <ClCompile Include="SourceCodes\BoneTransform.cpp" />
     <ClCompile Include="SourceCodes\BoxCollider.cpp" />
@@ -344,6 +345,7 @@
     <ClInclude Include="SourceCodes\ActorDebugObject.h" />
     <ClInclude Include="SourceCodes\ActorPool.h" />
     <ClInclude Include="SourceCodes\Animation.h" />
+    <ClInclude Include="SourceCodes\AttachWeaponToBoneComponent.h" />
     <ClInclude Include="SourceCodes\AudioManager.h" />
     <ClInclude Include="SourceCodes\BoneTransform.h" />
     <ClInclude Include="SourceCodes\BoxCollider.h" />

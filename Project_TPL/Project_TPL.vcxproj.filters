@@ -803,6 +803,9 @@
     <ClCompile Include="SourceCodes\FirstPersonCameraComponent.cpp">
       <Filter>Source\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCodes\AttachWeaponToBoneComponent.cpp">
+      <Filter>Source\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -1356,6 +1359,9 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\FirstPersonCameraComponent.h">
       <Filter>Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\AttachWeaponToBoneComponent.h">
+      <Filter>Source\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
