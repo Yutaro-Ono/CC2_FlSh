@@ -27,12 +27,6 @@ WeaponBase::~WeaponBase()
 
 void WeaponBase::UpdateActor(float _deltaTime)
 {
-	// オーナーアクターが存在する場合
-	// ソケット行列を更新
-	if (m_existsOwner)
-	{
-		UpdateSocketMat(_deltaTime);
-	}
 }
 
 /// <summary>
@@ -76,10 +70,6 @@ void WeaponBase::RemovePlayer()
 	m_ownerPlayer = nullptr;
 	m_existsOwner = false;
 	m_socketMat = Matrix4::Identity;
-}
-
-void WeaponBase::UpdateSocketMat(float _deltaTime)
-{
 }
 
 /// <summary>

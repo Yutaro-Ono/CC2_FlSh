@@ -6,13 +6,14 @@
 #include <Windows.h>
 #include <sstream>
 
-const int LoadScreen::GAUGE_NUM = 64;
+const int LoadScreen::GAUGE_NUM = 18;
 
 // コンストラクタ
 LoadScreen::LoadScreen()
 	:m_state(DISABLE)
 	,m_gaugeNum(0)
 	,m_isGame(false)
+	,m_loadGaugeScale(0.3f)
 {
 
 	// "Loading"生成
@@ -23,7 +24,7 @@ LoadScreen::LoadScreen()
 	{
 		std::stringstream ssGauge;
 		// ファイルパス
-		ssGauge << "Data/Interface/TND/Load/load_" << i << ".png";
+		ssGauge << "Data/Interface/TPL/LoadScreen/LoadScreen_Gauge_" << i << ".png";
 		m_loadGauges.push_back(RENDERER->GetTexture(ssGauge.str()));
 	}
 
@@ -40,7 +41,8 @@ LoadScreen::LoadScreen()
 
 	// 座標
 	m_loadingPos = Vector2(0.0f, -RENDERER->GetScreenHeight() / 2 + m_loading->GetHeight() + 180.0f);
-	m_loadGaugePos = Vector2(0.0f, -RENDERER->GetScreenHeight() / 2 + 100.0f);
+	m_loadGaugePos = Vector2(0.0f,
+		                     -RENDERER->GetScreenHeight() / 2 + m_loadGauges[0]->GetHalfWidth() * m_loadGaugeScale);
 }
 
 // デストラクタ
@@ -87,7 +89,7 @@ void LoadScreen::Draw(GLSLprogram * _shader)
 		// ロードゲージの描画
 		for (int i = 0; i < m_gaugeNum; i++)
 		{
-			DrawTexture(_shader, m_loadGauges[i], m_loadGaugePos, 1.0f);
+			DrawTexture(_shader, m_loadGauges[i], m_loadGaugePos, m_loadGaugeScale);
 		}
 	}
 

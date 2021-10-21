@@ -20,7 +20,8 @@ public:
 
 	void UpdateActor(float _deltaTime) override;
 
-	virtual void UpdateSocketMat(float _deltaTime);
+	virtual void AdjustWorldMatToOwnerBone(const Matrix4& _boneLocalMat, float _deltaTime) = 0;
+
 	void SetSocketNum(size_t _socketNum) { m_socketNum = _socketNum; }
 
 	void SetOwnerActor(class Actor* _owner);
@@ -29,6 +30,7 @@ public:
 	void RemovePlayer();
 
 	class Player* GetOwnerPlayer() { return m_ownerPlayer; }
+	bool GetExistsOwner() { return m_existsOwner; }
 
 protected:
 

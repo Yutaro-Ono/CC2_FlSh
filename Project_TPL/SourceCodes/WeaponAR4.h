@@ -20,6 +20,7 @@ public:
 	WeaponAR4(class Player* _owner);
 	~WeaponAR4();
 
+	void AdjustWorldMatToOwnerBone(const Matrix4& _boneLocalMat, float _deltaTime) override;
 
 private:
 
@@ -27,7 +28,6 @@ private:
 
 protected:
 
-	void UpdateSocketMat(float _deltaTime) override;
 
 
 	static const unsigned int SOCKET_NUM_SPINE;

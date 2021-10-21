@@ -37,26 +37,29 @@ public:
 private:
 
 
+	LOAD_STATE m_state;               // ロード画面ステート
 
 	class Texture* m_loading;
 
 	std::vector<class Texture*> m_loadGauges;
 
-	int m_gaugeNum;
+	int m_gaugeNum;                   // ローディングゲージの最大数
 
-	class Texture* m_bgTexture;
+	class Texture* m_bgTexture;       // ロード画面背景テクスチャ
 
-	class Texture* m_tutorialMsg;
+	class Texture* m_tutorialMsg;     // ロード画面に表示するチュートリアル用テクスチャ
 
-	LOAD_STATE m_state;
 
 	bool m_isGame;                   // 今ゲームシーンかどうか(ゲームシーンなら操作説明を表示)
 
 	std::unordered_map<std::string, std::string> m_sound;               // 効果音
 
-	Vector2 m_loadingPos;
+	// 座標系
+	Vector2 m_loadingPos;        // 「Loading」の描画位置
+	Vector2 m_loadGaugePos;      // ロードゲージの描画位置
 
-	Vector2 m_loadGaugePos;
+	// サイズ
+	float m_loadGaugeScale;      // ロードゲージのスケール
 
 	static const int GAUGE_NUM;
 };

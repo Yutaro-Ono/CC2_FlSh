@@ -19,22 +19,14 @@ AttachWeaponToBoneComponent::~AttachWeaponToBoneComponent()
 
 void AttachWeaponToBoneComponent::Update(float _deltaTime)
 {
-	//// ローカルボーン行列 * 武器を持つプレイヤーのワールド行列で、ボーン用のワールド行列を作成
-	//Matrix4 worldBoneMat = m_skelMesh->GetBoneMat(m_boneNum) * Matrix4::CreateTranslation(m_weapon->GetOwnerPlayer()->GetPosition());
+	// 武器アクターがオーナーに追従する場合のみ座標調整
+	if (m_weapon->GetExistsOwner())
+	{
+		// ボーン行列 * 武器を持つプレイヤーのローカル座標行列で、ボーン用のワールド行列を作成
+		Matrix4 boneLocalMat = m_skelMesh->GetBoneMat(m_boneNum) * Matrix4::CreateTranslation(m_weapon->GetOwnerPlayer()->GetPosition());
+		m_weapon->AdjustWorldMatToOwnerBone(boneLocalMat, _deltaTime);
+	}
 
-	//// スケール→調整座標→回転値→ボーンのワールド行列の順で計算
-	//Matrix4 resultWorldMat = Matrix4::CreateScale(m_weapon->GetScale())
-	//	* Matrix4::CreateTranslation(m_adjustPos)
-	//	//* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitX, Math::ToRadians(m_adjustAngles.x)))
-	//	* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitZ, Math::ToRadians(m_adjustAngles.z)))
-	//	* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitY, Math::ToRadians(m_adjustAngles.y)))
-	//	* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitX, Math::ToRadians(-80.0f)))
-	//	* worldBoneMat;
-
-	//// 武器クラスに結果のワールド行列をセット
-	//m_weapon->SetWorldTransform(resultWorldMat);
-
-	m_weapon->UpdateSocketMat(_deltaTime);
 }
 
 /// <summary>

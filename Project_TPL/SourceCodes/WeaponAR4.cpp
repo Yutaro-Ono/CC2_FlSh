@@ -49,7 +49,6 @@ WeaponAR4::~WeaponAR4()
 {
 }
 
-
 void WeaponAR4::Initialize()
 {
 	// AR4のメッシュをロード
@@ -67,13 +66,15 @@ void WeaponAR4::Initialize()
 }
 
 /// <summary>
-/// ソケット行列スナップ処理の更新
+/// 武器モデルのワールド変換行列をオーナーアクターのボーンに合わせる
+/// コンポーネント側でのみこの関数を呼び出す
 /// </summary>
-/// <param name="_deltaTime">デルタタイム</param>
-void WeaponAR4::UpdateSocketMat(float _deltaTime)
+/// <param name="_localBoneMat"> アタッチするボーンのモデル行列 * オーナーアクターのローカル座標行列 </param>
+/// <param name="_deltaTime"> デルタタイム </param>
+void WeaponAR4::AdjustWorldMatToOwnerBone(const Matrix4& _boneLocalMat, float _deltaTime)
 {
 	// プレイヤーが武器を出している場合と出していない場合
-	// スナップするソケットを変更
+    // アタッチするソケットを変更
 	if (m_ownerPlayer->GetToggleWeaponOut())
 	{
 		// エイム状態
@@ -123,8 +124,8 @@ void WeaponAR4::UpdateSocketMat(float _deltaTime)
 				//Matrix4::CreateRotationZ(yaw)
 				//* Matrix4::CreateRotationY(pitch)
 				* Matrix4::CreateTranslation(m_owner->GetPosition());
-				//* Matrix4::CreateRotationY(rotatePos.y)
-				//* Matrix4::CreateRotationZ(Math::ToRadians(rotatePos.z));
+			//* Matrix4::CreateRotationY(rotatePos.y)
+			//* Matrix4::CreateRotationZ(Math::ToRadians(rotatePos.z));
 
 			return;
 		}
@@ -143,30 +144,30 @@ void WeaponAR4::UpdateSocketMat(float _deltaTime)
 			SetSocketMat(m_owner->GetSkelComp()->GetBoneMat(m_socketNum));
 			m_recomputeWorldTransform = false;
 			m_worldTransform = Matrix4::CreateScale(m_scale)
-			* Matrix4::CreateTranslation(ADJUST_POS_MOVE_WEAPONOUT)
-			* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitZ, Math::ToRadians(15.0f)))
-			* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitY, Math::ToRadians(-180.0f)))
-			//* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitX, Math::ToRadians(-80.0f)))
-			* m_socketMat * m_owner->GetWorldTransform();
+				* Matrix4::CreateTranslation(ADJUST_POS_MOVE_WEAPONOUT)
+				* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitZ, Math::ToRadians(15.0f)))
+				* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitY, Math::ToRadians(-180.0f)))
+				//* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitX, Math::ToRadians(-80.0f)))
+				* _boneLocalMat;
 
 			return;
 		}
 		// 待機状態
-		else if(m_ownerPlayer->GetPlayerState() == PLAYER_STATE::STATE_WEAPONOUT_IDLE)
+		else if (m_ownerPlayer->GetPlayerState() == PLAYER_STATE::STATE_WEAPONOUT_IDLE)
 		{
 			// アタッチするボーンの指定と微調整用座標の更新
 			m_attachComp->ChangeAttachBoneNum(33, ADJUST_POS_IDLE_WEAPONOUT);
 			m_attachComp->SetAdjustAngles(Vector3(-80.0f, -20.0f, 80.0f));
 			m_socketNum = 33;
 
-            SetSocketMat(m_owner->GetSkelComp()->GetBoneMat(m_socketNum));
-            m_recomputeWorldTransform = false;
-            m_worldTransform = Matrix4::CreateScale(m_scale)
-	        * Matrix4::CreateTranslation(ADJUST_POS_IDLE_WEAPONOUT)
-	        * Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitZ, Math::ToRadians(80.0f)))
-	        * Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitY, Math::ToRadians(-20.0f)))
-	        * Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitX, Math::ToRadians(-80.0f)))
-	        * m_socketMat * m_owner->GetWorldTransform();
+			SetSocketMat(m_owner->GetSkelComp()->GetBoneMat(m_socketNum));
+			m_recomputeWorldTransform = false;
+			m_worldTransform = Matrix4::CreateScale(m_scale)
+				* Matrix4::CreateTranslation(ADJUST_POS_IDLE_WEAPONOUT)
+				* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitZ, Math::ToRadians(80.0f)))
+				* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitY, Math::ToRadians(-20.0f)))
+				* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitX, Math::ToRadians(-80.0f)))
+				* _boneLocalMat;
 
 			return;
 		}
@@ -185,8 +186,8 @@ void WeaponAR4::UpdateSocketMat(float _deltaTime)
 		* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitX, Math::ToRadians(-90.0f)))
 		* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitZ, Math::ToRadians(90.0f)))
 		* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitY, Math::ToRadians(20.0f)))
-		* m_socketMat * m_owner->GetWorldTransform();
-
-
+		* m_socketMat * _boneLocalMat;
 }
+
+
 
