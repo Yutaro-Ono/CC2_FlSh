@@ -22,9 +22,9 @@ void AttachWeaponToBoneComponent::Update(float _deltaTime)
 	// 武器アクターがオーナーに追従する場合のみ座標調整
 	if (m_weapon->GetExistsOwner())
 	{
-		// ボーン行列 * 武器を持つプレイヤーのローカル座標行列で、ボーン用のワールド行列を作成
-		Matrix4 boneLocalMat = m_skelMesh->GetBoneMat(m_boneNum) * Matrix4::CreateTranslation(m_weapon->GetOwnerPlayer()->GetPosition());
-		m_weapon->AdjustWorldMatToOwnerBone(boneLocalMat, _deltaTime);
+		// ボーン行列 * 武器を持つプレイヤーのワールド行列で、ボーン用のワールド行列を作成
+		Matrix4 boneWorldMat = m_skelMesh->GetBoneMat(m_boneNum) * m_weapon->GetOwnerPlayer()->GetWorldTransform();
+		m_weapon->AdjustWorldMatToOwnerBone(boneWorldMat, _deltaTime);
 	}
 
 }

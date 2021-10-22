@@ -75,7 +75,7 @@ void Environment::SetDirectionalLight(ENVIRONMENT_TYPE _envType, const Vector3& 
 		// ディレクショナルライトの調整
 		RENDERER->GetDirectionalLight()->SetPosition(playerPos + ADJUST_POS);
 		RENDERER->GetDirectionalLight()->SetTarget(playerPos);
-		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.5f, 0.5f, 0.51f));
+		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.84f, 0.88f, 0.94f));
 		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.4f, 0.5f, 0.5f));
 		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.3f, 0.3f, 0.3f));
 		// ブルームの設定

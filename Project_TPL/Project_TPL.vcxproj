@@ -191,6 +191,7 @@
     <ClCompile Include="SourceCodes\DebugObjectBase.cpp" />
     <ClCompile Include="SourceCodes\DebugObjectPool.cpp" />
     <ClCompile Include="SourceCodes\DefferedRenderer.cpp" />
+    <ClCompile Include="SourceCodes\DefferedRendererDebugObject.cpp" />
     <ClCompile Include="SourceCodes\DirectionalLight.cpp" />
     <ClCompile Include="SourceCodes\DirectionalLightDebug.cpp" />
     <ClCompile Include="SourceCodes\EffekseerEffect.cpp" />
@@ -209,6 +210,7 @@
     <ClCompile Include="SourceCodes\MotorBikeParent.cpp" />
     <ClCompile Include="SourceCodes\PBRRenderer.cpp" />
     <ClCompile Include="SourceCodes\Player.cpp" />
+    <ClCompile Include="SourceCodes\PlayerHUD.cpp" />
     <ClCompile Include="SourceCodes\PlayerStateBase.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Aim.cpp" />
     <ClCompile Include="SourceCodes\PlayerState_Crouch.cpp" />
@@ -374,6 +376,7 @@
     <ClInclude Include="SourceCodes\DebugObjectBase.h" />
     <ClInclude Include="SourceCodes\DebugObjectPool.h" />
     <ClInclude Include="SourceCodes\DefferedRenderer.h" />
+    <ClInclude Include="SourceCodes\DefferedRendererDebugObject.h" />
     <ClInclude Include="SourceCodes\DirectionalLight.h" />
     <ClInclude Include="SourceCodes\DirectionalLightDebug.h" />
     <ClInclude Include="SourceCodes\EffekseerEffect.h" />
@@ -392,6 +395,7 @@
     <ClInclude Include="SourceCodes\MotorBikeParent.h" />
     <ClInclude Include="SourceCodes\PBRRenderer.h" />
     <ClInclude Include="SourceCodes\Player.h" />
+    <ClInclude Include="SourceCodes\PlayerHUD.h" />
     <ClInclude Include="SourceCodes\PlayerStateBase.h" />
     <ClInclude Include="SourceCodes\PlayerState_Aim.h" />
     <ClInclude Include="SourceCodes\PlayerState_Crouch.h" />

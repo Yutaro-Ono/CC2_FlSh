@@ -21,7 +21,7 @@ private:
 
 
 	class Renderer* m_renderer;
-
+	class DefferedRenderer* m_dRenderer;
 
 
 

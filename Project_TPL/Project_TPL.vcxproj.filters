@@ -267,6 +267,12 @@
     <Filter Include="Source\Actor\Player\PlayerState\Standard\Aim">
       <UniqueIdentifier>{aa1e2375-0de1-4ef5-b8bf-81a1d68acdbc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Interface\HUD">
+      <UniqueIdentifier>{3b2d1348-0cde-4b07-be82-6d605c11ff86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Debugger\Renderer">
+      <UniqueIdentifier>{89e6cb43-556f-4388-8ef0-5c328684b39c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -354,12 +360,6 @@
       <Filter>Source\Debugger</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\DebugObjectPool.cpp">
-      <Filter>Source\Debugger</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\RenderBloomDebugObject.cpp">
-      <Filter>Source\Debugger</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\RendererDebugObject.cpp">
       <Filter>Source\Debugger</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\Tag.cpp">
@@ -806,6 +806,18 @@
     <ClCompile Include="SourceCodes\AttachWeaponToBoneComponent.cpp">
       <Filter>Source\Component</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCodes\PlayerHUD.cpp">
+      <Filter>Source\Interface\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\DefferedRendererDebugObject.cpp">
+      <Filter>Source\Debugger\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\RenderBloomDebugObject.cpp">
+      <Filter>Source\Debugger\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\RendererDebugObject.cpp">
+      <Filter>Source\Debugger\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -902,12 +914,6 @@
       <Filter>Source\Debugger</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\DebugObjectPool.h">
-      <Filter>Source\Debugger</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\RenderBloomDebugObject.h">
-      <Filter>Source\Debugger</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\RendererDebugObject.h">
       <Filter>Source\Debugger</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\Tag.h">
@@ -1362,6 +1368,18 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\AttachWeaponToBoneComponent.h">
       <Filter>Source\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\PlayerHUD.h">
+      <Filter>Source\Interface\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\DefferedRendererDebugObject.h">
+      <Filter>Source\Debugger\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\RenderBloomDebugObject.h">
+      <Filter>Source\Debugger\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\RendererDebugObject.h">
+      <Filter>Source\Debugger\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

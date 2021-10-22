@@ -16,6 +16,7 @@
 #include "PointLight.h"
 #include "LandMarkIndicator.h"
 #include "MiniMapHUD.h"
+
 #include <Windows.h>
 #include <iostream>
 #include <algorithm>

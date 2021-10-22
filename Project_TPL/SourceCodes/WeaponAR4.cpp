@@ -60,8 +60,8 @@ void WeaponAR4::Initialize()
 	// アタッチコンポーネント
 	m_attachComp = new AttachWeaponToBoneComponent(this, m_ownerPlayer->GetSkelComp(), SOCKET_NUM_SPINE);
 
-	//m_position = ADJUST_POS_MOVE_WEAPONOUT;
-	m_position = Vector3(0.0f, 10.0f, 103.0f);
+	//m_position = Vector3(0.0f, 10.0f, 103.0f);
+	m_position = Vector3(3.0f, 0.0f, 102.5f);
 	m_scale = Vector3(0.85f, 0.85f, 0.85f);
 }
 
@@ -69,9 +69,9 @@ void WeaponAR4::Initialize()
 /// 武器モデルのワールド変換行列をオーナーアクターのボーンに合わせる
 /// コンポーネント側でのみこの関数を呼び出す
 /// </summary>
-/// <param name="_localBoneMat"> アタッチするボーンのモデル行列 * オーナーアクターのローカル座標行列 </param>
+/// <param name="_localBoneMat"> アタッチするボーンのモデル行列 * オーナーアクターのワールド変換行列 </param>
 /// <param name="_deltaTime"> デルタタイム </param>
-void WeaponAR4::AdjustWorldMatToOwnerBone(const Matrix4& _boneLocalMat, float _deltaTime)
+void WeaponAR4::AdjustWorldMatToOwnerBone(const Matrix4& _boneWorldMat, float _deltaTime)
 {
 	// プレイヤーが武器を出している場合と出していない場合
     // アタッチするソケットを変更
@@ -111,21 +111,25 @@ void WeaponAR4::AdjustWorldMatToOwnerBone(const Matrix4& _boneLocalMat, float _d
 			rotatePos.z = sinf(pitch);
 
 
-			float radian = Math::ToRadians(pitch);
-			Quaternion rot = m_owner->GetRotation();
-			Quaternion inc(Vector3::UnitY, radian);
-			Quaternion target = Quaternion::Concatenate(rot, inc);
 
-
+			//m_worldTransform =
+			//	Matrix4::CreateRotationY(Math::ToRadians(180.0f))
+			//	* Matrix4::CreateRotationX(rotatePos.z)
+			//	* Matrix4::CreateRotationZ(Math::ToRadians(-45.0f))
+			//	* Matrix4::CreateTranslation(m_position)
+			//	//Matrix4::CreateRotationY(rotatePos.z)
+			//	//* Matrix4::CreateRotationZ(rotatePos.y)
+			//	//* m_ownerPlayer->GetWorldTransform();
+			//	* _boneWorldMat;
+			
 			m_worldTransform =
-				Matrix4::CreateTranslation(m_position)
+				 Matrix4::CreateRotationX(-rotatePos.z)
 				* Matrix4::CreateRotationZ(Math::ToRadians(-90.0f))
-				//Matrix4::CreateFromQuaternion(target);
-				//Matrix4::CreateRotationZ(yaw)
-				//* Matrix4::CreateRotationY(pitch)
-				* Matrix4::CreateTranslation(m_owner->GetPosition());
-			//* Matrix4::CreateRotationY(rotatePos.y)
-			//* Matrix4::CreateRotationZ(Math::ToRadians(rotatePos.z));
+				* Matrix4::CreateTranslation(m_position)
+				//Matrix4::CreateRotationY(rotatePos.z)
+				//* Matrix4::CreateRotationZ(rotatePos.y)
+				//* m_ownerPlayer->GetWorldTransform();
+				* m_ownerPlayer->GetWorldTransform();
 
 			return;
 		}
@@ -148,7 +152,7 @@ void WeaponAR4::AdjustWorldMatToOwnerBone(const Matrix4& _boneLocalMat, float _d
 				* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitZ, Math::ToRadians(15.0f)))
 				* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitY, Math::ToRadians(-180.0f)))
 				//* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitX, Math::ToRadians(-80.0f)))
-				* _boneLocalMat;
+				* _boneWorldMat;
 
 			return;
 		}
@@ -167,7 +171,7 @@ void WeaponAR4::AdjustWorldMatToOwnerBone(const Matrix4& _boneLocalMat, float _d
 				* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitZ, Math::ToRadians(80.0f)))
 				* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitY, Math::ToRadians(-20.0f)))
 				* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitX, Math::ToRadians(-80.0f)))
-				* _boneLocalMat;
+				* _boneWorldMat;
 
 			return;
 		}
@@ -186,7 +190,7 @@ void WeaponAR4::AdjustWorldMatToOwnerBone(const Matrix4& _boneLocalMat, float _d
 		* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitX, Math::ToRadians(-90.0f)))
 		* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitZ, Math::ToRadians(90.0f)))
 		* Matrix4::CreateFromQuaternion(Quaternion(Vector3::UnitY, Math::ToRadians(20.0f)))
-		* m_socketMat * _boneLocalMat;
+		* _boneWorldMat;
 }
 
 

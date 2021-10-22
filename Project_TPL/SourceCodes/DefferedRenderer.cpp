@@ -29,6 +29,8 @@
 #include "MiniMapHUD.h"
 #include "ShaderManager.h"
 #include "DirectionalLight.h"
+#include "Debugger.h"
+#include "DefferedRendererDebugObject.h"
 
 // コンストラクタ
 DefferedRenderer::DefferedRenderer(Renderer* in_renderer)
@@ -212,6 +214,12 @@ void DefferedRenderer::DrawSSAOPath()
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, m_noiseTex);
 
+	ssaoShader->SetUniform("u_gPosition", 0);
+	ssaoShader->SetUniform("u_gNormal", 1);
+	ssaoShader->SetUniform("u_texNoise", 2);
+	ssaoShader->SetUniform("u_screenW", RENDERER->GetScreenWidth());
+	ssaoShader->SetUniform("u_screenH", RENDERER->GetScreenHeight());
+
 	// スクリーン全体に描画
 	m_renderer->GetScreenVAO()->SetActive();
 	glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -227,6 +235,8 @@ void DefferedRenderer::DrawSSAOPath()
 	ssaoBlurShader->UseProgram();
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_ssaoColor);
+
+	ssaoBlurShader->SetUniform("u_ssaoInput", 0);
 
 	// スクリーン全体に描画
 	m_renderer->GetScreenVAO()->SetActive();
@@ -648,6 +658,14 @@ bool DefferedRenderer::Initialize()
 	GenerateGBuffer();
 	GenerateSSAOBuffer();
 	GenerateLightBuffer();
+
+	// デバッグオブジェクト
+#ifdef _DEBUG
+
+	DefferedRendererDebugObject* defDebugObj = new DefferedRendererDebugObject(this);
+	DEBUGGER->AddDebugObject(defDebugObj, OBJECT_TAG::SYSTEM);
+
+#endif
 
 	return true;
 }

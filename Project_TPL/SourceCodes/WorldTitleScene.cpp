@@ -12,6 +12,7 @@
 #include "Player.h"
 #include "EnemyZombie.h"
 #include "WeaponAR4.h"
+#include "PlayerHUD.h"
 
 #include "MeshGpmesh.h"
 #include "LevelBlock.h"
@@ -54,7 +55,7 @@ bool WorldTitleScene::Load()
 	ar4->SetPlayer(player);
 
 	// ŠÂ‹«î•ñ‚Ì¶¬
-	m_environment = new Environment(player, ENVIRONMENT_TYPE::NIGHT);
+	m_environment = new Environment(player, ENVIRONMENT_TYPE::MORNING);
 	//m_environment = new Environment(m_car, ENVIRONMENT_TYPE::NIGHT);
 
 
@@ -121,6 +122,8 @@ bool WorldTitleScene::Load()
 	//EnemyZombie* zombie = new EnemyZombie();
 	//zombie->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
 	//zombie->SetScale(1.0f);
+
+	PlayerHUD* pHUD = new PlayerHUD(player);
 
 	return true;
 }

@@ -67,9 +67,8 @@ private:
 	unsigned int m_lightRBO;              // ライト用レンダーバッファ
 	unsigned int m_lightAttachments[2];
 
-
-
 	// uniformバッファ (GBuffer用)
 	unsigned int m_uboGBuffer;
 
+	friend class DefferedRendererDebugObject;
 };

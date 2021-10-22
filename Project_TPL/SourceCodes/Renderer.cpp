@@ -594,6 +594,7 @@ void Renderer::SetActiveSpriteVAO()
 	m_spriteVerts->SetActive();
 }
 
+
 /// <summary>
 /// 各種UBOの生成処理
 /// </summary>
@@ -645,8 +646,8 @@ void Renderer::UpdateUBO()
 
 	// トリガーFBO
 	glBindBuffer(GL_UNIFORM_BUFFER, m_uboTriggers);
-	int bloom = static_cast<int>(GAME_CONFIG->GetEnableBloom());
-	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(int), &bloom);
+	int enableBloom = static_cast<int>(m_enableBloom);
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(int), &enableBloom);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
 	// ディレクショナルライト
