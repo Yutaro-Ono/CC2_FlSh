@@ -58,7 +58,7 @@ void TitleScene::Initialize()
 	AUDIO->GetMusic(m_sound["BGM"]);
 
 	// ロード演出(残り分)
-	for (int i = 0; i < 61; i++)
+	for (int i = 0; i < GAME_INSTANCE.GetLoadScreen()->GetGaugeAllNum(); i++)
 	{
 		GAME_INSTANCE.GetLoadScreen()->AddGauge();
 	}

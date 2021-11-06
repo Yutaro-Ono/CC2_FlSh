@@ -6,8 +6,8 @@
 #include "Mouse.h"
 #include "Actor.h"
 
-const float FirstPersonCameraComponent::MAX_PITCH_ANGLE = Math::ToRadians(85.0f);     // Å‘å‹ÂŠp
-const float FirstPersonCameraComponent::MIN_PITCH_ANGLE = Math::ToRadians(-85.0f);    // Å¬‹ÂŠp
+const float FirstPersonCameraComponent::MAX_PITCH_ANGLE = Math::ToRadians(65.0f);     // Å‘å‹ÂŠp
+const float FirstPersonCameraComponent::MIN_PITCH_ANGLE = Math::ToRadians(-65.0f);    // Å¬‹ÂŠp
 const float FirstPersonCameraComponent::CAMERA_SENSITIVITY = 0.5f;                    // ƒJƒƒ‰‚Ì”½‰‘¬“x
 
 FirstPersonCameraComponent::FirstPersonCameraComponent(Actor* _owner)

@@ -77,6 +77,9 @@ public:
 	void RecoverHealth(unsigned int _recoverVal);
 	void ReduceHealth(unsigned int _damage);
 
+	// タグのゲッター
+	OBJECT_TAG GetActorTag() { return m_tag; }
+
 
 protected:
 

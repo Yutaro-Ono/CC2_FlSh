@@ -6,21 +6,21 @@
 #include <Windows.h>
 #include <sstream>
 
-const int LoadScreen::GAUGE_NUM = 18;
+const int LoadScreen::GAUGE_ALL_NUM = 18;
 
 // コンストラクタ
 LoadScreen::LoadScreen()
 	:m_state(DISABLE)
 	,m_gaugeNum(0)
 	,m_isGame(false)
-	,m_loadGaugeScale(0.3f)
+	,m_loadGaugeScale(0.25f)
 {
 
 	// "Loading"生成
 	m_loading = m_font->RenderText("Loading", Vector3(1.0f, 1.0f, 1.0f), 64);
 
 	// ロード用ゲージ
-	for (int i = 0; i < GAUGE_NUM; i++)
+	for (int i = 0; i < GAUGE_ALL_NUM; i++)
 	{
 		std::stringstream ssGauge;
 		// ファイルパス
@@ -40,7 +40,7 @@ LoadScreen::LoadScreen()
 	AUDIO->SetSoundVolume(m_sound["Load"], 2);
 
 	// 座標
-	m_loadingPos = Vector2(0.0f, -RENDERER->GetScreenHeight() / 2 + m_loading->GetHeight() + 180.0f);
+	m_loadingPos = Vector2(0.0f, -RENDERER->GetScreenHeight() / 2 + m_loading->GetHeight() + 240.0f);
 	m_loadGaugePos = Vector2(0.0f,
 		                     -RENDERER->GetScreenHeight() / 2 + m_loadGauges[0]->GetHalfWidth() * m_loadGaugeScale);
 }
@@ -116,7 +116,7 @@ void LoadScreen::SetIsGame()
 
 void LoadScreen::AddGauge()
 {
-	if (m_gaugeNum < GAUGE_NUM)
+	if (m_gaugeNum < GAUGE_ALL_NUM)
 	{
 		// 効果音再生
 		AUDIO->PlaySoundTND(m_sound["Load"]);

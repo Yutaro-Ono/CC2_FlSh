@@ -18,10 +18,11 @@ public:
 	EnemyZombieState_Idle();
 	~EnemyZombieState_Idle();
 
-	ZOMBIE_STATE Update(class EnemyZombie* _player, float _deltaTime) override;
-	void EnterState(class EnemyZombie* _player) override;
+	ZOMBIE_STATE Update(class EnemyZombie* _zombie, float _deltaTime) override;
+	void EnterState(class EnemyZombie* _zombie) override;
 
 protected:
 
+	unsigned short int m_motionNum;
 
 };

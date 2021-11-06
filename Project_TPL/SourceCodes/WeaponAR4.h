@@ -26,6 +26,27 @@ private:
 
 	void Initialize();
 
+	Vector3 m_adjustHolsteredIdlePos;          // 武器携行/待機時の調整座標
+	Vector3 m_adjustUnholsteredIdlePos;        // 武器出し/待機時の調整座標
+	Vector3 m_adjustUnholsteredMovePos;        // 武器出し/移動時の調整座標
+	Vector3 m_adjustAimPos;                    // エイム時の調整座標
+
+	Quaternion m_holsterIdleRot;
+	float m_holsterRadianY;
+
+	Quaternion m_unholsterIdleRot;
+	float m_unholsterIdleRadianX;
+	float m_unholsterIdleRadianY;
+	float m_unholsterIdleRadianZ;
+
+	Quaternion m_unholsterMoveRot;
+	float m_unholsterMoveRadianX;
+	float m_unholsterMoveRadianY;
+	float m_unholsterMoveRadianZ;
+
+
+	friend class DebugWeaponAR4;
+
 protected:
 
 

@@ -10,6 +10,7 @@
 #pragma once
 #include "../imgui/imgui.h"
 #include "../imgui/imgui_impl_opengl3.h"
+#include <string>
 
 class DebugObjectBase
 {
@@ -26,5 +27,6 @@ public:
 
 protected:
 
+	std::string m_label;      // imGui描画時にタブに表示されるラベル(識別しやすいようにする)
 
 };

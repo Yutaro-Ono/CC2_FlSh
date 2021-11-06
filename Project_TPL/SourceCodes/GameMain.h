@@ -78,7 +78,7 @@ public:
 	class ActorPool* const GetActorPool() { return m_actorPool; }
 
 	SDL_Renderer* GetSDLRenderer();                                                  // 2D用SDLレンダラーの取得
-	// カメラ
+	// アクティブなカメラクラスの取得・セット
 	void SetCamera(class Camera* _camera);                                         // カメラをシステムに登録
 	void SetCamera(class CameraComponent* _camera);                                // カメラをシステムに登録
 	class CameraComponent* GetCamera() { return m_activeCamera; }                    // アクティブなカメラポインタの取得
@@ -86,6 +86,8 @@ public:
 	const Vector3& GetViewPos() const;
 	void InActiveCamera(class Camera* _activeCam);                                 // カメラの登録を解除
 	void InActiveCamera(class CameraComponent* _activeCam);                        // カメラの登録を解除
+	// プレイヤーアクター取得
+	class Actor* GetPlayerActor();
 	// 行列取得
 	const Matrix4& GetViewMatrix() { return m_viewMatrix; };                         // ビュー行列のゲッター
 	const Vector3& GetViewVector();                                                  // ビュー座標のゲッター

@@ -20,6 +20,17 @@ PlayerState_WeaponOut_MoveForward::~PlayerState_WeaponOut_MoveForward()
 
 PLAYER_STATE PlayerState_WeaponOut_MoveForward::Update(Player* _player, float _deltaTime)
 {
+	// 右クリック時、エイム状態へ遷移
+	if (MOUSE_INSTANCE.GetButtonValue(Mouse::MouseButtonState::MOUSE_BUTTON_PRESSED))
+	{
+		_player->SetToggleSprint(false);
+		m_animSpeed = MOVE_ANIM_SPEED;
+		// プレイヤーの走り状態に応じたアニメーションの速度を更新
+		UpdateSprintAnimSpeed(_player);
+
+		return PLAYER_STATE::STATE_AIM;
+	}
+
 	// プレイヤーの走り状態に応じたアニメーションの速度を更新
 	UpdateSprintAnimSpeed(_player);
 

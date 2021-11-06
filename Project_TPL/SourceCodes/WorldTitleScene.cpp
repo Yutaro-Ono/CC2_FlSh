@@ -36,9 +36,9 @@ bool WorldTitleScene::Load()
 	m_canvas = new CanvasTitleScene(this);
 
 	// タイトル用車の生成
-	//m_car = new TitleCar();
-	//m_car->SetPosition(Vector3(6500.0f, -65.0f, 0.0f));
-	//m_car->SetScale(0.4f);
+	m_car = new TitleCar();
+	m_car->SetPosition(Vector3(6500.0f, -65.0f, 0.0f));
+	m_car->SetScale(0.4f);
 
 	//MotorBikeParent* motorBike = new MotorBikeParent();
 	//motorBike->SetScale(1.0f);
@@ -56,7 +56,7 @@ bool WorldTitleScene::Load()
 
 	// 環境情報の生成
 	m_environment = new Environment(player, ENVIRONMENT_TYPE::MORNING);
-	//m_environment = new Environment(m_car, ENVIRONMENT_TYPE::NIGHT);
+	//m_environment = new Environment(player, ENVIRONMENT_TYPE::NIGHT);
 
 
 	//// 橋オブジェクトの生成
@@ -67,8 +67,8 @@ bool WorldTitleScene::Load()
 	//	GAME_INSTANCE.GetLoadScreen()->AddGauge();
 	//}
 
-	Mesh* meshw1 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Wall_White_A/SpaceShip_Wall_White_A.gpmesh");
-	Mesh* meshw2 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Wall_White_B/SpaceShip_Wall_White_B.gpmesh");
+	//Mesh* meshw1 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Wall_White_A/SpaceShip_Wall_White_A.gpmesh");
+	//Mesh* meshw2 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Wall_White_B/SpaceShip_Wall_White_B.gpmesh");
 
 	//Mesh* meshF1 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Floor_Black/SpaceShip_Floor_Black.gpmesh");
 	//Mesh* meshF2 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Floor_Red/SpaceShip_Floor_Red.gpmesh");
@@ -77,15 +77,17 @@ bool WorldTitleScene::Load()
 	//Mesh* meshSt = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Steel/SpaceShip_Steel.gpmesh");
 	//Mesh* mesh3 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Light_A/SpaceShip_LightA.gpmesh");
 	//Mesh* mesh4 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Light_B/SpaceShip_LightB.gpmesh");
+	Mesh* meshTer = RENDERER->GetMesh("Data/Meshes/Objects/Environment/Terrain/SM_Field.gpmesh");
 
+	//LevelBlock* spacew1 = new LevelBlock();
+	//spacew1->SetMesh(meshw1);
+	//spacew1->SetScale(1.0f);
+	//spacew1->SetPosition(Vector3(177.0f, 0.0f, 0.0f));
 
-	LevelBlock* spacew1 = new LevelBlock();
-	spacew1->SetMesh(meshw1);
-	spacew1->SetScale(1.0f);
-
-	LevelBlock* spacew2 = new LevelBlock();
-	spacew2->SetMesh(meshw2);
-	spacew2->SetScale(1.0f);
+	//LevelBlock* spacew2 = new LevelBlock();
+	//spacew2->SetMesh(meshw2);
+	//spacew2->SetScale(1.0f);
+	//spacew2->SetPosition(Vector3(393.0f, 21.0f, 0.0f));
 
 	//LevelBlock* spaceF1 = new LevelBlock();
 	//spaceF1->SetMesh(meshF1);
@@ -106,22 +108,32 @@ bool WorldTitleScene::Load()
 	//LevelBlock* spaceSt = new LevelBlock();
 	//spaceSt->SetMesh(meshSt);
 	//spaceSt->SetScale(1.0f);
+	//spaceSt->SetPosition(Vector3(441.0f, 0.0f, 0.0f));
 
 	//LevelBlock* space3 = new LevelBlock();
 	//space3->SetMesh(mesh3);
 	//space3->SetScale(1.0f);
-	//space3->SetMeshIntensity(5.0f);
+	//space3->SetMeshIntensity(3.0f);
+	//space3->SetPosition(Vector3(0.0f, 0.0f, 431.0f));
+
 
 	//LevelBlock* space4 = new LevelBlock();
 	//space4->SetMesh(mesh4);
 	//space4->SetScale(1.0f);
-	//space4->SetMeshIntensity(5.0f);
+	//space4->SetMeshIntensity(3.0f);
+	//space4->SetPosition(Vector3(0.0f, 0.0f, 12.0f));
+
+	LevelBlock* spaceTer = new LevelBlock();
+	spaceTer->SetMesh(meshTer);
+	spaceTer->SetScale(100.0f);
+	spaceTer->SetMeshIntensity(3.0f);
+	spaceTer->SetPosition(Vector3(0.0f, 0.0f, 12.0f));
 
 
-
-	//EnemyZombie* zombie = new EnemyZombie();
-	//zombie->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
-	//zombie->SetScale(1.0f);
+	EnemyZombie* zombie = new EnemyZombie();
+	zombie->SetPosition(Vector3(380.0f, 0.0f, 20.0f));
+	zombie->SetScale(0.8f);
+	zombie->SetTarget(player);
 
 	PlayerHUD* pHUD = new PlayerHUD(player);
 

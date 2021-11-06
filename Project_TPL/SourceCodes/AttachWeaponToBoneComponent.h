@@ -24,9 +24,8 @@ public:
 
 	void Update(float _deltaTime) override;
 
-	void ChangeAttachBoneNum(unsigned int _boneNum, const Vector3& _adjustPos);
+	void ChangeAttachBoneNum(unsigned int _boneNum);
 
-	void SetAdjustAngles(const Vector3& _angles);
 
 private:
 
@@ -35,7 +34,5 @@ private:
 
 	unsigned int m_boneNum;       // アタッチするボーン番号
 
-	Vector3 m_adjustPos;          // 位置微調整用ベクトル
-	Vector3 m_adjustAngles;             // 各軸ごとの回転角度
 
 };

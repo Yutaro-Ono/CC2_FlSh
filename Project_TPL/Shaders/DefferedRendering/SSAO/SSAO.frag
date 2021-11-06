@@ -26,7 +26,7 @@ uniform sampler2D u_gPosition;
 uniform sampler2D u_gNormal;
 uniform sampler2D u_texNoise;
 
-uniform vec3 samples[64];
+uniform vec3 u_samples[64];
 
 // 各種パラメータ
 uniform int u_kernelSize = 64;
@@ -46,15 +46,19 @@ void main()
 	vec3 normal = normalize(texture(u_gNormal, fs_in.fragTexCoords).rgb);
     vec3 randomVec = normalize(texture(u_texNoise, fs_in.fragTexCoords * noiseScale).xyz);
     // TBN行列の作成:タンジェント空間→ビュー空間
-    vec3 tangent = normalize(randomVec - normal * dot(randomVec, normal));
+    //vec3 tangent = normalize(randomVec - normal * dot(randomVec, normal));
+    vec3 tangent = normalize(randomVec - dot(randomVec, normal) * normal);
+
     vec3 bitangent = cross(normal, tangent);
-    mat3 TBN = mat3(tangent, bitangent, normal);
+    mat3 TBN = transpose(mat3(tangent, bitangent, normal));
+
+
     // サンプルカーネルを反復し、オクルージョンを算出
     float occlusion = 0.0;
     for(int i = 0; i < u_kernelSize; ++i)
     {
         // サンプリング座標を取得
-        vec3 samplePos = TBN * samples[i];                     // タンジェントからビュースペースへ
+        vec3 samplePos = u_samples[i] * TBN;                     // タンジェントからビュースペースへ
         samplePos = fragPos + samplePos * u_radius; 
         
         // 座標のサンプリング (テクスチャサンプリング) (スクリーン／テクスチャ上の位置を取得する)

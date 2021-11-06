@@ -16,7 +16,6 @@ public:
 
 	void OnUpdateWorldTransform() override {}                      // ワールド座標変換用
 
-
 	void MovementByController(float in_deltaTime) override;
 	void MovementByKeyboard(float in_deltaTime) override;
 

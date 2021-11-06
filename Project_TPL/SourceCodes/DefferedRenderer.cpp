@@ -72,7 +72,9 @@ void DefferedRenderer::DrawGBuffer()
 	Matrix4 lightSpace, lightView, lightProj;
 	lightProj = Matrix4::CreateOrtho(7000.0f, 7000.0f, 1.0f, 5000.0f);
 	lightView = Matrix4::CreateLookAt(m_renderer->GetDirectionalLight()->GetPosition(), m_renderer->GetDirectionalLight()->GetTargetPos(), Vector3::UnitZ);
-	lightSpace = lightView * lightProj;
+	//lightSpace = lightView * lightProj;
+	lightSpace = lightProj * lightView;
+
 
 	//-----------------------------------------------------------+
 	// 通常メッシュ
@@ -176,6 +178,7 @@ void DefferedRenderer::DrawGBuffer()
 	{
 		light->Draw(glassShader);
 	}
+
 
 	// GBufferのバインド解除
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -419,7 +422,7 @@ void DefferedRenderer::Draw()
 	DrawGBuffer();
 
 	// SSAO処理
-	DrawSSAOPath();
+	//DrawSSAOPath();
 
 	// ライトバッファへの書き込み
 	DrawLightPath();
@@ -528,9 +531,8 @@ bool DefferedRenderer::GenerateGBuffer()
 /// <returns></returns>
 bool DefferedRenderer::GenerateSSAOBuffer()
 {
-	// SSAO用各フレームバッファの登録
+	// SSAO用フレームバッファの登録
 	glGenFramebuffers(1, &m_ssaoFBO);
-	glGenFramebuffers(1, &m_ssaoBlurFBO);
 	// ssaoフレームバッファをバインド
 	glBindFramebuffer(GL_FRAMEBUFFER, m_ssaoFBO);
 	// SSAO用カラーバッファの登録
@@ -545,7 +547,11 @@ bool DefferedRenderer::GenerateSSAOBuffer()
 	{
 		std::cout << "ERROR::DefferedRenderer::SSAO::Generate Failed" << std::endl;
 	}
+	glClearColor(1.0, 1.0, 1.0, 0.0);     // カラーのクリア
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	// SSAO用フレームバッファの登録
+	glGenFramebuffers(1, &m_ssaoBlurFBO);
 	// ssaoブラーバッファのバインド
 	glBindFramebuffer(GL_FRAMEBUFFER, m_ssaoBlurFBO);
 	// SSAO用カラーバッファの登録
@@ -560,7 +566,8 @@ bool DefferedRenderer::GenerateSSAOBuffer()
 	{
 		std::cout << "ERROR::DefferedRenderer::SSAO::Generate Failed" << std::endl;
 	}
-
+	glClearColor(1.0, 1.0, 1.0, 0.0);     // カラーのクリア
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	// バインド解除
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -593,9 +600,6 @@ bool DefferedRenderer::GenerateSSAOBuffer()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-
-
 
 	return true;
 }

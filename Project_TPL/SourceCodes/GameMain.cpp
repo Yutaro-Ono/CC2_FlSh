@@ -664,6 +664,26 @@ void GameMain::InActiveCamera(CameraComponent* _activeCam)
 			Vector3(0, 0, 1));
 }
 
+/// <summary>
+/// プレイヤーアクターの取得
+/// </summary>
+/// <returns> Actorポインタ </returns>
+Actor* GameMain::GetPlayerActor()
+{
+	Actor* player = nullptr;
+
+	for (auto actor : m_actorPool->GetPool())
+	{
+		// プレイヤータグの検索
+		if (actor->GetActorTag() == OBJECT_TAG::ACTOR_PLAYER)
+		{
+			player = actor;
+		}
+	}
+
+	return player;
+}
+
 const Vector3 & GameMain::GetViewVector()
 {
 	if (m_activeCamera == nullptr)

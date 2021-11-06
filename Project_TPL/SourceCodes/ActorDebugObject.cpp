@@ -11,7 +11,7 @@
 ActorDebugObject::ActorDebugObject(Actor* _owner)
 	:m_owner(_owner)
 {
-	m_actorLabel = (char)m_owner->m_tag + " ID : " + std::to_string(m_owner->m_ID);
+	m_label = (char)m_owner->m_tag + " ID : " + std::to_string(m_owner->m_ID);
 }
 
 ActorDebugObject::~ActorDebugObject()
@@ -24,11 +24,13 @@ ActorDebugObject::~ActorDebugObject()
 /// <param name="_deltaTime"> デルタタイム </param>
 void ActorDebugObject::Update(float _deltaTime)
 {
+	// ラベルの更新
+	m_label = "Actor ID : " + std::to_string(m_owner->m_ID);
 
 	// 区切り線
 	ImGui::Separator();
 
-	if (ImGui::TreeNode(m_actorLabel.c_str()))
+	if (ImGui::TreeNode(m_label.c_str()))
 	{
 		//------------------------------------------------------------------------+
 		// 座標
@@ -40,11 +42,11 @@ void ActorDebugObject::Update(float _deltaTime)
 
 		// インプット形式
 		std::string label;
-		label = "Position X (" + m_actorLabel + ")";
+		label = "Position X (" + m_label + ")";
 		ImGui::InputFloat(label.c_str(), &pos.x, 1.0f, 0.0f);
-		label = "Position Y (" + m_actorLabel + ")";
+		label = "Position Y (" + m_label + ")";
 		ImGui::InputFloat(label.c_str(), &pos.y, 1.0f, 0.0f);
-		label = "Position Z (" + m_actorLabel + ")";
+		label = "Position Z (" + m_label + ")";
 		ImGui::InputFloat(label.c_str(), &pos.z, 1.0f, 0.0f);
 
 		// 更新されたら
@@ -59,16 +61,17 @@ void ActorDebugObject::Update(float _deltaTime)
 		ImGui::Text(u8"回転");
 		Quaternion rot = m_owner->m_rotation;
 		
-		label = "Rotation X (" + m_actorLabel + ")";
+		label = "Rotation X (" + m_label + ")";
 		ImGui::SliderFloat(label.c_str(), &rot.x, -360.0f, 360.0f);
-		label = "Rotation Y (" + m_actorLabel + ")";
+		label = "Rotation Y (" + m_label + ")";
 		ImGui::SliderFloat(label.c_str(), &rot.y, -360.0f, 360.0f);
-		label = "Rotation Z (" + m_actorLabel + ")";
+		label = "Rotation Z (" + m_label + ")";
 		ImGui::SliderFloat(label.c_str(), &rot.z, -360.0f, 360.0f);
 
 		// 更新されたら
 		if (rot.x != m_owner->m_rotation.x || rot.y != m_owner->m_rotation.y || rot.z != m_owner->m_rotation.z)
 		{
+			rot = Quaternion(Math::ToRadians(rot.x), Math::ToRadians(rot.y), Math::ToRadians(rot.z), rot.w);
 			m_owner->SetRotation(rot);
 		}
 		//---------------------------------------------------------------------------+
@@ -81,11 +84,11 @@ void ActorDebugObject::Update(float _deltaTime)
 		scale.y = m_owner->m_scale.y;
 		scale.z = m_owner->m_scale.z;
 
-		label = "Scale X (" + m_actorLabel + ")";
+		label = "Scale X (" + m_label + ")";
 		ImGui::InputFloat(label.c_str(), &scale.x, 0.005f, 1.0f);
-		label = "Scale Y (" + m_actorLabel + ")";
+		label = "Scale Y (" + m_label + ")";
 		ImGui::InputFloat(label.c_str(), &scale.y, 0.005f, 1.0f);
-		label = "Scale Z (" + m_actorLabel + ")";
+		label = "Scale Z (" + m_label + ")";
 		ImGui::InputFloat(label.c_str(), &scale.z, 0.005f, 1.0f);
 
 		// 更新されたら
@@ -105,7 +108,7 @@ void ActorDebugObject::Update(float _deltaTime)
 
 void ActorDebugObject::Render()
 {
-	std::string label = "Mesh Viewer : " + m_actorLabel;
+	std::string label = "Mesh Viewer : " + m_label;
 
 	// 区切り線
 	ImGui::Separator();

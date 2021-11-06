@@ -7,8 +7,8 @@
 #include "ThirdPersonCamera.h"
 
 const float PlayerMovement::PLAYER_SPEED = 45.0f;
-const float PlayerMovement::SPEED_WALK = 45.0f;
-const float PlayerMovement::SPEED_JOG = 100.0f;
+const float PlayerMovement::SPEED_WALK = 65.0f;
+const float PlayerMovement::SPEED_JOG = 150.0f;
 const float PlayerMovement::SPEED_SPRINT = 240.0f;
 
 // コンストラクタ
@@ -217,12 +217,42 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 	bool toggleWalk = m_player->GetToggleWalk();
 	bool toggleSprint = m_player->GetToggleSprint();
 	bool toggleCrouch = m_player->GetToggleCrouch();
+
+	//-------------------------------------------------------------------------------+
+    // 「Walk」トグル制御
+    //-------------------------------------------------------------------------------+
+	// 歩き状態のトグル更新
+	// Xキーで切り替え
+	bool walkKey = INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_X);
+	if (walkKey)
+	{
+		if(toggleWalk)
+		{
+			toggleWalk = false;
+			m_player->SetToggleWalk(toggleWalk);
+		}
+
+		else if (!toggleWalk)
+		{
+			toggleWalk = true;
+			m_player->SetToggleWalk(toggleWalk);
+		}
+
+	}
+
+
 	//-------------------------------------------------------------------------------+
     // 「Sprint」トグル制御
     //-------------------------------------------------------------------------------+
 	// 走り状態時、入力されていなかったら走りトグル解除
 	if (toggleSprint && !(pressW || pressA || pressS || pressD))
 	{
+		m_player->SetToggleSprint(false);
+	}
+	// エイム時はスプリントOFF
+	if (m_player->GetPlayerState() == PLAYER_STATE::STATE_AIM)
+	{
+		m_velocity = SPEED_JOG;
 		m_player->SetToggleSprint(false);
 	}
 	// 「走る」ボタン=左SHIFTが押されているかを取得
@@ -232,6 +262,7 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 	{
 		toggleSprint = INPUT_INSTANCE.IsKeyPushDown(SDL_SCANCODE_LSHIFT);
 
+		// エイム時以外
 		if (toggleSprint)
 		{
 			m_velocity = SPEED_SPRINT;
@@ -239,26 +270,6 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 		}
 	}
 
-	//-------------------------------------------------------------------------------+
-    // 「Walk」トグル制御
-    //-------------------------------------------------------------------------------+
-	// 歩き状態のトグル更新
-	// Xキーで切り替え
-	bool key = INPUT_INSTANCE.IsKeyPullUp(SDL_SCANCODE_X);
-	if (key)
-	{
-		if (!toggleWalk)
-		{
-			toggleWalk = true;
-			m_player->SetToggleWalk(toggleWalk);
-		}
-		else
-		{
-			toggleWalk = false;
-			m_player->SetToggleWalk(toggleWalk);
-		}
-		
-	}
 
 	//--------------------------------------------------------------------------------------+
     // 「Crouch」トグル制御
@@ -292,11 +303,15 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
     //-------------------------------------------------------------------------------+
 	// 歩き状態でない、しゃがみ状態でない、いずれかに移動している場合
 	// 移動速度をジョグ(小走り)に設定
-	if(!toggleSprint && !toggleCrouch && !(pressW || pressA || pressS || pressD))
+	if(!toggleSprint && !toggleCrouch && (pressW || pressA || pressS || pressD))
 	{
 		m_velocity = SPEED_JOG;
 	}
 
+	if (toggleWalk || toggleCrouch)
+	{
+		m_velocity = SPEED_WALK;
+	}
 
 	// キー入力WASDによる移動処理
 	if (pressW)
@@ -357,16 +372,16 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 	    moveVec.Normalize();
 
 		// 進行方向に向けて回転(Lerp処理)
-		if (charaForwardVec.y - moveVec.y >= 1.01f)
-		{
-			moveVec.x = 1.0f;
-			moveVec.y = 0.0f;
-		}
-		if (charaForwardVec.y - moveVec.y <= -1.01f)
-		{
-			moveVec.x = 1.0f;
-			moveVec.y = 0.0f;
-		}
+		//if (charaForwardVec.y - moveVec.y >= 1.01f)
+		//{
+		//	moveVec.x = 1.0f;
+		//	moveVec.y = 0.0f;
+		//}
+		//if (charaForwardVec.y - moveVec.y <= -1.01f)
+		//{
+		//	moveVec.x = 1.0f;
+		//	moveVec.y = 0.0f;
+		//}
 		charaForwardVec = Vector3::Lerp(charaForwardVec, moveVec, 0.51f);
 
 		printf("chara = x:%f | y:%f | z:%f\n", charaForwardVec.x, charaForwardVec.y, charaForwardVec.z);
@@ -381,7 +396,7 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 		// キャラの前進ベクトルをカメラと同期
 		Vector3 charaForwardVec = m_owner->GetForward();
 		
-		charaForwardVec = Vector3::Lerp(charaForwardVec, forwardVec, 0.51f);
+		charaForwardVec = Vector3::Lerp(charaForwardVec, forwardVec, 0.65f);
 
 		// rotationを更新
 		m_owner->RotateToNewForward(charaForwardVec);

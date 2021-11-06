@@ -33,6 +33,7 @@ public:
 
 	void AddGauge();
 
+	const int GetGaugeAllNum() { return GAUGE_ALL_NUM; }
 
 private:
 
@@ -61,5 +62,5 @@ private:
 	// サイズ
 	float m_loadGaugeScale;      // ロードゲージのスケール
 
-	static const int GAUGE_NUM;
+	static const int GAUGE_ALL_NUM;
 };
