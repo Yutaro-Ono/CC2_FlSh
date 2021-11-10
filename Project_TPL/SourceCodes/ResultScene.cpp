@@ -230,5 +230,4 @@ SceneBase * ResultScene::Update(float _deltaTime)
 // •`‰æˆ—
 void ResultScene::Draw()
 {
-	RENDERER->Draw();
 }

@@ -20,7 +20,7 @@ public:
 
 	void UpdateActor(float in_deltaTime) override;
 
-	void SearchPlayer(class PlayerManager* in_player);
+	void SearchPlayer(class Player* in_player);
 
 	//---------------------------------------------------+
 	// Getter / Setter

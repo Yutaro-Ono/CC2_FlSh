@@ -23,8 +23,8 @@ public:
 
 
 
-
-
+	void SetActiveDanger(bool _flag) { m_isDanger = _flag; }
+	void SetActiveImpact(bool _flag) { m_isImpact = _flag; }
 
 private:
 
@@ -39,6 +39,7 @@ private:
 
 	std::vector<Vector2> m_flameGaugePos;
 	
+	bool m_isDanger;                                 // "Danger"表示するかしないか
 	bool m_isImpact;                                  // 集中線を出すか出さないか
 
 	Vector2 m_speedTexPos;

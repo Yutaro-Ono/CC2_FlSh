@@ -7,13 +7,15 @@ class LandMarkIndicator : public Actor
 
 public:
 
-	LandMarkIndicator(class PlayerManager* in_player);
+	LandMarkIndicator(class Actor* in_player);
 	~LandMarkIndicator();
 
 	void UpdateActor(float in_deltaTime) override;
 
+	void SetTargetActor(class Actor* _target);
+
 private:
 
-	class PlayerManager* m_player;
+	class Actor* m_target;
 
 };

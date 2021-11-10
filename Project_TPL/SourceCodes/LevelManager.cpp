@@ -187,12 +187,12 @@ LevelManager::LevelManager(WorldGameScene* in_world, int in_stageNum)
 
 			if (clientData[iy][ix] == 33)
 			{
-				ClientActor* client = new ClientActor(Vector3(ix * blockSize, offsetY - iy * blockSize, -10.0f), count);
-				count++;
-				in_world->AddClientActor(client);
+				//ClientActor* client = new ClientActor(Vector3(ix * blockSize, offsetY - iy * blockSize, -10.0f), count);
+				//count++;
+				//in_world->AddClientActor(client);
 
-				// ロード処理
-				GAME_INSTANCE.GetLoadScreen()->AddGauge();
+				//// ロード処理
+				//GAME_INSTANCE.GetLoadScreen()->AddGauge();
 			}
 		}
 	}
@@ -206,12 +206,12 @@ LevelManager::LevelManager(WorldGameScene* in_world, int in_stageNum)
 		{
 			if (patrolPointData[iy][ix] >= 34)
 			{
-				PatrolPoint* patrol = new PatrolPoint(Vector3(ix * blockSize, offsetY - iy * blockSize, 1200.0f));
+				//PatrolPoint* patrol = new PatrolPoint(Vector3(ix * blockSize, offsetY - iy * blockSize, 1200.0f));
 
-				in_world->AddPatrolPoint(patrol);
+				//in_world->AddPatrolPoint(patrol);
 
-				// ロード処理
-				GAME_INSTANCE.GetLoadScreen()->AddGauge();
+				//// ロード処理
+				//GAME_INSTANCE.GetLoadScreen()->AddGauge();
 
 			}
 		}

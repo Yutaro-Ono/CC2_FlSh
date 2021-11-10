@@ -3,12 +3,12 @@
 #include "Renderer.h"
 #include "GLSLprogram.h"
 #include "WorldGameScene.h"
-#include "PlayerManager.h"
 #include "Texture.h"
+#include "Mesh.h"
 #include "MeshComponent.h"
 #include "LandMarkIndicator.h"
 
-MiniMapHUD::MiniMapHUD(PlayerManager* _target)
+MiniMapHUD::MiniMapHUD(Actor* _target)
 	:m_target(_target)
 	,m_miniMapFBO(0)
 	,m_mapBuffer(0)
@@ -33,9 +33,10 @@ MiniMapHUD::MiniMapHUD(PlayerManager* _target)
 
 	// マップテクスチャを生成
 	m_mapTex = new Texture();
-	m_mapTex->Load("Data/Interface/HUD/Map/MapHUD.png");
+	m_mapTex->Load("Data/Interface/TPL/HUD/MapHUD/MAP_HUD.png");
 
 	// HUD上の矢印を生成
+	// マップ矢印のモデル読み込み
 	m_landMark = new LandMarkIndicator(_target);
 }
 
@@ -64,10 +65,10 @@ void MiniMapHUD::WriteBuffer(GLSLprogram* _shader, std::vector<class MeshCompone
 	m_viewPos = m_target->GetPosition() + Vector3(0.0f, -3900.0f, 4500.0f);
 	Matrix4 view = Matrix4::CreateLookAt(m_viewPos, m_target->GetPosition() + Vector3(0.0f, -3900.0f, 0.0f), Vector3::UnitX);
 	// ビュー・プロジェクション合成行列を作成
-	Matrix4 viewProj = view * m_projection;
+	Matrix4 projView = m_projection * view;
 
 	_shader->UseProgram();
-	_shader->SetUniform("u_viewProj", viewProj);
+	_shader->SetUniform("u_projView", projView);
 	glClearColor(1.0f, 0.6f, 0.0f, 1.0f);
 
 	// バッファに書き込む

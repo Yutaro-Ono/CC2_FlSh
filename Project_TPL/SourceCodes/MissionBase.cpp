@@ -36,7 +36,7 @@ void MissionBase::Update(float in_deltaTime)
 {
 
 	// プレイヤー座標を取得しておく
-	Vector3 playerPos = m_manager->GetPlayer()->GetPosition();
+	Vector3 playerPos = Vector3::Zero;//m_manager->GetPlayer()->GetPosition();
 	
 
 	bool isSelected = false;

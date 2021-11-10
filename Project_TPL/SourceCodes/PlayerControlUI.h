@@ -18,31 +18,8 @@ public:
 
 	void Draw(GLSLprogram* _shader) override;
 
-	void SetFindPlayer(bool in_find) { m_findPlayer = in_find; }
-
 
 private:
 
-
-
-	class PlayerManager* m_player;             // プレイヤーへのポインタ
-
-	class WorldGameScene* m_world;                  // ワールドへのポインタ
-
-	class WorldSpaceUI* m_rideTexture;
-	
-	class Texture* m_accessTex;                // ミッション受注の操作説明
-	class Texture* m_completeTex;              // ミッション完了の操作説明
-	Vector2 m_accessTexPos;
-	
-	class Texture* m_controlPanel;             // 操作説明用パネル
-
-	class Texture* m_land1;
-	class Texture* m_land2;
-	class Texture* m_selectMission;
-
-	class Texture* m_dangerFontTex;            // 危険な状態 (ヘリに見つかった)表示
-	class Texture* m_chasing;                  // ヘリによる追跡中に表示するアラート
-	bool m_findPlayer;                         // ヘリに見つかったかどうか
 };
 

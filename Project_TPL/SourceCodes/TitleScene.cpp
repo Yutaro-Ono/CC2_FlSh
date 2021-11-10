@@ -41,7 +41,6 @@ void TitleScene::Initialize()
 		GAME_INSTANCE.GetLoadScreen()->EnableScreen();
 	}
 
-
 	// ワールド情報のロード
 	m_world = new WorldTitleScene();
 	m_world->Load();
@@ -63,11 +62,12 @@ void TitleScene::Initialize()
 		GAME_INSTANCE.GetLoadScreen()->AddGauge();
 	}
 
+	// タイトル用UI
+	//UIScreen* hud = new TitleScreen(this);
+
 	// ロード画面の無効化
 	GAME_INSTANCE.GetLoadScreen()->DisableScreen();
 
-	// タイトル用UI
-	//UIScreen* hud = new TitleScreen(this);
 
 	// BGM再生開始
 	AUDIO->PlayMusic(m_sound["BGM"]);

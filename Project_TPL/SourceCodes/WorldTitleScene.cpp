@@ -13,6 +13,7 @@
 #include "EnemyZombie.h"
 #include "WeaponAR4.h"
 #include "PlayerHUD.h"
+#include "MiniMapHUD.h"
 
 #include "MeshGpmesh.h"
 #include "LevelBlock.h"
@@ -25,7 +26,6 @@ WorldTitleScene::WorldTitleScene()
 
 WorldTitleScene::~WorldTitleScene()
 {
-	
 }
 
 bool WorldTitleScene::Load()
@@ -136,6 +136,9 @@ bool WorldTitleScene::Load()
 	zombie->SetTarget(player);
 
 	PlayerHUD* pHUD = new PlayerHUD(player);
+
+	// É}ÉbÉvHUDê∂ê¨
+	MiniMapHUD* mapHUD = new MiniMapHUD(player);
 
 	return true;
 }

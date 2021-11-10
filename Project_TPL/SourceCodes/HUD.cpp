@@ -19,6 +19,7 @@
 HUD::HUD(WorldGameScene* _world)
 	:m_world(_world)
 	,m_dangerCall(nullptr)
+	,m_isDanger(false)
 	,m_isImpact(false)
 	,m_dispAccel(0.0f)
 	,m_speedTexPos(600.0f, 340.0f)
@@ -52,16 +53,6 @@ HUD::~HUD()
 void HUD::Update(float _deltaTime)
 {
 
-	// プレイヤーの速度が100km/h以上なら集中線を表示
-	if (true)
-	{
-		m_isImpact = true;
-	}
-	else
-	{
-		m_isImpact = false;
-	}
-
 }
 
 // 描画処理
@@ -69,14 +60,7 @@ void HUD::Draw(GLSLprogram * _shader)
 {
 
 	// ヘリに見つかった時にDANGER表示
-	bool found = false;
-	for (auto heli : m_world->GetHeliArray())
-	{
-		found = heli->GetFoundPlayer();
-		if (found) break;
-	}
-
-	if (m_dangerCall && found)
+	if (m_dangerCall && m_isDanger)
 	{
 		// 描画
 		DrawTexture(_shader, m_dangerCall);

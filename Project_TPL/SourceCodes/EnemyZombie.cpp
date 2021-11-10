@@ -34,6 +34,7 @@ EnemyZombie::EnemyZombie()
 	m_skelComp = new SkeletalMeshComponent(this);
 	m_skelComp->SetMesh(mesh);
 	m_skelComp->SetSkeleton(RENDERER->GetSkeleton(ZOMBIE_SKEL_PATH));
+	
 
 	// アニメーションのロード
 	m_anims.resize(static_cast<unsigned int>(ZOMBIE_STATE::STATE_ALL_NUM));

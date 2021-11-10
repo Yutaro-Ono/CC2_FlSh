@@ -75,12 +75,13 @@ void Environment::SetDirectionalLight(ENVIRONMENT_TYPE _envType, const Vector3& 
 		// ディレクショナルライトの調整
 		RENDERER->GetDirectionalLight()->SetPosition(playerPos + ADJUST_POS);
 		RENDERER->GetDirectionalLight()->SetTarget(playerPos);
-		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.84f, 0.88f, 0.94f));
-		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.4f, 0.5f, 0.5f));
-		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.3f, 0.3f, 0.3f));
+		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.741f, 0.735f, 0.735f));
+		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.872f, 0.725f, 0.751f));
+		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.901f, 0.741f, 0.781f));
+		RENDERER->GetDirectionalLight()->SetIntensity(0.3f);
 		// ブルームの設定
-		RENDERER->GetBloom()->SetGamma(0.085f);
-		RENDERER->GetBloom()->SetExposureVal(4.5f);
+		RENDERER->GetBloom()->SetGamma(3.69f);
+		RENDERER->GetBloom()->SetExposureVal(0.13f);
 	}
 
 	if (m_envType == ENVIRONMENT_TYPE::AFTERNOON)
@@ -95,9 +96,11 @@ void Environment::SetDirectionalLight(ENVIRONMENT_TYPE _envType, const Vector3& 
 		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.7f, 0.7f, 0.75f));
 		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.4f, 0.4f, 0.45f));
 		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.5f, 0.5f, 0.6f));
+		RENDERER->GetDirectionalLight()->SetIntensity(0.8f);
+
 		// ブルームの設定
-		RENDERER->GetBloom()->SetGamma(1.0f);
-		RENDERER->GetBloom()->SetExposureVal(4.5f);
+		RENDERER->GetBloom()->SetGamma(3.69f);
+		RENDERER->GetBloom()->SetExposureVal(0.13f);
 	}
 
 	if (m_envType == ENVIRONMENT_TYPE::EVENING)
@@ -112,9 +115,11 @@ void Environment::SetDirectionalLight(ENVIRONMENT_TYPE _envType, const Vector3& 
 		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.4f, 0.4f, 0.4f));
 		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.07f, 0.05f, 0.3f));
 		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.01f, 0.0f, 0.1f));
+		RENDERER->GetDirectionalLight()->SetIntensity(0.8f);
+
 		// ブルームの設定
-		RENDERER->GetBloom()->SetGamma(1.0f);
-		RENDERER->GetBloom()->SetExposureVal(4.5f);
+		RENDERER->GetBloom()->SetGamma(3.69f);
+		RENDERER->GetBloom()->SetExposureVal(0.13f);
 	}
 
 	if (m_envType == ENVIRONMENT_TYPE::NIGHT)
@@ -126,9 +131,11 @@ void Environment::SetDirectionalLight(ENVIRONMENT_TYPE _envType, const Vector3& 
 		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.1f, 0.485f, 0.46f));
 		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.1f, 0.35f, 0.4f));
 		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.31f, 0.415f, 0.46f));
+		RENDERER->GetDirectionalLight()->SetIntensity(0.8f);
+
 		// ブルームの設定
-		RENDERER->GetBloom()->SetGamma(0.085f);
-		RENDERER->GetBloom()->SetExposureVal(5.5f);
+		RENDERER->GetBloom()->SetGamma(3.69f);
+		RENDERER->GetBloom()->SetExposureVal(0.13f);
 	}
 
 	if (m_envType == ENVIRONMENT_TYPE::NIGHT_CITY)
@@ -140,9 +147,11 @@ void Environment::SetDirectionalLight(ENVIRONMENT_TYPE _envType, const Vector3& 
 		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.1f, 0.485f, 0.46f));
 		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.1f, 0.35f, 0.4f));
 		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.31f, 0.415f, 0.46f));
+		RENDERER->GetDirectionalLight()->SetIntensity(0.8f);
+
 		// ブルームの設定
-		RENDERER->GetBloom()->SetGamma(0.085f);
-		RENDERER->GetBloom()->SetExposureVal(5.5f);
+		RENDERER->GetBloom()->SetGamma(3.69f);
+		RENDERER->GetBloom()->SetExposureVal(0.13f);
 	}
 
 
@@ -155,9 +164,11 @@ void Environment::SetDirectionalLight(ENVIRONMENT_TYPE _envType, const Vector3& 
 		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.1f, 0.485f, 0.46f));
 		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.1f, 0.35f, 0.4f));
 		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.31f, 0.415f, 0.46f));
+		RENDERER->GetDirectionalLight()->SetIntensity(0.8f);
+
 		// ブルームの設定
-		RENDERER->GetBloom()->SetGamma(0.085f);
-		RENDERER->GetBloom()->SetExposureVal(5.5f);
+		RENDERER->GetBloom()->SetGamma(3.69f);
+		RENDERER->GetBloom()->SetExposureVal(0.13f);
 	}
 
 	// スカイボックスの有効化

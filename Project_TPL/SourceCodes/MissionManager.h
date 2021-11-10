@@ -22,7 +22,6 @@ public:
 	// Getter / Setter
 	//------------------------------------------+
 	const std::vector<class MissionBase*>& GetMissionList() const { return m_missions; }     // ミッションリストのゲッター
-	class PlayerManager* GetPlayer() { return m_player; }
 
 	// カーソルで選択中のミッション番号ゲッター
 	int GetSelectedMission() { return m_selectNum; }
@@ -30,7 +29,7 @@ public:
 
 private:
 
-	class PlayerManager* m_player;                // プレイヤーへのポインタ
+	class Player* m_player;                // プレイヤーへのポインタ
 
 	class WorldGameScene* m_world;                     // ワールドへのポインタ
 

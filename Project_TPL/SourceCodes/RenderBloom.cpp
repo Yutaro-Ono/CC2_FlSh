@@ -17,6 +17,8 @@
 #include "Shader.h"
 #include "ShaderManager.h"
 #include "GLSLprogram.h"
+#include "Debugger.h"
+#include "RenderBloomDebugObject.h"
 #include <iostream>
 
 const unsigned int maxLevelNum = 5;
@@ -26,7 +28,6 @@ RenderBloom::RenderBloom()
 	:m_exposure(1.0f)
 	,m_gamma(0.085f)
 {
-
 	m_saveExposure = m_exposure;
 
 	// Bloom用FBOとテクスチャを生成
@@ -36,6 +37,14 @@ RenderBloom::RenderBloom()
 	}
 	CreateBlurFBO();
 
+
+	// デバッグオブジェクト
+#ifdef _DEBUG
+
+	RenderBloomDebugObject* defDebugObj = new RenderBloomDebugObject(this);
+	DEBUGGER->AddDebugObject(defDebugObj, OBJECT_TAG::SYSTEM);
+
+#endif
 }
 
 // デストラクタ

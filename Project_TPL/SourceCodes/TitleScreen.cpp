@@ -139,7 +139,6 @@ void TitleScreen::Draw(GLSLprogram * _shader)
 		{
 			DrawTexture(_shader, m_startButton[0], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_startButton[0]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_startButton[0]->GetHeight() + 280), 1.0f);
 			DrawTexture(_shader, m_startButton[1], Vector2(GAME_CONFIG->GetScreenWidth() / 2 - m_startButton[1]->GetWidth() / 2 - 80, -RENDERER->GetScreenHeight() / 2 + m_startButton[1]->GetHeight() + 280) + Vector2(-3.0f, 3.0f), 1.0f);
-			
 		}
 		// èIóπÉ{É^Éì
 		if (m_quitButton[0] != nullptr || m_quitButton[1] != nullptr)

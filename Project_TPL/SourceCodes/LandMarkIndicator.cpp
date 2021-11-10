@@ -9,9 +9,9 @@
 #include "WorldSpaceUI.h"
 #include "CameraComponent.h"
 
-LandMarkIndicator::LandMarkIndicator(PlayerManager* in_player)
+LandMarkIndicator::LandMarkIndicator(Actor* in_player)
 	:Actor(OBJECT_TAG::PARTICLE)
-	,m_player(in_player)
+	,m_target(in_player)
 {
 	SetScale(750.0f);
 	// マップ矢印のモデル読み込み
@@ -29,16 +29,18 @@ LandMarkIndicator::~LandMarkIndicator()
 
 void LandMarkIndicator::UpdateActor(float in_deltaTime)
 {
-	// プレイヤー追跡
-	if (m_player->GetPlayerMode() == PlayerManager::MODE_HUMAN)
-	{
-		SetPosition(m_player->GetPlayerHuman()->GetPosition());
-		SetRotation(m_player->GetPlayerHuman()->GetRotation());
-	}
-	else
-	{
-		SetPosition(m_player->GetPlayerCar()->GetPosition());
-		SetRotation(m_player->GetPlayerCar()->GetRotation());
-	}
+	// ターゲットアクターを参照して座標の更新/矢印を回転
+	SetPosition(m_target->GetPosition());
+	SetRotation(m_target->GetRotation());
 	
+}
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="_target"></param>
+void LandMarkIndicator::SetTargetActor(Actor* _target)
+{
+	// ターゲットアクターの切り替え
+	m_target = _target;
 }

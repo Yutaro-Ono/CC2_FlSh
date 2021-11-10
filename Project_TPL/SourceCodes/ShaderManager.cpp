@@ -302,7 +302,7 @@ bool ShaderManager::CreateShaders()
 		return false;
 	}
 	m_shaders[GLSL_SHADER::HUD_OUTPUT]->UseProgram();
-	m_shaders[GLSL_SHADER::HUD_OUTPUT]->SetUniform("u_viewProj", screenMat);
+	m_shaders[GLSL_SHADER::HUD_OUTPUT]->SetUniform("u_projView", screenMat);
 
 	//---------------------------------------------------------------------------+
 	// その他のシェーダー (デバッグ用ビジュアライザー系)

@@ -7,7 +7,7 @@ class MiniMapHUD
 
 public:
 
-	MiniMapHUD(class PlayerManager* _target);
+	MiniMapHUD(class Actor* _target);
 	~MiniMapHUD();
 
 	void WriteBuffer(class GLSLprogram* _shader, std::vector<class MeshComponent*> _mesh);

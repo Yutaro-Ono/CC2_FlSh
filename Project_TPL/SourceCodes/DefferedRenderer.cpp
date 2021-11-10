@@ -57,7 +57,7 @@ void DefferedRenderer::DrawGBuffer()
 	// マップHUD書き込み処理
 	if (m_renderer->GetMapHUD() != nullptr)
 	{
-		//m_renderer->GetMapHUD()->WriteBuffer(m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::HUD_INPUT), m_renderer->m_meshComponents);
+		m_renderer->GetMapHUD()->WriteBuffer(m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::HUD_INPUT), m_renderer->m_meshComponents);
 	}
 	// 描画先をGBufferとしてバインドする
 	glBindFramebuffer(GL_FRAMEBUFFER, m_gBuffer);
@@ -385,7 +385,7 @@ void DefferedRenderer::DrawLightPath()
 	// マップHUD
 	if (m_renderer->GetMapHUD() != nullptr)
 	{
-		//m_renderer->GetMapHUD()->Draw(m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::HUD_OUTPUT));
+		m_renderer->GetMapHUD()->Draw(m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::HUD_OUTPUT));
 	}
 
 	// ブレンドをオフ

@@ -102,27 +102,27 @@ void ScoreUI::Update(float in_deltaTime)
 
 	// スコア減算処理
 	// プレイヤーが見つかっている時のみ
-	m_startSub = m_canvas->GetWorld()->GetFoundPlayer();
-	if (m_startSub)
-	{
-		SubScore();
+	//m_startSub = m_canvas->GetWorld()->GetFoundPlayer();
+	//if (m_startSub)
+	//{
+	//	SubScore();
 
-		// ルールのスコアを取得する
-		ssScore << "$" << m_score;
-		// スコア更新に伴う事前のテクスチャ削除と生成処理
-		for (int i = 0; i < 2; i++)
-		{
-			m_scoreTex[i]->Delete();
-			m_scoreTex[i] = m_font->RenderText(ssScore.str(), Vector3(1.0f, 1.0f, 1.0f) * i, m_fontSize);
-		}
-		// 表示座標の更新
-		m_scoreTexPos = Vector2(SCREEN_HALF_W - m_scoreTex[0]->GetHalfWidth() - 3.0f, SCREEN_HALF_H - m_scoreTex[0]->GetHalfHeight() - 3.0f);
-	}
-	else
-	{
-		m_drawSubScore = false;
-		m_time = SDL_GetTicks() / 1000;
-	}
+	//	// ルールのスコアを取得する
+	//	ssScore << "$" << m_score;
+	//	// スコア更新に伴う事前のテクスチャ削除と生成処理
+	//	for (int i = 0; i < 2; i++)
+	//	{
+	//		m_scoreTex[i]->Delete();
+	//		m_scoreTex[i] = m_font->RenderText(ssScore.str(), Vector3(1.0f, 1.0f, 1.0f) * i, m_fontSize);
+	//	}
+	//	// 表示座標の更新
+	//	m_scoreTexPos = Vector2(SCREEN_HALF_W - m_scoreTex[0]->GetHalfWidth() - 3.0f, SCREEN_HALF_H - m_scoreTex[0]->GetHalfHeight() - 3.0f);
+	//}
+	//else
+	//{
+	//	m_drawSubScore = false;
+	//	m_time = SDL_GetTicks() / 1000;
+	//}
 	
 }
 

@@ -129,5 +129,4 @@ SceneBase* TutorialScene::Update(float _deltaTime)
 
 void TutorialScene::Draw()
 {
-	RENDERER->Draw();
 }

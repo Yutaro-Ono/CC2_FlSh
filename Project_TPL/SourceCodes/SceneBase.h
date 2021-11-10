@@ -22,4 +22,6 @@ public:
 
 	virtual void Draw() = 0;                      // •`‰æˆ—
 
+
+
 };

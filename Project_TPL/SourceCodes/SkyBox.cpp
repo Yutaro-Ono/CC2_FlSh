@@ -36,7 +36,7 @@ void SkyBox::SetSkyBox(ENVIRONMENT_TYPE _envType)
 	{
 		m_cubeMapComp = new CubeMapComponent(this);
 		m_cubeMapComp->CreateTexture("Data/Textures/Skybox/morning/");
-		m_cubeMapComp->SetIntensity(0.8f);
+		m_cubeMapComp->SetIntensity(0.5f);
 		return;
 	}
 	if (_envType == ENVIRONMENT_TYPE::AFTERNOON)

@@ -851,6 +851,9 @@
     <ClCompile Include="SourceCodes\TrackActorComponent.cpp">
       <Filter>Source\Component\ForActor\ForEnemy</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCodes\SceneBase.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">

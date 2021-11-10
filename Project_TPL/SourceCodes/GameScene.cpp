@@ -135,7 +135,7 @@ SceneBase * GameScene::Update(float _deltaTime)
 		if (RENDERER->GetBloom()->WhiteOut(70.3f, GAME_INSTANCE.GetDeltaTime()))
 		{
 			// ŽŸ‚ÌƒV[ƒ“‚ð•Ô‚·
-			return new ResultScene(m_world->GetCanvas()->GetScoreUI()->GetScore(), m_bestSpeed);
+			//return new ResultScene(m_world->GetCanvas()->GetScoreUI()->GetScore(), m_bestSpeed);
 		}
 
 		break;
@@ -262,7 +262,6 @@ SceneBase * GameScene::Update(float _deltaTime)
 // •`‰æˆ—
 void GameScene::Draw()
 {
-	// •`‰æ
 	RENDERER->Draw();
 }
 

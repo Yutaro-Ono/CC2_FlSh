@@ -8,7 +8,7 @@
 #include "HeliSpotLight.h"
 #include "PatrolComponent.h"
 #include "WorldGameScene.h"
-#include "PlayerManager.h"
+#include "Player.h"
 #include "PointLight.h"
 #include "InputController.h"
 
@@ -89,7 +89,7 @@ void Helicopter::UpdateActor(float in_deltaTime)
 }
 
 // ヘリの索敵範囲にプレイヤーが接触したかどうかの検出
-void Helicopter::SearchPlayer(PlayerManager* in_player)
+void Helicopter::SearchPlayer(Player* in_player)
 {
 	// サーチ範囲を更新
 	m_searchSphere.m_center.x = m_position.x;
@@ -98,12 +98,15 @@ void Helicopter::SearchPlayer(PlayerManager* in_player)
 	// プレイヤーを発見したかどうか
 	if (m_searchSphere.Contains(in_player->GetPosition()))
 	{
-		// プレイヤーが一定以上の速度で走っている時のみ発見状態に
-		if (in_player->GetPlayerCar()->GetAccelValue() - in_player->GetPlayerCar()->GetBrakeValue() >= 15.0f)
-		{
-			m_foundPlayer = true;
-			printf("ヘリがプレイヤーを発見した\n");
-		}
+		//// プレイヤーが一定以上の速度で走っている時のみ発見状態に
+		//if (in_player->GetPlayerCar()->GetAccelValue() - in_player->GetPlayerCar()->GetBrakeValue() >= 15.0f)
+		//{
+		//	m_foundPlayer = true;
+		//	printf("ヘリがプレイヤーを発見した\n");
+		//}
+
+		m_foundPlayer = true;
+		printf("ヘリがプレイヤーを発見した\n");
 
 	}
 	else
