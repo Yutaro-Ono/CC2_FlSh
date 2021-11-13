@@ -34,7 +34,7 @@ void main()
 	{
 		if(brightness > 0.5)                                              // 輝度が0.5以上で高輝度バッファへ出力
 	    {
-		    out_brightColor = out_color * 0.5f;
+		    //out_brightColor = out_color * 0.5f;
 	    }
 	}
 

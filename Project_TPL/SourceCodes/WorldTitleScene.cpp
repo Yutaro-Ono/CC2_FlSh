@@ -79,6 +79,10 @@ bool WorldTitleScene::Load()
 	//Mesh* mesh4 = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/SpaceShip/Light_B/SpaceShip_LightB.gpmesh");
 	Mesh* meshTer = RENDERER->GetMesh("Data/Meshes/Objects/Environment/Terrain/SM_Field.gpmesh");
 
+	Mesh* meshStorage = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/Storage/storageBuilding.OBJ");
+	Mesh* meshGarage = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/Garage/garage_Internal.OBJ");
+
+
 	//LevelBlock* spacew1 = new LevelBlock();
 	//spacew1->SetMesh(meshw1);
 	//spacew1->SetScale(1.0f);
@@ -129,6 +133,17 @@ bool WorldTitleScene::Load()
 	spaceTer->SetMeshIntensity(3.0f);
 	spaceTer->SetPosition(Vector3(0.0f, 0.0f, 12.0f));
 
+	LevelBlock* spaceStor = new LevelBlock();
+	spaceStor->SetMesh(meshStorage);
+	//spaceStor->SetScale(70.0f);
+	spaceStor->SetMeshIntensity(3.0f);
+	spaceStor->SetPosition(Vector3(0.0f, 0.0f, 12.0f));
+
+	LevelBlock* spaceGarage = new LevelBlock();
+	spaceGarage->SetMesh(meshGarage);
+	spaceGarage->SetScale(70.0f);
+	spaceGarage->SetMeshIntensity(3.0f);
+	spaceGarage->SetPosition(Vector3(0.0f, 0.0f, 12.0f));
 
 	EnemyZombie* zombie = new EnemyZombie();
 	zombie->SetPosition(Vector3(380.0f, 0.0f, 20.0f));
@@ -138,7 +153,7 @@ bool WorldTitleScene::Load()
 	PlayerHUD* pHUD = new PlayerHUD(player);
 
 	// É}ÉbÉvHUDê∂ê¨
-	MiniMapHUD* mapHUD = new MiniMapHUD(player);
+	//MiniMapHUD* mapHUD = new MiniMapHUD(player);
 
 	return true;
 }
