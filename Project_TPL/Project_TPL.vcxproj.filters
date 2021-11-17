@@ -291,6 +291,9 @@
     <Filter Include="Source\Component\ForActor\ForEnemy">
       <UniqueIdentifier>{614dcf2c-21c9-442e-a498-f438a0454f6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Physics\Collision">
+      <UniqueIdentifier>{e6e9e5ec-aafd-456c-9b88-2f1f04a12f6a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -386,9 +389,6 @@
     <ClCompile Include="SourceCodes\Actor.cpp">
       <Filter>Source\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\BoxCollider.cpp">
-      <Filter>Source\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCodes\BoneTransform.cpp">
       <Filter>Source\Render\Mesh\Skeltal</Filter>
     </ClCompile>
@@ -412,9 +412,6 @@
     </ClCompile>
     <ClCompile Include="SourceCodes\CarSoundComponent.cpp">
       <Filter>Source\Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\Collision.cpp">
-      <Filter>Source\Physics</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\DebugBox.cpp">
       <Filter>Source\Debugger</Filter>
@@ -854,6 +851,18 @@
     <ClCompile Include="SourceCodes\SceneBase.cpp">
       <Filter>Source\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCodes\Collision.cpp">
+      <Filter>Source\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\BoxCollider.cpp">
+      <Filter>Source\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\ColliderComponent.cpp">
+      <Filter>Source\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\WallColliderComponent.cpp">
+      <Filter>Source\Physics\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -958,9 +967,6 @@
     <ClInclude Include="SourceCodes\Actor.h">
       <Filter>Source\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\BoxCollider.h">
-      <Filter>Source\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCodes\BoneTransform.h">
       <Filter>Source\Render\Mesh\Skeltal</Filter>
     </ClInclude>
@@ -984,9 +990,6 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\CarSoundComponent.h">
       <Filter>Source\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\Collision.h">
-      <Filter>Source\Physics</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\DebugGrid.h">
       <Filter>Source\Debugger</Filter>
@@ -1431,6 +1434,18 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\TrackActorComponent.h">
       <Filter>Source\Component\ForActor\ForEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\Collision.h">
+      <Filter>Source\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\BoxCollider.h">
+      <Filter>Source\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\ColliderComponent.h">
+      <Filter>Source\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\WallColliderComponent.h">
+      <Filter>Source\Physics\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -181,6 +181,7 @@
     <ClCompile Include="SourceCodes\CarSoundComponent.cpp" />
     <ClCompile Include="SourceCodes\CarWheel.cpp" />
     <ClCompile Include="SourceCodes\ClientActor.cpp" />
+    <ClCompile Include="SourceCodes\ColliderComponent.cpp" />
     <ClCompile Include="SourceCodes\Collision.cpp" />
     <ClCompile Include="SourceCodes\Component.cpp" />
     <ClCompile Include="SourceCodes\CountDownUI.cpp" />
@@ -239,6 +240,7 @@
     <ClCompile Include="SourceCodes\TPSCamera.cpp" />
     <ClCompile Include="SourceCodes\TrackActorComponent.cpp" />
     <ClCompile Include="SourceCodes\Vehicle.cpp" />
+    <ClCompile Include="SourceCodes\WallColliderComponent.cpp" />
     <ClCompile Include="SourceCodes\WeaponAR4.cpp" />
     <ClCompile Include="SourceCodes\WeaponBase.cpp" />
     <ClCompile Include="SourceCodes\WorldGameScene.cpp" />
@@ -371,6 +373,7 @@
     <ClInclude Include="SourceCodes\CarSoundComponent.h" />
     <ClInclude Include="SourceCodes\CarWheel.h" />
     <ClInclude Include="SourceCodes\ClientActor.h" />
+    <ClInclude Include="SourceCodes\ColliderComponent.h" />
     <ClInclude Include="SourceCodes\Collision.h" />
     <ClInclude Include="SourceCodes\Common.h" />
     <ClInclude Include="SourceCodes\Component.h" />
@@ -429,6 +432,7 @@
     <ClInclude Include="SourceCodes\TPSCamera.h" />
     <ClInclude Include="SourceCodes\TrackActorComponent.h" />
     <ClInclude Include="SourceCodes\Vehicle.h" />
+    <ClInclude Include="SourceCodes\WallColliderComponent.h" />
     <ClInclude Include="SourceCodes\WeaponAR4.h" />
     <ClInclude Include="SourceCodes\WeaponBase.h" />
     <ClInclude Include="SourceCodes\WorldGameScene.h" />
