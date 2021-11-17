@@ -7,228 +7,343 @@
 #include "ThirdPersonCamera.h"
 #include "Collision.h"
 #include "BoxCollider.h"
+#include "ColliderComponent.h"
+#include "WallColliderComponent.h"
+#include "GLSLprogram.h"
 
 // コンストラクタ
 PhysicsWorld::PhysicsWorld()
 	:m_boolDebugMode(false)
 {
-	// 物理コンポーネント配列の確保
-	m_bgBoxes.reserve(256);
-	printf("PhysicsWorld : Create\n");
+	std::cout << "CREATE : PhysicsWorld class Instance" << std::endl;
+
+	CreateLineColors();
+
+
 }
 
 PhysicsWorld::~PhysicsWorld()
 {
-	printf("PhysicsWorld : Delete\n");
-	m_bgBoxes.clear();
+	std::cout << "DELETE : PhysicsWorld class Instance" << std::endl;
+	//m_bgBoxes.clear();
 }
 
-// BoxColliderの追加
-void PhysicsWorld::AddBoxCollider(PhysicsType in_type, BoxCollider * in_box)
+/// <summary>
+/// 当たり判定の可視化
+/// </summary>
+void PhysicsWorld::DebugVisualizeCollisions(GLSLprogram* _shader)
 {
-	// プレイヤー
-	if (in_type == TYPE_PLAYER_CAR)
+	if (!m_boolDebugMode)
 	{
-		m_playerCarBoxes.push_back(in_box);
-	}
-
-	// プレイヤー(人間)
-	if (in_type == TYPE_PLAYER_HUMAN)
-	{
-		m_playerHumanBoxes.push_back(in_box);
-	}
-
-	// 背景当たり判定
-	if (in_type == TYPE_BACK_GROUND)
-	{
-		m_bgBoxes.push_back(in_box);
-	}
-
-	// 地形当たり判定
-	if (in_type == TYPE_TERRAIN)
-	{
-		m_terrain.push_back(in_box);
-	}
-
-	// カメラ当たり判定
-	if (in_type == TYPE_CAMERA)
-	{
-		m_cameraBoxes.push_back(in_box);
-	}
-
-}
-
-// BoxColliderの削除
-void PhysicsWorld::RemoveBoxCollider(BoxCollider * in_box)
-{
-	// BackGround内にいるか
-	auto box = std::find(m_bgBoxes.begin(), m_bgBoxes.end(), in_box);
-
-	if (box != m_bgBoxes.end())
-	{
-		m_bgBoxes.erase(box);
 		return;
 	}
 
-	// 車用当たり判定配列にいるか
-	auto car = std::find(m_playerCarBoxes.begin(), m_playerCarBoxes.end(), in_box);
-
-	if (car != m_playerCarBoxes.end())
+	// 当たり判定ボックス描画 tag毎に色を変えてすべてのリスト表示
+	int colorCount = 0;
+	size_t colorNum = m_lineColors.size();
+	for (auto t = OBJECT_TAG::BEGIN; t != OBJECT_TAG::END; ++t)
 	{
-		m_playerCarBoxes.erase(car);
-		return;
-	}
-
-	// 人間用当たり判定配列にいるか
-	auto human = std::find(m_playerHumanBoxes.begin(), m_playerHumanBoxes.end(), in_box);
-
-	if (human != m_playerHumanBoxes.end())
-	{
-		m_playerHumanBoxes.erase(human);
-		return;
-	}
-
-	// カメラ用当たり判定配列にいるか
-	auto cam = std::find(m_cameraBoxes.begin(), m_cameraBoxes.end(), in_box);
-
-	if (cam != m_cameraBoxes.end())
-	{
-		m_cameraBoxes.erase(cam);
-		return;
-	}
-
-	// 地形用当たり判定配列にあるか
-	auto terra = std::find(m_terrain.begin(), m_terrain.end(), in_box);
-
-	if (terra != m_terrain.end())
-	{
-		m_terrain.erase(terra);
-		return;
+		DrawCollisions(_shader, m_colliderComps[t], m_lineColors[colorCount % colorNum]);
+		colorCount++;
 	}
 }
 
-// デバッグ用ボックスリスト表示
-void PhysicsWorld::DebugShowBoxLists()
+/// <summary>
+/// 当たり判定の描画処理
+/// </summary>
+/// <param name="_colliderComps"> 描画する当たり判定 </param>
+/// <param name="_visualColor"> 描画カラー </param>
+void PhysicsWorld::DrawCollisions(GLSLprogram* _shader, const std::vector<class ColliderComponent*>& _colliderComps, const Vector3& _visualColor)
 {
-	if (m_bgBoxes.size())
+	// プロジェクション * ビュー 合成行列
+	Matrix4 view, proj, projView;
+	view = RENDERER->GetViewMatrix();
+	proj = RENDERER->GetProjectionMatrix();
+	projView = proj * view;
+
+	// ワールド変換行列作成用
+	Matrix4 scaleMat, posMat, rotMat, worldMat, slopeRot;
+	Vector3 scale, pos;
+
+	// 描画用シェーダーの有効化
+	_shader->UseProgram();
+	_shader->SetUniform("u_projView", projView);
+	_shader->SetUniform("u_color", _visualColor);
+
+	for (auto item : _colliderComps)
 	{
-		printf("\n---------------PhysicsList--bgList---------------\n");
-		for (auto iter : m_bgBoxes)
+		// Boxだった場合の描画
+		if (item->GetColliderType() == COLLIDER_TYPE::TYPE_BOX)
 		{
-			Vector3 pos = iter->GetOwner()->GetPosition();
-			printf("6%d ", iter->m_globalID);
-			printf("(% 7.2f, % 7.2f % 7.2f)-", pos.x, pos.y, pos.z);
-			printf("[%p]\n", iter->GetOwner());
+			AABB box;
+			Vector3 min, max;
+			box = dynamic_cast<BoxCollider*>(item)->GetWorldBox();
+
+			// ボックスのスケールと位置を取得
+			min = box.m_min;
+			max = box.m_max;
+			scale = max - min;
+			pos = min;
+
+			scaleMat = Matrix4::CreateScale(scale);
+			posMat = Matrix4::CreateTranslation(pos);
+
+			worldMat = scaleMat * posMat;
+			_shader->SetUniform("u_worldTransform", worldMat);
+
+			RENDERER->SetActiveBoxVAO();
+			glDrawElements(GL_LINES, 24, GL_UNSIGNED_INT, 0);
+		}
+		// Wallだった場合の描画 
+		if (item->GetColliderType() == COLLIDER_TYPE::TYPE_WALL||
+			item->GetColliderType() == COLLIDER_TYPE::TYPE_SLOPE)
+		{
+			WallColliderComponent* wallcol;
+			Wall walldata;
+
+			Vector3 scale; // 描画スケーリング係数
+			Vector3 pos; // 描画位置
+			Vector3 normal; // 壁法線
+
+			// WallColliderと壁データ取得
+			wallcol = dynamic_cast<WallColliderComponent*>(item);
+			walldata = wallcol->GetWall();
+			normal = walldata.m_normal;
+			// 4点の中点を求める
+			for (int i = 0; i < 4; i++)
+			{
+				pos += walldata.m_wallVertices[i];
+			}
+			pos = pos * 0.25f;
+
+			// 行列
+			scaleMat = Matrix4::CreateScale(walldata.m_scale);
+			rotMat = Matrix4::CreateRotationZ(walldata.m_zRotate);
+			posMat = Matrix4::CreateTranslation(pos);
+			slopeRot = Matrix4::CreateRotationY(walldata.m_slopeAngle);
+
+			worldMat = scaleMat * slopeRot * rotMat * posMat;
+			_shader->SetUniform("u_worldTransform", worldMat);
+
+			RENDERER->SetActiveSquareVAO();
+			glDrawElements(GL_LINES, 10, GL_UNSIGNED_INT, 0);
+		}
+		// LINEだった場合
+		if (item->GetColliderType() == COLLIDER_TYPE::TYPE_LINE)
+		{
+			LineCollider* linecol;
+			Line line;
+
+			linecol = dynamic_cast<LineCollider*>(item);
+
+			Vector3 scale;  // 描画スケーリング係数
+			Vector3 pos;    // 描画位置
+			line = linecol->GetLine();
+
+			// 線分ベクトルと正規化線分方向ベクトル求める
+			Vector3 lineVec = line.mLineEnd - line.mLineStart;;
+			Vector3 lineDir = lineVec;
+			lineDir.Normalize();
+
+			//線分長からスケーリング行列作成
+			float len = lineVec.Length();
+			Matrix4 scaleMat = Matrix4::CreateScale(len, 0, 0);
+
+			// 線分から回転軸と回転角を求めクオータニオン作成
+			Vector3 rotAxis;
+			rotAxis = Vector3::Cross(lineDir, Vector3(1, 0, 0));
+			float rotAngle = -1.0f * acosf(Vector3::Dot(rotAxis, lineDir));
+
+			// クオータニオンから線分の方向に回転する行列を作成
+			Quaternion q(rotAxis, rotAngle);
+			Matrix4 rotMat = Matrix4::CreateFromQuaternion(q);
+
+			// 平行移動成分
+			Matrix4 posMat = Matrix4::CreateTranslation(line.mLineStart);
+
+
+			worldMat = scaleMat * rotMat * posMat;
+			_shader->SetUniform("u_worldTransform", worldMat);
+
+			//描画
+			RENDERER->SetActiveLineVAO();
+			glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, 0);
 		}
 	}
 }
 
-void PhysicsWorld::Collision()
+
+/// <summary>
+/// 当たり判定コンポーネントの追加処理
+/// </summary>
+/// <param name="_collComp"> 追加する当たり判定コンポーネント </param>
+void PhysicsWorld::AddColliderComponent(ColliderComponent* _collComp)
 {
-	// プレイヤーと背景衝突
-	PlayerAndBGTest();
+	// 指定したタグ番目にコンポーネントを追加
+	OBJECT_TAG tag = _collComp->GetOwnerTag();
+	m_colliderComps[tag].emplace_back(_collComp);
+}
+
+/// <summary>
+/// 指定した当たり判定コンポーネントの削除
+/// </summary>
+/// <param name="_collComp"> 削除したい当たり判定コンポーネント </param>
+void PhysicsWorld::RemoveColliderComponent(ColliderComponent* _collComp)
+{
+	OBJECT_TAG tag = _collComp->GetOwnerTag();
+	// タグによって絞り込んだ連想配列内を検索して取得
+	std::vector<ColliderComponent*>::iterator itr = std::find(m_colliderComps[tag].begin(), m_colliderComps[tag].end(), _collComp);
+	// 配列内に存在していた場合、コンポーネントを消去
+	if (itr != m_colliderComps[tag].end())
+	{
+		m_colliderComps[tag].erase(itr);
+		return;
+	}
+}
+
+/// <summary>
+/// 片方のみリアクションする当たり判定ペアの登録
+/// </summary>
+/// <param name="_noReactType"> リアクションを返さない方のタグ </param>
+/// <param name="_reactType"> もう片方からの影響を受ける方のタグ </param>
+void PhysicsWorld::SetOneSideReactionColliderPair(OBJECT_TAG _noReactType, OBJECT_TAG _reactType)
+{
+	ColliderPairs pair;
+
+	pair.pair1 = _noReactType;
+	pair.pair2 = _reactType;
+
+	m_oneSideReactions.emplace_back(pair);
+}
+
+/// <summary>
+/// 双方向でリアクションする当たり判定ペアの登録
+/// </summary>
+/// <param name="_react1"> 当たり判定1のタグ </param>
+/// <param name="_react2"> 当たり判定2のタグ </param>
+void PhysicsWorld::SetDualReactionColliderPair(OBJECT_TAG _react1, OBJECT_TAG _react2)
+{
+	ColliderPairs pair;
+
+	pair.pair1 = _react1;
+	pair.pair2 = _react2;
+
+	m_dualReactions.emplace_back(pair);
+}
+
+/// <summary>
+/// 同グループ内で当たり判定処理するタグの登録
+/// </summary>
+/// <param name="_selfReact"> 当たり判定するタグ </param>
+void PhysicsWorld::SetSelfReactionCollider(OBJECT_TAG _selfReact)
+{
+	m_selfReactions.emplace_back(_selfReact);
+}
+
+
+/// <summary>
+/// 当たり判定の更新処理総合
+/// </summary>
+void PhysicsWorld::UpdateCollision()
+{
+	// 片方のみリアクションする当たり判定
+	for (auto oneReactPair : m_oneSideReactions)
+	{
+		
+	}
+
+	// 双方向リアクションする当たり判定
+	for (auto twoSideReactPair : m_dualReactions)
+	{
+
+	}
+
+	// 同じリストの当たり判定
+	for (auto t : m_selfReactions)
+	{
+
+	}
+
 }
 
 void PhysicsWorld::DebugShowBox()
 {
 }
 
-
-// プレイヤー関係の当たり判定処理
-void PhysicsWorld::PlayerAndBGTest()
+/// <summary>
+/// 片方のみリアクションの当たり判定ペアの衝突判定処理
+/// </summary>
+/// <param name="_pair"> 片方リアクションペア </param>
+void PhysicsWorld::OneReactionMatch(ColliderPairs _pair)
 {
-	//プレーヤー(車)の衝突検出
-	for (auto p : m_playerCarBoxes)
+	for (auto noreactColl : m_colliderComps[_pair.pair1])
 	{
-		BoxCollider *playerCar = p;
-		
-		// 環境オブジェクトとの当たり判定
-		for (auto b : m_bgBoxes)
+		for (auto reactColl : m_colliderComps[_pair.pair2])
 		{
-			BoxCollider *box = b;
-			if (Intersect(playerCar->GetWorldBox(), b->GetWorldBox()))
+			if (noreactColl->CollisionDetection(reactColl))
 			{
-				//プレーヤーの壁めり込み修正処理へ
-				dynamic_cast<PlayerCar *>(playerCar->GetOwner())->CollisionFix(playerCar, box);
-			}
-		}
-
-		// 地形との当たり判定
-		for (auto t : m_terrain)
-		{
-			BoxCollider* box = t;
-			if (Intersect(playerCar->GetWorldBox(), t->GetWorldBox()))
-			{
-				//プレーヤーの壁めり込み修正処理へ
-				dynamic_cast<PlayerCar*>(playerCar->GetOwner())->CollisionFix(playerCar, box);
-			}
-
-		}
-
-	}
-
-	//プレーヤー(人間)の衝突検出
-	for (auto p : m_playerHumanBoxes)
-	{
-		BoxCollider* playerHuman = p;
-
-		// 環境オブジェクトとの当たり判定
-		for (auto b : m_bgBoxes)
-		{
-			BoxCollider* box = b;
-			if (Intersect(playerHuman->GetWorldBox(), b->GetWorldBox()))
-			{
-				//プレーヤーの壁めり込み修正処理へ
-				dynamic_cast<PlayerHuman*>(playerHuman->GetOwner())->CollisionFix(playerHuman, box);
-			}
-		}
-
-		// 地形との当たり判定
-		for (auto t : m_terrain)
-		{
-			BoxCollider* box = t;
-			if (Intersect(playerHuman->GetWorldBox(), t->GetWorldBox()))
-			{
-				//プレーヤーの壁めり込み修正処理へ
-				dynamic_cast<PlayerHuman*>(playerHuman->GetOwner())->CollisionFix(playerHuman, box);
-			}
-		}
-
-		// 車との当たり判定
-		for (auto c : m_playerCarBoxes)
-		{
-			BoxCollider* car = c;
-			if (Intersect(playerHuman->GetWorldBox(), c->GetWorldBox()))
-			{
-				//プレーヤーの壁めり込み修正処理へ
-				dynamic_cast<PlayerHuman*>(playerHuman->GetOwner())->CollisionFix(playerHuman, car);
+				reactColl->GetOwner()->OnCollisionEnter(reactColl, noreactColl);
 			}
 		}
 	}
+}
 
-	// カメラの当たり判定
-	//for (auto c : m_cameraBoxes)
-	//{
-	//	BoxCollider* camera = c;
+/// <summary>
+/// 双方向リアクションの当たり判定ペアの衝突判定処理
+/// </summary>
+/// <param name="_pair"> 双方向リアクションペア </param>
+void PhysicsWorld::DualReactionMatch(ColliderPairs _pair)
+{
+	for (auto coll1 : m_colliderComps[_pair.pair1])
+	{
+		for (auto coll2 : m_colliderComps[_pair.pair2])
+		{
+			if (coll1->CollisionDetection(coll2))
+			{
+				coll1->GetOwner()->OnCollisionEnter(coll1, coll2);
+			}
+		}
+	}
+}
 
-	//	//printf("Min.x : %f, Min.y : %f, Min.z : %f\n", c->m_worldBox.m_min.x, c->m_worldBox.m_min.y, c->m_worldBox.m_min.z);
-	//	//printf("Max.x : %f, Max.y : %f, Max.z : %f\n", c->m_worldBox.m_max.x, c->m_worldBox.m_max.y, c->m_worldBox.m_max.z);
+/// <summary>
+/// 同グループ内の衝突判定処理
+/// </summary>
+/// <param name="_tag"> 判定処理を行うグループタグ </param>
+void PhysicsWorld::SelfReactionMatch(OBJECT_TAG _tag)
+{
+	// 同タグの当たり判定の登録数を保持
+	size_t size = m_colliderComps[_tag].size();
 
-	//	// 環境オブジェクトとの当たり判定
-	//	for (auto b : m_bgBoxes)
-	//	{
-	//		BoxCollider* box = b;
+	for (int i = 0; i < size; i++)
+	{
+		// 自分以外の当たり判定を総当たりでチェック
+		for (int j = i + 1; j < size; i++)
+		{
+			if (m_colliderComps[_tag][i]->CollisionDetection(m_colliderComps[_tag][j]))
+			{
+				Actor* actor1 = m_colliderComps[_tag][i]->GetOwner();
+				actor1->OnCollisionEnter(m_colliderComps[_tag][i], m_colliderComps[_tag][j]);
+			}
+		}
+	}
+}
 
-	//		// 非表示にしているメッシュを表示状態にする
-	//		//b->GetOwner()->GetMeshComponent()->SetVisible(true);
 
-	//		if (Intersect(camera->GetWorldBox(), b->GetWorldBox()))
-	//		{
-	//			// カメラの壁めり込み時、メッシュを非表示
-	//			dynamic_cast<ThirdPersonCamera*>(camera->GetCamera())->CollisionFix(camera, box);
 
-	//		}
-	//	}
-	//}
 
+/// <summary>
+/// デバッグ用当たり判定ボックスカラーのセット
+/// </summary>
+void PhysicsWorld::CreateLineColors()
+{
+	m_lineColors.emplace_back(Vector3(1.0f, 1.0f, 1.0f));
+	m_lineColors.emplace_back(Vector3(1.0f, 0.0f, 0.0f));       // RED
+	m_lineColors.emplace_back(Vector3(0.0f, 1.0f, 0.0f));       // GREEN
+	m_lineColors.emplace_back(Vector3(0.0f, 0.0f, 1.0f));       // BLUE
+	m_lineColors.emplace_back(Vector3(1.0f, 1.0f, 0.0f));       // YELLOW
+	m_lineColors.emplace_back(Vector3(1.0f, 0.71f, 0.76f));     // PINK
+	m_lineColors.emplace_back(Vector3(0.56f, 0.93f, 0.56f));    // LIGHT GREEN
+	m_lineColors.emplace_back(Vector3(1.0f, 1.0f, 0.88f));      // LIGHT YELLOW
+	m_lineColors.emplace_back(Vector3(0.68f, 0.85f, 0.9f));     // LIGHT BLUE
 }

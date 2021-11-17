@@ -204,8 +204,15 @@ bool Renderer::Load()
 	// 画面出力用
 	m_screenVerts = new VertexArray();
 	m_screenVerts->CreateScreenVerts();
-
-
+	// 線分用
+	m_lineVerts = new VertexArray();
+	m_lineVerts->CreateLineVerts();
+	// ボックス用
+	m_boxVerts = new VertexArray();
+	m_boxVerts->CreateBoxVerts();
+	// 四角形用
+	m_squareVerts = new VertexArray();
+	m_squareVerts->CreateSquareVerts();
 
 	//--------------------------------------------+
 	// uniform Buffer Object
@@ -592,6 +599,21 @@ void Renderer::SetWorldSpriteVertex()
 void Renderer::SetActiveSpriteVAO()
 {
 	m_spriteVerts->SetActive();
+}
+
+void Renderer::SetActiveLineVAO()
+{
+	m_lineVerts->SetActive();
+}
+
+void Renderer::SetActiveBoxVAO()
+{
+	m_boxVerts->SetActive();
+}
+
+void Renderer::SetActiveSquareVAO()
+{
+	m_squareVerts->SetActive();
 }
 
 

@@ -87,6 +87,10 @@ public:
 	void SetDirectionalLight(class DirectionalLight* _dirLight) { m_dirLight = _dirLight; }
 	void SetActiveSpriteVAO();                                            // スプライト頂点配列のアクティブ化
 
+	void SetActiveLineVAO();
+	void SetActiveBoxVAO();
+	void SetActiveSquareVAO();
+
 	void UpdateUBO();
 
 	//--------------------------------------------+
@@ -194,6 +198,10 @@ private:
 	class VertexArray* m_particleVerts;                                    // パーティクル用頂点配列
 	class VertexArray* m_cubeVerts;                                        // キューブ頂点配列
 	class VertexArray* m_screenVerts;                                      // スクリーン全体を覆う四角形
+	class VertexArray* m_lineVerts;                                        // ライン(線分)用の頂点配列
+	class VertexArray* m_boxVerts;                                         // ライン(ボックス)用の頂点配列
+	class VertexArray* m_squareVerts;                                      // ライン(四角形)用の頂点配列
+
 
 	//--------------------------------------------+
 	// ライティング関連

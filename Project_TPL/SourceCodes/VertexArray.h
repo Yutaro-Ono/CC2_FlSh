@@ -41,6 +41,9 @@ public:
 	void CreateCubeVerts();                      // スカイボックス用頂点配列オブジェクトの作成
 	void CreateScreenVerts();                    // スクリーン用頂点配列オブジェクトの作成
 	void CreateSpriteVerts();                    // スプライト用頂点配列オブジェクトの作成
+	void CreateLineVerts();                      // 線分用頂点配列オブジェクトの作成
+	void CreateSquareVerts();                    // 四角形用頂点配列オブジェクトの作成 (当たり判定可視化時に使用)
+	void CreateBoxVerts();                       // ボックス用頂点配列オブジェクトの作成 (当たり判定可視化時に使用)
 
 	~VertexArray();                                                        // デストラクタ
 
@@ -53,7 +56,8 @@ private:
 
 	unsigned int m_vertsNum;                                               // 頂点数
 	unsigned int m_numInDices;                                             // インデックス数 (ポリゴン面数x3)
-	unsigned int m_VAO;                                            // 頂点配列オブジェクトID
-	unsigned int m_VBO;                                           // 頂点バッファID (OpenGLに登録時に付与される)
+	unsigned int m_VAO;                                                    // 頂点配列オブジェクトID
+	unsigned int m_VBO;                                                    // 頂点バッファID (OpenGLに登録時に付与される)
+	unsigned int m_EBO;                                                    // エレメントバッファID (一部で使用)
 	unsigned int m_indexBuffer;                                              // インデックスバッファID (OpenGL登録時に付与される)
 };

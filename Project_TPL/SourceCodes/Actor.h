@@ -34,6 +34,9 @@ public:
 	virtual void UpdateActor(float _deltaTime);     // 更新処理 (アクター固有処理:オーバーライド可能)
 	void ProcessInput(float _deltaTime);            // 入力処理
 
+	// 衝突判定時のリアクション
+	virtual void OnCollisionEnter(class ColliderComponent* _ownCollComp, class ColliderComponent* _otherCollComp);
+
 	//-----------------------------------------------------------------------------------+
 	// Getter / Setter
 	//-----------------------------------------------------------------------------------+

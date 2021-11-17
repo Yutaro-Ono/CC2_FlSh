@@ -27,6 +27,7 @@ VertexArray::VertexArray()
 VertexArray::VertexArray(const void * in_verts, unsigned int in_vertsNum, Layout in_layout, const unsigned int * in_inDices, unsigned int in_numInDices)
 	:m_vertsNum(in_vertsNum)
 	,m_numInDices(in_numInDices)
+	,m_EBO(0)
 {
 	// 頂点配列の作成
 	glGenVertexArrays(1, &m_VAO);
@@ -163,6 +164,7 @@ VertexArray::VertexArray(const void * in_verts, unsigned int in_vertsNum, Layout
 VertexArray::VertexArray(const float * in_verts, unsigned int in_vertsNum, const unsigned int * in_inDices, unsigned int in_numInDices)
 	:m_vertsNum(in_vertsNum)
 	,m_numInDices(in_numInDices)
+	,m_EBO(0)
 {
 
 	glGenVertexArrays(1, &m_VAO);
@@ -326,6 +328,126 @@ void VertexArray::CreateSpriteVerts()
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, vertexSize,
 		reinterpret_cast<void*>(sizeof(float) * 6));
+}
+
+/// <summary>
+/// 線分用頂点配列オブジェクトの作成
+/// </summary>
+void VertexArray::CreateLineVerts()
+{
+	// ライン頂点リスト
+	float vertices[] =
+	{
+		0.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+	};
+	// ラインリスト
+	unsigned int lineList[] =
+	{
+		0, 1
+	};
+	// 頂点配列 VAOの設定
+	glGenVertexArrays(1, &m_VAO);
+	glGenBuffers(1, &m_VBO);
+	glGenBuffers(1, &m_EBO);
+	glBindVertexArray(m_VAO);
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(lineList), lineList, GL_STATIC_DRAW);
+	}
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+}
+
+/// <summary>
+/// 四角形用頂点配列オブジェクトの作成 (当たり判定可視化時に使用)
+/// </summary>
+void VertexArray::CreateSquareVerts()
+{
+	// ボックス頂点リスト
+	float vertices[] = 
+	{  // 奥下→奥上→手前上→手前下
+		0.0f,  0.5f, -0.5f,
+		0.0f,  0.5f,  0.5f,
+		0.0f, -0.5f,  0.5f,
+		0.0f, -0.5f, -0.5f,
+		0.0f,  0.0f,  0.0f, // 法線表示
+	   -1.0f,  0.0f,  0.0f,
+	};
+	// ボックスのラインリスト
+	unsigned int lineList[] = {
+		0, 1,
+		1, 2,
+		2, 3,
+		3, 0,
+		4, 5
+	};
+
+	// 頂点配列 VAOの設定
+	glGenVertexArrays(1, &m_VAO);
+	glGenBuffers(1, &m_VBO);
+	glGenBuffers(1, &m_EBO);
+	glBindVertexArray(m_VAO);
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(lineList), lineList, GL_STATIC_DRAW);
+	}
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+}
+
+/// <summary>
+/// ボックス用頂点配列オブジェクトの作成 (当たり判定可視化時に使用)
+/// </summary>
+void VertexArray::CreateBoxVerts()
+{
+	// ボックス頂点リスト
+	float vertices[] = 
+	{
+		0.0f, 0.0f, 0.0f,  // min
+		1.0f, 0.0f, 0.0f,
+		1.0f, 1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 1.0f,
+		1.0f, 0.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,  // max
+		0.0f, 1.0f, 1.0f,
+	};
+	// ボックスのラインリスト
+	unsigned int lineList[] = {
+		0, 1,
+		1, 2,
+		2, 3,
+		3, 0,
+		4, 5,
+		5, 6,
+		6, 7,
+		7, 4,
+		0, 4,
+		1, 5,
+		2, 6,
+		3, 7,
+	};
+
+	glGenVertexArrays(1, &m_VAO);
+	glGenBuffers(1, &m_VBO);
+	glGenBuffers(1, &m_EBO);
+	glBindVertexArray(m_VAO);
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(lineList), lineList, GL_STATIC_DRAW);
+	}
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
 }
 
 // デストラクタ

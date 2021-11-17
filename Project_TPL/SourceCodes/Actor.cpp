@@ -107,6 +107,16 @@ void Actor::ProcessInput(float _deltaTime)
 	}
 }
 
+/// <summary>
+/// (当たり判定有効時)衝突判定時のリアクション処理:各クラスで必要時にオーバーライドして使用
+/// </summary>
+/// <param name="_ownCollComp"> このアクターが持つ当たり判定コンポーネント </param>
+/// <param name="_otherCollComp"> 他アクターの当たり判定コンポーネント </param>
+void Actor::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComponent* _otherCollComp)
+{
+	// 処理なし(継承先でオーバーライドして使用)
+}
+
 // ワールド変換行列を計算
 void Actor::ComputeWorldTransform()
 {

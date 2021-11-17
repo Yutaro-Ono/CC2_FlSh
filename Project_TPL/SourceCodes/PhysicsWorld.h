@@ -1,46 +1,65 @@
 #pragma once
 #include "GameMain.h"
 #include "Tag.h"
+#include <unordered_map>
+#include <vector>
 
 class PhysicsWorld
 {
 public:
 
-	typedef enum
+
+	struct ColliderPairs
 	{
-		TYPE_PLAYER_CAR,
-		TYPE_PLAYER_HUMAN,
-		TYPE_CAMERA,
-		TYPE_ENEMY,
-		TYPE_FLAME,
-		TYPE_TERRAIN,
-		TYPE_BACK_GROUND,
-		TYPE_HIT_CHECK
-	}PhysicsType;
+		OBJECT_TAG pair1;
+		OBJECT_TAG pair2;
+	};
+
 
 	PhysicsWorld();
 	~PhysicsWorld();
 
-	void AddBoxCollider(PhysicsType in_type, class BoxCollider* in_box);      // BoxCollider(AABB)追加
-	void RemoveBoxCollider(class BoxCollider* in_box);                        // BoxColliderの削除
+	void DebugVisualizeCollisions(class GLSLprogram* _shader);
+	void DrawCollisions(class GLSLprogram* _shader, const std::vector<class ColliderComponent*>& _colliderComps, const Vector3& _visualColor);
 
-	 
+	// 当たり判定追加/削除関数
+	void AddColliderComponent(class ColliderComponent* _collComp);
+	void RemoveColliderComponent(class ColliderComponent* _collComp);
 
-	void DebugShowBoxLists();                                                 // ボックスリスト表示
-	void Collision();                                                         // コリジョン
+	void SetOneSideReactionColliderPair(OBJECT_TAG _noReactType, OBJECT_TAG _reactType);
+	void SetDualReactionColliderPair(OBJECT_TAG _react1, OBJECT_TAG _react2);
+	void SetSelfReactionCollider(OBJECT_TAG _selfReact);
+
+
+	void UpdateCollision();                                                         // コリジョン
 	
 	void DebugShowBox();                                                      // デバッグ用ボックス表示(未実装)
 	void ToggleDebugMode() { m_boolDebugMode = !m_boolDebugMode; }            // デバッグモード
 
 private:
 
-	bool m_boolDebugMode;
-	std::vector<class BoxCollider*> m_bgBoxes;                                // 背景当たり判定
-	std::vector<class BoxCollider*> m_playerCarBoxes;                         // プレイヤー当たり判定
-	std::vector<class BoxCollider*> m_playerHumanBoxes;                       // プレイヤー(人間)当たり判定ボックス
-	std::vector<class BoxCollider*> m_cameraBoxes;                            // カメラ当たり判定
-	std::vector<class BoxCollider*> m_terrain;                                // 地形当たり判定
+	void OneReactionMatch(ColliderPairs _pair);
+	void DualReactionMatch(ColliderPairs _pair);
+	void SelfReactionMatch(OBJECT_TAG _tag);
 
+
+
+	void CreateLineColors();
+
+
+
+
+
+	// 当たり判定コンポーネント格納用
+	std::unordered_map<OBJECT_TAG, std::vector<class ColliderComponent*>> m_colliderComps;
+
+	std::vector<ColliderPairs> m_oneSideReactions;        // 片方のみリアクションを行う当たり判定ペアのリスト
+	std::vector<ColliderPairs> m_dualReactions;           // 双方向でリアクションを行う当たり判定ペアのリスト
+	std::vector<OBJECT_TAG> m_selfReactions;              // 同グループ内での処理を行う当たり判定リスト
+
+	std::vector<Vector3> m_lineColors;                    // 当たり判定ボックスのカラー(Debug時に使用)
+
+	bool m_boolDebugMode;
 
 	void PlayerAndBGTest();                                                   // プレイヤーと壁の当たり判定テスト
 
