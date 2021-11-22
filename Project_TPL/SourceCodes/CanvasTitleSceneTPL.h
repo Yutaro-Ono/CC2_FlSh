@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------------+
-// @file        CanvasTitleScene.h
+// @file        CanvasTitleSceneTPL.h
 // @brief       タイトルシーンのUIキャンバスクラス
 // @note        Canvasクラスを継承
 // @author      小野 湧太郎 (Yutaro Ono, @2021)
@@ -9,20 +9,23 @@
 //----------------------------------------------------------------------------------+
 #pragma once
 #include "Canvas.h"
+#include <unordered_map>
 
-
-class CanvasTitleScene : public Canvas
+class CanvasTitleSceneTPL : public Canvas
 {
 
 public:
 
-	CanvasTitleScene(class WorldTitleScene* _world);
-	~CanvasTitleScene();
-
+	CanvasTitleSceneTPL(class WorldTitleSceneTPL* _world, class TitleSceneTPL* _titleScene);
+	~CanvasTitleSceneTPL();
 
 	bool Load() override;
 
 	void Update(float _deltaTime) override;
+
+
+
+private:
 
 
 

@@ -173,7 +173,7 @@
     <ClCompile Include="SourceCodes\CameraComponent.cpp" />
     <ClCompile Include="SourceCodes\Canvas.cpp" />
     <ClCompile Include="SourceCodes\CanvasGameScene.cpp" />
-    <ClCompile Include="SourceCodes\CanvasTitleScene.cpp" />
+    <ClCompile Include="SourceCodes\CanvasTitleSceneTPL.cpp" />
     <ClCompile Include="SourceCodes\CarBody.cpp" />
     <ClCompile Include="SourceCodes\CarDoor.cpp" />
     <ClCompile Include="SourceCodes\CarHandle.cpp" />
@@ -212,6 +212,7 @@
     <ClCompile Include="SourceCodes\FirstPersonCameraComponent.cpp" />
     <ClCompile Include="SourceCodes\Font.cpp" />
     <ClCompile Include="SourceCodes\ForwardRenderer.cpp" />
+    <ClCompile Include="SourceCodes\GameSceneTPL.cpp" />
     <ClCompile Include="SourceCodes\MotorBikeParent.cpp" />
     <ClCompile Include="SourceCodes\PBRRenderer.cpp" />
     <ClCompile Include="SourceCodes\Player.cpp" />
@@ -237,6 +238,8 @@
     <ClCompile Include="SourceCodes\GameMain.cpp" />
     <ClCompile Include="SourceCodes\GameScene.cpp" />
     <ClCompile Include="SourceCodes\SceneBase.cpp" />
+    <ClCompile Include="SourceCodes\TitleSceneTPL.cpp" />
+    <ClCompile Include="SourceCodes\TitleUIScreenTPL.cpp" />
     <ClCompile Include="SourceCodes\TPSCamera.cpp" />
     <ClCompile Include="SourceCodes\TrackActorComponent.cpp" />
     <ClCompile Include="SourceCodes\Vehicle.cpp" />
@@ -340,6 +343,7 @@
     <ClCompile Include="SourceCodes\WorldBase.cpp" />
     <ClCompile Include="SourceCodes\WorldSpaceUI.cpp" />
     <ClCompile Include="SourceCodes\WorldTitleScene.cpp" />
+    <ClCompile Include="SourceCodes\WorldTitleSceneTPL.cpp" />
     <ClCompile Include="SourceCode\tiny_obj_loader.cc" />
   </ItemGroup>
   <ItemGroup>
@@ -365,7 +369,7 @@
     <ClInclude Include="SourceCodes\CameraComponent.h" />
     <ClInclude Include="SourceCodes\Canvas.h" />
     <ClInclude Include="SourceCodes\CanvasGameScene.h" />
-    <ClInclude Include="SourceCodes\CanvasTitleScene.h" />
+    <ClInclude Include="SourceCodes\CanvasTitleSceneTPL.h" />
     <ClInclude Include="SourceCodes\CarBody.h" />
     <ClInclude Include="SourceCodes\CarDoor.h" />
     <ClInclude Include="SourceCodes\CarHandle.h" />
@@ -405,6 +409,7 @@
     <ClInclude Include="SourceCodes\FirstPersonCameraComponent.h" />
     <ClInclude Include="SourceCodes\Font.h" />
     <ClInclude Include="SourceCodes\ForwardRenderer.h" />
+    <ClInclude Include="SourceCodes\GameSceneTPL.h" />
     <ClInclude Include="SourceCodes\MotorBikeParent.h" />
     <ClInclude Include="SourceCodes\PBRRenderer.h" />
     <ClInclude Include="SourceCodes\Player.h" />
@@ -429,6 +434,8 @@
     <ClInclude Include="SourceCodes\GameConfig.h" />
     <ClInclude Include="SourceCodes\GameMain.h" />
     <ClInclude Include="SourceCodes\GameScene.h" />
+    <ClInclude Include="SourceCodes\TitleSceneTPL.h" />
+    <ClInclude Include="SourceCodes\TitleUIScreenTPL.h" />
     <ClInclude Include="SourceCodes\TPSCamera.h" />
     <ClInclude Include="SourceCodes\TrackActorComponent.h" />
     <ClInclude Include="SourceCodes\Vehicle.h" />
@@ -536,6 +543,7 @@
     <ClInclude Include="SourceCodes\WorldBase.h" />
     <ClInclude Include="SourceCodes\WorldSpaceUI.h" />
     <ClInclude Include="SourceCodes\WorldTitleScene.h" />
+    <ClInclude Include="SourceCodes\WorldTitleSceneTPL.h" />
     <ClInclude Include="SourceCode\tiny_obj_loader.h" />
   </ItemGroup>
   <ItemGroup>

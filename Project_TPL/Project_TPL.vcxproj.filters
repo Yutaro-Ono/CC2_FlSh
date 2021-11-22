@@ -294,6 +294,12 @@
     <Filter Include="Source\Physics\Collision">
       <UniqueIdentifier>{e6e9e5ec-aafd-456c-9b88-2f1f04a12f6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Interface\UIScreen">
+      <UniqueIdentifier>{1d0fcf96-c9f5-4081-9032-ca1b51359bb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Interface\UIScreen\TitleScene">
+      <UniqueIdentifier>{9e3391b9-baad-4fe4-b8a2-ab8149f2e74f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -420,9 +426,6 @@
       <Filter>Source\Debugger</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\TutorialUI.cpp">
-      <Filter>Source\Interface</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceCodes\UIScreen.cpp">
       <Filter>Source\Interface</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\WorldSpaceUI.cpp">
@@ -719,7 +722,7 @@
     <ClCompile Include="SourceCodes\CanvasGameScene.cpp">
       <Filter>Source\Interface\Canvas</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\CanvasTitleScene.cpp">
+    <ClCompile Include="SourceCodes\CanvasTitleSceneTPL.cpp">
       <Filter>Source\Interface\Canvas</Filter>
     </ClCompile>
     <ClCompile Include="SourceCodes\PostEffect.cpp">
@@ -863,6 +866,21 @@
     <ClCompile Include="SourceCodes\WallColliderComponent.cpp">
       <Filter>Source\Physics\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCodes\TitleSceneTPL.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\GameSceneTPL.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\WorldTitleSceneTPL.cpp">
+      <Filter>Source\World</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\UIScreen.cpp">
+      <Filter>Source\Interface\UIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleUIScreenTPL.cpp">
+      <Filter>Source\Interface\UIScreen\TitleScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -996,9 +1014,6 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\DebugBox.h">
       <Filter>Source\Debugger</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceCodes\UIScreen.h">
-      <Filter>Source\Interface</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\TutorialUI.h">
       <Filter>Source\Interface</Filter>
@@ -1306,7 +1321,7 @@
     <ClInclude Include="SourceCodes\CanvasGameScene.h">
       <Filter>Source\Interface\Canvas</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\CanvasTitleScene.h">
+    <ClInclude Include="SourceCodes\CanvasTitleSceneTPL.h">
       <Filter>Source\Interface\Canvas</Filter>
     </ClInclude>
     <ClInclude Include="SourceCodes\PostEffect.h">
@@ -1446,6 +1461,21 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\WallColliderComponent.h">
       <Filter>Source\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleSceneTPL.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\GameSceneTPL.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\WorldTitleSceneTPL.h">
+      <Filter>Source\World</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\UIScreen.h">
+      <Filter>Source\Interface\UIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleUIScreenTPL.h">
+      <Filter>Source\Interface\UIScreen\TitleScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

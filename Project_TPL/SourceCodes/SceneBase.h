@@ -13,15 +13,13 @@ class SceneBase
 {
 public:
 
-	SceneBase() {};                               // コンストラクタ
-	virtual ~SceneBase() {};                      // デストラクタ
+	SceneBase() {};                                          // コンストラクタ
+	virtual ~SceneBase() {};                                 // デストラクタ
 
 	virtual SceneBase* Update(float _deltaTime) = 0;         // シーンの更新処理(現在のシーンのポインタを返す)
 
 	virtual void Initialize() = 0;
 
-	virtual void Draw() = 0;                      // 描画処理
-
-
+	virtual void Draw() = 0;                                 // 描画処理
 
 };

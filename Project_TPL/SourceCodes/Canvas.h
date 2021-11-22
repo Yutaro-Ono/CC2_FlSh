@@ -21,7 +21,7 @@ public:
 	void AddUI(class UIScreen* in_ui) { m_interfaces.push_back(in_ui); }
 
 
-private:
+protected:
 
 
 	class WorldBase* m_world;                       // ƒQ[ƒ€ƒ[ƒ‹ƒh
