@@ -300,6 +300,9 @@
     <Filter Include="Source\Interface\UIScreen\TitleScene">
       <UniqueIdentifier>{9e3391b9-baad-4fe4-b8a2-ab8149f2e74f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Debugger\Interface">
+      <UniqueIdentifier>{64e0e221-e574-4a62-8aa9-759276ec0036}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -857,9 +860,6 @@
     <ClCompile Include="SourceCodes\Collision.cpp">
       <Filter>Source\Physics\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCodes\BoxCollider.cpp">
-      <Filter>Source\Physics\Collision</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCodes\ColliderComponent.cpp">
       <Filter>Source\Physics\Collision</Filter>
     </ClCompile>
@@ -880,6 +880,21 @@
     </ClCompile>
     <ClCompile Include="SourceCodes\TitleUIScreenTPL.cpp">
       <Filter>Source\Interface\UIScreen\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\BoxColliderComponent.cpp">
+      <Filter>Source\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\LineColliderComponent.cpp">
+      <Filter>Source\Physics\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\TitleUIScreenTPLDebugObject.cpp">
+      <Filter>Source\Debugger\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\WorldGameSceneTPL.cpp">
+      <Filter>Source\World</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\CanvasGameSceneTPL.cpp">
+      <Filter>Source\Interface\Canvas</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1453,9 +1468,6 @@
     <ClInclude Include="SourceCodes\Collision.h">
       <Filter>Source\Physics\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCodes\BoxCollider.h">
-      <Filter>Source\Physics\Collision</Filter>
-    </ClInclude>
     <ClInclude Include="SourceCodes\ColliderComponent.h">
       <Filter>Source\Physics\Collision</Filter>
     </ClInclude>
@@ -1476,6 +1488,21 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\TitleUIScreenTPL.h">
       <Filter>Source\Interface\UIScreen\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\BoxColliderComponent.h">
+      <Filter>Source\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\LineColliderComponent.h">
+      <Filter>Source\Physics\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\TitleUIScreenTPLDebugObject.h">
+      <Filter>Source\Debugger\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\WorldGameSceneTPL.h">
+      <Filter>Source\World</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\CanvasGameSceneTPL.h">
+      <Filter>Source\Interface\Canvas</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

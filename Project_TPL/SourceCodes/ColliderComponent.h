@@ -31,7 +31,7 @@ public:
 	ColliderComponent(class Actor* _owner, COLLIDER_TYPE _type, int _updateOrder = 100);
 	virtual ~ColliderComponent() {};
 
-	OBJECT_TAG GetOwnerTag() { m_colliderTag; }
+	OBJECT_TAG GetOwnerTag() { return m_colliderTag; }
 	
 	CollisionInfo& GetCollisionInfo() { return m_collisionInfo; }
 	void SetCollisionInfo(const CollisionInfo& _colInfo) { m_collisionInfo = _colInfo; }
@@ -46,9 +46,9 @@ public:
 	virtual bool CollisionDetection(ColliderComponent* _other) = 0;
 
 	// Double-Dispatch パターン：Collider同士のふるまいを定義
-	virtual bool Check(class BoxCollider* _other);
-	virtual bool Check(class WallCollider* _other);
-	virtual bool Check(class LineCollider* _other);
+	virtual bool Check(class BoxColliderComponent* _other);
+	virtual bool Check(class WallColliderComponent* _other);
+	virtual bool Check(class LineColliderComponent* _other);
 
 
 protected:

@@ -1,7 +1,7 @@
 #include "CarBody.h"
 #include "PlayerCar.h"
 #include "PhysicsWorld.h"
-#include "BoxCollider.h"
+#include "BoxColliderComponent.h"
 #include "Collision.h"
 #include "EnvironmentMapComponent.h"
 #include "PointLight.h"
@@ -60,7 +60,7 @@ CarBody::CarBody(PlayerCar* in_owner)
 	// ボディのメッシュを基準としてオーナーの当たり判定ボックスをセット
 	// 当たり判定ボックスのセット
 	AABB playerBox = bodyFrameMesh->GetCollisionBox();
-	m_owner->SetBoxCollider(new BoxCollider(in_owner, PhysicsWorld::TYPE_PLAYER_CAR));
+	m_owner->SetBoxCollider(new BoxColliderComponent(in_owner));
 	//playerBox.m_min.x *= 0.6f;
 	//playerBox.m_min.y *= 0.6f;
 	//playerBox.m_max.x *= 0.6f;
@@ -68,8 +68,8 @@ CarBody::CarBody(PlayerCar* in_owner)
 	playerBox.m_min.z *= 0.05f;
 
 	playerBox.m_max.z *= 1.0f;
-	m_owner->GetBoxCollider()->SetObjectBox(playerBox);
-	m_owner->GetBoxCollider()->SetArrowRotate(true);
+	//m_owner->GetBoxCollider()->SetObjectBox(playerBox);
+	//m_owner->GetBoxCollider()->SetArrowRotate(true);
 
 
 	//// フロントライト・バックライトのセット

@@ -1,7 +1,7 @@
 #include "CameraComponent.h"
 #include "Renderer.h"
 #include "PhysicsWorld.h"
-#include "BoxCollider.h"
+#include "BoxColliderComponent.h"
 #include "Collision.h"
 #include "Actor.h"
 

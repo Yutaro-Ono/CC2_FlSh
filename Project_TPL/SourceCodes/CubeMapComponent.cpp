@@ -19,7 +19,6 @@ CubeMapComponent::CubeMapComponent(Actor* _owner)
 
 CubeMapComponent::~CubeMapComponent()
 {
-	delete m_texture;
 }
 
 // テクスチャの生成

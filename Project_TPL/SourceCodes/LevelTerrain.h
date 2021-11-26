@@ -37,5 +37,5 @@ private:
 
 	float m_friction;          // 摩擦値 (0 ～ 1.0)低いほど地形上での移動が遅くなる
 
-	class BoxCollider* m_box;     // 当たり判定ボックス
+	class BoxColliderComponent* m_box;     // 当たり判定ボックス
 };

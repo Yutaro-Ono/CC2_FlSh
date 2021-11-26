@@ -97,6 +97,11 @@ void LoadScreen::Draw(GLSLprogram * _shader)
 
 void LoadScreen::EnableScreen()
 {
+	if (m_state == LOAD_STATE::ENABLE)
+	{
+		return;
+	}
+
 	m_state = LOAD_STATE::ENABLE;
 	RENDERER->Draw();
 }

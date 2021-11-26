@@ -9,7 +9,8 @@ enum class ENVIRONMENT_TYPE : unsigned char
 	EVENING,
 	NIGHT,
 	NIGHT_CITY,
-	SPACE
+	SPACE,
+	TITLE
 };
 
 class Environment

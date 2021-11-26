@@ -20,17 +20,17 @@ void ColliderComponent::ClearCollisionInfo()
 
 // 組み合わせ定義は継承先でoverrideする
 // 当たり判定組み合わせを定義しないときは常にfalse返す
-bool ColliderComponent::Check(BoxCollider* _other)
+bool ColliderComponent::Check(BoxColliderComponent* _other)
 {
 	return false;
 }
 
-bool ColliderComponent::Check(WallCollider* _other)
+bool ColliderComponent::Check(WallColliderComponent* _other)
 {
 	return false;
 }
 
-bool ColliderComponent::Check(LineCollider* _other)
+bool ColliderComponent::Check(LineColliderComponent* _other)
 {
 	return false;
 }

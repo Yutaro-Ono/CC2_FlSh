@@ -42,7 +42,7 @@ MiniMapHUD::MiniMapHUD(Actor* _target)
 
 MiniMapHUD::~MiniMapHUD()
 {
-	
+	RENDERER->RemoveMapHUD(this);
 }
 
 /// <summary>
@@ -83,8 +83,12 @@ void MiniMapHUD::WriteBuffer(GLSLprogram* _shader, std::vector<class MeshCompone
 	glViewport(0, 0, GAME_CONFIG->GetScreenWidth(), GAME_CONFIG->GetScreenHeight());
 }
 
+void MiniMapHUD::Update(float _deltaTime)
+{
+}
+
 // 書き込まれたバッファを描画する
-void MiniMapHUD::Draw(GLSLprogram* in_shader)
+void MiniMapHUD::DrawMap(GLSLprogram* in_shader)
 {
 	// テクスチャの縦横サイズにスケールを掛け合わせた値をスケール行列として定義
 	Matrix4 scaleMat = Matrix4::CreateScale(
@@ -113,6 +117,10 @@ void MiniMapHUD::Draw(GLSLprogram* in_shader)
 
 	RENDERER->SetActiveSpriteVAO();
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+}
+
+void MiniMapHUD::Draw(GLSLprogram* _shader)
+{
 }
 
 // ミニマップ用のフレームバッファ作成

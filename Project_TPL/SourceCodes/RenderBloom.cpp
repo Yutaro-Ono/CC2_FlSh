@@ -42,7 +42,7 @@ RenderBloom::RenderBloom()
 #ifdef _DEBUG
 
 	RenderBloomDebugObject* defDebugObj = new RenderBloomDebugObject(this);
-	DEBUGGER->AddDebugObject(defDebugObj, OBJECT_TAG::SYSTEM);
+	DEBUGGER->AddDebugObject(defDebugObj, Debugger::DEBUG_TAG::SYSTEM);
 
 #endif
 }

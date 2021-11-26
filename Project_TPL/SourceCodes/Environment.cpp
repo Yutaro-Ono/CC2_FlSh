@@ -31,7 +31,7 @@ Environment::Environment(Actor* _target, ENVIRONMENT_TYPE _envType)
 
 Environment::~Environment()
 {
-
+	
 }
 
 void Environment::Update()
@@ -169,6 +169,22 @@ void Environment::SetDirectionalLight(ENVIRONMENT_TYPE _envType, const Vector3& 
 		// ブルームの設定
 		RENDERER->GetBloom()->SetGamma(3.69f);
 		RENDERER->GetBloom()->SetExposureVal(0.13f);
+	}
+
+	if (m_envType == ENVIRONMENT_TYPE::TITLE)
+	{
+		// ディレクショナルライトの調整
+		RENDERER->SetAmbientLight(Vector3(0.15f, 0.15f, 0.2f));
+		RENDERER->GetDirectionalLight()->SetPosition(playerPos + ADJUST_POS);
+		RENDERER->GetDirectionalLight()->SetTarget(playerPos);
+		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.1f, 0.485f, 0.46f));
+		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.1f, 0.35f, 0.4f));
+		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.31f, 0.415f, 0.46f));
+		RENDERER->GetDirectionalLight()->SetIntensity(0.8f);
+
+		// ブルームの設定
+		RENDERER->GetBloom()->SetGamma(1.117f);
+		RENDERER->GetBloom()->SetExposureVal(1.117f);
 	}
 
 	// スカイボックスの有効化

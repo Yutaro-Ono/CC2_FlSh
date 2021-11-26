@@ -28,8 +28,4 @@ Canvas::~Canvas()
 /// <param name="_deltaTime"> デルタタイム </param>
 void Canvas::Update(float _deltaTime)
 {
-	for (auto ui : m_interfaces)
-	{
-		ui->Update(_deltaTime);
-	}
 }

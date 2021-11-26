@@ -1,5 +1,6 @@
 #include "SkyBox.h"
 #include "CubeMapComponent.h"
+#include "GameMain.h"
 #include <string>
 
 
@@ -21,7 +22,7 @@ SkyBox::SkyBox(Environment* _environment, ENVIRONMENT_TYPE _envType)
 
 SkyBox::~SkyBox()
 {
-
+	RENDERER->RemoveActiveSkyBox(m_cubeMapComp);
 }
 
 void SkyBox::UpdateActor(float _deltaTime)
@@ -54,6 +55,22 @@ void SkyBox::SetSkyBox(ENVIRONMENT_TYPE _envType)
 		return;
 	}
 	if (_envType == ENVIRONMENT_TYPE::NIGHT)
+	{
+		m_cubeMapComp = new CubeMapComponent(this);
+		m_cubeMapComp->CreateTexture("Data/Textures/Skybox/NightCity/");
+		m_cubeMapComp->SetIntensity(0.5f);
+		return;
+	}
+
+	if (_envType == ENVIRONMENT_TYPE::SPACE)
+	{
+		m_cubeMapComp = new CubeMapComponent(this);
+		m_cubeMapComp->CreateTexture("Data/Textures/Skybox/NightCity/");
+		m_cubeMapComp->SetIntensity(0.5f);
+		return;
+	}
+
+	if (_envType == ENVIRONMENT_TYPE::TITLE)
 	{
 		m_cubeMapComp = new CubeMapComponent(this);
 		m_cubeMapComp->CreateTexture("Data/Textures/Skybox/NightCity/");

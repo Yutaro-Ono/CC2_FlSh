@@ -17,6 +17,7 @@ public:
 	enum class SELECT_STATE
 	{
 		NONE = 0,
+		PRESS_ANY_KEY,
 		GAME_START,
 		QUIT
 	};
@@ -34,6 +35,9 @@ public:
 
 	void Draw() override;
 
+	SCENE_STATE GetSceneState() { return m_sceneState; }
+	SELECT_STATE GetSelectState() { return m_selectState; }
+
 private:
 
 
@@ -43,6 +47,6 @@ private:
 	class CanvasTitleSceneTPL* m_canvas;     // タイトルシーン用UIキャンバス
 	class WorldTitleSceneTPL* m_world;
 	
-
+	float m_fadeInSpeed;
 
 };

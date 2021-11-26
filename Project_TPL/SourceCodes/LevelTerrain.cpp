@@ -1,6 +1,6 @@
 #include "LevelTerrain.h"
 #include "Mesh.h"
-#include "BoxCollider.h"
+#include "BoxColliderComponent.h"
 #include "GameMain.h"
 #include "Renderer.h"
 
@@ -27,8 +27,7 @@ LevelTerrain::LevelTerrain(Mesh* in_mesh, TERRAIN_TYPE in_type)
 
 
 	// “–‚½‚è”»’èÝ’è
-	m_box = new BoxCollider(this, PhysicsWorld::TYPE_TERRAIN);
-	m_box->SetTerrainPtr(this);
+	m_box = new BoxColliderComponent(this);
 	m_box->SetObjectBox(mesh->GetCollisionBox());
 	
 }

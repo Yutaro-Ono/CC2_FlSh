@@ -36,7 +36,7 @@ public:
 
 	void ChangeState(float in_deltaTime);                                // ステートの変更処理
 
-	void CollisionFix(class BoxCollider* in_hitPlayerBox, class BoxCollider* in_hitBox);
+	void CollisionFix(class BoxColliderComponent* in_hitPlayerBox, class BoxColliderComponent* in_hitBox);
 
 	void SetActive(bool in_active);
 
@@ -69,9 +69,9 @@ private:
 	PLAYER_ANIM m_animState;                             // アニメーションごとの状態
 
 	// 当たり判定ボックス(部位ごと(体・足・頭))
-	class BoxCollider* m_hitBox;
-	class BoxCollider* m_hitGroundBox;
-	class BoxCollider* m_hitHeadBox;
+	class BoxColliderComponent* m_hitBox;
+	class BoxColliderComponent* m_hitGroundBox;
+	class BoxColliderComponent* m_hitHeadBox;
 
 	bool m_isActive;         // 人間の操作が有効かどうか
 	bool m_isJump;           // ジャンプしたか

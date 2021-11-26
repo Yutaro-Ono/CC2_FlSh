@@ -20,7 +20,7 @@ bool MeshObj::Load(const std::string& in_filePath)
 
 	if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warning, &error, in_filePath.c_str()))
 	{
-		std::cerr << "ERROR: Category: Mesh: LoadObj " << std::endl;
+		std::cerr << "ERROR: Category: Mesh: LoadObj: " << in_filePath << std::endl;
 		return false;
 	}
 

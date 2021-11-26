@@ -5,7 +5,7 @@
 #include "LevelObject.h"
 #include "Mesh.h"
 #include "MeshComponent.h"
-#include "BoxCollider.h"
+#include "BoxColliderComponent.h"
 #include "PointLight.h"
 
 /// <summary>
@@ -102,19 +102,19 @@ BridgeObject::BridgeObject(int in_num, const Vector3& in_startPos, bool in_brigh
 	// 当たり判定
 	// ボックスコライダーの生成・定義
 	// 道
-	BoxCollider* roadColl = new BoxCollider(this, PhysicsWorld::TYPE_BACK_GROUND);
+	BoxColliderComponent* roadColl = new BoxColliderComponent(this);
 	AABB roadBox;
 	roadBox.SetMinVector(in_startPos + in_startPos + Vector3(0.0f, 2000.0f, 0.0f) + Vector3(-6515.0f, -850.0f, -100.0f));
 	roadBox.SetMaxVector(in_startPos + in_startPos + Vector3(0.0f, 2000.0f, 0.0f) + Vector3(6515.0f, 850.0f, 0.0f));
 	roadColl->SetObjectBox(roadBox);
 	// ガードレール(左)
-	BoxCollider* railCollL = new BoxCollider(this, PhysicsWorld::TYPE_BACK_GROUND);
+	BoxColliderComponent* railCollL = new BoxColliderComponent(this);
 	AABB railLBox;
 	railLBox.SetMinVector(in_startPos + in_startPos + Vector3(0.0f, 2000.0f, 0.0f) + Vector3(-6515.0f, -850.0f, -100.0f));
 	railLBox.SetMaxVector(in_startPos + in_startPos + Vector3(0.0f, 2000.0f, 0.0f) + Vector3(6515.0f, -775.0f, 30.0f));
 	railCollL->SetObjectBox(railLBox);
 	// ガードレール(右)
-	BoxCollider* railCollR = new BoxCollider(this, PhysicsWorld::TYPE_BACK_GROUND);
+	BoxColliderComponent* railCollR = new BoxColliderComponent(this);
 	AABB railRBox;
 	railRBox.SetMinVector(in_startPos + in_startPos + Vector3(0.0f, 2000.0f, 0.0f) + Vector3(-6515.0f, 775.0f, -100.0f));
 	railRBox.SetMaxVector(in_startPos + in_startPos + Vector3(0.0f, 2000.0f, 0.0f) + Vector3(6515.0f, 850.0f, 30.0f));

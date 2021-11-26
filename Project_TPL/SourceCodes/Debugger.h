@@ -26,13 +26,20 @@ class Debugger
 public:
 
 	// デバッグ画面のスタイル
-	enum DebugStyle
+	enum class DEBUG_STYLE
 	{
 		BOTH_WINDOW,        // メインウィンドウ内に表示
 		ANOTHER_WINDOW      // 別ウィンドウに表示
 	};
 
-	Debugger(DebugStyle _debugStyle);
+	enum class DEBUG_TAG
+	{
+		SYSTEM,
+		ACTOR,
+		INTERFACE
+	};
+
+	Debugger(DEBUG_STYLE _debugStyle);
 	~Debugger();
 
 	bool Initialize();
@@ -42,8 +49,8 @@ public:
 	void UpdateImGui(float _deltaTime);
 	void RenderImGui();
 
-	void AddDebugObject(class DebugObjectBase* _debugObj, OBJECT_TAG _tag);
-	void DeleteDebugObject(class DebugObjectBase* _debugObj, OBJECT_TAG _tag);
+	void AddDebugObject(class DebugObjectBase* _debugObj, DEBUG_TAG _tag);
+	void DeleteDebugObject(class DebugObjectBase* _debugObj, DEBUG_TAG _tag);
 
 	// バッファ情報の取得
 	const unsigned int& GetDebugColorBuffer() const { return m_debugCB; }
@@ -61,7 +68,7 @@ private:
 	void CreateDebugBuffers();
 
 
-	DebugStyle m_debugStyle;              // デバッグ画面のスタイル(コンストラクタにてセット ※変更不可)
+	DEBUG_STYLE m_debugStyle;              // デバッグ画面のスタイル(コンストラクタにてセット ※変更不可)
 	
 	SDL_Window* m_debugWindow;            // デバッグ用ウィンドウ
 	SDL_Renderer* m_debugRenderer;        // デバッグ用SDLレンダラー    
@@ -79,5 +86,6 @@ private:
 
 	class DebugObjectPool* m_debugObjects;
 	class DebugObjectPool* m_actorDebugObjects;
+	class DebugObjectPool* m_uiDebugObjects;
 
 };

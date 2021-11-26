@@ -1,12 +1,7 @@
-#include "WorldGameScene.h"
+#include "WorldGameSceneTPL.h"
 #include "Environment.h"
 #include "GameMain.h"
 #include "LoadScreen.h"
-#include "BridgeObject.h"
-#include "TitleCar.h"
-#include "ClientActor.h"
-#include "SkyBox.h"
-#include "CubeMapComponent.h"
 #include "MotorBikeParent.h"
 #include "Player.h"
 #include "EnemyZombie.h"
@@ -15,36 +10,23 @@
 
 #include "MeshGpmesh.h"
 #include "LevelBlock.h"
+#include "GameSceneTPL.h"
 #include "CanvasGameScene.h"
 #include "LandMarkIndicator.h"
 #include "MiniMapHUD.h"
 
-#include <Windows.h>
-#include <iostream>
-#include <algorithm>
-#include <numeric>
-#include <iterator>
-#include <random>
-
-static Vector3 playerPos;
-static Vector3 tempPos;
-
-// コンストラクタ
-WorldGameScene::WorldGameScene()
-	:m_player(nullptr)
-	,m_level(nullptr)
+WorldGameSceneTPL::WorldGameSceneTPL(class GameSceneTPL* _scene)
+    :m_player(nullptr)
+	,m_scene(_scene)
 {
 }
 
-WorldGameScene::~WorldGameScene()
+WorldGameSceneTPL::~WorldGameSceneTPL()
 {
-	RENDERER->RemoveMapHUD();
 }
 
-bool WorldGameScene::Load()
+bool WorldGameSceneTPL::Load()
 {
-	// UIキャンバスの生成
-	m_canvas = new CanvasGameScene(this);
 
 	// プレイヤー
 	m_player = new Player();
@@ -74,33 +56,17 @@ bool WorldGameScene::Load()
 	zombie->SetScale(0.8f);
 	zombie->SetTarget(m_player);
 
-	// プレイヤー用HUD
-	PlayerHUD* pHUD = new PlayerHUD(m_player);
-
-	// マップHUD生成
-	MiniMapHUD* mapHUD = new MiniMapHUD(m_player);
-
-	return true;
+    return true;
 }
 
-void WorldGameScene::Update(float in_deltaTime)
-{
-	m_environment->Update();
-}
-
-void WorldGameScene::UpdateWorld(float _deltaTime)
+void WorldGameSceneTPL::Update(float in_deltaTime)
 {
 }
 
+void WorldGameSceneTPL::UpdateWorld(float _deltaTime)
+{
+}
 
-// 依頼人アクタ配列のシャッフル
-//void WorldGameScene::ShuffleClientActor()
-//{
-//	std::random_device seed_gen;
-//	std::mt19937 engine(seed_gen());
-//	std::shuffle(m_clients.begin(), m_clients.end() - 1, engine);
-//}
-
-void WorldGameScene::ImGuiDebugWorld()
+void WorldGameSceneTPL::ImGuiDebugWorld()
 {
 }

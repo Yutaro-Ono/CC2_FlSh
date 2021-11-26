@@ -130,7 +130,11 @@ void DefferedRenderer::DrawGBuffer()
 	skyboxShader->SetUniform("u_offset", offset);
 	skyboxShader->SetUniform("u_invTransView", InvTransView);
 	skyboxShader->SetUniform("u_cubeMap", 0);
-	m_renderer->GetSkyBox()->Draw(skyboxShader);
+	if (m_renderer->GetSkyBox() != nullptr)
+	{
+		m_renderer->GetSkyBox()->Draw(skyboxShader);
+	}
+	
 
 	//------------------------------------------------------------+
 	// 車
@@ -385,7 +389,7 @@ void DefferedRenderer::DrawLightPath()
 	// マップHUD
 	if (m_renderer->GetMapHUD() != nullptr)
 	{
-		m_renderer->GetMapHUD()->Draw(m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::HUD_OUTPUT));
+		m_renderer->GetMapHUD()->DrawMap(m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::HUD_OUTPUT));
 	}
 
 	// ブレンドをオフ
@@ -667,7 +671,7 @@ bool DefferedRenderer::Initialize()
 #ifdef _DEBUG
 
 	DefferedRendererDebugObject* defDebugObj = new DefferedRendererDebugObject(this);
-	DEBUGGER->AddDebugObject(defDebugObj, OBJECT_TAG::SYSTEM);
+	DEBUGGER->AddDebugObject(defDebugObj, Debugger::DEBUG_TAG::SYSTEM);
 
 #endif
 

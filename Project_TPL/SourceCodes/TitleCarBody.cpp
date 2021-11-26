@@ -1,7 +1,4 @@
 #include "TitleCarBody.h"
-#include "PhysicsWorld.h"
-#include "BoxCollider.h"
-#include "Collision.h"
 #include "EnvironmentMapComponent.h"
 #include "PointLight.h"
 #include "SpotLight.h"

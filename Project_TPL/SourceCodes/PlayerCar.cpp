@@ -5,7 +5,7 @@
 #include "Input.h"
 #include "InputController.h"
 #include "Collision.h"
-#include "BoxCollider.h"
+#include "BoxColliderComponent.h"
 #include "Component.h"
 #include "PhysicsWorld.h"
 #include "PlayerManager.h"
@@ -100,63 +100,63 @@ void PlayerCar::OnChange()
 // 衝突時の押し出し処理
 void PlayerCar::CollisionFix(BoxCollider* in_hitPlayerBox, BoxCollider* in_hitBox)
 {
-	Vector3 fix = Vector3::Zero;
+	//Vector3 fix = Vector3::Zero;
 
-	//壁とぶつかったとき
-	AABB bgBox = in_hitBox->GetWorldBox();
-	AABB playerBox = m_hitBox->GetWorldBox();
-
-
-	// 床の当たり判定ボックスなら
-	if (in_hitBox->GetPhysicsType() == PhysicsWorld::TYPE_TERRAIN)
-	{
-		if (bgBox.Contains(m_position - Vector3(0.0f, 0.0f, 10.0f)))
-		{
-			// 現在の地形タイプを格納
-			SetOnTerrainType(in_hitBox->GetTerrainPtr()->GetNodeType());
-			// 地形ごとに摩擦力を設定
-			if (m_terrainType == LevelTerrain::TYPE_GLASS)
-			{
-				m_friction = in_hitBox->GetTerrainPtr()->GetFrictionVal();
-			}
-			if (m_terrainType == LevelTerrain::TYPE_STREET)
-			{
-				m_friction = in_hitBox->GetTerrainPtr()->GetFrictionVal();
-			}
-		}
-
-	}
-	// 建物にぶつかった時
-	else if (in_hitBox->GetPhysicsType() == PhysicsWorld::TYPE_BACK_GROUND)
-	{
-		// 効果音再生 (速度に応じて効果音の大きさを調整)
-		float accel = m_moveComp->GetAccelValue();
-		if (accel > 10.0f && accel < 65.0f)
-		{
-			m_soundComp->PlayCrushMed();
-		}
-		else if (accel >= 65.0f)
-		{
-			m_soundComp->PlayCrushHard();
-		}
-	}
-
-	// めり込みを修正
-	CalcCollisionFixVec(playerBox, bgBox, fix);
-
-	// 補正ベクトル分戻す
-	m_position += fix;
-
-	// 衝突時の処理
-	if (fix.x > 5.0f || fix.x < -5.0f || fix.y > 5.0f || fix.y < -5.0f)
-	{
-		// アクセル減少 (衝突時直前の半分のスピードにする)
-		m_moveComp->SetAccel(m_moveComp->GetAccelValue() / 2.0f);
-	}
+	////壁とぶつかったとき
+	//AABB bgBox = in_hitBox->GetWorldBox();
+	//AABB playerBox = m_hitBox->GetWorldBox();
 
 
-	// 位置が変わったのでボックス再計算
-	m_hitBox->OnUpdateWorldTransform();
+	//// 床の当たり判定ボックスなら
+	//if (in_hitBox->GetPhysicsType() == PhysicsWorld::TYPE_TERRAIN)
+	//{
+	//	if (bgBox.Contains(m_position - Vector3(0.0f, 0.0f, 10.0f)))
+	//	{
+	//		// 現在の地形タイプを格納
+	//		SetOnTerrainType(in_hitBox->GetTerrainPtr()->GetNodeType());
+	//		// 地形ごとに摩擦力を設定
+	//		if (m_terrainType == LevelTerrain::TYPE_GLASS)
+	//		{
+	//			m_friction = in_hitBox->GetTerrainPtr()->GetFrictionVal();
+	//		}
+	//		if (m_terrainType == LevelTerrain::TYPE_STREET)
+	//		{
+	//			m_friction = in_hitBox->GetTerrainPtr()->GetFrictionVal();
+	//		}
+	//	}
+
+	//}
+	//// 建物にぶつかった時
+	//else if (in_hitBox->GetPhysicsType() == PhysicsWorld::TYPE_BACK_GROUND)
+	//{
+	//	// 効果音再生 (速度に応じて効果音の大きさを調整)
+	//	float accel = m_moveComp->GetAccelValue();
+	//	if (accel > 10.0f && accel < 65.0f)
+	//	{
+	//		m_soundComp->PlayCrushMed();
+	//	}
+	//	else if (accel >= 65.0f)
+	//	{
+	//		m_soundComp->PlayCrushHard();
+	//	}
+	//}
+
+	//// めり込みを修正
+	//CalcCollisionFixVec(playerBox, bgBox, fix);
+
+	//// 補正ベクトル分戻す
+	//m_position += fix;
+
+	//// 衝突時の処理
+	//if (fix.x > 5.0f || fix.x < -5.0f || fix.y > 5.0f || fix.y < -5.0f)
+	//{
+	//	// アクセル減少 (衝突時直前の半分のスピードにする)
+	//	m_moveComp->SetAccel(m_moveComp->GetAccelValue() / 2.0f);
+	//}
+
+
+	//// 位置が変わったのでボックス再計算
+	//m_hitBox->OnUpdateWorldTransform();
 
 	// printf("[%f, %f, %f]\n", m_position.x, m_position.y, m_position.z);
 }

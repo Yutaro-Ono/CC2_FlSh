@@ -166,13 +166,14 @@
     <ClCompile Include="SourceCodes\AttachWeaponToBoneComponent.cpp" />
     <ClCompile Include="SourceCodes\AudioManager.cpp" />
     <ClCompile Include="SourceCodes\BoneTransform.cpp" />
-    <ClCompile Include="SourceCodes\BoxCollider.cpp" />
+    <ClCompile Include="SourceCodes\BoxColliderComponent.cpp" />
     <ClCompile Include="SourceCodes\BridgeObject.cpp" />
     <ClCompile Include="SourceCodes\Camera.cpp" />
     <ClCompile Include="SourceCodes\CameraActor.cpp" />
     <ClCompile Include="SourceCodes\CameraComponent.cpp" />
     <ClCompile Include="SourceCodes\Canvas.cpp" />
     <ClCompile Include="SourceCodes\CanvasGameScene.cpp" />
+    <ClCompile Include="SourceCodes\CanvasGameSceneTPL.cpp" />
     <ClCompile Include="SourceCodes\CanvasTitleSceneTPL.cpp" />
     <ClCompile Include="SourceCodes\CarBody.cpp" />
     <ClCompile Include="SourceCodes\CarDoor.cpp" />
@@ -213,6 +214,7 @@
     <ClCompile Include="SourceCodes\Font.cpp" />
     <ClCompile Include="SourceCodes\ForwardRenderer.cpp" />
     <ClCompile Include="SourceCodes\GameSceneTPL.cpp" />
+    <ClCompile Include="SourceCodes\LineColliderComponent.cpp" />
     <ClCompile Include="SourceCodes\MotorBikeParent.cpp" />
     <ClCompile Include="SourceCodes\PBRRenderer.cpp" />
     <ClCompile Include="SourceCodes\Player.cpp" />
@@ -239,6 +241,7 @@
     <ClCompile Include="SourceCodes\GameScene.cpp" />
     <ClCompile Include="SourceCodes\SceneBase.cpp" />
     <ClCompile Include="SourceCodes\TitleSceneTPL.cpp" />
+    <ClCompile Include="SourceCodes\TitleUIScreenTPLDebugObject.cpp" />
     <ClCompile Include="SourceCodes\TitleUIScreenTPL.cpp" />
     <ClCompile Include="SourceCodes\TPSCamera.cpp" />
     <ClCompile Include="SourceCodes\TrackActorComponent.cpp" />
@@ -341,6 +344,7 @@
     <ClCompile Include="SourceCodes\UIScreen.cpp" />
     <ClCompile Include="SourceCodes\VertexArray.cpp" />
     <ClCompile Include="SourceCodes\WorldBase.cpp" />
+    <ClCompile Include="SourceCodes\WorldGameSceneTPL.cpp" />
     <ClCompile Include="SourceCodes\WorldSpaceUI.cpp" />
     <ClCompile Include="SourceCodes\WorldTitleScene.cpp" />
     <ClCompile Include="SourceCodes\WorldTitleSceneTPL.cpp" />
@@ -362,13 +366,14 @@
     <ClInclude Include="SourceCodes\AttachWeaponToBoneComponent.h" />
     <ClInclude Include="SourceCodes\AudioManager.h" />
     <ClInclude Include="SourceCodes\BoneTransform.h" />
-    <ClInclude Include="SourceCodes\BoxCollider.h" />
+    <ClInclude Include="SourceCodes\BoxColliderComponent.h" />
     <ClInclude Include="SourceCodes\BridgeObject.h" />
     <ClInclude Include="SourceCodes\Camera.h" />
     <ClInclude Include="SourceCodes\CameraActor.h" />
     <ClInclude Include="SourceCodes\CameraComponent.h" />
     <ClInclude Include="SourceCodes\Canvas.h" />
     <ClInclude Include="SourceCodes\CanvasGameScene.h" />
+    <ClInclude Include="SourceCodes\CanvasGameSceneTPL.h" />
     <ClInclude Include="SourceCodes\CanvasTitleSceneTPL.h" />
     <ClInclude Include="SourceCodes\CarBody.h" />
     <ClInclude Include="SourceCodes\CarDoor.h" />
@@ -410,6 +415,7 @@
     <ClInclude Include="SourceCodes\Font.h" />
     <ClInclude Include="SourceCodes\ForwardRenderer.h" />
     <ClInclude Include="SourceCodes\GameSceneTPL.h" />
+    <ClInclude Include="SourceCodes\LineColliderComponent.h" />
     <ClInclude Include="SourceCodes\MotorBikeParent.h" />
     <ClInclude Include="SourceCodes\PBRRenderer.h" />
     <ClInclude Include="SourceCodes\Player.h" />
@@ -435,6 +441,7 @@
     <ClInclude Include="SourceCodes\GameMain.h" />
     <ClInclude Include="SourceCodes\GameScene.h" />
     <ClInclude Include="SourceCodes\TitleSceneTPL.h" />
+    <ClInclude Include="SourceCodes\TitleUIScreenTPLDebugObject.h" />
     <ClInclude Include="SourceCodes\TitleUIScreenTPL.h" />
     <ClInclude Include="SourceCodes\TPSCamera.h" />
     <ClInclude Include="SourceCodes\TrackActorComponent.h" />
@@ -541,6 +548,7 @@
     <ClInclude Include="SourceCodes\UIScreen.h" />
     <ClInclude Include="SourceCodes\VertexArray.h" />
     <ClInclude Include="SourceCodes\WorldBase.h" />
+    <ClInclude Include="SourceCodes\WorldGameSceneTPL.h" />
     <ClInclude Include="SourceCodes\WorldSpaceUI.h" />
     <ClInclude Include="SourceCodes\WorldTitleScene.h" />
     <ClInclude Include="SourceCodes\WorldTitleSceneTPL.h" />

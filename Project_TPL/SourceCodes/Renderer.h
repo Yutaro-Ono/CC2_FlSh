@@ -72,6 +72,7 @@ public:
 	void RemoveSpotLightComponent(class SpotLightComponent* in_spotL);
 	// MapHUD
 	void RemoveMapHUD();
+	void RemoveMapHUD(class MiniMapHUD* _removeMap);
 
 	// TextureComponent
 	void RemoveTexture(class Texture* in_texture);
@@ -124,7 +125,8 @@ public:
 	void SetProjectionMatrix(const Matrix4& in_proj) { m_projMat = in_proj; }
 
 	// アクティブスカイボックス
-	void SetActiveSkyBox(class CubeMapComponent* in_skyBox) { m_activeSkyBox = in_skyBox; }
+	void SetActiveSkyBox(class CubeMapComponent* _skyBox);
+	void RemoveActiveSkyBox(class CubeMapComponent* _skyBox);
 	class CubeMapComponent* GetSkyBox() { return m_activeSkyBox; }
 	class VertexArray* GetCubeMapVerts() { return m_cubeVerts; }
 

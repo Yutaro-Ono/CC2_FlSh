@@ -23,10 +23,14 @@ public:
 
 	void Update(float _deltaTime) override;
 
-
+	void EnterTitle();
+	void EnterSelect();
+	void BackTitle();
 
 private:
 
+	class TitleSceneTPL* m_titleScene;        // 紐づけられたタイトルシーン
 
+	class TitleUIScreenTPL* m_titleUI;
 
 };

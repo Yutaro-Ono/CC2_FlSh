@@ -8,7 +8,7 @@
 #include "HumanCamera.h"
 #include "ThirdPersonCamera.h"
 #include "PhysicsWorld.h"
-#include "BoxCollider.h"
+#include "BoxColliderComponent.h"
 #include "Collision.h"
 #include "Input.h"
 #include "InputController.h"
@@ -62,7 +62,7 @@ PlayerHuman::PlayerHuman(class PlayerManager* in_manager)
 
 	// 当たり判定ボックスのセット
 	AABB playerBox = mesh->GetCollisionBox();
-	m_hitBox = new BoxCollider(this, PhysicsWorld::TYPE_PLAYER_HUMAN);
+	m_hitBox = new BoxColliderComponent(this);
 	playerBox.m_min.x *= 0.6f;
 	playerBox.m_min.y *= 0.6f;
 	playerBox.m_max.x *= 0.6f;
@@ -78,7 +78,7 @@ PlayerHuman::PlayerHuman(class PlayerManager* in_manager)
 	groundBox.m_max.y *= 0.8f;
 	groundBox.m_min.z = -2.0f;  //ジャンプ時に引っかからない高さ
 	groundBox.m_max.z *= 0.0f;
-	m_hitGroundBox = new BoxCollider(this, PhysicsWorld::TYPE_PLAYER_HUMAN);
+	m_hitGroundBox = new BoxColliderComponent(this);
 	m_hitGroundBox->SetObjectBox(groundBox);
 
 	// プレーヤーの頭上を調べるボックスを作成 ボックス底面が頭上に来るようにする
@@ -86,7 +86,7 @@ PlayerHuman::PlayerHuman(class PlayerManager* in_manager)
 	headBox = groundBox;
 	headBox.m_min.z = playerBox.m_max.z;
 	headBox.m_max.z = headBox.m_min.z + 2.0f;
-	m_hitHeadBox = new BoxCollider(this, PhysicsWorld::TYPE_PLAYER_HUMAN);
+	m_hitHeadBox = new BoxColliderComponent(this);
 	m_hitHeadBox->SetObjectBox(headBox);
 
 }
@@ -284,7 +284,7 @@ void PlayerHuman::ChangeState(float in_deltaTime)
 }
 
 
-void PlayerHuman::CollisionFix(BoxCollider* in_hitPlayerBox, BoxCollider* in_hitBox)
+void PlayerHuman::CollisionFix(BoxColliderComponent* in_hitPlayerBox, BoxColliderComponent* in_hitBox)
 {
 	Vector3 fix;
 	//足元当たり判定がヒットしたか？

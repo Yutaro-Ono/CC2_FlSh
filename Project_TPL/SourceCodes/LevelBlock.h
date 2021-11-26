@@ -27,5 +27,5 @@ public:
 private:
 
 
-	class BoxCollider* m_box;
+	class BoxColliderComponent* m_box;
 };

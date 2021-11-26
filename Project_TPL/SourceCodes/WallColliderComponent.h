@@ -25,7 +25,7 @@ public:
 
 protected:
 
-	bool Check(BoxCollider* _other) override;
+	bool Check(BoxColliderComponent* _other) override;
 
 
 	Wall m_wall;

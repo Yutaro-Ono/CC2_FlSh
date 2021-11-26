@@ -1,8 +1,9 @@
 #pragma once
+#include "UIScreen.h"
 #include <vector>
 #include "Math.h"
 
-class MiniMapHUD
+class MiniMapHUD : public UIScreen
 {
 
 public:
@@ -12,8 +13,11 @@ public:
 
 	void WriteBuffer(class GLSLprogram* _shader, std::vector<class MeshComponent*> _mesh);
 
-	void Draw(class GLSLprogram* _shader);
+	void Update(float _deltaTime) override;
 
+	void DrawMap(class GLSLprogram* _shader);
+
+	void Draw(class GLSLprogram* _shader) override;
 
 private:
 

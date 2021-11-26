@@ -15,7 +15,7 @@ LandMarkIndicator::LandMarkIndicator(Actor* in_player)
 {
 	SetScale(750.0f);
 	// マップ矢印のモデル読み込み
-	Mesh* mesh = RENDERER->GetMesh("Data/Meshes/TND/Interface/Arrow/MapHUD_Arrow.OBJ");
+	Mesh* mesh = RENDERER->GetMesh("Data/Meshes/Objects/Interface/Arrow/MapHUD_Arrow.OBJ");
 	m_meshComp = new MeshComponent(this);
 	m_meshComp->SetMesh(mesh);
 	m_meshComp->SetVisible(false);

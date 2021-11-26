@@ -6,6 +6,7 @@
 
 CanvasTitleSceneTPL::CanvasTitleSceneTPL(WorldTitleSceneTPL* _world, TitleSceneTPL* _titleScene)
     :Canvas(_world)
+    ,m_titleScene(_titleScene)
 {
 }
 
@@ -16,16 +17,26 @@ CanvasTitleSceneTPL::~CanvasTitleSceneTPL()
 bool CanvasTitleSceneTPL::Load()
 {
 
-    m_interfaces.push_back(new TitleUIScreenTPL());
+    m_titleUI = new TitleUIScreenTPL(m_titleScene);
 
     return true;
 }
 
 void CanvasTitleSceneTPL::Update(float _deltaTime)
 {
-    // UI‚ÌXVˆ—
-    for (auto ui : m_interfaces)
-    {
-        ui->Update(_deltaTime);
-    }
+}
+
+void CanvasTitleSceneTPL::EnterTitle()
+{
+    m_titleUI->EnterTitle();
+}
+
+void CanvasTitleSceneTPL::EnterSelect()
+{
+    m_titleUI->EnterSelect();
+}
+
+void CanvasTitleSceneTPL::BackTitle()
+{
+    m_titleUI->BackTitle();
 }

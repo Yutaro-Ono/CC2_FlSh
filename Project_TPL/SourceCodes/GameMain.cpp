@@ -68,6 +68,8 @@ bool GameMain::Initialize()
 		return false;
 	}
 
+
+
 	//--------------------------------------------------------------------+
     // コンフィグ
     //--------------------------------------------------------------------+
@@ -95,32 +97,19 @@ bool GameMain::Initialize()
 		return false;
 	}
 
-    //--------------------------------------------------------------------+
-    // デバッガー (RendererでSDLWindowを作成した後)
-    //--------------------------------------------------------------------+
-#ifdef _DEBUG
-
-	m_debugger = new Debugger(Debugger::BOTH_WINDOW);
-	m_debugger->Initialize();
-
-#endif
-
-	// レンダラーのロード処理(Debuggerを生成した後)
-	if (!m_renderer->Load())
-	{
-		SDL_Log("Renderer Load Failed : %s\n", SDL_GetError());
-		delete m_renderer;
-		return false;
-	}
 
 	//--------------------------------------------------------------------+
-	// フォント(TTF)レンダリングシステム初期化
-	//--------------------------------------------------------------------+
+    // フォント(TTF)レンダリングシステム初期化
+    //--------------------------------------------------------------------+
 	if (TTF_Init() != 0)
 	{
 		SDL_Log("SDL_ttf Initialize Failed : %s\n", SDL_GetError());
 		return false;
 	}
+	// フォント生成
+	Font* font = new Font();
+	font->Load(FONT_FILE_PATH);
+	m_fonts.emplace(FONT_FILE_PATH, font);
 
 	//--------------------------------------------------------------------+
 	// サウンドシステム初期化
@@ -151,6 +140,31 @@ bool GameMain::Initialize()
 
 	m_audio = new AudioManager();
 
+    //--------------------------------------------------------------------+
+    // デバッガー (RendererでSDLWindowを作成した後)
+    //--------------------------------------------------------------------+
+#ifdef _DEBUG
+
+	m_debugger = new Debugger(Debugger::DEBUG_STYLE::BOTH_WINDOW);
+	m_debugger->Initialize();
+
+#endif
+
+	// レンダラーのロード処理(Debuggerを生成した後)
+	if (!m_renderer->Load())
+	{
+		SDL_Log("Renderer Load Failed : %s\n", SDL_GetError());
+		delete m_renderer;
+		return false;
+	}
+
+	// ロード画面生成
+	m_loadScreen = new LoadScreen();
+	m_loadScreen->Initialize();
+	m_loadScreen->EnableScreen();
+
+
+
 	// 当たり判定システム生成
 	m_physicsWorld = new PhysicsWorld;
 
@@ -169,17 +183,12 @@ bool GameMain::Initialize()
 	// SDLが初期化されてから経過した時間(ミリ秒単位)
 	m_ticksCount = SDL_GetTicks();
 
-	// フォント生成
-	Font* font = new Font();
-	font->Load(FONT_FILE_PATH);
-	m_fonts.emplace(FONT_FILE_PATH, font);
+
 
 	// ポーズ画面生成
 	m_pauseScreen = new PauseScreen();
 
-	// ロード画面生成
-	m_loadScreen = new LoadScreen();
-	m_loadScreen->Initialize();
+
 
 
 
@@ -303,7 +312,7 @@ int GameMain::UpdateGame()
 	}
 
 	// 当たり判定
-	m_physicsWorld->Collision();
+	m_physicsWorld->UpdateCollision();
 
 	// パーティクル更新
 	m_renderer->GetParticleManager()->Update(m_deltaTime);

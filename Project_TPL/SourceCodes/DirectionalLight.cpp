@@ -18,7 +18,7 @@ DirectionalLight::DirectionalLight()
 #ifdef _DEBUG
 
 	m_debugObj = new DirectionalLightDebug(this);
-	DEBUGGER->AddDebugObject(m_debugObj, OBJECT_TAG::SYSTEM);
+	DEBUGGER->AddDebugObject(m_debugObj, Debugger::DEBUG_TAG::SYSTEM);
 
 #endif
 }

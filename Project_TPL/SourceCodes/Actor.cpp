@@ -40,7 +40,7 @@ Actor::Actor(OBJECT_TAG _tag)
 #ifdef _DEBUG
 
 	m_debugObj = new ActorDebugObject(this);
-	DEBUGGER->AddDebugObject(m_debugObj, _tag);
+	DEBUGGER->AddDebugObject(m_debugObj, Debugger::DEBUG_TAG::ACTOR);
 
 #endif
 }

@@ -6,9 +6,10 @@
 #include "PlayerHuman.h"
 #include "ThirdPersonCamera.h"
 #include "Collision.h"
-#include "BoxCollider.h"
 #include "ColliderComponent.h"
+#include "BoxColliderComponent.h"
 #include "WallColliderComponent.h"
+#include "LineColliderComponent.h"
 #include "GLSLprogram.h"
 
 // コンストラクタ
@@ -77,7 +78,7 @@ void PhysicsWorld::DrawCollisions(GLSLprogram* _shader, const std::vector<class 
 		{
 			AABB box;
 			Vector3 min, max;
-			box = dynamic_cast<BoxCollider*>(item)->GetWorldBox();
+			box = dynamic_cast<BoxColliderComponent*>(item)->GetWorldBox();
 
 			// ボックスのスケールと位置を取得
 			min = box.m_min;
@@ -131,17 +132,17 @@ void PhysicsWorld::DrawCollisions(GLSLprogram* _shader, const std::vector<class 
 		// LINEだった場合
 		if (item->GetColliderType() == COLLIDER_TYPE::TYPE_LINE)
 		{
-			LineCollider* linecol;
+			LineColliderComponent* linecol;
 			Line line;
 
-			linecol = dynamic_cast<LineCollider*>(item);
+			linecol = dynamic_cast<LineColliderComponent*>(item);
 
 			Vector3 scale;  // 描画スケーリング係数
 			Vector3 pos;    // 描画位置
 			line = linecol->GetLine();
 
 			// 線分ベクトルと正規化線分方向ベクトル求める
-			Vector3 lineVec = line.mLineEnd - line.mLineStart;;
+			Vector3 lineVec = line.m_endPoint - line.m_startPoint;
 			Vector3 lineDir = lineVec;
 			lineDir.Normalize();
 
@@ -159,7 +160,7 @@ void PhysicsWorld::DrawCollisions(GLSLprogram* _shader, const std::vector<class 
 			Matrix4 rotMat = Matrix4::CreateFromQuaternion(q);
 
 			// 平行移動成分
-			Matrix4 posMat = Matrix4::CreateTranslation(line.mLineStart);
+			Matrix4 posMat = Matrix4::CreateTranslation(line.m_startPoint);
 
 
 			worldMat = scaleMat * rotMat * posMat;
@@ -249,19 +250,19 @@ void PhysicsWorld::UpdateCollision()
 	// 片方のみリアクションする当たり判定
 	for (auto oneReactPair : m_oneSideReactions)
 	{
-		
+		OneReactionMatch(oneReactPair);
 	}
 
 	// 双方向リアクションする当たり判定
 	for (auto twoSideReactPair : m_dualReactions)
 	{
-
+		DualReactionMatch(twoSideReactPair);
 	}
 
 	// 同じリストの当たり判定
-	for (auto t : m_selfReactions)
+	for (auto selfReact : m_selfReactions)
 	{
-
+		SelfReactionMatch(selfReact);
 	}
 
 }

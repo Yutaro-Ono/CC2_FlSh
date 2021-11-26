@@ -16,8 +16,6 @@
 #include "ParticleManager.h"
 #include "UIScreen.h"
 #include "PostEffect.h"
-#include "BoxCollider.h"
-#include "Collision.h"
 #include "WorldSpaceUI.h"
 #include "ShadowMap.h"
 #include "CameraComponent.h"
@@ -565,6 +563,15 @@ void Renderer::RemoveMapHUD()
 	m_mapHUD = nullptr;
 }
 
+void Renderer::RemoveMapHUD(MiniMapHUD* _removeMap)
+{
+	if (m_mapHUD == _removeMap)
+	{
+		m_mapHUD = nullptr;
+
+	}
+}
+
 // 指定したテクスチャの削除
 void Renderer::RemoveTexture(Texture* in_texture)
 {
@@ -853,6 +860,19 @@ const Animation* Renderer::GetAnimation(const char* in_fileName, bool in_loop)
 ParticleManager * Renderer::GetParticleManager() const
 {
 	return m_particleManager;
+}
+
+void Renderer::SetActiveSkyBox(CubeMapComponent* _skyBox)
+{
+	m_activeSkyBox = _skyBox;
+}
+
+void Renderer::RemoveActiveSkyBox(CubeMapComponent* _skyBox)
+{
+	if (m_activeSkyBox == _skyBox)
+	{
+		m_activeSkyBox = nullptr;
+	}
 }
 
 // マップHUDのセッター

@@ -22,6 +22,66 @@ typedef struct CollisionInfo
 	Vector3 m_hitNormal;            // 衝突点における法線
 };
 
+//----------------------------------------------------+
+// 軸並行ボックス (AABB:Axis-Aligned Bounding Box)
+//----------------------------------------------------+
+typedef struct AABB
+{
+
+	AABB();                                                                                 // コンストラクタ
+	AABB(const Vector3& _min, const Vector3& _max);                                         // 初期化用コンストラクタ
+
+	
+	void         InitMinMax(const Vector3& _point) { m_min = m_max = _point; }              // モデル読み込み時の最小最大の点を求める
+	void         SetBoxVertex();                                                            // Boxを構成する8頂点のセット
+	
+	void         UpdateMinMax(const Vector3& _point);                                       // 最小最大の点を更新
+
+	bool         Contains(const Vector3& _point) const;                                     // 点がボックス内に含まれるか
+	float        MinDistSq(const Vector3& _point) const;                                    // 点との最小距離を求める
+
+	void         Rotate(const Quaternion& _quaternion);                                     // 回転
+	void         SetAllowRotate(bool _value) { m_isRotatable = _value; }                    // 回転を許可するか
+
+	void         SetScale(float _scaleX, float _scaleY, float _scaleZ);                     // AABBのスケーリング
+
+	// 直接頂点座標をセット
+	void         SetMinVector(const Vector3& _minVec) { m_min = _minVec; }
+	void         SetMaxVector(const Vector3& _maxVec) { m_max = _maxVec; }
+
+	Vector3      m_min;                                                                     // 最小値
+	Vector3      m_max;                                                                     // 最大値
+	Vector3      m_vertices[8];                                                             // Boxを構成する8頂点
+
+	bool         m_isRotatable  =  false;                                                   // 回転するかどうか
+
+}AABB;
+
+
+//----------------------------------------------------+
+// 有向ボックス (OBB:Oriented Bounding Box)
+//----------------------------------------------------+
+typedef struct OBB
+{
+
+	OBB();                                                                            // コンストラクタ
+	OBB(const Vector3& _position, const Vector3& _degree, const Vector3& _scale);     // 初期化用コンストラクタ
+	OBB(AABB _aabb);
+
+	Vector3     GetDirection(int _element);
+	Vector3     GetPositionWorld();
+
+	float       GetLength(int _element);
+	Matrix4     GetMatrix();
+	void        Transform(Matrix4& _matrix);
+
+	Vector3     m_position;                 
+	Vector3     m_normalDirection[3];       
+	float       m_length[3];                
+
+	AABB        m_wrapAABB;                                                             // OBBを取り囲むAABB
+
+}OBB;
 
 //----------------------------------------------------+
 // 線分の当たり判定
@@ -109,66 +169,6 @@ typedef struct Plane
 }Plane;
 
 
-//----------------------------------------------------+
-// 軸並行ボックス (AABB:Axis-Aligned Bounding Box)
-//----------------------------------------------------+
-typedef struct AABB
-{
-
-	AABB();                                                                                 // コンストラクタ
-	AABB(const Vector3& _min, const Vector3& _max);                                     // 初期化用コンストラクタ
-
-	
-	void         InitMinMax(const Vector3& _point) { m_min = m_max = _point; }          // モデル読み込み時の最小最大の点を求める
-	void         SetBoxVertex();                                                          // Boxを構成する8頂点のセット
-	
-	void         UpdateMinMax(const Vector3& _point);                                     // 最小最大の点を更新
-
-	bool         Contains(const Vector3& _point) const;                                   // 点がボックス内に含まれるか
-	float        MinDistSq(const Vector3& _point) const;                                  // 点との最小距離を求める
-
-	void         Rotate(const Quaternion& _quaternion);                                   // 回転
-	void         SetAllowRotate(bool _value) { m_isRotatable = _value; }                  // 回転を許可するか
-
-	void         SetScale(float _scaleX, float _scaleY, float _scaleZ);                   // AABBのスケーリング
-
-	// 直接頂点座標をセット
-	void         SetMinVector(const Vector3& _minVec) { m_min = _minVec; }
-	void         SetMaxVector(const Vector3& _maxVec) { m_max = _maxVec; }
-
-	Vector3      m_min;                                                                     // 最小値
-	Vector3      m_max;                                                                     // 最大値
-	Vector3      m_vertices[8];                                                             // Boxを構成する8頂点
-
-	bool         m_isRotatable  =  false;                                                   // 回転するかどうか
-
-}AABB;
-
-
-//----------------------------------------------------+
-// 有向ボックス (OBB:Oriented Bounding Box)
-//----------------------------------------------------+
-typedef struct OBB
-{
-
-	OBB();                                                                                  // コンストラクタ
-	OBB(const Vector3& _position, const Vector3& _degree, const Vector3& _scale);     // 初期化用コンストラクタ
-	OBB(AABB _aabb);                                                                      // 
-
-	Vector3     GetDirection(int _element);                                               // 
-	Vector3     GetPositionWorld();                                                         // 
-
-	float       GetLength(int _element);                                                  // 
-	Matrix4     GetMatrix();                                                                // 
-	void        Transform(Matrix4& _matrix);                                              // 
-
-	Vector3     m_position;                                                                 // 
-	Vector3     m_normalDirection[3];                                                       // 
-	float       m_length[3];                                                                // 
-
-	AABB        m_wrapAABB;                                                                 // OBBを取り囲むAABB
-
-}OBB;
 
 
 bool Intersect(const AABB& _boxA, const AABB& _boxB);                                         // AABB同士の衝突

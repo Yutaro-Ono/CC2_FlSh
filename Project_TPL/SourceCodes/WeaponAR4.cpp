@@ -90,7 +90,7 @@ void WeaponAR4::Initialize()
 #ifdef _DEBUG
 
 	DebugWeaponAR4* debug = new DebugWeaponAR4(this);
-	DEBUGGER->AddDebugObject(debug, m_tag);
+	DEBUGGER->AddDebugObject(debug, Debugger::DEBUG_TAG::ACTOR);
 
 #endif
 }

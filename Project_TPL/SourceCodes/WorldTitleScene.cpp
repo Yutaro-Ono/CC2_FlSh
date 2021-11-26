@@ -1,5 +1,5 @@
 #include "WorldTitleScene.h"
-#include "CanvasTitleScene.h"
+//#include "CanvasTitleScene.h"
 #include "Environment.h"
 #include "GameMain.h"
 #include "LoadScreen.h"
@@ -33,7 +33,7 @@ bool WorldTitleScene::Load()
 
 
 	// UIキャンバスの生成
-	m_canvas = new CanvasTitleScene(this);
+	//m_canvas = new CanvasTitleScene(this);
 
 	// タイトル用車の生成
 	m_car = new TitleCar();

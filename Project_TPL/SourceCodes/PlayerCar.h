@@ -66,8 +66,8 @@ public:
 	LevelTerrain::TERRAIN_TYPE GetOnTerrainType() { return m_terrainType; }
 
 	// ボックスコライダーのゲッターセッター
-	void SetBoxCollider(class BoxCollider* in_hitBox) { m_hitBox = in_hitBox; }
-	class BoxCollider* GetBoxCollider() { return m_hitBox; }
+	void SetBoxCollider(class BoxColliderComponent* in_hitBox) { m_hitBox = in_hitBox; }
+	class BoxColliderComponent* GetBoxCollider() { return m_hitBox; }
 	// ムーブコンポーネントのゲッター
 	class MoveComponentCar* GetMoveComponent() const { return m_moveComp; }
 	const float GetRadian() { return m_moveComp->GetRadian(); }                    // 弧度ゲッター (MoveComponentCar)
@@ -116,9 +116,9 @@ private:
 	class CarSoundComponent* m_soundComp;
 
 	// 当たり判定ボックス
-	class BoxCollider* m_hitBox;
-	class BoxCollider* m_hitGroundBox;
-	class BoxCollider* m_hitHeadBox;
+	class BoxColliderComponent* m_hitBox;
+	class BoxColliderComponent* m_hitGroundBox;
+	class BoxColliderComponent* m_hitHeadBox;
 
 	// 摩擦力
 	float m_friction;
