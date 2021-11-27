@@ -49,7 +49,7 @@ bool WorldGameSceneTPL::Load()
 
 	LevelBlock* spaceTer = new LevelBlock();
 	spaceTer->SetMesh(meshTer);
-	spaceTer->SetScale(100.0f);
+	spaceTer->SetScale(10.0f);
 	spaceTer->SetMeshIntensity(3.0f);
 	spaceTer->SetPosition(Vector3(0.0f, 0.0f, 12.0f));
 
@@ -97,6 +97,21 @@ bool WorldGameSceneTPL::Load()
 	zombie->SetPosition(Vector3(380.0f, 0.0f, 20.0f));
 	zombie->SetScale(0.8f);
 	zombie->SetTarget(m_player);
+
+	EnemyZombie* zombie1 = new EnemyZombie();
+	zombie1->SetPosition(Vector3(680.0f, 0.0f, 20.0f));
+	zombie1->SetScale(0.8f);
+	zombie1->SetTarget(m_player);
+
+	EnemyZombie* zombie2 = new EnemyZombie();
+	zombie2->SetPosition(Vector3(520.0f, 220.0f, 20.0f));
+	zombie2->SetScale(0.8f);
+	zombie2->SetTarget(m_player);
+
+	EnemyZombie* zombie3 = new EnemyZombie();
+	zombie3->SetPosition(Vector3(820.0f, -220.0f, 20.0f));
+	zombie3->SetScale(0.8f);
+	zombie3->SetTarget(m_player);
 
     return true;
 }

@@ -8,7 +8,7 @@ class TrackActorComponent : public Component
 
 public:
 
-	TrackActorComponent(class EnemyBase* _owner);
+	TrackActorComponent(class EnemyZombie* _owner);
 	~TrackActorComponent();
 
 	void Update(float _deltaTime) override;
@@ -17,7 +17,7 @@ public:
 
 private:
 
-	class EnemyBase* m_enemyOwner;
+	class EnemyZombie* m_enemyOwner;
 
 	Vector3 m_targetPos;          // í«ê’Ç∑ÇÈç¿ïW
 	Vector3 m_moveVec;            // à⁄ìÆ

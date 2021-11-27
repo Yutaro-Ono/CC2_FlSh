@@ -1,15 +1,15 @@
 #include "TrackActorComponent.h"
-#include "EnemyBase.h"
+#include "EnemyZombie.h"
 #include "GameMain.h"
 
-TrackActorComponent::TrackActorComponent(EnemyBase* _owner)
+TrackActorComponent::TrackActorComponent(EnemyZombie* _owner)
 	:Component(_owner)
 	,m_enemyOwner(_owner)
 	,m_targetPos(Vector3::Zero)
 	,m_moveSpeed(110.0f)
 	,m_moveVec(Vector3::Zero)
-	,m_trackMinRange(40.0f)
-	,m_trackMaxRange(600.0f)
+	,m_trackMinRange(100.0f)
+	,m_trackMaxRange(1000.0f)
 {
 }
 
@@ -19,9 +19,17 @@ TrackActorComponent::~TrackActorComponent()
 
 void TrackActorComponent::Update(float _deltaTime)
 {
-	// オーナーエネミーが追跡状態の時のみ更新
-	if (m_enemyOwner->GetEnemyState() == ENEMY_STATE::STATE_PATROL)
+
+	// 寝ている場合は追跡移動しない
+	if (m_enemyOwner->GetIsLaying())
 	{
+		return;
+	}
+
+	// オーナーエネミーが追跡状態の時のみ更新
+	if (m_enemyOwner->GetEnemyState() == ENEMY_STATE::STATE_TRACK)
+	{
+
 		// プレイヤーの追尾処理
 		TrackTarget(_deltaTime);
 
@@ -57,6 +65,8 @@ void TrackActorComponent::TrackTarget(float _deltaTime)
 	// エネミー→プレイヤーの距離を水平方向への向きに変換
 	enemyToActor.z = 0.0f;
 	enemyToActor.Normalize();
+
+	m_enemyOwner->RotateToNewForward(enemyToActor);
 
 	// 移動ベクトルを更新
 	m_moveVec = m_moveSpeed * enemyToActor * _deltaTime;

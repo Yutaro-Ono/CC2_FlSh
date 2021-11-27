@@ -42,6 +42,7 @@ public:
 	class SkeletalMeshComponent* GetSkelMesh() { return m_skelComp; }
 	const class Animation* GetAnim(ZOMBIE_STATE _state) { return m_anims[static_cast<unsigned int>(_state)]; }
 
+	void SetIsLaying(bool _isLaying) { m_isLaying = _isLaying; }
 	bool GetIsLaying() { return m_isLaying; }
 	
 	class DetectionActorComponent* GetDetectComp() { return m_detectComp; }

@@ -19,8 +19,9 @@ DetectionActorComponent::~DetectionActorComponent()
 
 void DetectionActorComponent::Update(float _deltaTime)
 {
-	// 待機状態時のみ索敵
-	if (m_enemyOwner->GetEnemyState() == ENEMY_STATE::STATE_IDLE)
+	// 待機状態時、巡回状態時のみ索敵
+	if (m_enemyOwner->GetEnemyState() == ENEMY_STATE::STATE_IDLE ||
+		m_enemyOwner->GetEnemyState() == ENEMY_STATE::STATE_PATROL)
 	{
 		// 検出状態の更新
 		DetectionActor();
@@ -59,7 +60,7 @@ void DetectionActorComponent::DetectionActor()
 	if (m_isDetected)
 	{
 		// ステートを変更
-		m_enemyOwner->SetEnemyState(ENEMY_STATE::STATE_PATROL);
+		m_enemyOwner->SetEnemyState(ENEMY_STATE::STATE_TRACK);
 		return;
 	}
 }

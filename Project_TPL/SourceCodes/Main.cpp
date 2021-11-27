@@ -11,6 +11,7 @@
 #include "TutorialScene.h"
 #include "ResultScene.h"
 #include "TitleSceneTPL.h"
+#include "GameSceneTPL.h"
 #include <iostream>
 #include <string>
 
@@ -45,7 +46,7 @@ int main(int argc, char** argv)
 	if (success)
 	{
 		// 最初のシーンのセット
-		//GAME_INSTANCE.SetFirstScene(new TitleScene());
+		//GAME_INSTANCE.SetFirstScene(new GameSceneTPL());
 		GAME_INSTANCE.SetFirstScene(new TitleSceneTPL());
 
 		// ゲームループ

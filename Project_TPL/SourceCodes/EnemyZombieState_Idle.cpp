@@ -23,7 +23,19 @@ ZOMBIE_STATE EnemyZombieState_Idle::Update(EnemyZombie* _zombie, float _deltaTim
 			return ZOMBIE_STATE::STATE_LAY_WAKEUP;
 		}
 
-		//return ZOMBIE_STATE::STATE_RUN;
+		return ZOMBIE_STATE::STATE_WALK;
+	}
+
+	// ゾンビがターゲットを検出し、追跡状態へ
+	if (_zombie->GetEnemyState() == ENEMY_STATE::STATE_TRACK)
+	{
+		return ZOMBIE_STATE::STATE_WALK;
+	}
+
+	// ゾンビがターゲットを検出し、攻撃ステートへ
+	if (_zombie->GetEnemyState() == ENEMY_STATE::STATE_ATTACK)
+	{
+		return ZOMBIE_STATE::STATE_ATTACK;
 	}
 
 

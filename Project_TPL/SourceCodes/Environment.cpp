@@ -75,15 +75,15 @@ void Environment::SetDirectionalLight(ENVIRONMENT_TYPE _envType, const Vector3& 
 		// ディレクショナルライトの調整
 		RENDERER->GetDirectionalLight()->SetPosition(playerPos + ADJUST_POS);
 		RENDERER->GetDirectionalLight()->SetTarget(playerPos);
-		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.741f, 0.735f, 0.735f));
-		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.872f, 0.725f, 0.751f));
-		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.901f, 0.741f, 0.781f));
+		RENDERER->GetDirectionalLight()->SetAmbient(Vector3(0.643f, 0.510f, 0.26f));
+		RENDERER->GetDirectionalLight()->SetDiffuse(Vector3(0.252f, 0.213f, 0.116f));
+		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.0f, 0.0f, 0.0f));
 		RENDERER->GetDirectionalLight()->SetIntensity(0.3f);
 		// ブルームの設定
 		//RENDERER->GetBloom()->SetGamma(3.69f);
 		//RENDERER->GetBloom()->SetExposureVal(0.13f);
-		RENDERER->GetBloom()->SetGamma(2.28f);
-		RENDERER->GetBloom()->SetExposureVal(0.319f);
+		RENDERER->GetBloom()->SetGamma(1.163f);
+		RENDERER->GetBloom()->SetExposureVal(2.548f);
 	}
 
 	if (m_envType == ENVIRONMENT_TYPE::AFTERNOON)

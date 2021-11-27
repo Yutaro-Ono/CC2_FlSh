@@ -20,7 +20,7 @@ const std::string EnemyZombie::ANIM_LAY_WAKEUP_PATH = "Data/Animation/zombieA/zo
 const std::string EnemyZombie::ANIM_IDLE_1_PATH = "Data/Animation/zombieA/zombieA_Idle_1.gpanim";
 const std::string EnemyZombie::ANIM_IDLE_2_PATH = "Data/Animation/zombieA/zombieA_Idle_2.gpanim";
 const std::string EnemyZombie::ANIM_WALK_PATH = "Data/Animation/zombieA/zombieA_Walking.gpanim";
-const std::string EnemyZombie::ANIM_RUN_PATH = "Data/Animation/zombieA/zombieA_Biting.gpanim";
+const std::string EnemyZombie::ANIM_RUN_PATH = "Data/Animation/zombieA/zombieA_Walking.gpanim";
 const std::string EnemyZombie::ANIM_ATTACK_PATH = "Data/Animation/zombieA/zombieA_Attack_1.gpanim";
 const std::string EnemyZombie::ANIM_DEATH_PATH = "Data/Animation/zombieA/zombieA_Dying_1.gpanim";
 
@@ -43,7 +43,7 @@ EnemyZombie::EnemyZombie()
 	m_anims[static_cast<unsigned int>(ZOMBIE_STATE::STATE_LAY_WAKEUP)] = RENDERER->GetAnimation(ANIM_LAY_WAKEUP_PATH.c_str(), false);
 	m_anims[static_cast<unsigned int>(ZOMBIE_STATE::STATE_WALK)] = RENDERER->GetAnimation(ANIM_WALK_PATH.c_str(), true);
 	m_anims[static_cast<unsigned int>(ZOMBIE_STATE::STATE_RUN)] = RENDERER->GetAnimation(ANIM_RUN_PATH.c_str(), true);
-	m_anims[static_cast<unsigned int>(ZOMBIE_STATE::STATE_ATTACK)] = RENDERER->GetAnimation(ANIM_ATTACK_PATH.c_str(), true);
+	m_anims[static_cast<unsigned int>(ZOMBIE_STATE::STATE_ATTACK)] = RENDERER->GetAnimation(ANIM_ATTACK_PATH.c_str(), false);
 	m_anims[static_cast<unsigned int>(ZOMBIE_STATE::STATE_DEATH)] = RENDERER->GetAnimation(ANIM_DEATH_PATH.c_str(), true);
 
 	// プレイヤーステートプールの生成
@@ -71,10 +71,14 @@ void EnemyZombie::UpdateActor(float _deltaTime)
 	// ステートの更新
 	UpdateZombieState(_deltaTime);
 
-	// プレイヤー検出時、寝そべりトグルを解除
+	// プレイヤー検出時、起き上がりステートへ移行
 	if (m_detectComp->GetIsDetected())
 	{
-		m_isLaying = false;
+		if (m_isLaying)
+		{
+			m_nextState = ZOMBIE_STATE::STATE_LAY_WAKEUP;
+		}
+
 	}
 }
 

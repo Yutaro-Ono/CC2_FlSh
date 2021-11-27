@@ -4,6 +4,7 @@
 
 EnemyZombieState_WakeUp::EnemyZombieState_WakeUp()
 {
+	m_animSpeed = 1.0f;
 }
 
 EnemyZombieState_WakeUp::~EnemyZombieState_WakeUp()
@@ -17,7 +18,10 @@ ZOMBIE_STATE EnemyZombieState_WakeUp::Update(EnemyZombie* _zombie, float _deltaT
 	// アニメーション再生終了したら次のステートへ
 	if (!skel->IsPlaying())
 	{
-		return ZOMBIE_STATE::STATE_IDLE;
+		// 起き上がりフラグをON
+		_zombie->SetIsLaying(false);
+		// 通常ステートへ
+		return ZOMBIE_STATE::STATE_WALK;
 	}
 
     return ZOMBIE_STATE::STATE_LAY_WAKEUP;
