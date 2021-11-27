@@ -12,6 +12,7 @@ CanvasTitleSceneTPL::CanvasTitleSceneTPL(WorldTitleSceneTPL* _world, TitleSceneT
 
 CanvasTitleSceneTPL::~CanvasTitleSceneTPL()
 {
+    GAME_INSTANCE.RemoveUI(m_titleUI);
 }
 
 bool CanvasTitleSceneTPL::Load()

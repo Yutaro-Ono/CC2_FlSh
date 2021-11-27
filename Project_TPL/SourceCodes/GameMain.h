@@ -101,6 +101,7 @@ public:
 	// UI
 	const std::vector<class UIScreen*>& GetUIStack() { return m_uiStack; }            // UIスタックのゲッター
 	void AddUI(class UIScreen* _screen);
+	void RemoveUI(class UIScreen* _ui);
 	void SwapPauseUI();                                                               // ポーズ画面を最前面に持ってくる
 	// フォント
 	class Font* GetFont(const std::string& _fileName);

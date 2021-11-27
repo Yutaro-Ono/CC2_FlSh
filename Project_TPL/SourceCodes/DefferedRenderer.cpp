@@ -329,7 +329,7 @@ void DefferedRenderer::DrawLightPath()
 	// ディレクショナルライトパス
 	//-----------------------------------------------+
 	// 輝度定義
-	float intensity = 1.65f;
+	float intensity = 1.35f;
 	m_renderer->GetDirectionalLight()->SetIntensity(intensity);
 	GLSLprogram* dirLightShader = m_renderer->GetShaderManager()->GetShader(GLSL_SHADER::DIRECTIONAL_LIGHT);
 	// シェーダのセット

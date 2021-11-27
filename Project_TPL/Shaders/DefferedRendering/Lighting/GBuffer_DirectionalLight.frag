@@ -74,11 +74,17 @@ void main()
 	// specular
 	vec3 viewDir = normalize(u_viewPos - gPos);
 	vec3 halfVec = normalize(lightDir + viewDir);
-	float spec = pow(max(dot(gNormal, halfVec), 0.0f), 64.0f);
+	float spec = pow(max(dot(gNormal, halfVec), 0.0f), 32.0f);
 	vec3 specular = u_dLightSpecular * spec * gSpec;
 
 	// output to color buffer
-	vec3 result = ambient + diffuse + specular + texture(u_gBuffer.emissive, fs_in.fragTexCoords).rgb;
+	vec3 result = ambient + diffuse + specular;
+
+	if(result.r > 0.5f && result.g > 0.5f && result.b > 0.5f)
+	{
+	    result = result - vec3(0.4f, 0.4f, 0.4f);
+	}
+
 	out_colorBuffer = vec4(result, 1.0f);
 
 	// High Bright
@@ -91,7 +97,7 @@ void main()
 
 		if(brightness > u_highBrightLine)
 		{
-			out_brightBuffer = vec4(ambient + diffuse + brightColor, 0.0f);
+			//out_brightBuffer = vec4(ambient + diffuse + brightColor, 0.0f);
 		}
 		else
 		{

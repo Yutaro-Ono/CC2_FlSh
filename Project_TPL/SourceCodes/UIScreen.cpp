@@ -34,7 +34,7 @@ UIScreen::UIScreen()
 // デストラクタ
 UIScreen::~UIScreen()
 {
-
+	GAME_INSTANCE.RemoveUI(this);
 }
 
 void UIScreen::ProcessInput()

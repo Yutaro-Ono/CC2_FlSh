@@ -72,9 +72,15 @@ void GameSceneTPL::Initialize()
 
 SceneBase* GameSceneTPL::Update(float _deltaTime)
 {
+	m_world->Update(_deltaTime);
+	m_world->UpdateWorld(_deltaTime);
+
+	m_canvas->Update(_deltaTime);
+
 	return this;
 }
 
 void GameSceneTPL::Draw()
 {
+	RENDERER->Draw();
 }

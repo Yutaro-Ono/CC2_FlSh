@@ -508,6 +508,17 @@ void GameMain::AddUI(UIScreen * _screen)
 	m_uiStack.emplace_back(_screen);
 }
 
+void GameMain::RemoveUI(UIScreen* _ui)
+{
+	auto iter = std::find(m_uiStack.begin(), m_uiStack.end(), _ui);
+
+	if (iter != m_uiStack.end())
+	{
+		std::iter_swap(iter, m_uiStack.end() - 1);
+		m_uiStack.pop_back();
+	}
+}
+
 // UIの反転(ポーズ画面を最前面にするための処理)
 void GameMain::SwapPauseUI()
 {

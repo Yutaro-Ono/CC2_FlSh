@@ -32,8 +32,12 @@ MiniMapHUD::MiniMapHUD(Actor* _target)
 	RENDERER->SetMapHUD(this);
 
 	// マップテクスチャを生成
-	m_mapTex = new Texture();
-	m_mapTex->Load("Data/Interface/TPL/HUD/MapHUD/MAP_HUD.png");
+	m_mapTex = RENDERER->GetTexture("Data/Interface/TPL/HUD/MapHUD/MAP_HUD.png");
+	//m_mapTex = RENDERER->GetTexture("Data/Interface/TPL/HUD/MapHUD/MAP_HUD_2.png");
+	//m_mapTex = new Texture();
+	//m_mapTex->Load("Data/Interface/TPL/HUD/MapHUD/MAP_HUD.png");
+
+	m_screenPos = Vector2(550.0f, 330.0f);
 
 	// HUD上の矢印を生成
 	// マップ矢印のモデル読み込み
@@ -65,7 +69,7 @@ void MiniMapHUD::WriteBuffer(GLSLprogram* _shader, std::vector<class MeshCompone
 	m_viewPos = m_target->GetPosition() + Vector3(0.0f, -3900.0f, 4500.0f);
 	Matrix4 view = Matrix4::CreateLookAt(m_viewPos, m_target->GetPosition() + Vector3(0.0f, -3900.0f, 0.0f), Vector3::UnitX);
 	// ビュー・プロジェクション合成行列を作成
-	Matrix4 projView = m_projection * view;
+	Matrix4 projView = view * m_projection;
 
 	_shader->UseProgram();
 	_shader->SetUniform("u_projView", projView);
@@ -103,6 +107,7 @@ void MiniMapHUD::DrawMap(GLSLprogram* in_shader)
 	Matrix4 rotY = Matrix4::CreateRotationY(Math::ToRadians(180.0f));
 	// スケールと変換行列をワールド行列へ変換
 	Matrix4 world = scaleMat * rotZ * rotY * transMat;
+
 
 	in_shader->UseProgram();
 	in_shader->SetUniform("u_worldTransform", world);

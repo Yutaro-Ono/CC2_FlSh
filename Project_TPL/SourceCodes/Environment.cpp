@@ -80,8 +80,10 @@ void Environment::SetDirectionalLight(ENVIRONMENT_TYPE _envType, const Vector3& 
 		RENDERER->GetDirectionalLight()->SetSpecular(Vector3(0.901f, 0.741f, 0.781f));
 		RENDERER->GetDirectionalLight()->SetIntensity(0.3f);
 		// ƒuƒ‹[ƒ€‚ÌÝ’è
-		RENDERER->GetBloom()->SetGamma(3.69f);
-		RENDERER->GetBloom()->SetExposureVal(0.13f);
+		//RENDERER->GetBloom()->SetGamma(3.69f);
+		//RENDERER->GetBloom()->SetExposureVal(0.13f);
+		RENDERER->GetBloom()->SetGamma(2.28f);
+		RENDERER->GetBloom()->SetExposureVal(0.319f);
 	}
 
 	if (m_envType == ENVIRONMENT_TYPE::AFTERNOON)

@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "PlayerHUD.h"
 #include "MiniMapHUD.h"
+#include "GameMain.h"
 
 CanvasGameSceneTPL::CanvasGameSceneTPL(WorldGameSceneTPL* _world, GameSceneTPL* _scene)
 	:Canvas(_world)
@@ -13,6 +14,11 @@ CanvasGameSceneTPL::CanvasGameSceneTPL(WorldGameSceneTPL* _world, GameSceneTPL* 
 
 CanvasGameSceneTPL::~CanvasGameSceneTPL()
 {
+	for (auto ui : m_interfaces)
+	{
+		GAME_INSTANCE.RemoveUI(ui);
+	}
+	m_interfaces.clear();
 }
 
 bool CanvasGameSceneTPL::Load()

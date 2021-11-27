@@ -52,13 +52,7 @@ TitleUIScreenTPL::TitleUIScreenTPL(class TitleSceneTPL* _titleScene)
 
 TitleUIScreenTPL::~TitleUIScreenTPL()
 {
-    //// テクスチャの解放
-//for (auto i : m_uiTextures)
-//{
-//    i.second->Delete();
-//    delete i.second;
-//}
-//m_uiTextures.clear();
+
 }
 
 void TitleUIScreenTPL::Update(float _deltaTime)

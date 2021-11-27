@@ -43,12 +43,54 @@ bool WorldGameSceneTPL::Load()
 
 	Mesh* meshTer = RENDERER->GetMesh("Data/Meshes/Objects/Environment/Terrain/SM_Field.gpmesh");
 
+	Mesh* meshStorage = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/Storage/storageBuilding.OBJ");
+	Mesh* meshGarage = RENDERER->GetMesh("Data/Meshes/Objects/Buildings/Garage/garage_Internal.OBJ");
+
 
 	LevelBlock* spaceTer = new LevelBlock();
 	spaceTer->SetMesh(meshTer);
 	spaceTer->SetScale(100.0f);
 	spaceTer->SetMeshIntensity(3.0f);
 	spaceTer->SetPosition(Vector3(0.0f, 0.0f, 12.0f));
+
+	LevelBlock* spaceStor = new LevelBlock();
+	spaceStor->SetMesh(meshStorage);
+	//spaceStor->SetScale(70.0f);
+	spaceStor->SetMeshIntensity(3.0f);
+	spaceStor->SetPosition(Vector3(0.0f, 3000.0f, 12.0f));
+
+	LevelBlock* spaceStor2 = new LevelBlock();
+	spaceStor2->SetMesh(meshStorage);
+	spaceStor2->SetMeshIntensity(3.0f);
+	spaceStor2->SetPosition(Vector3(-1917.0f, -260.0f, 12.0f));
+
+	LevelBlock* spaceGarage = new LevelBlock();
+	spaceGarage->SetMesh(meshGarage);
+	spaceGarage->SetScale(50.0f);
+	spaceGarage->SetMeshIntensity(3.0f);
+	spaceGarage->SetPosition(Vector3(0.0f, -900.0f, 12.0f));
+
+	LevelBlock* spaceGarage2 = new LevelBlock();
+	spaceGarage2->SetMesh(meshGarage);
+	spaceGarage2->SetScale(50.0f);
+	spaceGarage2->SetMeshIntensity(3.0f);
+	spaceGarage2->SetPosition(Vector3(2500.0f, -900.0f, 12.0f));
+
+
+
+	LevelBlock* spaceGarage3 = new LevelBlock();
+	spaceGarage3->SetMesh(meshGarage);
+	spaceGarage3->SetScale(50.0f);
+	spaceGarage3->SetMeshIntensity(3.0f);
+	spaceGarage3->SetPosition(Vector3(0.0f, 900.0f, 12.0f));
+	spaceGarage3->SetRotation(Quaternion::Quaternion(Vector3::UnitZ, Math::ToRadians(180.0f)));
+
+	LevelBlock* spaceGarage4 = new LevelBlock();
+	spaceGarage4->SetMesh(meshGarage);
+	spaceGarage4->SetScale(50.0f);
+	spaceGarage4->SetMeshIntensity(3.0f);
+	spaceGarage4->SetPosition(Vector3(2500.0f, 900.0f, 12.0f));
+	spaceGarage4->SetRotation(Quaternion::Quaternion(Vector3::UnitZ, Math::ToRadians(180.0f)));
 
 	// ƒ]ƒ“ƒr(“G)
 	EnemyZombie* zombie = new EnemyZombie();
@@ -61,6 +103,7 @@ bool WorldGameSceneTPL::Load()
 
 void WorldGameSceneTPL::Update(float in_deltaTime)
 {
+
 }
 
 void WorldGameSceneTPL::UpdateWorld(float _deltaTime)
