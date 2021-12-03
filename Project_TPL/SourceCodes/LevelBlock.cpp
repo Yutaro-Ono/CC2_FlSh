@@ -32,8 +32,10 @@ void LevelBlock::SetMesh(Mesh * in_mesh)
 
 
 	// “–‚½‚è”»’èÝ’è
+	AABB box = mesh->GetCollisionBox();
+	box.m_isRotatable = false;
 	m_box = new BoxColliderComponent(this);
-	m_box->SetObjectBox(mesh->GetCollisionBox());
+	m_box->SetObjectBox(box);
 }
 
 void LevelBlock::UpdateActor(float in_deltaTime)

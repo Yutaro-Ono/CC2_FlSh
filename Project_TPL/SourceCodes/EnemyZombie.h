@@ -37,6 +37,8 @@ public:
 
 	void UpdateZombieState(float _deltaTime);
 
+	void OnCollisionEnter(class ColliderComponent* _ownCollComp, class ColliderComponent* _otherCollComp) override;
+
 	void SetZombieState(ZOMBIE_STATE _state);
 
 	class SkeletalMeshComponent* GetSkelMesh() { return m_skelComp; }
@@ -60,6 +62,11 @@ private:
 
 	// プレイヤー検出コンポーネント
 	class DetectionActorComponent* m_detectComp;
+
+	// 当たり判定関連
+	class BoxColliderComponent* m_boxColBody;      // ゾンビ本体の当たり判定
+	class BoxColliderComponent* m_boxColAttack;    // 攻撃の当たり判定
+
 
 	bool m_isLaying;                      // 寝ているかどうか(初期状態は寝ている)
 

@@ -7,6 +7,7 @@
 #include "EnemyZombie.h"
 #include "WeaponAR4.h"
 #include "PlayerHUD.h"
+#include "PhysicsWorld.h"
 
 #include "MeshGpmesh.h"
 #include "LevelBlock.h"
@@ -100,18 +101,22 @@ bool WorldGameSceneTPL::Load()
 
 	EnemyZombie* zombie1 = new EnemyZombie();
 	zombie1->SetPosition(Vector3(680.0f, 0.0f, 20.0f));
-	zombie1->SetScale(0.8f);
 	zombie1->SetTarget(m_player);
 
 	EnemyZombie* zombie2 = new EnemyZombie();
 	zombie2->SetPosition(Vector3(520.0f, 220.0f, 20.0f));
-	zombie2->SetScale(0.8f);
 	zombie2->SetTarget(m_player);
 
 	EnemyZombie* zombie3 = new EnemyZombie();
 	zombie3->SetPosition(Vector3(820.0f, -220.0f, 20.0f));
-	zombie3->SetScale(0.8f);
 	zombie3->SetTarget(m_player);
+
+	// “–‚½‚è”»’èƒŠƒXƒg‚Ì“o˜^
+	GAME_INSTANCE.GetPhysics()->SetOneSideReactionColliderPair(OBJECT_TAG::STATIC_OBJECT, OBJECT_TAG::ACTOR_PLAYER);
+	GAME_INSTANCE.GetPhysics()->SetOneSideReactionColliderPair(OBJECT_TAG::STATIC_OBJECT, OBJECT_TAG::ACTOR_ENEMY);
+
+	GAME_INSTANCE.GetPhysics()->SetSelfReactionCollider(OBJECT_TAG::ACTOR_ENEMY);
+
 
     return true;
 }

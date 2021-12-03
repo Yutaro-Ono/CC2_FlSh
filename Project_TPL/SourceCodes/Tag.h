@@ -30,6 +30,10 @@ enum class OBJECT_TAG : unsigned char
 
 	STATIC_OBJECT,
 
+	ATTACK_ENEMY,
+	ATTACK_BULLET,
+
+
 	SKYBOX,
 	PARTICLE,
 

@@ -46,8 +46,8 @@ int main(int argc, char** argv)
 	if (success)
 	{
 		// 最初のシーンのセット
-		//GAME_INSTANCE.SetFirstScene(new GameSceneTPL());
-		GAME_INSTANCE.SetFirstScene(new TitleSceneTPL());
+		GAME_INSTANCE.SetFirstScene(new GameSceneTPL());
+		//GAME_INSTANCE.SetFirstScene(new TitleSceneTPL());
 
 		// ゲームループ
 		GAME_INSTANCE.RunLoop();

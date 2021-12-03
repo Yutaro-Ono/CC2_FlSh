@@ -319,7 +319,7 @@ void PhysicsWorld::SelfReactionMatch(OBJECT_TAG _tag)
 	for (int i = 0; i < size; i++)
 	{
 		// 自分以外の当たり判定を総当たりでチェック
-		for (int j = i + 1; j < size; i++)
+		for (int j = i + 1; j < size; j++)
 		{
 			if (m_colliderComps[_tag][i]->CollisionDetection(m_colliderComps[_tag][j]))
 			{

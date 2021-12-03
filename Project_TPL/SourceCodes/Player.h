@@ -59,6 +59,7 @@ public:
 	const class Animation* GetAnim(PLAYER_STATE _state) { return m_anims[static_cast<unsigned int>(_state)]; }
 	void UpdateWeaponOut();
 
+	void OnCollisionEnter(class ColliderComponent* _ownCollComp, class ColliderComponent* _otherCollComp) override;
 
 	bool GetToggleSprint() { return m_toggleSprint; }
 	bool GetToggleWalk() { return m_toggleWalk; }
@@ -102,6 +103,7 @@ private:
 	// 追従するポイントライト
 	class PointLight* m_light;
 
+	class BoxColliderComponent* m_boxCollider;
 
 	// メッシュパス
 	static const std::string PLAYER_MESH_PATH;

@@ -21,6 +21,7 @@
 #include "FirstPersonCameraComponent.h"
 #include "PlayerMovement.h"
 #include "PointLight.h"
+#include "BoxColliderComponent.h"
 
 const std::string Player::PLAYER_MESH_PATH      = "Data/Meshes/Actors/HumanRace/Player/Player_gonzales.gpmesh";
 const std::string Player::PLAYER_SKEL_PATH      = "Data/Meshes/Actors/HumanRace/Player/Player_gonzales.gpskel";
@@ -54,6 +55,7 @@ Player::Player()
 	,m_nextState(PLAYER_STATE::STATE_IDLE)
 	,m_tpsCamera(nullptr)
 	,m_light(nullptr)
+	,m_boxCollider(nullptr)
 	,m_toggleSprint(false)
 	,m_toggleWalk(false)
 	,m_toggleCrouch(false)
@@ -135,6 +137,11 @@ Player::Player()
 	m_tpsCamera->SetAdjustTargetPos(Vector2(-50.0f, -105.0f));
 	m_tpsCamera->SetActive();
 
+	// 当たり判定(ボックス)
+	AABB box = mesh->GetCollisionBox();
+	box.m_isRotatable = false;
+	m_boxCollider = new BoxColliderComponent(this);
+	m_boxCollider->SetObjectBox(box);
 
 	// 移動コンポーネントの追加
 	PlayerMovement* moveComp = new PlayerMovement(this);
@@ -218,6 +225,62 @@ void Player::UpdateWeaponOut()
 			m_isWeaponOutChange = false;
 		}
 	}
+
+}
+
+/// <summary>
+/// 当たり判定処理
+/// </summary>
+/// <param name="_ownCollComp"> このクラスの当たり判定コンポーネント </param>
+/// <param name="_otherCollComp"> 衝突した相手の当たり判定コンポーネント </param>
+void Player::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComponent* _otherCollComp)
+{
+	// タグごとに処理を分岐
+	OBJECT_TAG otherTag = _otherCollComp->GetOwnerTag();
+
+	// 環境オブジェクトとの当たり判定
+	if (otherTag == OBJECT_TAG::STATIC_OBJECT)
+	{
+		if (_otherCollComp->GetColliderType() == COLLIDER_TYPE::TYPE_BOX)
+		{
+			Vector3 fix;
+
+			//壁とぶつかったとき
+			AABB bgBox = dynamic_cast<BoxColliderComponent*>(_otherCollComp)->GetWorldBox();
+			AABB playerBox = m_boxCollider->GetWorldBox();
+
+			// めり込みを修正
+			CalcCollisionFixVec(playerBox, bgBox, fix);
+
+			// 補正ベクトル分戻す
+			m_position += fix;
+			// 位置再計算
+			//ComputeWorldTransform();
+		}
+
+	}
+
+	// 敵との当たり判定
+	if (otherTag == OBJECT_TAG::ACTOR_ENEMY)
+	{
+		if (_otherCollComp->GetColliderType() == COLLIDER_TYPE::TYPE_BOX)
+		{
+			Vector3 fix;
+
+			//壁とぶつかったとき
+			AABB bgBox = dynamic_cast<BoxColliderComponent*>(_otherCollComp)->GetWorldBox();
+			AABB playerBox = m_boxCollider->GetWorldBox();
+
+			// めり込みを修正
+			CalcCollisionFixVec(playerBox, bgBox, fix);
+
+			// 補正ベクトル分戻す
+			m_position += fix;
+			// 位置再計算
+			//ComputeWorldTransform();
+		}
+	}
+
 
 }
 

@@ -11,6 +11,8 @@
 #include "EnemyZombieState_Death.h"
 #include "DetectionActorComponent.h"
 #include "TrackActorComponent.h"
+#include "BoxColliderComponent.h"
+
 
 // メッシュパス
 const std::string EnemyZombie::ZOMBIE_MESH_PATH = "Data/Meshes/Actors/Zombie/zombie_A/Enemy_ZombieA.gpmesh";
@@ -28,7 +30,10 @@ EnemyZombie::EnemyZombie()
 	:EnemyBase(OBJECT_TAG::ACTOR_ENEMY)
 	,m_isLaying(true)
 	,m_detectComp(nullptr)
+	,m_boxColBody(nullptr)
 {
+	SetScale(0.8f);
+
 	// スケルタルメッシュの読み込み
 	Mesh* mesh = RENDERER->GetMesh(ZOMBIE_MESH_PATH);
 	m_skelComp = new SkeletalMeshComponent(this);
@@ -60,6 +65,13 @@ EnemyZombie::EnemyZombie()
 	// プレイヤー検出コンポーネントの生成
 	m_detectComp = new DetectionActorComponent(this, nullptr);
 	new TrackActorComponent(this);
+
+
+	// 当たり判定(ボックス)
+	AABB box = mesh->GetCollisionBox();
+	box.m_isRotatable = false;
+	m_boxColBody = new BoxColliderComponent(this);
+	m_boxColBody->SetObjectBox(box);
 }
 
 EnemyZombie::~EnemyZombie()
@@ -104,6 +116,91 @@ void EnemyZombie::UpdateZombieState(float _deltaTime)
 	{
 		m_statePool[static_cast<unsigned int>(m_nextState)]->EnterState(this);
 		m_nowState = m_nextState;
+	}
+}
+
+/// <summary>
+/// 当たり判定処理
+/// </summary>
+/// <param name="_ownCollComp"></param>
+/// <param name="_otherCollComp"></param>
+void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComponent* _otherCollComp)
+{
+
+	// 攻撃状態の時は無視
+	if (m_enemyState == ENEMY_STATE::STATE_ATTACK)
+	{
+		return;
+	}
+
+	// タグごとに処理を分岐
+	OBJECT_TAG otherTag = _otherCollComp->GetOwnerTag();
+
+	// 環境オブジェクトとの当たり判定
+	if (otherTag == OBJECT_TAG::STATIC_OBJECT)
+	{
+		if (_otherCollComp->GetColliderType() == COLLIDER_TYPE::TYPE_BOX)
+		{
+			Vector3 fix;
+
+			//壁とぶつかったとき
+			AABB bgBox = dynamic_cast<BoxColliderComponent*>(_otherCollComp)->GetWorldBox();
+			AABB enemyBox = m_boxColBody->GetWorldBox();
+
+			// めり込みを修正
+			CalcCollisionFixVec(enemyBox, bgBox, fix);
+
+			// 補正ベクトル分戻す
+			m_position += fix;
+			// 位置再計算
+			//ComputeWorldTransform();
+		}
+
+	}
+
+	// プレイヤーとの当たり判定
+	if (otherTag == OBJECT_TAG::ACTOR_PLAYER)
+	{
+		if (_otherCollComp->GetColliderType() == COLLIDER_TYPE::TYPE_BOX)
+		{
+			Vector3 fix;
+
+			//壁とぶつかったとき
+			AABB bgBox = dynamic_cast<BoxColliderComponent*>(_otherCollComp)->GetWorldBox();
+			AABB enemyBox = m_boxColBody->GetWorldBox();
+
+			// めり込みを修正
+			CalcCollisionFixVec(enemyBox, bgBox, fix);
+
+			// 補正ベクトル分戻す
+			m_position += fix;
+			// 位置再計算
+			//ComputeWorldTransform();
+		}
+	}
+
+	// ゾンビ同士の当たり判定
+	if (otherTag == OBJECT_TAG::ACTOR_ENEMY)
+	{
+
+
+
+		if (_otherCollComp->GetColliderType() == COLLIDER_TYPE::TYPE_BOX)
+		{
+			Vector3 fix;
+
+			//壁とぶつかったとき
+			AABB bgBox = dynamic_cast<BoxColliderComponent*>(_otherCollComp)->GetWorldBox();
+			AABB enemyBox = m_boxColBody->GetWorldBox();
+
+			// めり込みを修正
+			CalcCollisionFixVec(enemyBox, bgBox, fix);
+
+			// 補正ベクトル分戻す
+			m_position += fix;
+			// 位置再計算
+			//ComputeWorldTransform();
+		}
 	}
 }
 

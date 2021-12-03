@@ -303,6 +303,12 @@
     <Filter Include="Source\Debugger\Interface">
       <UniqueIdentifier>{64e0e221-e574-4a62-8aa9-759276ec0036}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Component\Attack">
+      <UniqueIdentifier>{e58e1474-e858-4186-bc9a-b2d00a877d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Actor\AttackPoint">
+      <UniqueIdentifier>{0618626d-1767-4ad4-bfd7-0050d8f3124a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -895,6 +901,12 @@
     </ClCompile>
     <ClCompile Include="SourceCodes\CanvasGameSceneTPL.cpp">
       <Filter>Source\Interface\Canvas</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\AttackPoint.cpp">
+      <Filter>Source\Actor\AttackPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\AttackComponent.cpp">
+      <Filter>Source\Component\Attack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1503,6 +1515,12 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\CanvasGameSceneTPL.h">
       <Filter>Source\Interface\Canvas</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\AttackComponent.h">
+      <Filter>Source\Component\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\AttackPoint.h">
+      <Filter>Source\Actor\AttackPoint</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
