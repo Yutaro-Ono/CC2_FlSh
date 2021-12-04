@@ -1,7 +1,7 @@
 #include "EnemyZombieState_Attack.h"
 #include "SkeletalMeshComponent.h"
 #include "Animation.h"
-
+#include "AttackComponent.h"
 
 EnemyZombieState_Attack::EnemyZombieState_Attack()
 {
@@ -30,7 +30,10 @@ void EnemyZombieState_Attack::EnterState(EnemyZombie* _zombie)
 {
 	SkeletalMeshComponent* skel = _zombie->GetSkelMesh();
 
-	// 起き上がりモーションを再生
+	// 攻撃コンポーネントの有効化
+	_zombie->GetAttackComp()->AttackStart();
+
+	// 攻撃モーションを再生
 	// 再生を終了したら次のステートへ遷移(アニメーション再生中は起き上がりで固定される)
 	skel->PlayAnimation(_zombie->GetAnim(ZOMBIE_STATE::STATE_ATTACK), m_animSpeed);
 }

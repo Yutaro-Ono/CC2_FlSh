@@ -281,6 +281,12 @@ void PhysicsWorld::OneReactionMatch(ColliderPairs _pair)
 	{
 		for (auto reactColl : m_colliderComps[_pair.pair2])
 		{
+			// 当たり判定が無効化されていた場合
+			if (!noreactColl->GetEnableCollision())
+			{
+				continue;
+			}
+
 			if (noreactColl->CollisionDetection(reactColl))
 			{
 				reactColl->GetOwner()->OnCollisionEnter(reactColl, noreactColl);
@@ -299,6 +305,12 @@ void PhysicsWorld::DualReactionMatch(ColliderPairs _pair)
 	{
 		for (auto coll2 : m_colliderComps[_pair.pair2])
 		{
+			// 当たり判定が無効化されていた場合
+			if (!coll1->GetEnableCollision())
+			{
+				continue;
+			}
+
 			if (coll1->CollisionDetection(coll2))
 			{
 				coll1->GetOwner()->OnCollisionEnter(coll1, coll2);
@@ -321,6 +333,12 @@ void PhysicsWorld::SelfReactionMatch(OBJECT_TAG _tag)
 		// 自分以外の当たり判定を総当たりでチェック
 		for (int j = i + 1; j < size; j++)
 		{
+			// 当たり判定が無効化されていた場合
+			if (!m_colliderComps[_tag][i]->GetEnableCollision())
+			{
+				continue;
+			}
+
 			if (m_colliderComps[_tag][i]->CollisionDetection(m_colliderComps[_tag][j]))
 			{
 				Actor* actor1 = m_colliderComps[_tag][i]->GetOwner();

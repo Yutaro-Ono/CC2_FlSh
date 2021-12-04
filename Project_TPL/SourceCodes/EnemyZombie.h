@@ -50,6 +50,8 @@ public:
 	class DetectionActorComponent* GetDetectComp() { return m_detectComp; }
 	void SetTarget(class Actor* _target);
 
+	class AttackComponent* GetAttackComp() { return m_attackComp; }
+
 private:
 
 	// アニメーション
@@ -62,6 +64,9 @@ private:
 
 	// プレイヤー検出コンポーネント
 	class DetectionActorComponent* m_detectComp;
+
+	// 攻撃コンポーネント
+	class AttackComponent* m_attackComp;
 
 	// 当たり判定関連
 	class BoxColliderComponent* m_boxColBody;      // ゾンビ本体の当たり判定

@@ -50,12 +50,16 @@ public:
 	virtual bool Check(class WallColliderComponent* _other);
 	virtual bool Check(class LineColliderComponent* _other);
 
+	void SetEnableCollision(bool _enable) { m_enableCollision = _enable; }
+	bool GetEnableCollision() { return m_enableCollision; }
 
 protected:
 
 	OBJECT_TAG m_colliderTag;              // 当たり判定用タグ(オーナーを参照)
 	COLLIDER_TYPE m_colliderType;          // 当たり判定の種類
 	CollisionInfo m_collisionInfo;         // 当たり判定情報
+
+	bool m_enableCollision;                // 当たり判定の有効可否
 
 	friend class PhysicsWorld;
 };

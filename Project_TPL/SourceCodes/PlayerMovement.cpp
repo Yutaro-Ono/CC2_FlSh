@@ -173,8 +173,8 @@ void PlayerMovement::MovementByController(float in_deltaTime)
 
 		//moveVec = Vector3::Lerp(charaForwardVec, moveVec, 0.35f);
 
-		printf("chara = x:%f | y:%f | z:%f\n", charaForwardVec.x, charaForwardVec.y, charaForwardVec.z);
-		printf("moveV = x:%f | y:%f | z:%f\n", moveVec.x, moveVec.y, moveVec.z);
+		//printf("chara = x:%f | y:%f | z:%f\n", charaForwardVec.x, charaForwardVec.y, charaForwardVec.z);
+		//printf("moveV = x:%f | y:%f | z:%f\n", moveVec.x, moveVec.y, moveVec.z);
 
 		m_owner->RotateToNewForward(moveVec);
 	}
@@ -187,8 +187,8 @@ void PlayerMovement::MovementByController(float in_deltaTime)
 		charaForwardVec = forwardVec;
 		//moveVec = Vector3::Lerp(charaForwardVec, forwardVec, 0.51f);
 
-		printf("chara = x:%f | y:%f | z:%f\n", charaForwardVec.x, charaForwardVec.y, charaForwardVec.z);
-		printf("moveV = x:%f | y:%f | z:%f\n", moveVec.x, moveVec.y, moveVec.z);
+		//printf("chara = x:%f | y:%f | z:%f\n", charaForwardVec.x, charaForwardVec.y, charaForwardVec.z);
+		//printf("moveV = x:%f | y:%f | z:%f\n", moveVec.x, moveVec.y, moveVec.z);
 
 		m_owner->RotateToNewForward(charaForwardVec);
 	}
@@ -384,8 +384,8 @@ void PlayerMovement::MovementByKeyboard(float in_deltaTime)
 		//}
 		charaForwardVec = Vector3::Lerp(charaForwardVec, moveVec, 0.51f);
 
-		printf("chara = x:%f | y:%f | z:%f\n", charaForwardVec.x, charaForwardVec.y, charaForwardVec.z);
-		printf("moveV = x:%f | y:%f | z:%f\n", moveVec.x, moveVec.y, moveVec.z);
+		//printf("chara = x:%f | y:%f | z:%f\n", charaForwardVec.x, charaForwardVec.y, charaForwardVec.z);
+		//printf("moveV = x:%f | y:%f | z:%f\n", moveVec.x, moveVec.y, moveVec.z);
 
 		// rotation‚ðXV
 		m_owner->RotateToNewForward(charaForwardVec);

@@ -114,6 +114,8 @@ bool WorldGameSceneTPL::Load()
 	// “–‚½‚è”»’èƒŠƒXƒg‚Ì“o˜^
 	GAME_INSTANCE.GetPhysics()->SetOneSideReactionColliderPair(OBJECT_TAG::STATIC_OBJECT, OBJECT_TAG::ACTOR_PLAYER);
 	GAME_INSTANCE.GetPhysics()->SetOneSideReactionColliderPair(OBJECT_TAG::STATIC_OBJECT, OBJECT_TAG::ACTOR_ENEMY);
+	GAME_INSTANCE.GetPhysics()->SetDualReactionColliderPair(OBJECT_TAG::ACTOR_PLAYER, OBJECT_TAG::ATTACK_ENEMY);
+
 
 	GAME_INSTANCE.GetPhysics()->SetSelfReactionCollider(OBJECT_TAG::ACTOR_ENEMY);
 

@@ -37,7 +37,6 @@ protected:
 
 	bool m_rotatable;                                                       // ‰ñ“]‚ð‹–‰Â‚·‚é‚©
 
-
 	friend class PhysicsWorld;                                              // ƒtƒŒƒ“ƒh‰»
 
 };

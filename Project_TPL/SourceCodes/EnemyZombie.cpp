@@ -12,7 +12,7 @@
 #include "DetectionActorComponent.h"
 #include "TrackActorComponent.h"
 #include "BoxColliderComponent.h"
-
+#include "AttackComponent.h"
 
 // メッシュパス
 const std::string EnemyZombie::ZOMBIE_MESH_PATH = "Data/Meshes/Actors/Zombie/zombie_A/Enemy_ZombieA.gpmesh";
@@ -31,6 +31,7 @@ EnemyZombie::EnemyZombie()
 	,m_isLaying(true)
 	,m_detectComp(nullptr)
 	,m_boxColBody(nullptr)
+	,m_attackComp(nullptr)
 {
 	SetScale(0.8f);
 
@@ -66,6 +67,8 @@ EnemyZombie::EnemyZombie()
 	m_detectComp = new DetectionActorComponent(this, nullptr);
 	new TrackActorComponent(this);
 
+	// 攻撃コンポーネント
+	m_attackComp = new AttackComponent(this, OBJECT_TAG::ATTACK_ENEMY);
 
 	// 当たり判定(ボックス)
 	AABB box = mesh->GetCollisionBox();
@@ -151,7 +154,8 @@ void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComp
 			CalcCollisionFixVec(enemyBox, bgBox, fix);
 
 			// 補正ベクトル分戻す
-			m_position += fix;
+			//m_position += fix;
+			m_position = Vector3::Lerp(m_position, m_position + fix, 0.5f);
 			// 位置再計算
 			//ComputeWorldTransform();
 		}
@@ -173,7 +177,9 @@ void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComp
 			CalcCollisionFixVec(enemyBox, bgBox, fix);
 
 			// 補正ベクトル分戻す
-			m_position += fix;
+			//m_position += fix;
+			m_position = Vector3::Lerp(m_position, m_position + fix, 0.1f);
+
 			// 位置再計算
 			//ComputeWorldTransform();
 		}
@@ -196,8 +202,11 @@ void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComp
 			// めり込みを修正
 			CalcCollisionFixVec(enemyBox, bgBox, fix);
 
+
 			// 補正ベクトル分戻す
-			m_position += fix;
+			//m_position += fix;
+			m_position = Vector3::Lerp(m_position, m_position + fix, 0.1f);
+
 			// 位置再計算
 			//ComputeWorldTransform();
 		}

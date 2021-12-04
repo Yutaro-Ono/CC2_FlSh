@@ -4,6 +4,7 @@
 ColliderComponent::ColliderComponent(Actor* _owner, COLLIDER_TYPE _type, int _updateOrder)
 	:Component(_owner)
 	,m_colliderType(_type)
+	,m_enableCollision(true)
 {
 	m_colliderTag = GetOwner()->GetActorTag();
 }
