@@ -10,7 +10,8 @@ AttackPoint::AttackPoint(OBJECT_TAG _attackTag, const Vector3& _sizeMin, const V
 	AABB attackBox = AABB(_sizeMin, _sizeMax);
 	m_attackBox = new BoxColliderComponent(this);
 	m_attackBox->SetObjectBox(attackBox);
-
+	m_attackBox->SetArrowRotate(true);
+	m_attackBox->SetEnableCollision(false);
 }
 
 AttackPoint::~AttackPoint()
@@ -23,12 +24,6 @@ void AttackPoint::UpdateActor(float _deltaTime)
 
 void AttackPoint::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComponent* _otherCollComp)
 {
-
-	printf("攻撃当たった！\n");
-
-	// 多段ヒット対処のため一度当たるとコリジョンをオフ
-	// コンポーネント側で次回攻撃発生時に無効化を解除しなければならない
-	DisableCollision();
 }
 
 /// <summary>

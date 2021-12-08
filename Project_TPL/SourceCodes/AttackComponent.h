@@ -35,4 +35,6 @@ private:
 	float m_frameAttackDuration;      // 攻撃判定が持続するフレーム
 	float m_frameStop;                // 攻撃後停止フレーム
 
+
+
 };

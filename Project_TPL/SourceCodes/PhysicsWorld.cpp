@@ -282,7 +282,7 @@ void PhysicsWorld::OneReactionMatch(ColliderPairs _pair)
 		for (auto reactColl : m_colliderComps[_pair.pair2])
 		{
 			// “–‚½‚è”»’è‚ª–³Œø‰»‚³‚ê‚Ä‚¢‚½ê‡
-			if (!noreactColl->GetEnableCollision())
+			if (!reactColl->GetEnableCollision())
 			{
 				continue;
 			}
@@ -305,8 +305,8 @@ void PhysicsWorld::DualReactionMatch(ColliderPairs _pair)
 	{
 		for (auto coll2 : m_colliderComps[_pair.pair2])
 		{
-			// “–‚½‚è”»’è‚ª–³Œø‰»‚³‚ê‚Ä‚¢‚½ê‡
-			if (!coll1->GetEnableCollision())
+			// ‚Ç‚¿‚ç‚©‚Ì“–‚½‚è”»’è‚ª–³Œø‰»‚³‚ê‚Ä‚¢‚½ê‡
+			if ((!coll2->GetEnableCollision() || !coll1->GetEnableCollision()))
 			{
 				continue;
 			}

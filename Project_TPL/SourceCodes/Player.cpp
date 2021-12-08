@@ -283,6 +283,15 @@ void Player::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComponent
 		}
 	}
 
+	// エネミーの攻撃当たり判定
+	if (otherTag == OBJECT_TAG::ATTACK_ENEMY)
+	{
+		printf("当たった！(プレイヤー側)\n");
+		ReduceHealth(1);
+		// 相手の攻撃当たり判定を解除させる(ハメ防止)
+		_otherCollComp->SetEnableCollision(false);
+	}
+
 
 }
 

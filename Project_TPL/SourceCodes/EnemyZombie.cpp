@@ -69,6 +69,7 @@ EnemyZombie::EnemyZombie()
 
 	// 攻撃コンポーネント
 	m_attackComp = new AttackComponent(this, OBJECT_TAG::ATTACK_ENEMY);
+	m_attackComp->SetAllAttackFrame(1.3f, 0.5f, 1.0f);
 
 	// 当たり判定(ボックス)
 	AABB box = mesh->GetCollisionBox();
@@ -130,11 +131,7 @@ void EnemyZombie::UpdateZombieState(float _deltaTime)
 void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComponent* _otherCollComp)
 {
 
-	// 攻撃状態の時は無視
-	if (m_enemyState == ENEMY_STATE::STATE_ATTACK)
-	{
-		return;
-	}
+
 
 	// タグごとに処理を分岐
 	OBJECT_TAG otherTag = _otherCollComp->GetOwnerTag();
@@ -142,6 +139,13 @@ void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComp
 	// 環境オブジェクトとの当たり判定
 	if (otherTag == OBJECT_TAG::STATIC_OBJECT)
 	{
+		// 攻撃状態の時は無視
+		if (m_enemyState == ENEMY_STATE::STATE_ATTACK)
+		{
+			return;
+		}
+
+
 		if (_otherCollComp->GetColliderType() == COLLIDER_TYPE::TYPE_BOX)
 		{
 			Vector3 fix;
@@ -155,9 +159,9 @@ void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComp
 
 			// 補正ベクトル分戻す
 			//m_position += fix;
-			m_position = Vector3::Lerp(m_position, m_position + fix, 0.5f);
+			m_position = Vector3::Lerp(m_position, m_position + fix, 0.1f);
 			// 位置再計算
-			//ComputeWorldTransform();
+			ComputeWorldTransform();
 		}
 
 	}
@@ -181,7 +185,7 @@ void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComp
 			m_position = Vector3::Lerp(m_position, m_position + fix, 0.1f);
 
 			// 位置再計算
-			//ComputeWorldTransform();
+			ComputeWorldTransform();
 		}
 	}
 
@@ -208,7 +212,7 @@ void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComp
 			m_position = Vector3::Lerp(m_position, m_position + fix, 0.1f);
 
 			// 位置再計算
-			//ComputeWorldTransform();
+			ComputeWorldTransform();
 		}
 	}
 }

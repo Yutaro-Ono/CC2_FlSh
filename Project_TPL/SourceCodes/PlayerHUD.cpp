@@ -1,6 +1,7 @@
 #include "PlayerHUD.h"
 #include "GameMain.h"
 #include "Texture.h"
+#include "Player.h"
 const int PlayerHUD::HP_GAUGE_NUM = 7;
 
 PlayerHUD::PlayerHUD(Player* _player)
@@ -19,8 +20,9 @@ PlayerHUD::~PlayerHUD()
 	m_hpGauges.clear();
 }
 
-void PlayerHUD::Update(float in_deltaTime)
+void PlayerHUD::Update(float _deltaTime)
 {
+	
 }
 
 void PlayerHUD::Draw(GLSLprogram* _shader)
@@ -34,11 +36,18 @@ void PlayerHUD::Draw(GLSLprogram* _shader)
 		        Vector2(-RENDERER->GetScreenWidth() / 2 + m_hpFrame->GetHalfWidth() * hpScale, -RENDERER->GetScreenHeight() / 2) + adjustHp, 
 		        hpScale);
 
-	for (auto hpGauge : m_hpGauges)
+	//for (auto hpGauge : m_hpGauges)
+	//{
+	//	DrawTexture(_shader, hpGauge, 
+	//		        Vector2(-RENDERER->GetScreenWidth() / 2 + m_hpFrame->GetHalfWidth() * hpScale, -RENDERER->GetScreenHeight() / 2) + adjustHp,
+	//		        hpScale);
+	//}
+
+	for (unsigned int i = 0; i < m_player->GetHealth(); i++)
 	{
-		DrawTexture(_shader, hpGauge, 
-			        Vector2(-RENDERER->GetScreenWidth() / 2 + m_hpFrame->GetHalfWidth() * hpScale, -RENDERER->GetScreenHeight() / 2) + adjustHp,
-			        hpScale);
+		DrawTexture(_shader, m_hpGauges[i],
+			Vector2(-RENDERER->GetScreenWidth() / 2 + m_hpFrame->GetHalfWidth() * hpScale, -RENDERER->GetScreenHeight() / 2) + adjustHp,
+			hpScale);
 	}
 
 }
@@ -49,6 +58,9 @@ void PlayerHUD::Draw(GLSLprogram* _shader)
 /// </summary>
 void PlayerHUD::Initialize()
 {
+	// プレイヤーの体力設定
+	m_player->SetHealth(HP_GAUGE_NUM);
+
 	// HPゲージの生成(7個)
 	m_hpGauges.resize(HP_GAUGE_NUM);
 	for (int i = 0; i < HP_GAUGE_NUM; i++)

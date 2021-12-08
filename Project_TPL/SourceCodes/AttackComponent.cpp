@@ -10,7 +10,8 @@ AttackComponent::AttackComponent(Actor* _owner, OBJECT_TAG _attackTag, int _upda
 	,m_frameAttackDuration(1.0f)
 	,m_frameStop(1.0f)
 {
-	m_attackPoint = new AttackPoint(_attackTag, Vector3(-30.0f, -300.0f, -300.0f), Vector3(30.0f, 300.0f, 300.0f));
+	// 攻撃当たり判定用アクターの生成
+	m_attackPoint = new AttackPoint(_attackTag, Vector3(20.0f, -40.0f, -10.0f), Vector3(60.0f, 50.0f, 10.0f));
 
 
 }
@@ -21,8 +22,10 @@ AttackComponent::~AttackComponent()
 
 void AttackComponent::Update(float _deltaTime)
 {
-	// オーナーアクターと座標を合わせる
-	m_attackPoint->SetPosition(m_owner->GetPosition());
+	// オーナーアクターに水平座標と回転行列を合わせる
+	m_attackPoint->SetPosition(m_owner->GetPosition() + Vector3(0.0f, 0.0f, 30.0f));
+	m_attackPoint->SetRotation(m_owner->GetRotation());
+
 
 	if (m_attackState == ATTACK_STATE::NONE)
 	{
@@ -74,6 +77,7 @@ void AttackComponent::Update(float _deltaTime)
 		}
 	}
 }
+
 
 void AttackComponent::SetAllAttackFrame(float _occure, float _duration, float _stop)
 {

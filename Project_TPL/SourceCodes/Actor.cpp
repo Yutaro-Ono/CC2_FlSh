@@ -247,7 +247,7 @@ void Actor::ReduceHealth(unsigned int _damage)
 	while (damage > 0)
 	{
 
-		if (m_health >= 0)
+		if (m_health <= 0)
 		{
 			break;
 		}
