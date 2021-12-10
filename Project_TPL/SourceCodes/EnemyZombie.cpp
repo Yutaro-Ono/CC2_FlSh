@@ -126,12 +126,16 @@ void EnemyZombie::UpdateZombieState(float _deltaTime)
 /// <summary>
 /// 当たり判定処理
 /// </summary>
-/// <param name="_ownCollComp"></param>
-/// <param name="_otherCollComp"></param>
+/// <param name="_ownCollComp"> 自身の当たり判定コンポーネント </param>
+/// <param name="_otherCollComp"> 相手の当たり判定コンポーネント </param>
 void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComponent* _otherCollComp)
 {
 
-
+	// 攻撃状態の時は無視
+	if (m_enemyState == ENEMY_STATE::STATE_ATTACK)
+	{
+		return;
+	}
 
 	// タグごとに処理を分岐
 	OBJECT_TAG otherTag = _otherCollComp->GetOwnerTag();
@@ -139,12 +143,6 @@ void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComp
 	// 環境オブジェクトとの当たり判定
 	if (otherTag == OBJECT_TAG::STATIC_OBJECT)
 	{
-		// 攻撃状態の時は無視
-		if (m_enemyState == ENEMY_STATE::STATE_ATTACK)
-		{
-			return;
-		}
-
 
 		if (_otherCollComp->GetColliderType() == COLLIDER_TYPE::TYPE_BOX)
 		{
@@ -156,10 +154,12 @@ void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComp
 
 			// めり込みを修正
 			CalcCollisionFixVec(enemyBox, bgBox, fix);
+			fix.z = 0.0f;
+
 
 			// 補正ベクトル分戻す
 			//m_position += fix;
-			m_position = Vector3::Lerp(m_position, m_position + fix, 0.1f);
+			SetPosition(Vector3::Lerp(m_position, m_position + fix, 0.1f));
 			// 位置再計算
 			ComputeWorldTransform();
 		}
@@ -179,10 +179,11 @@ void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComp
 
 			// めり込みを修正
 			CalcCollisionFixVec(enemyBox, bgBox, fix);
+			fix.z = 0.0f;
 
 			// 補正ベクトル分戻す
 			//m_position += fix;
-			m_position = Vector3::Lerp(m_position, m_position + fix, 0.1f);
+			SetPosition(Vector3::Lerp(m_position, m_position + fix, 0.4f));
 
 			// 位置再計算
 			ComputeWorldTransform();
@@ -192,9 +193,6 @@ void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComp
 	// ゾンビ同士の当たり判定
 	if (otherTag == OBJECT_TAG::ACTOR_ENEMY)
 	{
-
-
-
 		if (_otherCollComp->GetColliderType() == COLLIDER_TYPE::TYPE_BOX)
 		{
 			Vector3 fix;
@@ -209,12 +207,24 @@ void EnemyZombie::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComp
 
 			// 補正ベクトル分戻す
 			//m_position += fix;
-			m_position = Vector3::Lerp(m_position, m_position + fix, 0.1f);
+			SetPosition(Vector3::Lerp(m_position, m_position + fix, 0.4f));
 
 			// 位置再計算
-			ComputeWorldTransform();
+			//ComputeWorldTransform();
 		}
 	}
+
+	// プレイヤーの発射した弾に当たったら
+	if (otherTag == OBJECT_TAG::ATTACK_BULLET)
+	{
+		// 相手側(弾)の当たり判定と実体を消去(貫通ヒット防止)
+		_otherCollComp->SetEnableCollision(false);
+		_otherCollComp->GetOwner()->SetState(ACTOR_STATE::STATE_DEAD);
+
+		// 体力を下げる
+		ReduceHealth(1);
+	}
+
 }
 
 /// <summary>

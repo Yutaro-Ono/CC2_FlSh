@@ -6,10 +6,10 @@ TrackActorComponent::TrackActorComponent(EnemyZombie* _owner)
 	:Component(_owner)
 	,m_enemyOwner(_owner)
 	,m_targetPos(Vector3::Zero)
-	,m_moveSpeed(110.0f)
+	,m_moveSpeed(260.0f)
 	,m_moveVec(Vector3::Zero)
 	,m_trackMinRange(100.0f)
-	,m_trackMaxRange(1000.0f)
+	,m_trackMaxRange(2000.0f)
 {
 }
 

@@ -170,6 +170,7 @@
     <ClCompile Include="SourceCodes\BoneTransform.cpp" />
     <ClCompile Include="SourceCodes\BoxColliderComponent.cpp" />
     <ClCompile Include="SourceCodes\BridgeObject.cpp" />
+    <ClCompile Include="SourceCodes\BulletActor.cpp" />
     <ClCompile Include="SourceCodes\Camera.cpp" />
     <ClCompile Include="SourceCodes\CameraActor.cpp" />
     <ClCompile Include="SourceCodes\CameraComponent.cpp" />
@@ -242,6 +243,7 @@
     <ClCompile Include="SourceCodes\GameMain.cpp" />
     <ClCompile Include="SourceCodes\GameScene.cpp" />
     <ClCompile Include="SourceCodes\SceneBase.cpp" />
+    <ClCompile Include="SourceCodes\ShootComponent.cpp" />
     <ClCompile Include="SourceCodes\TitleSceneTPL.cpp" />
     <ClCompile Include="SourceCodes\TitleUIScreenTPLDebugObject.cpp" />
     <ClCompile Include="SourceCodes\TitleUIScreenTPL.cpp" />
@@ -372,6 +374,7 @@
     <ClInclude Include="SourceCodes\BoneTransform.h" />
     <ClInclude Include="SourceCodes\BoxColliderComponent.h" />
     <ClInclude Include="SourceCodes\BridgeObject.h" />
+    <ClInclude Include="SourceCodes\BulletActor.h" />
     <ClInclude Include="SourceCodes\Camera.h" />
     <ClInclude Include="SourceCodes\CameraActor.h" />
     <ClInclude Include="SourceCodes\CameraComponent.h" />
@@ -444,6 +447,7 @@
     <ClInclude Include="SourceCodes\GameConfig.h" />
     <ClInclude Include="SourceCodes\GameMain.h" />
     <ClInclude Include="SourceCodes\GameScene.h" />
+    <ClInclude Include="SourceCodes\ShootComponent.h" />
     <ClInclude Include="SourceCodes\TitleSceneTPL.h" />
     <ClInclude Include="SourceCodes\TitleUIScreenTPLDebugObject.h" />
     <ClInclude Include="SourceCodes\TitleUIScreenTPL.h" />

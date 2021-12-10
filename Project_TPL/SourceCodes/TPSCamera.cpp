@@ -6,8 +6,8 @@
 #include "Mouse.h"
 #include "Actor.h"
 
-const float maxLookDownAngle = Math::ToRadians(45.0f);  // Å‘å‹ÂŠp
-const float minLookDownAngle = Math::ToRadians(-10.0f); // Å¬‹ÂŠp
+const float maxLookDownAngle = Math::ToRadians(75.0f);  // Å‘å‹ÂŠp
+const float minLookDownAngle = Math::ToRadians(-75.0f); // Å¬‹ÂŠp
 
 TPSCamera::TPSCamera(Actor* _target)
     :CameraComponent(_target)

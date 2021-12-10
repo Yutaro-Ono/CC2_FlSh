@@ -255,9 +255,9 @@ void Player::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComponent
 			// 補正ベクトル分戻す
 			//m_position += fix;
 
-			m_position = Vector3::Lerp(m_position, m_position + fix, 0.1f);
+			SetPosition(Vector3::Lerp(m_position, m_position + fix, 0.1f));
 			// 位置再計算
-			//ComputeWorldTransform();
+			ComputeWorldTransform();
 		}
 
 	}
@@ -277,9 +277,9 @@ void Player::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComponent
 			CalcCollisionFixVec(playerBox, bgBox, fix);
 
 			// 補正ベクトル分戻す
-			m_position += fix;
+			SetPosition(Vector3::Lerp(m_position, m_position + fix, 0.05f));
 			// 位置再計算
-			//ComputeWorldTransform();
+			ComputeWorldTransform();
 		}
 	}
 
