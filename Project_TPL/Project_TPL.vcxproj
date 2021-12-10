@@ -253,6 +253,7 @@
     <ClCompile Include="SourceCodes\WallColliderComponent.cpp" />
     <ClCompile Include="SourceCodes\WeaponAR4.cpp" />
     <ClCompile Include="SourceCodes\WeaponBase.cpp" />
+    <ClCompile Include="SourceCodes\WeaponSpas12.cpp" />
     <ClCompile Include="SourceCodes\WorldGameScene.cpp" />
     <ClCompile Include="SourceCodes\GLSLprogram.cpp" />
     <ClCompile Include="SourceCodes\HeliBody.cpp" />
@@ -457,6 +458,7 @@
     <ClInclude Include="SourceCodes\WallColliderComponent.h" />
     <ClInclude Include="SourceCodes\WeaponAR4.h" />
     <ClInclude Include="SourceCodes\WeaponBase.h" />
+    <ClInclude Include="SourceCodes\WeaponSpas12.h" />
     <ClInclude Include="SourceCodes\WorldGameScene.h" />
     <ClInclude Include="SourceCodes\GLSLprogram.h" />
     <ClInclude Include="SourceCodes\HeliBody.h" />

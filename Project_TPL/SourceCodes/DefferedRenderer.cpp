@@ -469,34 +469,37 @@ bool DefferedRenderer::GenerateGBuffer()
 	glGenFramebuffers(1, &m_gBuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_gBuffer);
 
+	GLsizei screenW = static_cast<GLsizei>(RENDERER->GetScreenWidth());
+	GLsizei screenH = static_cast<GLsizei>(RENDERER->GetScreenHeight());
+
 	//----------------------------------------------------------------+
 	// 各バッファを登録し、2DテクスチャとしてGBufferに紐付ける
 	//----------------------------------------------------------------+
 	// 3D空間座標バッファ (浮動小数点バッファ/カラー0番目として登録)
 	glGenTextures(1, &m_gPos);
 	glBindTexture(GL_TEXTURE_2D, m_gPos);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, screenW, screenH, 0, GL_RGBA, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_gPos, 0);
 	// 法線ベクトルバッファ (浮動小数点バッファ/カラー1番目として登録)
 	glGenTextures(1, &m_gNormal);
 	glBindTexture(GL_TEXTURE_2D, m_gNormal);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, screenW, screenH, 0, GL_RGBA, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, m_gNormal, 0);
 	// アルベド(RGB)＆スペキュラ(A)用カラーバッファ (A成分含む8bitカラーバッファ/2番目として登録)
 	glGenTextures(1, &m_gAlbedoSpec);
 	glBindTexture(GL_TEXTURE_2D, m_gAlbedoSpec);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, screenW, screenH, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, m_gAlbedoSpec, 0);
 	// 高輝度バッファの作成 (エミッシブ出力用輝度バッファ/3番目として登録)
 	glGenTextures(1, &m_gEmissive);
 	glBindTexture(GL_TEXTURE_2D, m_gEmissive);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, screenW, screenH, 0, GL_RGBA, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -535,6 +538,9 @@ bool DefferedRenderer::GenerateGBuffer()
 /// <returns></returns>
 bool DefferedRenderer::GenerateSSAOBuffer()
 {
+	GLsizei screenW = static_cast<GLsizei>(RENDERER->GetScreenWidth());
+	GLsizei screenH = static_cast<GLsizei>(RENDERER->GetScreenHeight());
+
 	// SSAO用フレームバッファの登録
 	glGenFramebuffers(1, &m_ssaoFBO);
 	// ssaoフレームバッファをバインド
@@ -542,7 +548,7 @@ bool DefferedRenderer::GenerateSSAOBuffer()
 	// SSAO用カラーバッファの登録
 	glGenTextures(1, &m_ssaoColor);
 	glBindTexture(GL_TEXTURE_2D, m_ssaoColor);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RED, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, screenW, screenH, 0, GL_RED, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_ssaoColor, 0);
@@ -561,7 +567,7 @@ bool DefferedRenderer::GenerateSSAOBuffer()
 	// SSAO用カラーバッファの登録
 	glGenTextures(1, &m_ssaoBlurColor);
 	glBindTexture(GL_TEXTURE_2D, m_ssaoBlurColor);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RED, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, screenW, screenH, 0, GL_RED, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_ssaoBlurColor, 0);
@@ -612,20 +618,24 @@ bool DefferedRenderer::GenerateSSAOBuffer()
 // 光源処理用のHDRバッファ・レンダーバッファ
 bool DefferedRenderer::GenerateLightBuffer()
 {
+
+	GLsizei screenW = static_cast<GLsizei>(RENDERER->GetScreenWidth());
+	GLsizei screenH = static_cast<GLsizei>(RENDERER->GetScreenHeight());
+
 	glGenFramebuffers(1, &m_lightFBO);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_lightFBO);
 
 	// HDRバッファの作成
 	glGenTextures(1, &m_lightHDR);
 	glBindTexture(GL_TEXTURE_2D, m_lightHDR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, screenW, screenH, 0, GL_RGBA, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_lightHDR, 0);
 	// 高輝度バッファの作成
 	glGenTextures(1, &m_lightHighBright);
 	glBindTexture(GL_TEXTURE_2D, m_lightHighBright);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, screenW, screenH, 0, GL_RGBA, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -639,7 +649,7 @@ bool DefferedRenderer::GenerateLightBuffer()
 	// レンダーバッファを作成する
 	glGenRenderbuffers(1, &m_lightRBO);
 	glBindRenderbuffer(GL_RENDERBUFFER, m_lightRBO);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, RENDERER->GetScreenWidth(), RENDERER->GetScreenHeight());
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, screenW, screenH);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_lightRBO);
 
 	// フレームバッファの整合性をチェック

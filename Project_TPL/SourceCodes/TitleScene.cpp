@@ -179,7 +179,7 @@ SceneBase * TitleScene::Update(float _deltaTime)
 			// 決定音
 			AUDIO->PlaySoundTND(m_sound["Enter"]);
 			// 音楽をフェードアウト
-			AUDIO->FadeOutMusic(3000.0f);
+			AUDIO->FadeOutMusic(3000);
 
 			// フェードアウト処理に移行
 			m_state = FADE_OUT;
@@ -252,7 +252,7 @@ SceneBase * TitleScene::Update(float _deltaTime)
 			// 決定音
 			AUDIO->PlaySoundTND(m_sound["Enter"]);
 			// 音楽をフェードアウト
-			AUDIO->FadeOutMusic(1.0f);
+			AUDIO->FadeOutMusic(1);
 
 			// プレイヤーのサウンドを停止
 			//m_player->AllStopSound();

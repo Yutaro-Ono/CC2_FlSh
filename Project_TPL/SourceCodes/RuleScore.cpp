@@ -39,5 +39,5 @@ void RuleScore::UpdateActor(float in_deltaTime)
 // ÉXÉRÉAÇÃâ¡éZ
 void RuleScore::AddScore(float in_scoreRate)
 {
-	m_score += SCORE_POINT * m_chainRate;
+	m_score += SCORE_POINT * static_cast<int>(m_chainRate);
 }

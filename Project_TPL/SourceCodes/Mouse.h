@@ -37,8 +37,13 @@ public:
 
 	bool GetIsRelative() { return m_isRelative; }
 	const Vector2& GetWheel() const { return m_mouseWheel; }
-	bool             GetButtonValue(int button) const;
-	MouseButtonState GetButtonState(MouseButtonState button) const;
+
+
+	bool             GetRightButtonValue(int _button) const;
+	MouseButtonState GetRightButtonState(MouseButtonState _button) const;
+	bool             GetLeftButtonValue(int _button) const;
+	MouseButtonState GetLeftButtonState(MouseButtonState _button) const;
+
 	void             OnMouseWheelEvent(SDL_Event& _event);
 	void             OnMouseClickEvent(SDL_Event& _event);
 	void             Update();
@@ -52,8 +57,10 @@ private:
 	Vector2 m_mouseWheel;
 
 	//ボタンのデータ
-	MouseButtonState m_currentButtons;
-	MouseButtonState m_prevButtons;
+	MouseButtonState m_currentLeftButtons;
+	MouseButtonState m_currentRightButtons;
+	MouseButtonState m_prevRightButtons;
+	MouseButtonState m_prevLeftButtons;
 
 	// 相対モード
 	bool   m_isRelative;

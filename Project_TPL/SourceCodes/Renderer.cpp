@@ -334,10 +334,10 @@ void Renderer::Delete()
 		delete light;
 	}
 	// スポットライト配列の解放
-	for (auto spLight : m_spotLights)
-	{
-		delete spLight;
-	}
+	//for (auto spLight : m_spotLights)
+	//{
+	//	delete spLight;
+	//}
 
 	// シェーダー管理クラスの解放
 	delete m_shaderManager;

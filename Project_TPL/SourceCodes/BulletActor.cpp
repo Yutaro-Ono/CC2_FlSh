@@ -1,12 +1,12 @@
 #include "BulletActor.h"
 #include "ColliderComponent.h"
 
-BulletActor::BulletActor(const Vector3& _shootDirVec)
+BulletActor::BulletActor(const Vector3& _pos, const Vector3& _shootDirVec)
 	:Actor(OBJECT_TAG::ATTACK_BULLET)
 	,m_dirVec(_shootDirVec)
 	,m_velocity(100.0f)
 {
-	
+	m_position = _pos;
 }
 
 BulletActor::~BulletActor()
@@ -31,10 +31,10 @@ void BulletActor::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComp
 		
 	}
 
-	// 地形に当たった
+	// 地形に当たった場合は弾を消去
 	if (otherTag == OBJECT_TAG::STATIC_OBJECT)
 	{
-
+		m_state = ACTOR_STATE::STATE_DEAD;
 	}
 
 }

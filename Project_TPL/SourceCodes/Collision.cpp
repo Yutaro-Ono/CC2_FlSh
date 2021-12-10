@@ -864,7 +864,7 @@ float PlaneToPointDist(const Vector3 & _position, const Plane _plane)
 float LensSegOnSeparateAxis(Vector3 & _separate, Vector3 & _e1, Vector3 & _e2)
 {
 	// 3つの内積の絶対値の和で投影線分長を計算
-// 分離軸Seqは標準化されていること
+    // 分離軸Seqは標準化されていること
 	float r1 = fabs(Vector3::Dot(_separate, _e1));
 	float r2 = fabs(Vector3::Dot(_separate, _e2));
 

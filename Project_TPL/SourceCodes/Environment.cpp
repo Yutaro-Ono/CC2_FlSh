@@ -45,8 +45,8 @@ void Environment::Update()
 		framePlayerPos.y >= playerPos.y + 2000 || framePlayerPos.y <= playerPos.y - 2000)
 	{
 		// プレイヤーの位置に応じて平行ライトの座標・向きを最適化
-		RENDERER->GetDirectionalLight()->SetPosition(Vector3((int)framePlayerPos.x + (int)ADJUST_POS.x, 
-			                                                 (int)framePlayerPos.y + (int)ADJUST_POS.y, 
+		RENDERER->GetDirectionalLight()->SetPosition(Vector3(framePlayerPos.x + ADJUST_POS.x, 
+			                                                 framePlayerPos.y + ADJUST_POS.y, 
 			                                                  0.0f + (int)ADJUST_POS.z));
 
 		RENDERER->GetDirectionalLight()->SetTarget(framePlayerPos);

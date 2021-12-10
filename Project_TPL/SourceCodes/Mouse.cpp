@@ -4,8 +4,10 @@
 Mouse::Mouse()
 {
 	m_mousePos = Vector2(0, 0);
-	m_currentButtons = MouseButtonState::MOUSE_BUTTON_OFF;
-	m_prevButtons = MouseButtonState::MOUSE_BUTTON_OFF;
+	m_currentRightButtons = MouseButtonState::MOUSE_BUTTON_OFF;
+	m_prevRightButtons = MouseButtonState::MOUSE_BUTTON_OFF;
+	m_currentLeftButtons = MouseButtonState::MOUSE_BUTTON_OFF;
+	m_prevLeftButtons = MouseButtonState::MOUSE_BUTTON_OFF;
 	m_isRelative = true;
 
 	// マウスの相対モードON
@@ -24,20 +26,35 @@ void Mouse::SetMousePos(const Vector3& _mousePos)
 	
 }
 
-bool Mouse::GetButtonValue(int _button) const
+bool Mouse::GetRightButtonValue(int _button) const
 {
-	return _button & m_currentButtons;
+	return _button & m_currentRightButtons;
 }
 
-Mouse::MouseButtonState Mouse::GetButtonState(MouseButtonState _button) const
+Mouse::MouseButtonState Mouse::GetRightButtonState(MouseButtonState _button) const
 {
 
-	if (_button & m_currentButtons)
+	if (_button & m_currentRightButtons)
 	{
-		return (_button & m_prevButtons) ? MOUSE_BUTTON_PRESSED : MOUSE_BUTTON_PUSHDOWN;
+		return (_button & m_prevRightButtons) ? MOUSE_BUTTON_PRESSED : MOUSE_BUTTON_PUSHDOWN;
 	}
 
-	return (_button & m_prevButtons) ? MOUSE_BUTTON_PULLUP : MOUSE_BUTTON_OFF;
+	return (_button & m_prevRightButtons) ? MOUSE_BUTTON_PULLUP : MOUSE_BUTTON_OFF;
+}
+
+bool Mouse::GetLeftButtonValue(int _button) const
+{
+	return _button & m_currentLeftButtons;
+}
+
+Mouse::MouseButtonState Mouse::GetLeftButtonState(MouseButtonState _button) const
+{
+	if (_button & m_currentLeftButtons)
+	{
+		return (_button & m_prevLeftButtons) ? MOUSE_BUTTON_PRESSED : MOUSE_BUTTON_PUSHDOWN;
+	}
+
+	return (_button & m_prevLeftButtons) ? MOUSE_BUTTON_PULLUP : MOUSE_BUTTON_OFF;
 }
 
 void Mouse::OnMouseWheelEvent(SDL_Event& _event)
@@ -58,6 +75,7 @@ void Mouse::OnMouseWheelEvent(SDL_Event& _event)
 
 void Mouse::OnMouseClickEvent(SDL_Event& _event)
 {
+	// 右クリック
 	switch (_event.type)
 	{
 
@@ -65,7 +83,7 @@ void Mouse::OnMouseClickEvent(SDL_Event& _event)
 
 		if (_event.button.button == SDL_BUTTON_RIGHT)
 		{
-			m_currentButtons = MouseButtonState::MOUSE_BUTTON_PRESSED;
+			m_currentRightButtons = MouseButtonState::MOUSE_BUTTON_PRESSED;
 		}
 
 		break;
@@ -74,7 +92,34 @@ void Mouse::OnMouseClickEvent(SDL_Event& _event)
 
 		if (_event.button.button == SDL_BUTTON_RIGHT)
 		{
-			m_currentButtons = MouseButtonState::MOUSE_BUTTON_OFF;
+			m_currentRightButtons = MouseButtonState::MOUSE_BUTTON_OFF;
+		}
+
+		break;
+
+	default:
+		break;
+	}
+
+
+	// 左クリック
+	switch (_event.type)
+	{
+
+	case SDL_MOUSEBUTTONDOWN:
+
+		if (_event.button.button == SDL_BUTTON_LEFT)
+		{
+			m_currentLeftButtons = MouseButtonState::MOUSE_BUTTON_PRESSED;
+		}
+
+		break;
+
+	case SDL_MOUSEBUTTONUP:
+
+		if (_event.button.button == SDL_BUTTON_LEFT)
+		{
+			m_currentLeftButtons = MouseButtonState::MOUSE_BUTTON_OFF;
 		}
 
 		break;
@@ -87,7 +132,8 @@ void Mouse::OnMouseClickEvent(SDL_Event& _event)
 // 入力処理の更新。レンダリングループの先頭で1回だけ呼ぶようにする
 void Mouse::Update()
 {
-	m_prevButtons = m_currentButtons;
+	m_prevRightButtons = m_currentRightButtons;
+	m_prevLeftButtons = m_currentLeftButtons;
 
 	int x = 0, y = 0;
 	if (m_isRelative)

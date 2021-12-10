@@ -9,7 +9,7 @@
 //----------------------------------------------------------------------------------+
 #pragma once
 #include "Component.h"
-
+#include "Collision.h"
 
 class DetectionActorComponent : public Component
 {
@@ -32,7 +32,7 @@ private:
 	class EnemyBase* m_enemyOwner;    // オーナーエネミー
 	class Actor* m_target;            // 検出対象アクター
 
-	class Sphere* m_detectionArea;    // 検出範囲(円形)
+	Sphere m_detectionArea;    // 検出範囲(円形)
 	float m_detectionRadius;          // 検出範囲の半径
 
 

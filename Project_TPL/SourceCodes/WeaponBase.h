@@ -10,6 +10,17 @@
 #pragma once
 #include "Actor.h"
 
+// 武器情報構造体
+typedef struct WeaponInfo
+{
+	Vector3 muzzlePos;             // 銃口位置(発射時の弾の始点)
+	unsigned int RPM;              // 1分間の連射速度(Rate Per Minute)
+	unsigned int RPS;              // 1秒間の連射速度(Rate Per Second)
+	float effectiveRange;          // 有効射程
+	float initialVelocity;         // 発射した弾の初速
+	unsigned int numOfPellets;     // ペレット数
+}WeaponInfo;
+
 class WeaponBase : public Actor
 {
 
@@ -32,12 +43,19 @@ public:
 	class Player* GetOwnerPlayer() { return m_ownerPlayer; }
 	bool GetExistsOwner() { return m_existsOwner; }
 
+	void SetWeaponInfo(WeaponInfo& _weapInfo);
+	const WeaponInfo& GetWeaponInfo() { return m_weaponInfo; }
+
 protected:
 
+	void InitWeaponInfo();
+	void SetWeaponInfo(const Vector3& _muzzlePos, unsigned int _rpm, unsigned int _rps,
+		               float _effectRange, float initVelocity, unsigned int _numofPellets);
 
 	void SetSocketMat(Matrix4 _socketMat);
 
 
+	WeaponInfo m_weaponInfo;                             // 武器情報(連射速度、有効射程等)
 
 	class Actor* m_owner;                                // このクラスを所有するアクターポインタ
 	bool m_existsOwner;                                  // この武器クラスを所有するオーナーアクタ―は存在するか

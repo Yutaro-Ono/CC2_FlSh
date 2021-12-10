@@ -63,28 +63,28 @@ void SpotLightComponent::SetLightParam(SpotLight::LIGHT_VOLUME in_vol)
 	if (in_vol == SpotLight::LIGHT_VOLUME::VL_SMALL)
 	{
 		m_radius = 325.0f;
-		m_linear = 0.014;
-		m_quadratic = 0.0007;
+		m_linear = 0.014f;
+		m_quadratic = 0.0007f;
 	}
 	else if (in_vol == SpotLight::LIGHT_VOLUME::VL_VERY_SMALL)
 	{
 		m_radius = 50.0f;
-		m_linear = 0.09;
-		m_quadratic = 0.032;
+		m_linear = 0.09f;
+		m_quadratic = 0.032f;
 	}
 	// 中サイズ
 	else if (in_vol == SpotLight::LIGHT_VOLUME::VL_MEDIUM)
 	{
 		m_radius = 600.0f;
-		m_linear = 0.007;
-		m_quadratic = 0.0002;
+		m_linear = 0.007f;
+		m_quadratic = 0.0002f;
 	}
 	// 大サイズ
 	else if (in_vol == SpotLight::LIGHT_VOLUME::VL_BIG)
 	{
 		m_radius = 3250.0f;
-		m_linear = 0.0014;
-		m_quadratic = 0.000007;
+		m_linear = 0.0014f;
+		m_quadratic = 0.000007f;
 	}
 
 	// ライトにスケールとして半径サイズを適用する

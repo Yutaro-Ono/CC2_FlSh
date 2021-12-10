@@ -376,7 +376,7 @@ public:
 	// 2“_ŠÔ‚Ì‹——£‚ð•Ô‚·
 	static float Distance(const Vector3& _vec1, const Vector3& _vec2)
 	{
-		return sqrtf(pow(_vec1.x - _vec2.x, 2) + pow(_vec1.y - _vec2.y, 2) + pow(_vec1.z - _vec2.z, 2));
+		return sqrtf(static_cast<float>(pow(_vec1.x - _vec2.x, 2) + pow(_vec1.y - _vec2.y, 2) + pow(_vec1.z - _vec2.z, 2)));
 	}
 
 	// Dot product between two vectors (a dot b)

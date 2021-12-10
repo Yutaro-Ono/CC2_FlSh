@@ -5,7 +5,7 @@ class BulletActor : public Actor
 {
 public:
 
-	BulletActor(const Vector3& _shootDirVec);
+	BulletActor(const Vector3& _pos, const Vector3& _shootDirVec);
 	~BulletActor();
 
 	void UpdateActor(float _deltaTime) override;

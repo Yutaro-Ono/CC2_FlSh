@@ -20,7 +20,7 @@ typedef struct CollisionInfo
 	Vector3 m_collisionPoint;       // 衝突点
 	Vector3 m_fixVec;               // 当たり判定による修正ベクトル(押し戻し)
 	Vector3 m_hitNormal;            // 衝突点における法線
-};
+}CollisionInfo;
 
 //----------------------------------------------------+
 // 軸並行ボックス (AABB:Axis-Aligned Bounding Box)
@@ -97,7 +97,7 @@ typedef struct Line
 	Vector3 m_normalizedDir;     // 正規化した方向ベクトル
 	float m_lineLength;          // 線分の長さ
 	bool m_rotatable;            // 回転の可否
-};
+}Line;
 
 
 //----------------------------------------------------+
@@ -137,7 +137,7 @@ typedef struct Wall
 	float m_slopeAngle;             // スロープ時の傾斜角
 
 	bool m_isSlope;                 // スロープかどうか
-};
+}Wall;
 
 //----------------------------------------------------+
 // 球体

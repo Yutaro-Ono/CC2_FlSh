@@ -1,4 +1,4 @@
-#include "WeaponAR4.h"
+#include "WeaponSpas12.h"
 #include "Mesh.h"
 #include "MeshComponent.h"
 #include "SkeletalMeshComponent.h"
@@ -6,29 +6,26 @@
 #include "Player.h"
 #include "FirstPersonCameraComponent.h"
 #include "Debugger.h"
-#include "DebugWeaponAR4.h"
 
 // オーナーアクターのボーンに武器をスナップする場合のボーン番号
-const unsigned int WeaponAR4::SOCKET_NUM_SPINE = 1;          // 背骨
-const unsigned int WeaponAR4::SOCKET_NUM_RIGHTHAND = 33;     // 右手
-const unsigned int WeaponAR4::SOCKET_NUM_LEFTHAND = 10;      // 左手
+const unsigned int WeaponSpas12::SOCKET_NUM_SPINE = 1;          // 背骨
+const unsigned int WeaponSpas12::SOCKET_NUM_RIGHTHAND = 33;     // 右手
+const unsigned int WeaponSpas12::SOCKET_NUM_LEFTHAND = 10;      // 左手
 
 // ボーンスナップ時の座標調整用ベクトル
-const Vector3 WeaponAR4::ADJUST_POS_BASIC = Vector3(-101.0f, -14.0f, 46.5f);
-const Vector3 WeaponAR4::ADJUST_POS_IDLE_WEAPONOUT = Vector3(26.5f, 107.0f, 60.0f);
-const Vector3 WeaponAR4::ADJUST_POS_MOVE_WEAPONOUT = Vector3(-65.0f, 35.5f, -100.0f);
+const Vector3 WeaponSpas12::ADJUST_POS_BASIC = Vector3(-101.0f, -14.0f, 46.5f);
+const Vector3 WeaponSpas12::ADJUST_POS_IDLE_WEAPONOUT = Vector3(26.5f, 107.0f, 60.0f);
+const Vector3 WeaponSpas12::ADJUST_POS_MOVE_WEAPONOUT = Vector3(-65.0f, 35.5f, -100.0f);
 
-const std::string WeaponAR4::AR4_MESH_PATH = "Data/Meshes/Weapons/AR4/SM_AR4.gpmesh";
+const std::string WeaponSpas12::SPAS12_MESH_PATH = "Data/Meshes/Weapons/SG_SP12/SG_SP12.gpmesh";
 
-
-WeaponAR4::WeaponAR4()
+WeaponSpas12::WeaponSpas12()
 	:m_fpsCamera(nullptr)
 {
-
 	Initialize();
 }
 
-WeaponAR4::WeaponAR4(Actor* _owner)
+WeaponSpas12::WeaponSpas12(Actor* _owner)
 	:m_fpsCamera(nullptr)
 {
 	// オーナーアクターをセット
@@ -38,7 +35,7 @@ WeaponAR4::WeaponAR4(Actor* _owner)
 	Initialize();
 }
 
-WeaponAR4::WeaponAR4(Player* _owner)
+WeaponSpas12::WeaponSpas12(Player* _owner)
 	:m_fpsCamera(_owner->GetFPSCamera())
 {
 	// オーナーアクターをセット
@@ -49,58 +46,11 @@ WeaponAR4::WeaponAR4(Player* _owner)
 	Initialize();
 }
 
-WeaponAR4::~WeaponAR4()
+WeaponSpas12::~WeaponSpas12()
 {
 }
 
-void WeaponAR4::Initialize()
-{
-	// 調整座標のセット
-	m_adjustHolsteredIdlePos = Vector3(-101.0f, -14.0f, 46.5f);
-	m_holsterIdleRot = Quaternion::Identity;
-	m_holsterRadianY = 67.5f;
-	m_adjustUnholsteredIdlePos = Vector3(26.5f, 107.0f, 60.0f);
-	m_unholsterIdleRadianX = 68.7f;
-	m_unholsterIdleRadianY = 12.6f;
-	m_unholsterIdleRadianZ = 191.8f;
-	m_adjustUnholsteredMovePos = Vector3(-65.0f, 35.5f, -100.0f);
-	m_unholsterMoveRadianX = 5.7f;
-	m_unholsterMoveRadianY = -195.0f;
-	m_unholsterMoveRadianZ = -86.0f;
-	m_adjustAimPos = Vector3(0.0f, 0.0f, 0.0f);
-
-	// AR4のメッシュをロード
-	Mesh* mesh = RENDERER->GetMesh(AR4_MESH_PATH);
-	
-	m_meshComp = new MeshComponent(this);
-	m_meshComp->SetMesh(mesh);
-
-	// アタッチコンポーネント
-	m_attachComp = new AttachWeaponToBoneComponent(this, m_ownerPlayer->GetSkelComp(), SOCKET_NUM_SPINE);
-
-	//m_position = Vector3(0.0f, 10.0f, 103.0f);
-	m_position = Vector3(3.0f, 0.0f, 102.5f);
-	//m_scale = Vector3(0.85f, 0.85f, 0.85f);
-
-	m_scale = Vector3(0.65f, 0.65f, 0.65f);
-
-
-	// デバッグオブジェクトの生成(AR4固有)
-#ifdef _DEBUG
-
-	DebugWeaponAR4* debug = new DebugWeaponAR4(this);
-	DEBUGGER->AddDebugObject(debug, Debugger::DEBUG_TAG::ACTOR);
-
-#endif
-}
-
-/// <summary>
-/// 武器モデルのワールド変換行列をオーナーアクターのボーンに合わせる
-/// コンポーネント側でのみこの関数を呼び出す
-/// </summary>
-/// <param name="_localBoneMat"> アタッチするボーンのモデル行列 * オーナーアクターのワールド変換行列 </param>
-/// <param name="_deltaTime"> デルタタイム </param>
-void WeaponAR4::AdjustWorldMatToOwnerBone(const Matrix4& _boneWorldMat, float _deltaTime)
+void WeaponSpas12::AdjustWorldMatToOwnerBone(const Matrix4& _boneWorldMat, float _deltaTime)
 {
 	// プレイヤーが武器を出している場合と出していない場合
     // アタッチするソケットを変更
@@ -203,5 +153,36 @@ void WeaponAR4::AdjustWorldMatToOwnerBone(const Matrix4& _boneWorldMat, float _d
 		* _boneWorldMat;
 }
 
+void WeaponSpas12::Initialize()
+{
+	// 調整座標のセット
+	m_adjustHolsteredIdlePos = Vector3(-101.0f, -14.0f, 46.5f);
+	m_holsterIdleRot = Quaternion::Identity;
+	m_holsterRadianY = 67.5f;
+	m_adjustUnholsteredIdlePos = Vector3(26.5f, 107.0f, 60.0f);
+	m_unholsterIdleRadianX = 68.7f;
+	m_unholsterIdleRadianY = 12.6f;
+	m_unholsterIdleRadianZ = 191.8f;
+	m_adjustUnholsteredMovePos = Vector3(-65.0f, 35.5f, -100.0f);
+	m_unholsterMoveRadianX = 5.7f;
+	m_unholsterMoveRadianY = -195.0f;
+	m_unholsterMoveRadianZ = -86.0f;
+	m_adjustAimPos = Vector3(0.0f, 0.0f, 0.0f);
 
+	// AR4のメッシュをロード
+	Mesh* mesh = RENDERER->GetMesh(SPAS12_MESH_PATH);
 
+	m_meshComp = new MeshComponent(this);
+	m_meshComp->SetMesh(mesh);
+
+	// アタッチコンポーネント
+	m_attachComp = new AttachWeaponToBoneComponent(this, m_ownerPlayer->GetSkelComp(), SOCKET_NUM_SPINE);
+
+	//m_position = Vector3(0.0f, 10.0f, 103.0f);
+	m_position = Vector3(3.0f, 0.0f, 102.5f);
+	//m_scale = Vector3(0.85f, 0.85f, 0.85f);
+
+	m_scale = Vector3(0.65f, 0.65f, 0.65f);
+
+	SetWeaponInfo(m_position, 92, 1, 300.0f, 300.0f, 18);
+}

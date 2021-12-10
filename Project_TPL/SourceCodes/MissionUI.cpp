@@ -32,39 +32,39 @@ MissionUI::MissionUI(MissionBase* _mission)
 		if (m_mission->GetMissionType() == MissionBase::DELIVERY)
 		{
 			// ミッション概要テクスチャの生成
-			m_detailTex[i] = m_font->RenderText("DELIVERY", color * i, fontSize);
+			m_detailTex[i] = m_font->RenderText("DELIVERY", color * static_cast<float>(i), fontSize);
 		}
 
 		if (m_mission->GetMissionType() == MissionBase::TAXI)
 		{
 			// ミッション概要テクスチャの生成
-			m_detailTex[i] = m_font->RenderText("TAXI", color * i, fontSize);
+			m_detailTex[i] = m_font->RenderText("TAXI", color * static_cast<float>(i), fontSize);
 		}
 
 		// 耐久値のフォントテクスチャを生成
-		m_durableValTex[i] = m_font->RenderText("100%", color * i, fontSize);
+		m_durableValTex[i] = m_font->RenderText("100%", color * static_cast<float>(i), fontSize);
 
 		timestream << m_mission->GetTimeLimit();
 		// 制限時間のフォントテクスチャを生成
-		m_timeTex[i] = m_font->RenderText(timestream.str(), color * i, fontSize);
+		m_timeTex[i] = m_font->RenderText(timestream.str(), color * static_cast<float>(i), fontSize);
 
 		// スコア用フォントテクスチャ生成
 		scoreStream << "$" << "0";
-		m_scoreTex[i] = m_font->RenderText(scoreStream.str(), color * i, fontSize);
+		m_scoreTex[i] = m_font->RenderText(scoreStream.str(), color * static_cast<float>(i), fontSize);
 
 		m_distanceTex[i] = nullptr;
 
 		if (m_mission->GetListNum() == 0)
 		{
-			m_missionID[i] = m_font->RenderText("A", color * i, fontSize);
+			m_missionID[i] = m_font->RenderText("A", color * static_cast<float>(i), fontSize);
 		}
 		else if (m_mission->GetListNum() == 1)
 		{
-			m_missionID[i] = m_font->RenderText("B", color * i, fontSize);
+			m_missionID[i] = m_font->RenderText("B", color * static_cast<float>(i), fontSize);
 		}
 		else
 		{
-			m_missionID[i] = m_font->RenderText("C", color * i, fontSize);
+			m_missionID[i] = m_font->RenderText("C", color * static_cast<float>(i), fontSize);
 		}
 	}
 
@@ -143,7 +143,7 @@ void MissionUI::UpdateMissionInfo()
 		// 制限時間のテクスチャを削除
 		if (m_timeTex[i] != nullptr) m_timeTex[i]->Delete();
 		// 制限時間のフォントテクスチャを生成
-		m_timeTex[i] = m_font->RenderText(timestream.str(), color * i, fontSize);
+		m_timeTex[i] = m_font->RenderText(timestream.str(), color * static_cast<float>(i), fontSize);
 
 		//-------------------------------------------------+
 		// 耐久値
@@ -151,7 +151,7 @@ void MissionUI::UpdateMissionInfo()
 		// 耐久値のテクスチャを削除
 		if (m_durableValTex[i] != nullptr) m_durableValTex[i]->Delete();
 		// 耐久値のフォントテクスチャを生成
-		m_durableValTex[i] = m_font->RenderText(durablestream.str(), color * i, fontSize);
+		m_durableValTex[i] = m_font->RenderText(durablestream.str(), color * static_cast<float>(i), fontSize);
 
 		//--------------------------------------------------+
 		// 距離
@@ -159,14 +159,14 @@ void MissionUI::UpdateMissionInfo()
 		// 距離のテクスチャを削除
 		if (m_distanceTex[i] != nullptr) m_distanceTex[i]->Delete();
 		// 距離のフォントテクスチャを生成
-		m_distanceTex[i] = m_font->RenderText(diststream.str(), color * i, fontSize);
+		m_distanceTex[i] = m_font->RenderText(diststream.str(), color * static_cast<float>(i), fontSize);
 
 		//--------------------------------------------------+
 		// スコア
 		//--------------------------------------------------+
 		// スコア用フォントテクスチャ生成
 		if (m_scoreTex[i] != nullptr) m_scoreTex[i]->Delete();
-		m_scoreTex[i] = m_font->RenderText(scoreStream.str(), scoreColor * i, fontSize);
+		m_scoreTex[i] = m_font->RenderText(scoreStream.str(), scoreColor * static_cast<float>(i), fontSize);
 
 		//--------------------------------------------------+
         // ミッションID
@@ -174,15 +174,15 @@ void MissionUI::UpdateMissionInfo()
 		if (m_missionID != nullptr) m_missionID[i]->Delete();
 		if (m_mission->GetListNum() == 0)
 		{
-			m_missionID[i] = m_font->RenderText("A", color * i, fontSize);
+			m_missionID[i] = m_font->RenderText("A", color * static_cast<float>(i), fontSize);
 		}
 		else if (m_mission->GetListNum() == 1)
 		{
-			m_missionID[i] = m_font->RenderText("B", color * i, fontSize);
+			m_missionID[i] = m_font->RenderText("B", color * static_cast<float>(i), fontSize);
 		}
 		else
 		{
-			m_missionID[i] = m_font->RenderText("C", color * i, fontSize);
+			m_missionID[i] = m_font->RenderText("C", color * static_cast<float>(i), fontSize);
 		}
 	}
 

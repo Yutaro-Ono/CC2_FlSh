@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "EnemyZombie.h"
 #include "WeaponAR4.h"
+#include "WeaponSpas12.h"
 #include "PlayerHUD.h"
 #include "PhysicsWorld.h"
 
@@ -35,8 +36,10 @@ bool WorldGameSceneTPL::Load()
 	m_player->SetScale(1.0f);
 
 	// •Ší(AR4)
-	WeaponAR4* ar4 = new WeaponAR4(m_player);
-	ar4->SetPlayer(m_player);
+	//WeaponAR4* ar4 = new WeaponAR4(m_player);
+
+	// •Ší(Spas12)
+	WeaponSpas12* spas12 = new WeaponSpas12(m_player);
 
 	// ŠÂ‹«î•ñ‚Ì¶¬
 	m_environment = new Environment(m_player, ENVIRONMENT_TYPE::MORNING);

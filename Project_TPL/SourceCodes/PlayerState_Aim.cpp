@@ -18,7 +18,7 @@ PLAYER_STATE PlayerState_Aim::Update(Player* _player, float _deltaTime)
 {
 
 	// 右クリックを離した時、エイム状態を解除
-	if (!MOUSE_INSTANCE.GetButtonValue(Mouse::MouseButtonState::MOUSE_BUTTON_PRESSED))
+	if (!MOUSE_INSTANCE.GetRightButtonValue(Mouse::MouseButtonState::MOUSE_BUTTON_PRESSED))
 	{
 		// カメラを変更
 		_player->SetActiveAimCamera(false);

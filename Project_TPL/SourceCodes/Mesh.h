@@ -58,7 +58,7 @@ public:
 
 
 	// テクスチャ配列のサイズ取得
-	int GetTextureArraySize() { return m_textureStages.size(); }
+	int GetTextureArraySize() { return static_cast<int>(m_textureStages.size()); }
 
 	// 指定したタイプのテクスチャ番号を取得 (描画時に使用)
 	int GetTextureID(TEXTURE_TYPE in_type) { return m_textureStages[in_type]; }

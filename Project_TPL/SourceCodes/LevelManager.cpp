@@ -109,8 +109,8 @@ LevelManager::LevelManager(WorldGameScene* in_world, int in_stageNum)
 	const float floorZoffset = -20.0f;
 
 	int sizeX, sizeY;
-	sizeX = groundData[0].size();
-	sizeY = groundData.size();
+	sizeX = static_cast<int>(groundData[0].size());
+	sizeY = static_cast<int>(groundData.size());
 	float offsetY = sizeY * blockSize;
 	// マップブロックを登録(地形)
 	for (int iy = 0; iy < sizeY; iy++)

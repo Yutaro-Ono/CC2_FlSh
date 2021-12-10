@@ -190,7 +190,7 @@ SceneBase * ResultScene::Update(float _deltaTime)
 			// Œˆ’è‰¹Ä¶
 			AUDIO->PlaySoundTND(m_sound["Enter"]);
 
-			AUDIO->FadeOutMusic(3000.0f);
+			AUDIO->FadeOutMusic(3000);
 
 			m_state = STATE_WHITE_OUT;
 

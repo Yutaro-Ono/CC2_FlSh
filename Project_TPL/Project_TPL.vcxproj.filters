@@ -312,6 +312,9 @@
     <Filter Include="Source\Actor\Weapon\Bullet">
       <UniqueIdentifier>{0c6fe3aa-4bf5-4789-9018-51f6ba51884f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Actor\Weapon\SPAS12">
+      <UniqueIdentifier>{bc5ca369-519f-4ba8-a110-a3d6ca0326ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -916,6 +919,9 @@
     </ClCompile>
     <ClCompile Include="SourceCodes\BulletActor.cpp">
       <Filter>Source\Actor\Weapon\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodes\WeaponSpas12.cpp">
+      <Filter>Source\Actor\Weapon\SPAS12</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1536,6 +1542,9 @@
     </ClInclude>
     <ClInclude Include="SourceCodes\BulletActor.h">
       <Filter>Source\Actor\Weapon\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodes\WeaponSpas12.h">
+      <Filter>Source\Actor\Weapon\SPAS12</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

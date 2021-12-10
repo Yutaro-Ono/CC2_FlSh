@@ -265,6 +265,14 @@ void Player::OnCollisionEnter(ColliderComponent* _ownCollComp, ColliderComponent
 	// 敵との当たり判定
 	if (otherTag == OBJECT_TAG::ACTOR_ENEMY)
 	{
+		// エイム中は当たり判定によるリアクションを行わない
+		if (GetPlayerState() == PLAYER_STATE::STATE_AIM ||
+			GetPlayerState() == PLAYER_STATE::STATE_AIM_CROUCH)
+		{
+			return;
+		}
+
+
 		if (_otherCollComp->GetColliderType() == COLLIDER_TYPE::TYPE_BOX)
 		{
 			Vector3 fix;

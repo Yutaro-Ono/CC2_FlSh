@@ -16,7 +16,7 @@ PLAYER_STATE PlayerState_WeaponOut_Idle::Update(Player* _player, float _deltaTim
 {
 	
 	// 右クリック時、エイム状態へ遷移
-	if (MOUSE_INSTANCE.GetButtonValue(Mouse::MouseButtonState::MOUSE_BUTTON_PRESSED))
+	if (MOUSE_INSTANCE.GetRightButtonValue(Mouse::MouseButtonState::MOUSE_BUTTON_PRESSED))
 	{
 		return PLAYER_STATE::STATE_AIM;
 	}

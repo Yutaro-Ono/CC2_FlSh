@@ -1,6 +1,6 @@
 #include "DetectionActorComponent.h"
 #include "EnemyBase.h"
-#include "Collision.h"
+
 
 DetectionActorComponent::DetectionActorComponent(class EnemyBase* _owner, class Actor* _target)
 	:Component(_owner)
@@ -8,13 +8,12 @@ DetectionActorComponent::DetectionActorComponent(class EnemyBase* _owner, class 
 	,m_target(_target)
 	,m_isDetected(false)
 	,m_detectionRadius(20.0f)
+	,m_detectionArea(m_owner->GetPosition(), 180.0f)
 {
-	m_detectionArea = new Sphere(m_owner->GetPosition(), 180.0f);
 }
 
 DetectionActorComponent::~DetectionActorComponent()
 {
-	delete m_detectionArea;
 }
 
 void DetectionActorComponent::Update(float _deltaTime)
@@ -45,7 +44,7 @@ void DetectionActorComponent::SetTarget(Actor* _target)
 void DetectionActorComponent::DetectionActor()
 {
 	// 検出範囲の座標を更新
-	m_detectionArea->m_center = m_owner->GetPosition();
+	m_detectionArea.m_center = m_owner->GetPosition();
 
 	// ターゲットが存在しない
 	if (m_target == nullptr)
@@ -55,7 +54,7 @@ void DetectionActorComponent::DetectionActor()
 
 	// ターゲットが範囲内に存在するかどうか
 	bool prevIsDetected = m_isDetected;      // 更新前の検出フラグ
-	m_isDetected = m_detectionArea->Contains(m_target->GetPosition());
+	m_isDetected = m_detectionArea.Contains(m_target->GetPosition());
 
 	if (m_isDetected)
 	{

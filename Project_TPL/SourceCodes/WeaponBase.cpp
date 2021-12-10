@@ -19,6 +19,7 @@ WeaponBase::WeaponBase()
 	,m_ammoMax(300)
 	,m_isMelee(false)
 {
+	InitWeaponInfo();
 }
 
 WeaponBase::~WeaponBase()
@@ -27,6 +28,7 @@ WeaponBase::~WeaponBase()
 
 void WeaponBase::UpdateActor(float _deltaTime)
 {
+	m_weaponInfo.muzzlePos = m_position;
 }
 
 /// <summary>
@@ -70,6 +72,32 @@ void WeaponBase::RemovePlayer()
 	m_ownerPlayer = nullptr;
 	m_existsOwner = false;
 	m_socketMat = Matrix4::Identity;
+}
+
+void WeaponBase::SetWeaponInfo(WeaponInfo& _weapInfo)
+{
+	m_weaponInfo = _weapInfo;
+}
+
+
+void WeaponBase::InitWeaponInfo()
+{
+	m_weaponInfo.muzzlePos = m_position;
+	m_weaponInfo.RPM = 600;
+	m_weaponInfo.RPS = 100;
+	m_weaponInfo.effectiveRange = 5000.0f;
+	m_weaponInfo.initialVelocity = 200.0f;
+	m_weaponInfo.numOfPellets = 1;
+}
+
+void WeaponBase::SetWeaponInfo(const Vector3& _muzzlePos, unsigned int _rpm, unsigned int _rps, float _effectRange, float initVelocity, unsigned int _numofPellets)
+{
+	m_weaponInfo.muzzlePos = _muzzlePos;
+	m_weaponInfo.RPM = _rpm;
+	m_weaponInfo.RPS = _rps;
+	m_weaponInfo.effectiveRange = _effectRange;
+	m_weaponInfo.initialVelocity = initVelocity;
+	m_weaponInfo.numOfPellets = _numofPellets;
 }
 
 /// <summary>
