@@ -9,7 +9,7 @@ public:
 	~ShootComponent();
 
 	void Update(float _deltaTime) override;
-	void UpdateFire(float _deltaTime);
+	void UpdateShootInterval(float _deltaTime);
 
 	void ShootBullet();
 

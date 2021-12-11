@@ -17,6 +17,8 @@ ShootComponent::~ShootComponent()
 
 void ShootComponent::Update(float _deltaTime)
 {
+	UpdateShootInterval(_deltaTime);
+
 	// プレイヤーがエイム状態出ない時は射撃処理をスキップ
 	if (m_player->GetPlayerState() != PLAYER_STATE::STATE_AIM)
 	{
@@ -35,8 +37,17 @@ void ShootComponent::Update(float _deltaTime)
 
 }
 
-void ShootComponent::UpdateFire(float _deltaTime)
+/// <summary>
+/// 射撃間隔の更新処理
+/// </summary>
+/// <param name="_deltaTime"></param>
+void ShootComponent::UpdateShootInterval(float _deltaTime)
 {
+	if (m_intervalCount > 0.0f)
+	{
+		m_intervalCount -= 1.0f * _deltaTime;
+	}
+
 }
 
 /// <summary>

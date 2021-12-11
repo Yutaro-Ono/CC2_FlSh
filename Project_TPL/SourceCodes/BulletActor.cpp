@@ -1,5 +1,7 @@
 #include "BulletActor.h"
 #include "ColliderComponent.h"
+#include "Mesh.h"
+#include "MeshComponent.h"
 
 BulletActor::BulletActor(const Vector3& _pos, const Vector3& _shootDirVec)
 	:Actor(OBJECT_TAG::ATTACK_BULLET)
@@ -7,6 +9,12 @@ BulletActor::BulletActor(const Vector3& _pos, const Vector3& _shootDirVec)
 	,m_velocity(100.0f)
 {
 	m_position = _pos;
+
+	// ƒƒbƒVƒ…‚Ì¶¬
+	Mesh* mesh = RENDERER->GetMesh("");
+	m_meshComp = new MeshComponent(this);
+	m_meshComp->SetMesh(mesh);
+
 }
 
 BulletActor::~BulletActor()
